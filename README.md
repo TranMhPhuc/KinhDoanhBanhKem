@@ -1,6 +1,7 @@
-# KinhDoanhBanhKem
+# Thông tin chung
 
-Đồ án Nhập môn Công nghệ phần mềm - Quản lý cửa hàng kinh doanh bánh kem
+Đồ án Nhập môn Công nghệ phần mềm năm 2018.
+Tên đồ án: Quản lý cửa hàng kinh doanh bánh kem
 
 # Mô tả yêu cầu phần mềm
 
