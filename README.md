@@ -42,8 +42,6 @@ Kết quả của phần mềm phải đảm bảo các tiêu chuẩn:
   - Nhập/xuất dữ liệu sang các định dạng:
     - [ ] Excel: dữ liệu hàng hóa.
     - [ ] PDF: report thống kê, hóa đơn.
-  - Cập nhật thông tin từ website nhà cung cấp:
-    - [ ] Cập nhật giá thành hàng hóa.
 - Tính tái sử dụng:
   - XXX (chưa rõ)
 
@@ -68,6 +66,7 @@ Kết quả của phần mềm phải đảm bảo các tiêu chuẩn:
      - Quản lý dữ liệu nhà cung cấp.
    - Chức năng thống kê:
      - Thống kê doanh thu.
+     - Thống kê hàng hóa: bán chạy và tồn kho.
 
 # Mô tả dữ liệu và phân quyền.
 
