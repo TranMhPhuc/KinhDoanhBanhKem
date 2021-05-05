@@ -1,6 +1,8 @@
-# KinhDoanhBanhKem
+# Thông tin chung
 
-Đồ án Nhập môn Công nghệ phần mềm - Quản lý cửa hàng kinh doanh bánh kem
+Đồ án Nhập môn Công nghệ phần mềm năm 2018.
+
+Tên đồ án: Quản lý cửa hàng kinh doanh bánh kem
 
 # Mô tả yêu cầu phần mềm
 
@@ -10,25 +12,25 @@ Các thành phần của chương trình bao gồm giao diện tương tác ngư
 
 Kết quả của phần mềm phải đảm bảo các tiêu chuẩn:
 
-- [ ] Tính đúng đắn:
-  - Sử dụng đúng thuật toán.
-  - Kiểm thử thuật toán.
-- [ ] Tính tiến hóa:
+- Tính đúng đắn:
+  - [ ] Sử dụng đúng thuật toán.
+  - [ ] Kiểm thử thuật toán.
+- Tính tiến hóa:
 
-  - Tùy biến theo cách sử dụng của người dùng.
+  - [ ] Tùy biến theo cách sử dụng của người dùng.
 
     Ví dụ: Nhân viên quản lý có thể đồng thời xem dữ liệu các hóa đơn và dữ liệu doanh thu trong 2 cửa sổ và đặt vị trí các cửa sổ một cách tùy ý.
 
-  - Dễ mở rộng chức năng về sau.
+  - [ ] Dễ mở rộng chức năng về sau.
 
 - Tính hiệu quả:
   - [ ] Tốc độ xử lý phải tối ưu.
   - [ ] Có kiểm thử tốc độ thực thi.
   - [ ] Sử dụng tốt tài nguyên máy tính.
-- [ ] Tính tiện dụng:
+- Tính tiện dụng:
   - [ ] Giao diện dễ dùng.
   - [ ] Cung cấp đầy đủ chức năng cần thiết cho mỗi user.
-- [ ] Tính tương thích:
+- Tính tương thích:
   - Nhập/xuất dữ liệu sang các định dạng:
     - [ ] Excel: dữ liệu hàng hóa.
     - [ ] PDF: report thống kê, hóa đơn.
@@ -44,7 +46,7 @@ Kết quả của phần mềm phải đảm bảo các tiêu chuẩn:
 - [x] Mô hình kiến trúc: MVC.
 
 1. Login, logout (mọi nhân viên).
-1. Nhân viên được quyền **xem và thay đổ**i thông tin cá nhân (ngoài trừ mã nhân viên).
+1. Nhân viên được quyền **xem và thay đổi** thông tin cá nhân (ngoài trừ mã nhân viên).
 1. Chương trình gồm 3 chức năng chính:
    - Chức năng bán hàng:
      - Tạo, xuất hóa đơn.
@@ -103,11 +105,11 @@ Kết quả của phần mềm phải đảm bảo các tiêu chuẩn:
   - [ ] Mô tả kiến trúc và giải thuật.
   - [ ] Mô tả các bước thực hiện và thời hạn hoàn thành.
 - Thiết kế cơ sở dữ liệu.
-  - [ ] Tạo cơ sở dữ liệu.
+  - [x] Tạo cơ sở dữ liệu.
   - [ ] Chuẩn hóa cơ sở dữ liệu.
   - [ ] Phân quyền các user.
   - [ ] Tạo Views, Store Procedures (thực hiện khi xây dựng mã nguồn).
-- [ ] Tạo prototype giao diện.
+- [x] Tạo prototype giao diện.
 - Các kịch bản Test thực thi tự động cần viết:
   - [ ] Functional Test.
   - [ ] Unit Test.
