@@ -48,7 +48,17 @@ public class managment extends javax.swing.JFrame {
         radioButton_male = new javax.swing.JRadioButton();
         radioButton_female = new javax.swing.JRadioButton();
         lable_status = new javax.swing.JLabel();
+        combobox_status = new javax.swing.JComboBox<>();
+        lable_basicSalary = new javax.swing.JLabel();
+        textField_basicSalary = new javax.swing.JTextField();
+        lable_position = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        datePicker_dayJoint = new com.github.lgooddatepicker.components.DatePicker();
+        lable_dayJoint = new javax.swing.JLabel();
+        lable_birthDay = new javax.swing.JLabel();
+        datePicker1 = new com.github.lgooddatepicker.components.DatePicker();
+        lable_shift = new javax.swing.JLabel();
+        combobox_shift = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -120,8 +130,42 @@ public class managment extends javax.swing.JFrame {
         lable_status.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lable_status.setText("Status");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang hoạt động", "Đã nghỉ việc" }));
+        combobox_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang hoạt động", "Đã nghỉ việc" }));
+        combobox_status.setPreferredSize(new java.awt.Dimension(160, 30));
+
+        lable_basicSalary.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lable_basicSalary.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lable_basicSalary.setText("Basic Salary");
+
+        textField_basicSalary.setEditable(false);
+        textField_basicSalary.setPreferredSize(new java.awt.Dimension(160, 30));
+
+        lable_position.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lable_position.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lable_position.setText("Position");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Quản lý", "Bán hàng" }));
         jComboBox1.setPreferredSize(new java.awt.Dimension(160, 30));
+
+        datePicker_dayJoint.setMinimumSize(new java.awt.Dimension(160, 30));
+        datePicker_dayJoint.setPreferredSize(new java.awt.Dimension(160, 30));
+
+        lable_dayJoint.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lable_dayJoint.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lable_dayJoint.setText("Day Joint");
+
+        lable_birthDay.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lable_birthDay.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lable_birthDay.setText("Day Joint");
+
+        datePicker1.setPreferredSize(new java.awt.Dimension(160, 30));
+
+        lable_shift.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lable_shift.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lable_shift.setText("Shift");
+
+        combobox_shift.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
+        combobox_shift.setPreferredSize(new java.awt.Dimension(160, 30));
 
         javax.swing.GroupLayout panel_infoEmplLayout = new javax.swing.GroupLayout(panel_infoEmpl);
         panel_infoEmpl.setLayout(panel_infoEmplLayout);
@@ -129,36 +173,53 @@ public class managment extends javax.swing.JFrame {
             panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_infoEmplLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lable_emplID)
-                        .addComponent(lable_name, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addGroup(panel_infoEmplLayout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(lable_mobile))
-                    .addComponent(lable_EmplID2, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(29, 29, 29)
                 .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(textField_emplID, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textField_name, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textField_mobile, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textField_perID, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lable_email)
-                    .addComponent(lable_pass)
-                    .addComponent(lable_gender)
-                    .addComponent(lable_status))
-                .addGap(29, 29, 29)
-                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(textField_emplID1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-                    .addComponent(textField_email, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                    .addComponent(lable_shift, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panel_infoEmplLayout.createSequentialGroup()
-                        .addComponent(radioButton_male)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(radioButton_female))
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(351, Short.MAX_VALUE))
+                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lable_EmplID2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lable_emplID)
+                                .addComponent(lable_name, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addGroup(panel_infoEmplLayout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(lable_mobile)))
+                        .addGap(29, 29, 29)
+                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(textField_emplID, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textField_name, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textField_mobile, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textField_perID, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(37, 37, 37)
+                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lable_email)
+                            .addComponent(lable_pass)
+                            .addComponent(lable_gender)
+                            .addComponent(lable_status))
+                        .addGap(29, 29, 29)
+                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel_infoEmplLayout.createSequentialGroup()
+                                .addComponent(radioButton_male)
+                                .addGap(40, 40, 40)
+                                .addComponent(radioButton_female))
+                            .addComponent(combobox_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(textField_emplID1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(textField_email, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(40, 40, 40)
+                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lable_basicSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lable_position, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lable_dayJoint, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lable_birthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(datePicker_dayJoint, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(datePicker1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textField_basicSalary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(combobox_shift, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         panel_infoEmplLayout.setVerticalGroup(
             panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,27 +229,50 @@ public class managment extends javax.swing.JFrame {
                     .addComponent(lable_emplID)
                     .addComponent(textField_emplID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lable_pass)
-                    .addComponent(textField_emplID1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textField_emplID1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lable_basicSalary)
+                    .addComponent(textField_basicSalary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textField_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lable_name)
                     .addComponent(lable_email)
-                    .addComponent(textField_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                    .addComponent(textField_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lable_position)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_infoEmplLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lable_gender)
+                            .addComponent(radioButton_female)
+                            .addComponent(radioButton_male)))
+                    .addGroup(panel_infoEmplLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(datePicker_dayJoint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lable_dayJoint)))
+                    .addGroup(panel_infoEmplLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textField_mobile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lable_mobile))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lable_birthDay)
+                        .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(textField_perID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lable_EmplID2))
+                    .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(combobox_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lable_status)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textField_mobile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lable_mobile)
-                    .addComponent(lable_gender)
-                    .addComponent(radioButton_female)
-                    .addComponent(radioButton_male))
-                .addGap(15, 15, 15)
-                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textField_perID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lable_EmplID2)
-                    .addComponent(lable_status)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(77, Short.MAX_VALUE))
+                    .addComponent(combobox_shift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lable_shift))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panel_empInfoLayout = new javax.swing.GroupLayout(panel_empInfo);
@@ -206,7 +290,7 @@ public class managment extends javax.swing.JFrame {
                 .addComponent(label_empManagment)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel_infoEmpl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(394, Short.MAX_VALUE))
+                .addContainerGap(415, Short.MAX_VALUE))
         );
 
         tabbedPane_layout.addTab("Employees Informations", panel_empInfo);
@@ -217,7 +301,7 @@ public class managment extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 955, Short.MAX_VALUE)
+            .addGap(0, 966, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,7 +316,7 @@ public class managment extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 955, Short.MAX_VALUE)
+            .addGap(0, 966, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,7 +331,7 @@ public class managment extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 955, Short.MAX_VALUE)
+            .addGap(0, 966, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,7 +346,7 @@ public class managment extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 955, Short.MAX_VALUE)
+            .addGap(0, 966, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,6 +406,10 @@ public class managment extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup_gender;
+    private javax.swing.JComboBox<String> combobox_shift;
+    private javax.swing.JComboBox<String> combobox_status;
+    private com.github.lgooddatepicker.components.DatePicker datePicker1;
+    private com.github.lgooddatepicker.components.DatePicker datePicker_dayJoint;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -330,6 +418,9 @@ public class managment extends javax.swing.JFrame {
     private javax.swing.JLabel label_empManagment;
     private javax.swing.JLabel lable_EmplID2;
     private javax.swing.JLabel lable_EmplID3;
+    private javax.swing.JLabel lable_basicSalary;
+    private javax.swing.JLabel lable_birthDay;
+    private javax.swing.JLabel lable_dayJoint;
     private javax.swing.JLabel lable_email;
     private javax.swing.JLabel lable_emplID;
     private javax.swing.JLabel lable_emplID1;
@@ -340,6 +431,8 @@ public class managment extends javax.swing.JFrame {
     private javax.swing.JLabel lable_name1;
     private javax.swing.JLabel lable_pass;
     private javax.swing.JLabel lable_pass1;
+    private javax.swing.JLabel lable_position;
+    private javax.swing.JLabel lable_shift;
     private javax.swing.JLabel lable_status;
     private javax.swing.JPanel panel_empInfo;
     private javax.swing.JPanel panel_infoEmpl;
@@ -347,6 +440,7 @@ public class managment extends javax.swing.JFrame {
     private javax.swing.JRadioButton radioButton_female;
     private javax.swing.JRadioButton radioButton_male;
     private javax.swing.JTabbedPane tabbedPane_layout;
+    private javax.swing.JTextField textField_basicSalary;
     private javax.swing.JTextField textField_email;
     private javax.swing.JTextField textField_emplID;
     private javax.swing.JTextField textField_emplID1;
