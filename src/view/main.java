@@ -43,17 +43,17 @@ public class main extends javax.swing.JFrame {
         panel_mainLayout.setPreferredSize(new java.awt.Dimension(760, 600));
 
         textField_managmentApp.setEditable(false);
-        textField_managmentApp.setBackground(new java.awt.Color(255, 255, 255));
-        textField_managmentApp.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         textField_managmentApp.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textField_managmentApp.setText("Managment App");
+        textField_managmentApp.setBackground(new java.awt.Color(255, 255, 255));
         textField_managmentApp.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        textField_managmentApp.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         textField_managmentApp.setPreferredSize(new java.awt.Dimension(760, 50));
 
         textField_perInfo.setEditable(false);
-        textField_perInfo.setBackground(new java.awt.Color(255, 255, 255));
         textField_perInfo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textField_perInfo.setText("Personal Informations");
+        textField_perInfo.setBackground(new java.awt.Color(255, 255, 255));
         textField_perInfo.setPreferredSize(new java.awt.Dimension(220, 50));
         textField_perInfo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,9 +62,9 @@ public class main extends javax.swing.JFrame {
         });
 
         textField_emplName.setEditable(false);
-        textField_emplName.setBackground(new java.awt.Color(255, 255, 255));
         textField_emplName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textField_emplName.setText("Employee Name");
+        textField_emplName.setBackground(new java.awt.Color(255, 255, 255));
         textField_emplName.setPreferredSize(new java.awt.Dimension(220, 30));
         textField_emplName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,10 +73,10 @@ public class main extends javax.swing.JFrame {
         });
 
         textField_statistical.setEditable(false);
-        textField_statistical.setBackground(new java.awt.Color(255, 255, 255));
-        textField_statistical.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
         textField_statistical.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textField_statistical.setText(" Statistical");
+        textField_statistical.setBackground(new java.awt.Color(255, 255, 255));
+        textField_statistical.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
         textField_statistical.setPreferredSize(new java.awt.Dimension(220, 180));
         textField_statistical.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,10 +85,10 @@ public class main extends javax.swing.JFrame {
         });
 
         textField_managment.setEditable(false);
-        textField_managment.setBackground(new java.awt.Color(255, 255, 255));
-        textField_managment.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
         textField_managment.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textField_managment.setText("Managment");
+        textField_managment.setBackground(new java.awt.Color(255, 255, 255));
+        textField_managment.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
         textField_managment.setPreferredSize(new java.awt.Dimension(220, 180));
         textField_managment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,10 +97,10 @@ public class main extends javax.swing.JFrame {
         });
 
         textField_sale2.setEditable(false);
-        textField_sale2.setBackground(new java.awt.Color(255, 255, 255));
-        textField_sale2.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
         textField_sale2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textField_sale2.setText("Sale");
+        textField_sale2.setBackground(new java.awt.Color(255, 255, 255));
+        textField_sale2.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
         textField_sale2.setPreferredSize(new java.awt.Dimension(220, 180));
         textField_sale2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,11 +108,11 @@ public class main extends javax.swing.JFrame {
             }
         });
 
-        button_logout.setBackground(new java.awt.Color(255, 255, 255));
-        button_logout.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
         button_logout.setText("Log out");
+        button_logout.setBackground(new java.awt.Color(255, 255, 255));
         button_logout.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         button_logout.setBorderPainted(false);
+        button_logout.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
         button_logout.setPreferredSize(new java.awt.Dimension(75, 25));
 
         javax.swing.GroupLayout panel_mainLayoutLayout = new javax.swing.GroupLayout(panel_mainLayout);
@@ -168,6 +168,7 @@ public class main extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void textField_perInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textField_perInfoActionPerformed
