@@ -54,7 +54,7 @@
                       <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="label_confirmExit" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="61" max="32767" attributes="0"/>
+                      <EmptySpace pref="53" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="button_yesExit" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="button_noExit" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -68,38 +68,44 @@
             <Component class="javax.swing.JTextField" name="jTextField1">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
+                <Property name="text" type="java.lang.String" value="Message Report"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="17" style="0"/>
+                  <Font name="Segoe UI" size="17" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Message Report"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="label_confirmExit">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="17" style="0"/>
-                </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="Confirm"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="17" style="0"/>
+                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="button_yesExit">
               <Properties>
+                <Property name="text" type="java.lang.String" value="YES"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="YES"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="13" style="0"/>
+                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="button_noExit">
               <Properties>
+                <Property name="text" type="java.lang.String" value="NO"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="NO"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="13" style="0"/>
+                </Property>
               </Properties>
             </Component>
           </SubComponents>
@@ -143,6 +149,9 @@
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="13" style="0"/>
         </Property>
       </Properties>
       <AuxValues>
@@ -200,7 +209,7 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="label_forgotPass" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="137" max="32767" attributes="0"/>
+                                  <EmptySpace pref="144" max="32767" attributes="0"/>
                                   <Component id="label_showPass" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -257,10 +266,10 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="label_signIn">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="19" style="1"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Sign In"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="19" style="1"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="label_imgLogo">
@@ -268,7 +277,6 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/img/logo.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Logo"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel_dashLine">
@@ -281,69 +289,69 @@
         </Component>
         <Component class="javax.swing.JLabel" name="label_email">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="13" style="0"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Email:"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="13" style="0"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="label_password">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="13" style="0"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Password:"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="13" style="0"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="textField_password">
         </Component>
         <Component class="javax.swing.JLabel" name="label_forgotPass">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Forgot password"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="17" style="0"/>
+              <Font name="Segoe UI" size="17" style="0"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="33" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Forgot password"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="label_showPass">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="12" style="0"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Show password"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="12" style="0"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="label_warning">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="12" style="0"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Warning!"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="12" style="0"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="button_signIn">
           <Properties>
+            <Property name="text" type="java.lang.String" value="SIGN IN"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="16" style="1"/>
+              <Font name="Segoe UI" size="16" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="SIGN IN"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="button_exit">
           <Properties>
+            <Property name="text" type="java.lang.String" value="EXIT"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="16" style="1"/>
+              <Font name="Segoe UI" size="16" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="EXIT"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_exitActionPerformed"/>

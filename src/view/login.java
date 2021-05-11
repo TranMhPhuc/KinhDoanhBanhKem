@@ -60,19 +60,21 @@ public class login extends javax.swing.JFrame {
         panel_confirmExit.setBackground(new java.awt.Color(255, 255, 255));
 
         jTextField1.setEditable(false);
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
         jTextField1.setText("Message Report");
+        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
 
-        label_confirmExit.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
         label_confirmExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_confirmExit.setText("Confirm");
+        label_confirmExit.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
 
-        button_yesExit.setBackground(new java.awt.Color(255, 255, 255));
         button_yesExit.setText("YES");
+        button_yesExit.setBackground(new java.awt.Color(255, 255, 255));
+        button_yesExit.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
 
-        button_noExit.setBackground(new java.awt.Color(255, 255, 255));
         button_noExit.setText("NO");
+        button_noExit.setBackground(new java.awt.Color(255, 255, 255));
+        button_noExit.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
 
         javax.swing.GroupLayout panel_confirmExitLayout = new javax.swing.GroupLayout(panel_confirmExit);
         panel_confirmExit.setLayout(panel_confirmExitLayout);
@@ -91,7 +93,7 @@ public class login extends javax.swing.JFrame {
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(label_confirmExit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(panel_confirmExitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(button_yesExit)
                     .addComponent(button_noExit))
@@ -115,39 +117,39 @@ public class login extends javax.swing.JFrame {
 
         setResizable(false);
         panel_Login.setBackground(new java.awt.Color(255, 255, 255));
+        panel_Login.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
 
-        label_signIn.setFont(new java.awt.Font("Arial", 1, 19)); // NOI18N
         label_signIn.setText("Sign In");
+        label_signIn.setFont(new java.awt.Font("Segoe UI", 1, 19)); // NOI18N
 
         label_imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo.png"))); // NOI18N
-        label_imgLogo.setText("Logo");
 
         jLabel_dashLine.setBackground(new java.awt.Color(0, 204, 204));
         jLabel_dashLine.setOpaque(true);
 
-        label_email.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         label_email.setText("Email:");
+        label_email.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
 
-        label_password.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         label_password.setText("Password:");
+        label_password.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
 
-        label_forgotPass.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
-        label_forgotPass.setForeground(new java.awt.Color(0, 51, 255));
         label_forgotPass.setText("Forgot password");
+        label_forgotPass.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        label_forgotPass.setForeground(new java.awt.Color(0, 51, 255));
 
-        label_showPass.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         label_showPass.setText("Show password");
+        label_showPass.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
-        label_warning.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         label_warning.setText("Warning!");
+        label_warning.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
-        button_signIn.setBackground(new java.awt.Color(255, 255, 255));
-        button_signIn.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         button_signIn.setText("SIGN IN");
+        button_signIn.setBackground(new java.awt.Color(255, 255, 255));
+        button_signIn.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
 
-        button_exit.setBackground(new java.awt.Color(255, 255, 255));
-        button_exit.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         button_exit.setText("EXIT");
+        button_exit.setBackground(new java.awt.Color(255, 255, 255));
+        button_exit.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         button_exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button_exitActionPerformed(evt);
@@ -202,7 +204,7 @@ public class login extends javax.swing.JFrame {
                                     .addComponent(label_imgUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(panel_LoginLayout.createSequentialGroup()
                                 .addComponent(label_forgotPass)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
                                 .addComponent(label_showPass)))
                         .addGap(29, 29, 29))))
         );
