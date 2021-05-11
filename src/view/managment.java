@@ -28,6 +28,7 @@ public class managment extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup_gender = new javax.swing.ButtonGroup();
+        jCheckBoxMenuItem4 = new javax.swing.JCheckBoxMenuItem();
         tabbedPane_layout = new javax.swing.JTabbedPane();
         panel_empInfo = new javax.swing.JPanel();
         label_empManagment = new javax.swing.JLabel();
@@ -58,11 +59,22 @@ public class managment extends javax.swing.JFrame {
         lable_birthDay = new javax.swing.JLabel();
         datePicker1 = new com.github.lgooddatepicker.components.DatePicker();
         lable_shift = new javax.swing.JLabel();
-        combobox_shift = new javax.swing.JComboBox<>();
+        label_search = new javax.swing.JLabel();
+        textField_search = new javax.swing.JTextField();
+        button_modify = new javax.swing.JButton();
+        button_add = new javax.swing.JButton();
+        button_refresh = new javax.swing.JButton();
+        label_empInfo = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
+
+        jCheckBoxMenuItem4.setSelected(true);
+        jCheckBoxMenuItem4.setText("jCheckBoxMenuItem4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,26 +83,26 @@ public class managment extends javax.swing.JFrame {
 
         panel_empInfo.setBackground(new java.awt.Color(255, 255, 255));
 
-        label_empManagment.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
         label_empManagment.setText("  Emloyee informations managment   ");
         label_empManagment.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        label_empManagment.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
 
         panel_infoEmpl.setBackground(new java.awt.Color(255, 255, 255));
         panel_infoEmpl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lable_emplID.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lable_emplID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lable_emplID.setText("Employee ID");
+        lable_emplID.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        lable_name.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lable_name.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lable_name.setText("Name");
+        lable_name.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        lable_EmplID2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lable_EmplID2.setText("Personal ID");
+        lable_EmplID2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        lable_mobile.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lable_mobile.setText("Mobile");
+        lable_mobile.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         textField_emplID.setPreferredSize(new java.awt.Dimension(160, 30));
 
@@ -100,21 +112,21 @@ public class managment extends javax.swing.JFrame {
 
         textField_perID.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        lable_pass.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lable_pass.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lable_pass.setText("Password");
+        lable_pass.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         textField_emplID1.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        lable_email.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lable_email.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lable_email.setText("Email");
+        lable_email.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         textField_email.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        lable_gender.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lable_gender.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lable_gender.setText("Gender");
+        lable_gender.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         radioButton_male.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup_gender.add(radioButton_male);
@@ -126,23 +138,23 @@ public class managment extends javax.swing.JFrame {
         radioButton_female.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
         radioButton_female.setText("Female");
 
-        lable_status.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lable_status.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lable_status.setText("Status");
+        lable_status.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         combobox_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang hoạt động", "Đã nghỉ việc" }));
         combobox_status.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        lable_basicSalary.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lable_basicSalary.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lable_basicSalary.setText("Basic Salary");
+        lable_basicSalary.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         textField_basicSalary.setEditable(false);
         textField_basicSalary.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        lable_position.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lable_position.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lable_position.setText("Position");
+        lable_position.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Quản lý", "Bán hàng" }));
         jComboBox1.setPreferredSize(new java.awt.Dimension(160, 30));
@@ -150,22 +162,19 @@ public class managment extends javax.swing.JFrame {
         datePicker_dayJoint.setMinimumSize(new java.awt.Dimension(160, 30));
         datePicker_dayJoint.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        lable_dayJoint.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lable_dayJoint.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lable_dayJoint.setText("Day Joint");
+        lable_dayJoint.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        lable_birthDay.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lable_birthDay.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lable_birthDay.setText("Day Joint");
+        lable_birthDay.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         datePicker1.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        lable_shift.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lable_shift.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lable_shift.setText("Shift");
-
-        combobox_shift.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
-        combobox_shift.setPreferredSize(new java.awt.Dimension(160, 30));
+        lable_shift.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout panel_infoEmplLayout = new javax.swing.GroupLayout(panel_infoEmpl);
         panel_infoEmpl.setLayout(panel_infoEmplLayout);
@@ -217,9 +226,8 @@ public class managment extends javax.swing.JFrame {
                     .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(datePicker_dayJoint, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(datePicker1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textField_basicSalary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(combobox_shift, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(81, Short.MAX_VALUE))
+                    .addComponent(textField_basicSalary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
         panel_infoEmplLayout.setVerticalGroup(
             panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,21 +276,78 @@ public class managment extends javax.swing.JFrame {
                     .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(combobox_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lable_status)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(combobox_shift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lable_shift))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addComponent(lable_shift)
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+
+        label_search.setText("Search");
+
+        textField_search.setPreferredSize(new java.awt.Dimension(190, 30));
+
+        button_modify.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        button_modify.setText("Modify");
+        button_modify.setPreferredSize(new java.awt.Dimension(115, 40));
+
+        button_add.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        button_add.setText("Add");
+        button_add.setPreferredSize(new java.awt.Dimension(115, 40));
+
+        button_refresh.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        button_refresh.setText("Refresh");
+        button_refresh.setPreferredSize(new java.awt.Dimension(115, 40));
+
+        label_empInfo.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
+        label_empInfo.setText("  Emloyee informations  ");
+        label_empInfo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "No", "Emp ID", "Name", "Mobile", "Birthday", "Email", "Gender", "Shift", "Basic Salary", "Position", "Day joint", "Password", "Personal ID", "Status"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panel_empInfoLayout = new javax.swing.GroupLayout(panel_empInfo);
         panel_empInfo.setLayout(panel_empInfoLayout);
         panel_empInfoLayout.setHorizontalGroup(
             panel_empInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_empInfoLayout.createSequentialGroup()
-                .addComponent(label_empManagment)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(panel_infoEmpl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panel_empInfoLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(label_search)
+                .addGap(39, 39, 39)
+                .addComponent(textField_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(108, 108, 108)
+                .addComponent(button_modify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
+                .addComponent(button_add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(button_refresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panel_empInfoLayout.createSequentialGroup()
+                .addGroup(panel_empInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label_empManagment)
+                    .addComponent(label_empInfo))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panel_empInfoLayout.setVerticalGroup(
             panel_empInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,7 +355,17 @@ public class managment extends javax.swing.JFrame {
                 .addComponent(label_empManagment)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel_infoEmpl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(415, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(panel_empInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_search)
+                    .addComponent(textField_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(button_modify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(button_add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(button_refresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(label_empInfo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tabbedPane_layout.addTab("Employees Informations", panel_empInfo);
@@ -301,11 +376,11 @@ public class managment extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 966, Short.MAX_VALUE)
+            .addGap(0, 1025, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 685, Short.MAX_VALUE)
+            .addGap(0, 822, Short.MAX_VALUE)
         );
 
         tabbedPane_layout.addTab("Products", jPanel2);
@@ -316,11 +391,11 @@ public class managment extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 966, Short.MAX_VALUE)
+            .addGap(0, 1025, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 685, Short.MAX_VALUE)
+            .addGap(0, 822, Short.MAX_VALUE)
         );
 
         tabbedPane_layout.addTab("Ingredients", jPanel3);
@@ -331,11 +406,11 @@ public class managment extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 966, Short.MAX_VALUE)
+            .addGap(0, 1025, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 685, Short.MAX_VALUE)
+            .addGap(0, 822, Short.MAX_VALUE)
         );
 
         tabbedPane_layout.addTab("Bills", jPanel1);
@@ -346,11 +421,11 @@ public class managment extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 966, Short.MAX_VALUE)
+            .addGap(0, 1025, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 685, Short.MAX_VALUE)
+            .addGap(0, 822, Short.MAX_VALUE)
         );
 
         tabbedPane_layout.addTab("Providers", jPanel4);
@@ -406,37 +481,39 @@ public class managment extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup_gender;
-    private javax.swing.JComboBox<String> combobox_shift;
+    private javax.swing.JButton button_add;
+    private javax.swing.JButton button_modify;
+    private javax.swing.JButton button_refresh;
     private javax.swing.JComboBox<String> combobox_status;
     private com.github.lgooddatepicker.components.DatePicker datePicker1;
     private com.github.lgooddatepicker.components.DatePicker datePicker_dayJoint;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem4;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel label_empInfo;
     private javax.swing.JLabel label_empManagment;
+    private javax.swing.JLabel label_search;
     private javax.swing.JLabel lable_EmplID2;
-    private javax.swing.JLabel lable_EmplID3;
     private javax.swing.JLabel lable_basicSalary;
     private javax.swing.JLabel lable_birthDay;
     private javax.swing.JLabel lable_dayJoint;
     private javax.swing.JLabel lable_email;
     private javax.swing.JLabel lable_emplID;
-    private javax.swing.JLabel lable_emplID1;
     private javax.swing.JLabel lable_gender;
     private javax.swing.JLabel lable_mobile;
-    private javax.swing.JLabel lable_mobile1;
     private javax.swing.JLabel lable_name;
-    private javax.swing.JLabel lable_name1;
     private javax.swing.JLabel lable_pass;
-    private javax.swing.JLabel lable_pass1;
     private javax.swing.JLabel lable_position;
     private javax.swing.JLabel lable_shift;
     private javax.swing.JLabel lable_status;
     private javax.swing.JPanel panel_empInfo;
     private javax.swing.JPanel panel_infoEmpl;
-    private javax.swing.JPanel panel_infoEmpl1;
     private javax.swing.JRadioButton radioButton_female;
     private javax.swing.JRadioButton radioButton_male;
     private javax.swing.JTabbedPane tabbedPane_layout;
@@ -444,13 +521,9 @@ public class managment extends javax.swing.JFrame {
     private javax.swing.JTextField textField_email;
     private javax.swing.JTextField textField_emplID;
     private javax.swing.JTextField textField_emplID1;
-    private javax.swing.JTextField textField_emplID2;
-    private javax.swing.JTextField textField_emplID3;
     private javax.swing.JTextField textField_mobile;
-    private javax.swing.JTextField textField_mobile1;
     private javax.swing.JTextField textField_name;
-    private javax.swing.JTextField textField_name1;
     private javax.swing.JTextField textField_perID;
-    private javax.swing.JTextField textField_perID1;
+    private javax.swing.JTextField textField_search;
     // End of variables declaration//GEN-END:variables
 }
