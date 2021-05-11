@@ -28,13 +28,13 @@ public class main extends javax.swing.JFrame {
     private void initComponents() {
 
         panel_mainLayout = new javax.swing.JPanel();
-        textField_managmentApp = new javax.swing.JTextField();
         textField_perInfo = new javax.swing.JTextField();
         textField_emplName = new javax.swing.JTextField();
         textField_statistical = new javax.swing.JTextField();
         textField_managment = new javax.swing.JTextField();
         textField_sale2 = new javax.swing.JTextField();
-        button_logout = new javax.swing.JButton();
+        button_signOut = new javax.swing.JButton();
+        label_signIn = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(760, 450));
@@ -42,18 +42,10 @@ public class main extends javax.swing.JFrame {
         panel_mainLayout.setBackground(new java.awt.Color(255, 255, 255));
         panel_mainLayout.setPreferredSize(new java.awt.Dimension(760, 600));
 
-        textField_managmentApp.setEditable(false);
-        textField_managmentApp.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        textField_managmentApp.setText("Managment App");
-        textField_managmentApp.setBackground(new java.awt.Color(255, 255, 255));
-        textField_managmentApp.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        textField_managmentApp.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        textField_managmentApp.setPreferredSize(new java.awt.Dimension(760, 50));
-
         textField_perInfo.setEditable(false);
+        textField_perInfo.setBackground(new java.awt.Color(255, 255, 255));
         textField_perInfo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textField_perInfo.setText("Personal Informations");
-        textField_perInfo.setBackground(new java.awt.Color(255, 255, 255));
         textField_perInfo.setPreferredSize(new java.awt.Dimension(220, 50));
         textField_perInfo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,9 +54,9 @@ public class main extends javax.swing.JFrame {
         });
 
         textField_emplName.setEditable(false);
+        textField_emplName.setBackground(new java.awt.Color(255, 255, 255));
         textField_emplName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textField_emplName.setText("Employee Name");
-        textField_emplName.setBackground(new java.awt.Color(255, 255, 255));
         textField_emplName.setPreferredSize(new java.awt.Dimension(220, 30));
         textField_emplName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,10 +65,10 @@ public class main extends javax.swing.JFrame {
         });
 
         textField_statistical.setEditable(false);
-        textField_statistical.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        textField_statistical.setText(" Statistical");
         textField_statistical.setBackground(new java.awt.Color(255, 255, 255));
         textField_statistical.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        textField_statistical.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textField_statistical.setText(" Statistical");
         textField_statistical.setPreferredSize(new java.awt.Dimension(220, 180));
         textField_statistical.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,10 +77,10 @@ public class main extends javax.swing.JFrame {
         });
 
         textField_managment.setEditable(false);
-        textField_managment.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        textField_managment.setText("Managment");
         textField_managment.setBackground(new java.awt.Color(255, 255, 255));
         textField_managment.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        textField_managment.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textField_managment.setText("Managment");
         textField_managment.setPreferredSize(new java.awt.Dimension(220, 180));
         textField_managment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,10 +89,10 @@ public class main extends javax.swing.JFrame {
         });
 
         textField_sale2.setEditable(false);
-        textField_sale2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        textField_sale2.setText("Sale");
         textField_sale2.setBackground(new java.awt.Color(255, 255, 255));
         textField_sale2.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        textField_sale2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textField_sale2.setText("Sale");
         textField_sale2.setPreferredSize(new java.awt.Dimension(220, 180));
         textField_sale2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,23 +100,33 @@ public class main extends javax.swing.JFrame {
             }
         });
 
-        button_logout.setText("Log out");
-        button_logout.setBackground(new java.awt.Color(255, 255, 255));
-        button_logout.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        button_logout.setBorderPainted(false);
-        button_logout.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
-        button_logout.setPreferredSize(new java.awt.Dimension(75, 25));
+        button_signOut.setBackground(new java.awt.Color(255, 255, 255));
+        button_signOut.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
+        button_signOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buttonIMG_signOut.png"))); // NOI18N
+        button_signOut.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        button_signOut.setBorderPainted(false);
+        button_signOut.setContentAreaFilled(false);
+        button_signOut.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        button_signOut.setFocusPainted(false);
+        button_signOut.setPreferredSize(new java.awt.Dimension(75, 25));
+
+        label_signIn.setFont(new java.awt.Font("Segoe UI", 0, 28)); // NOI18N
+        label_signIn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_signIn.setText("Cake Shop Management");
 
         javax.swing.GroupLayout panel_mainLayoutLayout = new javax.swing.GroupLayout(panel_mainLayout);
         panel_mainLayout.setLayout(panel_mainLayoutLayout);
         panel_mainLayoutLayout.setHorizontalGroup(
             panel_mainLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(textField_managmentApp, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(panel_mainLayoutLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_signIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_mainLayoutLayout.createSequentialGroup()
                 .addGroup(panel_mainLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panel_mainLayoutLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(button_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(button_signOut, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_mainLayoutLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(panel_mainLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -141,8 +143,9 @@ public class main extends javax.swing.JFrame {
         panel_mainLayoutLayout.setVerticalGroup(
             panel_mainLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_mainLayoutLayout.createSequentialGroup()
-                .addComponent(textField_managmentApp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addComponent(label_signIn)
+                .addGap(23, 23, 23)
                 .addGroup(panel_mainLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textField_perInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textField_emplName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -151,9 +154,9 @@ public class main extends javax.swing.JFrame {
                     .addComponent(textField_sale2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textField_statistical, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textField_managment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(button_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addComponent(button_signOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -227,11 +230,11 @@ public class main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton button_logout;
+    private javax.swing.JButton button_signOut;
+    private javax.swing.JLabel label_signIn;
     private javax.swing.JPanel panel_mainLayout;
     private javax.swing.JTextField textField_emplName;
     private javax.swing.JTextField textField_managment;
-    private javax.swing.JTextField textField_managmentApp;
     private javax.swing.JTextField textField_perInfo;
     private javax.swing.JTextField textField_sale2;
     private javax.swing.JTextField textField_statistical;

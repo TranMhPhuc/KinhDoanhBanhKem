@@ -5,9 +5,7 @@
  */
 package view;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+
 
 /**
  *
@@ -43,38 +41,35 @@ public class login extends javax.swing.JFrame {
         jLabel_dashLine = new javax.swing.JLabel();
         label_email = new javax.swing.JLabel();
         label_password = new javax.swing.JLabel();
-        textField_password = new javax.swing.JTextField();
         label_forgotPass = new javax.swing.JLabel();
-        label_showPass = new javax.swing.JLabel();
-        label_warning = new javax.swing.JLabel();
-        button_signIn = new javax.swing.JButton();
-        button_exit = new javax.swing.JButton();
         textField_username = new javax.swing.JTextField();
         label_imgUser = new javax.swing.JLabel();
         label_imgPass = new javax.swing.JLabel();
+        passwordField_Password = new javax.swing.JPasswordField();
+        checkbox_ShowPassword = new javax.swing.JCheckBox();
+        button_signIn = new javax.swing.JButton();
 
         dialog_confirmExit.setMinimumSize(null);
         dialog_confirmExit.setModal(true);
-        dialog_confirmExit.setPreferredSize(new java.awt.Dimension(250, 165));
 
         panel_confirmExit.setBackground(new java.awt.Color(255, 255, 255));
 
         jTextField1.setEditable(false);
-        jTextField1.setText("Message Report");
         jTextField1.setBackground(new java.awt.Color(255, 255, 255));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        jTextField1.setText("Message Report");
 
+        label_confirmExit.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
         label_confirmExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_confirmExit.setText("Confirm");
-        label_confirmExit.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
 
-        button_yesExit.setText("YES");
         button_yesExit.setBackground(new java.awt.Color(255, 255, 255));
         button_yesExit.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        button_yesExit.setText("YES");
 
-        button_noExit.setText("NO");
         button_noExit.setBackground(new java.awt.Color(255, 255, 255));
         button_noExit.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        button_noExit.setText("NO");
 
         javax.swing.GroupLayout panel_confirmExitLayout = new javax.swing.GroupLayout(panel_confirmExit);
         panel_confirmExit.setLayout(panel_confirmExitLayout);
@@ -114,52 +109,56 @@ public class login extends javax.swing.JFrame {
         panel_confirmExit.getAccessibleContext().setAccessibleDescription("");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sign In");
 
         setResizable(false);
         panel_Login.setBackground(new java.awt.Color(255, 255, 255));
         panel_Login.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
 
-        label_signIn.setText("Sign In");
-        label_signIn.setFont(new java.awt.Font("Segoe UI", 1, 19)); // NOI18N
+        label_signIn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        label_signIn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_signIn.setText("Cake Shop Management");
 
-        label_imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo.png"))); // NOI18N
+        label_imgLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/nLogo_60px.png"))); // NOI18N
+        label_imgLogo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabel_dashLine.setBackground(new java.awt.Color(0, 204, 204));
+        jLabel_dashLine.setBackground(new java.awt.Color(0, 0, 0));
         jLabel_dashLine.setOpaque(true);
 
+        label_email.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        label_email.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_email.setText("Email:");
-        label_email.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        label_email.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        label_password.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        label_password.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_password.setText("Password:");
-        label_password.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        label_password.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        label_forgotPass.setText("Forgot password");
         label_forgotPass.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
-        label_forgotPass.setForeground(new java.awt.Color(0, 51, 255));
+        label_forgotPass.setForeground(new java.awt.Color(53, 131, 235));
+        label_forgotPass.setText("Forgot password?");
+        label_forgotPass.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        label_showPass.setText("Show password");
-        label_showPass.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-
-        label_warning.setText("Warning!");
-        label_warning.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-
-        button_signIn.setText("SIGN IN");
-        button_signIn.setBackground(new java.awt.Color(255, 255, 255));
-        button_signIn.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-
-        button_exit.setText("EXIT");
-        button_exit.setBackground(new java.awt.Color(255, 255, 255));
-        button_exit.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        button_exit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_exitActionPerformed(evt);
-            }
-        });
+        textField_username.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         label_imgUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/user.png"))); // NOI18N
         label_imgUser.setText("jLabel1");
 
         label_imgPass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pass.png"))); // NOI18N
+
+        passwordField_Password.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        checkbox_ShowPassword.setBackground(new java.awt.Color(255, 255, 255));
+        checkbox_ShowPassword.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        checkbox_ShowPassword.setText("Show password");
+        checkbox_ShowPassword.setFocusPainted(false);
+
+        button_signIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buttonIMG_signIn.png"))); // NOI18N
+        button_signIn.setContentAreaFilled(false);
+        button_signIn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        button_signIn.setFocusPainted(false);
 
         javax.swing.GroupLayout panel_LoginLayout = new javax.swing.GroupLayout(panel_Login);
         panel_Login.setLayout(panel_LoginLayout);
@@ -170,77 +169,66 @@ public class login extends javax.swing.JFrame {
                 .addComponent(jLabel_dashLine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(panel_LoginLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(label_signIn, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(label_signIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label_imgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_LoginLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(button_signIn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(button_exit)
-                .addGap(7, 7, 7))
+                .addGap(14, 14, 14))
             .addGroup(panel_LoginLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(23, 23, 23)
                 .addGroup(panel_LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_LoginLayout.createSequentialGroup()
-                        .addComponent(label_warning)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(panel_LoginLayout.createSequentialGroup()
                         .addGroup(panel_LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label_password)
-                            .addComponent(label_email))
+                            .addComponent(label_email)
+                            .addComponent(label_password))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_LoginLayout.createSequentialGroup()
                         .addGroup(panel_LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(button_signIn, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
                             .addGroup(panel_LoginLayout.createSequentialGroup()
                                 .addGroup(panel_LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(textField_username)
-                                    .addComponent(textField_password))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(panel_LoginLayout.createSequentialGroup()
+                                        .addComponent(label_forgotPass)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(checkbox_ShowPassword))
+                                    .addComponent(passwordField_Password)
+                                    .addComponent(textField_username, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panel_LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(label_imgPass, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(label_imgUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(panel_LoginLayout.createSequentialGroup()
-                                .addComponent(label_forgotPass)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
-                                .addComponent(label_showPass)))
-                        .addGap(29, 29, 29))))
+                                    .addComponent(label_imgPass)
+                                    .addComponent(label_imgUser, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(23, 23, 23))))
         );
         panel_LoginLayout.setVerticalGroup(
             panel_LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_LoginLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panel_LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_signIn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_imgLogo))
-                .addGap(4, 4, 4)
-                .addComponent(jLabel_dashLine, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(label_email)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label_imgUser, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textField_username, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_LoginLayout.createSequentialGroup()
+                        .addComponent(label_imgLogo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_LoginLayout.createSequentialGroup()
+                        .addComponent(label_signIn)
+                        .addGap(26, 26, 26)))
+                .addComponent(jLabel_dashLine, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(label_email)
+                .addGap(3, 3, 3)
+                .addGroup(panel_LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textField_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_imgUser, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label_password)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel_LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panel_LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(label_imgPass)
-                    .addGroup(panel_LoginLayout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(textField_password, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel_LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_forgotPass)
-                    .addComponent(label_showPass))
+                    .addComponent(passwordField_Password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(label_warning)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(button_signIn)
-                    .addComponent(button_exit))
+                    .addComponent(checkbox_ShowPassword)
+                    .addComponent(label_forgotPass))
+                .addGap(35, 35, 35)
+                .addComponent(button_signIn, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -258,14 +246,6 @@ public class login extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void button_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_exitActionPerformed
-        // TODO add your handling code here:
-        dialog_confirmExit.setSize(250,165);
-        dialog_confirmExit.setLocationRelativeTo(this);
-        dialog_confirmExit.setVisible(true);
-      
-    }//GEN-LAST:event_button_exitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -303,10 +283,10 @@ public class login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton button_exit;
     private javax.swing.JButton button_noExit;
     private javax.swing.JButton button_signIn;
     private javax.swing.JButton button_yesExit;
+    private javax.swing.JCheckBox checkbox_ShowPassword;
     private javax.swing.JDialog dialog_confirmExit;
     private javax.swing.JLabel jLabel_dashLine;
     private javax.swing.JTextField jTextField1;
@@ -317,12 +297,10 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JLabel label_imgPass;
     private javax.swing.JLabel label_imgUser;
     private javax.swing.JLabel label_password;
-    private javax.swing.JLabel label_showPass;
     private javax.swing.JLabel label_signIn;
-    private javax.swing.JLabel label_warning;
     private javax.swing.JPanel panel_Login;
     private javax.swing.JPanel panel_confirmExit;
-    private javax.swing.JTextField textField_password;
+    private javax.swing.JPasswordField passwordField_Password;
     private javax.swing.JTextField textField_username;
     // End of variables declaration//GEN-END:variables
 }
