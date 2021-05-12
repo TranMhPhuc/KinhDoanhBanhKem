@@ -181,14 +181,14 @@ public class Main extends javax.swing.JFrame {
 
         panel_ControlMenu.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(187, 187, 187), 3, true));
 
-        button_signOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buttonIMG_signOut.png"))); // NOI18N
         button_signOut.setBackground(new java.awt.Color(255, 255, 255));
+        button_signOut.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
+        button_signOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buttonIMG_signOut.png"))); // NOI18N
         button_signOut.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         button_signOut.setBorderPainted(false);
         button_signOut.setContentAreaFilled(false);
         button_signOut.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         button_signOut.setFocusPainted(false);
-        button_signOut.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
         button_signOut.setPreferredSize(new java.awt.Dimension(75, 25));
 
         button_Statistics.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Unselected_Statistics.png"))); // NOI18N
@@ -233,11 +233,11 @@ public class Main extends javax.swing.JFrame {
 
         label_Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Logo_60px.png"))); // NOI18N
 
+        label_EmpName.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        label_EmpName.setForeground(new java.awt.Color(102, 102, 255));
         label_EmpName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_EmpName.setText("Nguyễn Ngọc Minh Tú");
         label_EmpName.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        label_EmpName.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        label_EmpName.setForeground(new java.awt.Color(102, 102, 255));
         Font font = label_EmpName.getFont();
         Map attributes = font.getAttributes();
         attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
@@ -403,9 +403,9 @@ public class Main extends javax.swing.JFrame {
         checkbox_shift3.setBackground(new java.awt.Color(255, 255, 255));
         checkbox_shift3.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
+        checkbox_shift4.setText("E");
         checkbox_shift4.setBackground(new java.awt.Color(255, 255, 255));
         checkbox_shift4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        checkbox_shift4.setText("E");
 
         javax.swing.GroupLayout panel_infoEmplLayout = new javax.swing.GroupLayout(panel_infoEmpl);
         panel_infoEmpl.setLayout(panel_infoEmplLayout);
@@ -658,7 +658,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(button_add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button_refresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(scrollPane_empInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+                .addComponent(scrollPane_empInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -824,7 +824,7 @@ public class Main extends javax.swing.JFrame {
         );
         panel_proInfoLayout.setVerticalGroup(
             panel_proInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panel_productsLayout = new javax.swing.GroupLayout(panel_products);
@@ -1008,7 +1008,7 @@ public class Main extends javax.swing.JFrame {
         );
         panel_ingreInfoLayout.setVerticalGroup(
             panel_ingreInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panel_ingredientLayout = new javax.swing.GroupLayout(panel_ingredient);
@@ -1153,7 +1153,7 @@ public class Main extends javax.swing.JFrame {
         );
         panel_billInfoLayout.setVerticalGroup(
             panel_billInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 671, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panel_billLayout = new javax.swing.GroupLayout(panel_bill);
@@ -1325,7 +1325,7 @@ public class Main extends javax.swing.JFrame {
         );
         panel_provInfoLayout.setVerticalGroup(
             panel_provInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
         );
 
         label_provInfo.setText("  Provider Informations  ");
@@ -1382,10 +1382,11 @@ public class Main extends javax.swing.JFrame {
 
         panel_Menu.add(Management_tabbedPanel, "Management");
 
+        Selling_panel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(187, 187, 187), 3, true));
         Selling_panel.setName("Selling"); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("SELLING");
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
 
         javax.swing.GroupLayout Selling_panelLayout = new javax.swing.GroupLayout(Selling_panel);
         Selling_panel.setLayout(Selling_panelLayout);
@@ -1394,22 +1395,23 @@ public class Main extends javax.swing.JFrame {
             .addGroup(Selling_panelLayout.createSequentialGroup()
                 .addGap(338, 338, 338)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(699, Short.MAX_VALUE))
+                .addContainerGap(693, Short.MAX_VALUE))
         );
         Selling_panelLayout.setVerticalGroup(
             Selling_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Selling_panelLayout.createSequentialGroup()
                 .addGap(99, 99, 99)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(667, Short.MAX_VALUE))
+                .addContainerGap(673, Short.MAX_VALUE))
         );
 
         panel_Menu.add(Selling_panel, "Selling");
 
+        Statistics_panel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(187, 187, 187), 3, true));
         Statistics_panel.setName("Statistics"); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("Statistics");
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
 
         javax.swing.GroupLayout Statistics_panelLayout = new javax.swing.GroupLayout(Statistics_panel);
         Statistics_panel.setLayout(Statistics_panelLayout);
@@ -1418,14 +1420,14 @@ public class Main extends javax.swing.JFrame {
             .addGroup(Statistics_panelLayout.createSequentialGroup()
                 .addGap(498, 498, 498)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(523, Short.MAX_VALUE))
+                .addContainerGap(517, Short.MAX_VALUE))
         );
         Statistics_panelLayout.setVerticalGroup(
             Statistics_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Statistics_panelLayout.createSequentialGroup()
                 .addGap(244, 244, 244)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(489, Short.MAX_VALUE))
+                .addContainerGap(495, Short.MAX_VALUE))
         );
 
         panel_Menu.add(Statistics_panel, "Statistics");
@@ -1444,11 +1446,11 @@ public class Main extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panel_Menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panel_ControlMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
