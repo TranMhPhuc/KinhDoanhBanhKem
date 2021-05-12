@@ -11,12 +11,12 @@ package view;
  *
  * @author TRUONG MINH TAN
  */
-public class login extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form login
      */
-    public login() {
+    public Login() {
         initComponents();
     }
 
@@ -120,7 +120,7 @@ public class login extends javax.swing.JFrame {
         label_signIn.setText("Cake Shop Management");
 
         label_imgLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/nLogo_60px.png"))); // NOI18N
+        label_imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Logo_60px.png"))); // NOI18N
         label_imgLogo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel_dashLine.setBackground(new java.awt.Color(0, 0, 0));
@@ -143,10 +143,10 @@ public class login extends javax.swing.JFrame {
 
         textField_username.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        label_imgUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/user.png"))); // NOI18N
+        label_imgUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_User.png"))); // NOI18N
         label_imgUser.setText("jLabel1");
 
-        label_imgPass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pass.png"))); // NOI18N
+        label_imgPass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon_Password.png"))); // NOI18N
 
         passwordField_Password.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
@@ -264,20 +264,21 @@ public class login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new login().setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }
