@@ -115,9 +115,9 @@ public class Login extends javax.swing.JFrame {
         panel_Login.setBackground(new java.awt.Color(255, 255, 255));
         panel_Login.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
 
-        label_signIn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         label_signIn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_signIn.setText("Cake Shop Management");
+        label_signIn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         label_imgLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Logo_60px.png"))); // NOI18N
@@ -126,14 +126,14 @@ public class Login extends javax.swing.JFrame {
         jLabel_dashLine.setBackground(new java.awt.Color(0, 0, 0));
         jLabel_dashLine.setOpaque(true);
 
-        label_email.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_email.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_email.setText("Email:");
+        label_email.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_email.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        label_password.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_password.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_password.setText("Password:");
+        label_password.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_password.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         label_forgotPass.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
@@ -150,15 +150,20 @@ public class Login extends javax.swing.JFrame {
 
         passwordField_Password.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        checkbox_ShowPassword.setBackground(new java.awt.Color(255, 255, 255));
-        checkbox_ShowPassword.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         checkbox_ShowPassword.setText("Show password");
+        checkbox_ShowPassword.setBackground(new java.awt.Color(255, 255, 255));
         checkbox_ShowPassword.setFocusPainted(false);
+        checkbox_ShowPassword.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         button_signIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buttonIMG_signIn.png"))); // NOI18N
         button_signIn.setContentAreaFilled(false);
         button_signIn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         button_signIn.setFocusPainted(false);
+        button_signIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_signInActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel_LoginLayout = new javax.swing.GroupLayout(panel_Login);
         panel_Login.setLayout(panel_LoginLayout);
@@ -246,6 +251,11 @@ public class Login extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void button_signInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_signInActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_button_signInActionPerformed
 
     /**
      * @param args the command line arguments
