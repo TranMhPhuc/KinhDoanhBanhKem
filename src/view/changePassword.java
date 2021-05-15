@@ -27,24 +27,20 @@ public class changePassword extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panel_recoverPass = new javax.swing.JPanel();
         label_changePass = new javax.swing.JLabel();
         label_oldPass = new javax.swing.JLabel();
         label_newPass = new javax.swing.JLabel();
-        textField_oldPass = new javax.swing.JTextField();
-        textField_newPass = new javax.swing.JTextField();
         button_changePass = new javax.swing.JButton();
         label_verifyPass = new javax.swing.JLabel();
-        textField_newPass1 = new javax.swing.JTextField();
-        label_changePassWaning = new javax.swing.JLabel();
+        PWF_oldPW = new javax.swing.JPasswordField();
+        PWF_newPW = new javax.swing.JPasswordField();
+        PWF_verifyNewPW = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panel_recoverPass.setBackground(new java.awt.Color(255, 255, 255));
-
         label_changePass.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         label_changePass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_changePass.setText("Change Password");
+        label_changePass.setText("Change your password");
 
         label_oldPass.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_oldPass.setText("Old Password ");
@@ -52,91 +48,71 @@ public class changePassword extends javax.swing.JFrame {
         label_newPass.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_newPass.setText("New Password");
 
-        textField_oldPass.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        textField_oldPass.setPreferredSize(new java.awt.Dimension(160, 30));
-
-        textField_newPass.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        textField_newPass.setPreferredSize(new java.awt.Dimension(160, 30));
-
         button_changePass.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        button_changePass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_change-password.png"))); // NOI18N
+        button_changePass.setIcon(new javax.swing.ImageIcon("C:\\Users\\MINH TU\\Downloads\\buttonIMG_updatePW.png")); // NOI18N
         button_changePass.setContentAreaFilled(false);
+        button_changePass.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        button_changePass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_changePassActionPerformed(evt);
+            }
+        });
 
         label_verifyPass.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_verifyPass.setText("Verify New Password");
 
-        textField_newPass1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        textField_newPass1.setPreferredSize(new java.awt.Dimension(160, 30));
+        PWF_oldPW.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        label_changePassWaning.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_changePassWaning.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_changePassWaning.setText("Warning!");
+        PWF_newPW.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        javax.swing.GroupLayout panel_recoverPassLayout = new javax.swing.GroupLayout(panel_recoverPass);
-        panel_recoverPass.setLayout(panel_recoverPassLayout);
-        panel_recoverPassLayout.setHorizontalGroup(
-            panel_recoverPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(label_changePassWaning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(panel_recoverPassLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panel_recoverPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_recoverPassLayout.createSequentialGroup()
-                        .addGroup(panel_recoverPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(label_verifyPass)
-                            .addComponent(label_newPass)
-                            .addComponent(label_oldPass))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panel_recoverPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(textField_newPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textField_newPass1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textField_oldPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 24, Short.MAX_VALUE))
-                    .addGroup(panel_recoverPassLayout.createSequentialGroup()
-                        .addComponent(label_changePass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
-            .addGroup(panel_recoverPassLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(button_changePass, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        panel_recoverPassLayout.setVerticalGroup(
-            panel_recoverPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_recoverPassLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(label_changePass)
-                .addGap(18, 18, 18)
-                .addGroup(panel_recoverPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_oldPass)
-                    .addComponent(textField_oldPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panel_recoverPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_newPass)
-                    .addComponent(textField_newPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panel_recoverPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_verifyPass)
-                    .addComponent(textField_newPass1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(label_changePassWaning)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(button_changePass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        PWF_verifyNewPW.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_recoverPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(label_changePass, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(button_changePass, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PWF_verifyNewPW, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_verifyPass)
+                    .addComponent(PWF_newPW, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_newPass)
+                    .addComponent(PWF_oldPW, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_oldPass))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_recoverPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(label_changePass)
+                .addGap(22, 22, 22)
+                .addComponent(label_oldPass, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PWF_oldPW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(label_newPass, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PWF_newPW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(label_verifyPass, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PWF_verifyNewPW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(button_changePass, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void button_changePassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_changePassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_button_changePassActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,15 +150,13 @@ public class changePassword extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPasswordField PWF_newPW;
+    private javax.swing.JPasswordField PWF_oldPW;
+    private javax.swing.JPasswordField PWF_verifyNewPW;
     private javax.swing.JButton button_changePass;
     private javax.swing.JLabel label_changePass;
-    private javax.swing.JLabel label_changePassWaning;
     private javax.swing.JLabel label_newPass;
     private javax.swing.JLabel label_oldPass;
     private javax.swing.JLabel label_verifyPass;
-    private javax.swing.JPanel panel_recoverPass;
-    private javax.swing.JTextField textField_newPass;
-    private javax.swing.JTextField textField_newPass1;
-    private javax.swing.JTextField textField_oldPass;
     // End of variables declaration//GEN-END:variables
 }
