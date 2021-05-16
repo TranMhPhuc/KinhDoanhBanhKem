@@ -9,12 +9,12 @@ package view;
  *
  * @author TRUONG MINH TAN
  */
-public class changePassword extends javax.swing.JFrame {
+public class PasswordChange extends javax.swing.JFrame {
 
     /**
      * Creates new form changePassword
      */
-    public changePassword() {
+    public PasswordChange() {
         initComponents();
     }
 
@@ -49,7 +49,6 @@ public class changePassword extends javax.swing.JFrame {
         label_newPass.setText("New Password");
 
         button_changePass.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        button_changePass.setIcon(new javax.swing.ImageIcon("C:\\Users\\MINH TU\\Downloads\\buttonIMG_updatePW.png")); // NOI18N
         button_changePass.setContentAreaFilled(false);
         button_changePass.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         button_changePass.addActionListener(new java.awt.event.ActionListener() {
@@ -131,20 +130,21 @@ public class changePassword extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(changePassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordChange.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(changePassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordChange.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(changePassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordChange.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(changePassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordChange.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new changePassword().setVisible(true);
+                new PasswordChange().setVisible(true);
             }
         });
     }
