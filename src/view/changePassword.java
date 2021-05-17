@@ -49,7 +49,7 @@ public class changePassword extends javax.swing.JFrame {
         label_newPass.setText("New Password");
 
         button_changePass.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        button_changePass.setIcon(new javax.swing.ImageIcon("C:\\Users\\MINH TU\\Downloads\\buttonIMG_updatePW.png")); // NOI18N
+        button_changePass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buttonIMG_updatePW.png"))); // NOI18N
         button_changePass.setContentAreaFilled(false);
         button_changePass.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         button_changePass.addActionListener(new java.awt.event.ActionListener() {

@@ -27,7 +27,6 @@ public class recoverPass extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panel_recoverPass = new javax.swing.JPanel();
         label_recoverPass = new javax.swing.JLabel();
         label_recoverEmail = new javax.swing.JLabel();
         recover_empID = new javax.swing.JLabel();
@@ -36,8 +35,6 @@ public class recoverPass extends javax.swing.JFrame {
         button_recover = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        panel_recoverPass.setBackground(new java.awt.Color(255, 255, 255));
 
         label_recoverPass.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         label_recoverPass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -56,58 +53,66 @@ public class recoverPass extends javax.swing.JFrame {
         textField_recoEmpID.setPreferredSize(new java.awt.Dimension(160, 30));
 
         button_recover.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        button_recover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_recover-password.png"))); // NOI18N
+        button_recover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buttonIMG_sendPW.png"))); // NOI18N
         button_recover.setContentAreaFilled(false);
-
-        javax.swing.GroupLayout panel_recoverPassLayout = new javax.swing.GroupLayout(panel_recoverPass);
-        panel_recoverPass.setLayout(panel_recoverPassLayout);
-        panel_recoverPassLayout.setHorizontalGroup(
-            panel_recoverPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(label_recoverPass, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(panel_recoverPassLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panel_recoverPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(recover_empID)
-                    .addComponent(label_recoverEmail))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panel_recoverPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textField_recoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textField_recoEmpID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
-            .addComponent(button_recover, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-        );
-        panel_recoverPassLayout.setVerticalGroup(
-            panel_recoverPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_recoverPassLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(label_recoverPass)
-                .addGap(18, 18, 18)
-                .addGroup(panel_recoverPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_recoverEmail)
-                    .addComponent(textField_recoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addGroup(panel_recoverPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(recover_empID)
-                    .addComponent(textField_recoEmpID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(button_recover)
-                .addContainerGap(23, Short.MAX_VALUE))
-        );
+        button_recover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_recoverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_recoverPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(recover_empID)
+                            .addComponent(label_recoverEmail))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(textField_recoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(textField_recoEmpID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(label_recoverPass, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(button_recover)
+                .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_recoverPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(label_recoverPass)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_recoverEmail)
+                    .addComponent(textField_recoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textField_recoEmpID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(recover_empID))
+                .addGap(18, 18, 18)
+                .addComponent(button_recover)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void button_recoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_recoverActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_button_recoverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,7 +154,6 @@ public class recoverPass extends javax.swing.JFrame {
     private javax.swing.JButton button_recover;
     private javax.swing.JLabel label_recoverEmail;
     private javax.swing.JLabel label_recoverPass;
-    private javax.swing.JPanel panel_recoverPass;
     private javax.swing.JLabel recover_empID;
     private javax.swing.JTextField textField_recoEmail;
     private javax.swing.JTextField textField_recoEmpID;
