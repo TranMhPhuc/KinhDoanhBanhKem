@@ -35,8 +35,8 @@ public class MainFrame extends javax.swing.JFrame {
         customInit();
     }
     
-    public static final int CONTROL_MENU_CLOSED_WIDTH = 69;
-    public static final int CONTROL_MENU_OPENED_WIDTH = 269;
+    public static final int CONTROL_MENU_CLOSED_WIDTH = 70;
+    public static final int CONTROL_MENU_OPENED_WIDTH = 280;
     public static final int CONTROL_MENU_HEIGHT = 980;
     private JTable [] AllTablesList;
     private void customInit(){
@@ -113,7 +113,8 @@ public class MainFrame extends javax.swing.JFrame {
         label_logo = new javax.swing.JLabel();
         label_title = new javax.swing.JLabel();
         panel_Menu = new javax.swing.JPanel();
-        Selling_panel = new javax.swing.JPanel();
+        Selling_panel = new javax.swing.JTabbedPane();
+        panel_selling = new javax.swing.JPanel();
         panel_sellingProdInfo = new javax.swing.JPanel();
         label_prodName = new javax.swing.JLabel();
         label_prodSize = new javax.swing.JLabel();
@@ -145,56 +146,32 @@ public class MainFrame extends javax.swing.JFrame {
         button_clearProd = new javax.swing.JButton();
         label_prodChoose1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        panel_bill = new javax.swing.JPanel();
+        panel_dayCreatedbill = new javax.swing.JPanel();
+        label_dayCreBillFrom = new javax.swing.JLabel();
+        datePicker_dayCreBillFrom = new com.github.lgooddatepicker.components.DatePicker();
+        label_dayCreBillTo = new javax.swing.JLabel();
+        datePicker_dayCreBillTo = new com.github.lgooddatepicker.components.DatePicker();
+        button_Apply = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        table_billInfo = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        button_DayCreBillDetails = new javax.swing.JButton();
+        button_dayCreBillClear = new javax.swing.JButton();
         Statistics_panel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_statisViewInfo = new javax.swing.JTable();
         panel_statisticsInfo = new javax.swing.JPanel();
-        datePicker_statisFrom = new com.github.lgooddatepicker.components.DatePicker();
-        datePicker_statisTo = new com.github.lgooddatepicker.components.DatePicker();
         label_statisTo = new javax.swing.JLabel();
         label_statisFrom = new javax.swing.JLabel();
+        dateChooser_statis_from = new com.toedter.calendar.JDateChooser();
+        dateChooser_statis_to = new com.toedter.calendar.JDateChooser();
         jPanel4 = new javax.swing.JPanel();
         button_revIngredientCost = new javax.swing.JButton();
         button_revRevenue = new javax.swing.JButton();
         Management_panel = new javax.swing.JTabbedPane();
-        panel_empInfo = new javax.swing.JPanel();
-        scrollPane_empInfo1 = new javax.swing.JScrollPane();
-        table_empInfo = new javax.swing.JTable();
-        panel_buttonEmp = new javax.swing.JPanel();
-        button_modify = new javax.swing.JButton();
-        button_add = new javax.swing.JButton();
-        button_refresh = new javax.swing.JButton();
-        label_searchEmp = new javax.swing.JLabel();
-        textField_searchEmp = new javax.swing.JTextField();
-        panel_infoEmpl = new javax.swing.JPanel();
-        label_emplID = new javax.swing.JLabel();
-        label_namePro = new javax.swing.JLabel();
-        label_personalID = new javax.swing.JLabel();
-        label_mobile = new javax.swing.JLabel();
-        textField_name = new javax.swing.JTextField();
-        textField_mobile = new javax.swing.JTextField();
-        textField_perID = new javax.swing.JTextField();
-        lable_pass = new javax.swing.JLabel();
-        textField_emplID1 = new javax.swing.JTextField();
-        label_email = new javax.swing.JLabel();
-        label_gender = new javax.swing.JLabel();
-        radioButton_male = new javax.swing.JRadioButton();
-        radioButton_female = new javax.swing.JRadioButton();
-        lable_status = new javax.swing.JLabel();
-        combobox_status = new javax.swing.JComboBox<>();
-        lable_position = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        lable_startDate = new javax.swing.JLabel();
-        lable_birthDay = new javax.swing.JLabel();
-        lable_shift = new javax.swing.JLabel();
-        checkbox_shift1 = new javax.swing.JCheckBox();
-        checkbox_2 = new javax.swing.JCheckBox();
-        checkbox_shift3 = new javax.swing.JCheckBox();
-        checkbox_shift4 = new javax.swing.JCheckBox();
-        textField_emplID2 = new javax.swing.JTextField();
-        textField_email = new javax.swing.JTextField();
-        dateChooser_StartDate = new com.toedter.calendar.JDateChooser();
-        dateChooser_Birthday = new com.toedter.calendar.JDateChooser();
         panel_products = new javax.swing.JPanel();
         panel_proInfoManagment = new javax.swing.JPanel();
         label_productID = new javax.swing.JLabel();
@@ -250,20 +227,6 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        panel_bill = new javax.swing.JPanel();
-        panel_dayCreatedbill = new javax.swing.JPanel();
-        label_dayCreBillFrom = new javax.swing.JLabel();
-        datePicker_dayCreBillFrom = new com.github.lgooddatepicker.components.DatePicker();
-        label_dayCreBillTo = new javax.swing.JLabel();
-        datePicker_dayCreBillTo = new com.github.lgooddatepicker.components.DatePicker();
-        button_Apply = new javax.swing.JButton();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        table_billInfo = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
-        button_DayCreBillDetails = new javax.swing.JButton();
-        button_dayCreBillClear = new javax.swing.JButton();
         panel_providers = new javax.swing.JPanel();
         panel_proInfoMa = new javax.swing.JPanel();
         label_provID = new javax.swing.JLabel();
@@ -288,29 +251,70 @@ public class MainFrame extends javax.swing.JFrame {
         button_modifyProv = new javax.swing.JButton();
         Home_panel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        Employee_panel = new javax.swing.JPanel();
+        scrollPane_empInfo1 = new javax.swing.JScrollPane();
+        table_empInfo = new javax.swing.JTable();
+        panel_buttonEmp = new javax.swing.JPanel();
+        button_modify = new javax.swing.JButton();
+        button_add = new javax.swing.JButton();
+        button_refresh = new javax.swing.JButton();
+        label_searchEmp = new javax.swing.JLabel();
+        textField_searchEmp = new javax.swing.JTextField();
+        panel_infoEmpl = new javax.swing.JPanel();
+        label_emplID = new javax.swing.JLabel();
+        label_namePro = new javax.swing.JLabel();
+        label_personalID = new javax.swing.JLabel();
+        label_mobile = new javax.swing.JLabel();
+        textField_name = new javax.swing.JTextField();
+        textField_mobile = new javax.swing.JTextField();
+        textField_perID = new javax.swing.JTextField();
+        lable_pass = new javax.swing.JLabel();
+        textField_emplID1 = new javax.swing.JTextField();
+        label_email = new javax.swing.JLabel();
+        label_gender = new javax.swing.JLabel();
+        radioButton_male = new javax.swing.JRadioButton();
+        radioButton_female = new javax.swing.JRadioButton();
+        lable_status = new javax.swing.JLabel();
+        combobox_status = new javax.swing.JComboBox<>();
+        lable_position = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        lable_startDate = new javax.swing.JLabel();
+        lable_birthDay = new javax.swing.JLabel();
+        lable_shift = new javax.swing.JLabel();
+        checkbox_shift1 = new javax.swing.JCheckBox();
+        checkbox_2 = new javax.swing.JCheckBox();
+        checkbox_shift3 = new javax.swing.JCheckBox();
+        checkbox_shift4 = new javax.swing.JCheckBox();
+        textField_emplID2 = new javax.swing.JTextField();
+        textField_email = new javax.swing.JTextField();
+        dateChooser_StartDate = new com.toedter.calendar.JDateChooser();
+        dateChooser_Birthday = new com.toedter.calendar.JDateChooser();
         panel_ControlMenu = new javax.swing.JPanel();
         button_signOut = new javax.swing.JButton();
+        label_GreetingsAndPos = new javax.swing.JLabel();
+        label_EmpName = new javax.swing.JLabel();
+        label_Menu = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        button_Home = new javax.swing.JButton();
+        button_Selling = new javax.swing.JButton();
         button_Statistics = new javax.swing.JButton();
         button_Management = new javax.swing.JButton();
-        button_Selling = new javax.swing.JButton();
-        label_GreetingsAndPos = new javax.swing.JLabel();
-        label_Logo = new javax.swing.JLabel();
-        label_EmpName = new javax.swing.JLabel();
-        button_IconManagement = new javax.swing.JButton();
-        button_Home = new javax.swing.JButton();
+        button_Employee = new javax.swing.JButton();
+        jPanel9 = new javax.swing.JPanel();
         button_IconHome = new javax.swing.JButton();
         button_IconSelling = new javax.swing.JButton();
         button_IconStatistics = new javax.swing.JButton();
-        label_Menu = new javax.swing.JLabel();
+        button_IconManagement = new javax.swing.JButton();
+        button_IconEmployee = new javax.swing.JButton();
 
         setLocationRelativeTo(this);
         dialog_exportBill.setTitle("Confirm exporting bill");
         dialog_exportBill.setModal(true);
         dialog_exportBill.setResizable(false);
 
-        label_confirm.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         label_confirm.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_confirm.setText("Export the bill now?");
+        label_confirm.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
 
         panel_confirmButton.setLayout(new java.awt.GridLayout(1, 0, 25, 0));
 
@@ -367,8 +371,8 @@ public class MainFrame extends javax.swing.JFrame {
         panel_amount.setBackground(new java.awt.Color(255, 255, 255));
         panel_amount.setToolTipText("");
 
-        label_addAmount.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_addAmount.setText("Amount");
+        label_addAmount.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         spinner_amount.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
@@ -418,17 +422,17 @@ public class MainFrame extends javax.swing.JFrame {
         panel_confirmExit.setBackground(new java.awt.Color(255, 255, 255));
 
         jTextField1.setEditable(false);
+        jTextField1.setText("Message Report");
         jTextField1.setBackground(new java.awt.Color(255, 255, 255));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
-        jTextField1.setText("Message Report");
 
-        label_confirmExit1.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
         label_confirmExit1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_confirmExit1.setText("Confirm");
+        label_confirmExit1.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
 
+        button_yesExit.setText("YES");
         button_yesExit.setBackground(new java.awt.Color(255, 255, 255));
         button_yesExit.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        button_yesExit.setText("YES");
 
         javax.swing.GroupLayout panel_confirmExitLayout = new javax.swing.GroupLayout(panel_confirmExit);
         panel_confirmExit.setLayout(panel_confirmExitLayout);
@@ -465,31 +469,31 @@ public class MainFrame extends javax.swing.JFrame {
 
         dialog_importIngredient.setModal(true);
 
-        label_Import_Ingr_Title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         label_Import_Ingr_Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Import_Ingr_Title.setText("IMPORT INGREDIENT");
+        label_Import_Ingr_Title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
-        label_SelectIngr.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         label_SelectIngr.setText("Select ingredient");
+        label_SelectIngr.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        label_ImportDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         label_ImportDate.setText("Import date");
+        label_ImportDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         spinner_AmountToImport.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        label_Amount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         label_Amount.setText("Amount");
+        label_Amount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        label_Cost.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         label_Cost.setText("Cost");
+        label_Cost.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         textField_Cost.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         dateChooser_ImportDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         comboBox_selectIngrToImport.setEditable(true);
-        comboBox_selectIngrToImport.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         comboBox_selectIngrToImport.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Test Auto Fill", "Fill Auto Test", "Fe stAuoTill" }));
+        comboBox_selectIngrToImport.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -569,9 +573,9 @@ public class MainFrame extends javax.swing.JFrame {
         dialog_SelectIngredient.setBackground(new java.awt.Color(255, 255, 255));
         dialog_SelectIngredient.setModal(true);
 
-        label_titleSelectIngre.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         label_titleSelectIngre.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         label_titleSelectIngre.setText("SELECT/MODIFY INGREDIENTS FOR");
+        label_titleSelectIngre.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
         table_IngreList_SelectIngre.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -642,16 +646,16 @@ public class MainFrame extends javax.swing.JFrame {
 
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Ingredient list");
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Selected ingredients");
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-        button_choose_selectIngre.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         button_choose_selectIngre.setText("Choose");
+        button_choose_selectIngre.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
 
         panel_buttonSelectIngre.setBackground(new java.awt.Color(255, 255, 255));
         panel_buttonSelectIngre.setLayout(new java.awt.GridLayout(1, 0, 40, 0));
@@ -668,9 +672,9 @@ public class MainFrame extends javax.swing.JFrame {
         button_SaveAll_SelectIngre.setContentAreaFilled(false);
         button_SaveAll_SelectIngre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        jLabel10.setText("<NAME>");
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 51, 0));
-        jLabel10.setText("<NAME>");
 
         javax.swing.GroupLayout dialog_SelectIngredientLayout = new javax.swing.GroupLayout(dialog_SelectIngredient.getContentPane());
         dialog_SelectIngredient.getContentPane().setLayout(dialog_SelectIngredientLayout);
@@ -742,9 +746,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         label_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Logo_43px.png"))); // NOI18N
 
-        label_title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         label_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_title.setText("MANAGEMENT");
+        label_title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
         javax.swing.GroupLayout panel_TitleLayout = new javax.swing.GroupLayout(panel_Title);
         panel_Title.setLayout(panel_TitleLayout);
@@ -768,23 +772,26 @@ public class MainFrame extends javax.swing.JFrame {
         panel_Menu.setBorder(javax.swing.BorderFactory.createMatteBorder(4, 0, 0, 0, new java.awt.Color(153, 153, 153)));
         panel_Menu.setLayout(new java.awt.CardLayout());
 
-        Selling_panel.setBackground(new java.awt.Color(255, 255, 255));
+        Selling_panel.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         Selling_panel.setName("Selling"); // NOI18N
+
+        panel_selling.setBackground(new java.awt.Color(255, 255, 255));
+        panel_selling.setName("Selling"); // NOI18N
 
         panel_sellingProdInfo.setBackground(new java.awt.Color(255, 255, 255));
         panel_sellingProdInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search for products", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(190, 190, 190))); // NOI18N
 
-        label_prodName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_prodName.setText("Product Name");
+        label_prodName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        label_prodSize.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_prodSize.setText("Size");
+        label_prodSize.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textField_prodName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         textField_prodName.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        jComboBox4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "S", "M", "L" }));
+        jComboBox4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jComboBox4.setMinimumSize(new java.awt.Dimension(160, 30));
 
         javax.swing.GroupLayout panel_sellingProdInfoLayout = new javax.swing.GroupLayout(panel_sellingProdInfo);
@@ -819,14 +826,14 @@ public class MainFrame extends javax.swing.JFrame {
         panel_timeUser.setBackground(new java.awt.Color(255, 255, 255));
         panel_timeUser.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        label_sellingTime.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_sellingTime.setText("Time");
+        label_sellingTime.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        label_sellingTimeInfo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_sellingTimeInfo.setText("dd/mm/yyyy hh:mm");
+        label_sellingTimeInfo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        label_sellingUser.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_sellingUser.setText("User");
+        label_sellingUser.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         label_sellingUserInfo.setText("____________________");
 
@@ -857,8 +864,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        label_prodChoose.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         label_prodChoose.setText("Chosen products");
+        label_prodChoose.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
 
         table_chooseProd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -870,8 +877,8 @@ public class MainFrame extends javax.swing.JFrame {
         ));
         jScrollPane8.setViewportView(table_chooseProd);
 
-        button_chooseProd.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         button_chooseProd.setText("Choose");
+        button_chooseProd.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         button_chooseProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button_chooseProdActionPerformed(evt);
@@ -881,20 +888,20 @@ public class MainFrame extends javax.swing.JFrame {
         panel_BillInfo.setBackground(new java.awt.Color(255, 255, 255));
         panel_BillInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bill information", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(190, 190, 190))); // NOI18N
 
-        label_billID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_billID.setText("Bill ID");
+        label_billID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        label_totalMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_totalMoney.setText("Total Money");
+        label_totalMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        label_guestMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_guestMoney.setText("Guest Money");
+        label_guestMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        label_change.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_change.setText("Change");
+        label_change.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        button_exportBill.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         button_exportBill.setText("Export");
+        button_exportBill.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         button_exportBill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button_exportBillActionPerformed(evt);
@@ -986,83 +993,213 @@ public class MainFrame extends javax.swing.JFrame {
         button_clearProd.setPreferredSize(new java.awt.Dimension(89, 29));
         panel_buttonRemveClear.add(button_clearProd);
 
-        label_prodChoose1.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         label_prodChoose1.setText("Product list");
+        label_prodChoose1.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        javax.swing.GroupLayout Selling_panelLayout = new javax.swing.GroupLayout(Selling_panel);
-        Selling_panel.setLayout(Selling_panelLayout);
-        Selling_panelLayout.setHorizontalGroup(
-            Selling_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Selling_panelLayout.createSequentialGroup()
-                .addGroup(Selling_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Selling_panelLayout.createSequentialGroup()
+        javax.swing.GroupLayout panel_sellingLayout = new javax.swing.GroupLayout(panel_selling);
+        panel_selling.setLayout(panel_sellingLayout);
+        panel_sellingLayout.setHorizontalGroup(
+            panel_sellingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_sellingLayout.createSequentialGroup()
+                .addGroup(panel_sellingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_sellingLayout.createSequentialGroup()
                         .addGap(222, 222, 222)
                         .addComponent(button_chooseProd, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(Selling_panelLayout.createSequentialGroup()
+                    .addGroup(panel_sellingLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(panel_sellingProdInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(Selling_panelLayout.createSequentialGroup()
+                    .addGroup(panel_sellingLayout.createSequentialGroup()
                         .addGap(243, 243, 243)
                         .addComponent(label_prodChoose1))
-                    .addGroup(Selling_panelLayout.createSequentialGroup()
+                    .addGroup(panel_sellingLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addGroup(Selling_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Selling_panelLayout.createSequentialGroup()
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(panel_sellingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_sellingLayout.createSequentialGroup()
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(Selling_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(Selling_panelLayout.createSequentialGroup()
+                        .addGroup(panel_sellingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel_sellingLayout.createSequentialGroup()
                                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(15, 15, 15))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Selling_panelLayout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_sellingLayout.createSequentialGroup()
                                 .addComponent(label_prodChoose)
                                 .addGap(201, 201, 201))))
-                    .addGroup(Selling_panelLayout.createSequentialGroup()
-                        .addGroup(Selling_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(Selling_panelLayout.createSequentialGroup()
+                    .addGroup(panel_sellingLayout.createSequentialGroup()
+                        .addGroup(panel_sellingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel_sellingLayout.createSequentialGroup()
                                 .addGap(215, 215, 215)
                                 .addComponent(panel_buttonRemveClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(Selling_panelLayout.createSequentialGroup()
+                            .addGroup(panel_sellingLayout.createSequentialGroup()
                                 .addGap(50, 50, 50)
                                 .addComponent(panel_BillInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(23, 23, 23))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Selling_panelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_sellingLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panel_timeUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(243, 243, 243))
         );
-        Selling_panelLayout.setVerticalGroup(
-            Selling_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Selling_panelLayout.createSequentialGroup()
-                .addContainerGap(47, Short.MAX_VALUE)
+        panel_sellingLayout.setVerticalGroup(
+            panel_sellingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_sellingLayout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addComponent(panel_timeUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Selling_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Selling_panelLayout.createSequentialGroup()
-                        .addGroup(Selling_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panel_sellingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_sellingLayout.createSequentialGroup()
+                        .addGroup(panel_sellingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(panel_sellingProdInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(panel_BillInfo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(Selling_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panel_sellingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(label_prodChoose1)
                             .addComponent(label_prodChoose, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(Selling_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(panel_sellingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(Selling_panelLayout.createSequentialGroup()
+                    .addGroup(panel_sellingLayout.createSequentialGroup()
                         .addGap(130, 130, 130)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(Selling_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panel_sellingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(button_chooseProd)
                     .addComponent(panel_buttonRemveClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+
+        Selling_panel.addTab("Selling", panel_selling);
+
+        panel_bill.setBackground(new java.awt.Color(255, 255, 255));
+
+        panel_dayCreatedbill.setBackground(new java.awt.Color(255, 255, 255));
+        panel_dayCreatedbill.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        label_dayCreBillFrom.setText("From");
+        label_dayCreBillFrom.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        datePicker_dayCreBillFrom.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        datePicker_dayCreBillFrom.setPreferredSize(new java.awt.Dimension(160, 30));
+
+        label_dayCreBillTo.setText("To");
+        label_dayCreBillTo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        datePicker_dayCreBillTo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        datePicker_dayCreBillTo.setPreferredSize(new java.awt.Dimension(160, 30));
+
+        button_Apply.setText("Apply");
+        button_Apply.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+
+        javax.swing.GroupLayout panel_dayCreatedbillLayout = new javax.swing.GroupLayout(panel_dayCreatedbill);
+        panel_dayCreatedbill.setLayout(panel_dayCreatedbillLayout);
+        panel_dayCreatedbillLayout.setHorizontalGroup(
+            panel_dayCreatedbillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_dayCreatedbillLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(label_dayCreBillFrom)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(datePicker_dayCreBillFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(label_dayCreBillTo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(datePicker_dayCreBillTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(button_Apply, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(243, 243, 243))
+        );
+        panel_dayCreatedbillLayout.setVerticalGroup(
+            panel_dayCreatedbillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_dayCreatedbillLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(panel_dayCreatedbillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(datePicker_dayCreBillFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_dayCreBillFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_dayCreBillTo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(datePicker_dayCreBillTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(button_Apply, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        table_billInfo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "No", "Bill ID", "Total Bill Money", "Customer Pay Money", "Change", "Day Created", "Employee Name"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, true, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(table_billInfo);
+
+        jLabel1.setText("Type employee name to search");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0, 50, 0));
+
+        button_DayCreBillDetails.setText("Details");
+        button_DayCreBillDetails.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        button_DayCreBillDetails.setPreferredSize(new java.awt.Dimension(115, 40));
+        jPanel2.add(button_DayCreBillDetails);
+
+        button_dayCreBillClear.setText("Clear");
+        button_dayCreBillClear.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        button_dayCreBillClear.setPreferredSize(new java.awt.Dimension(115, 40));
+        jPanel2.add(button_dayCreBillClear);
+
+        javax.swing.GroupLayout panel_billLayout = new javax.swing.GroupLayout(panel_bill);
+        panel_bill.setLayout(panel_billLayout);
+        panel_billLayout.setHorizontalGroup(
+            panel_billLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_billLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_billLayout.createSequentialGroup()
+                .addContainerGap(335, Short.MAX_VALUE)
+                .addComponent(panel_dayCreatedbill, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(303, 303, 303))
+            .addGroup(panel_billLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5)
+                .addContainerGap())
+        );
+        panel_billLayout.setVerticalGroup(
+            panel_billLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_billLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panel_dayCreatedbill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(panel_billLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_billLayout.createSequentialGroup()
+                        .addGroup(panel_billLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE))
+                    .addGroup(panel_billLayout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 698, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        Selling_panel.addTab("Bills", panel_bill);
 
         panel_Menu.add(Selling_panel, "Selling");
 
@@ -1072,7 +1209,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(500, 500));
 
-        table_statisViewInfo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         table_statisViewInfo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1081,23 +1217,21 @@ public class MainFrame extends javax.swing.JFrame {
                 "No", "Month", "Year", "Total Sell Money", "Total Ingredient Money", "Total Month Revenue"
             }
         ));
+        table_statisViewInfo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jScrollPane1.setViewportView(table_statisViewInfo);
 
         panel_statisticsInfo.setBackground(new java.awt.Color(255, 255, 255));
         panel_statisticsInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Date filter", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 15), new java.awt.Color(200, 200, 200))); // NOI18N
 
-        datePicker_statisFrom.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        datePicker_statisFrom.setPreferredSize(new java.awt.Dimension(160, 30));
-
-        datePicker_statisTo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        datePicker_statisTo.setMinimumSize(new java.awt.Dimension(130, 30));
-        datePicker_statisTo.setPreferredSize(new java.awt.Dimension(160, 30));
-
-        label_statisTo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_statisTo.setText("To");
+        label_statisTo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        label_statisFrom.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_statisFrom.setText("From");
+        label_statisFrom.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        dateChooser_statis_from.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        dateChooser_statis_to.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         javax.swing.GroupLayout panel_statisticsInfoLayout = new javax.swing.GroupLayout(panel_statisticsInfo);
         panel_statisticsInfo.setLayout(panel_statisticsInfoLayout);
@@ -1107,41 +1241,41 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(label_statisFrom)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(datePicker_statisFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dateChooser_statis_from, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addComponent(label_statisTo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(datePicker_statisTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dateChooser_statis_to, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         panel_statisticsInfoLayout.setVerticalGroup(
             panel_statisticsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_statisticsInfoLayout.createSequentialGroup()
                 .addContainerGap(23, Short.MAX_VALUE)
-                .addGroup(panel_statisticsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(datePicker_statisTo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_statisticsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(label_statisTo)
-                        .addComponent(datePicker_statisFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(label_statisFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(28, 28, 28))
+                .addGroup(panel_statisticsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(label_statisFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panel_statisticsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(dateChooser_statis_to, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                        .addComponent(dateChooser_statis_from, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(label_statisTo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(31, 31, 31))
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Review", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 15), new java.awt.Color(200, 200, 200))); // NOI18N
 
-        button_revIngredientCost.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         button_revIngredientCost.setText("Ingredient cost");
         button_revIngredientCost.setFocusPainted(false);
+        button_revIngredientCost.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         button_revIngredientCost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button_revIngredientCostActionPerformed(evt);
             }
         });
 
-        button_revRevenue.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         button_revRevenue.setText("Revenue");
         button_revRevenue.setFocusPainted(false);
+        button_revRevenue.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         button_revRevenue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button_revRevenueActionPerformed(evt);
@@ -1181,7 +1315,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(Statistics_panelLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         Statistics_panelLayout.setVerticalGroup(
             Statistics_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1201,419 +1335,52 @@ public class MainFrame extends javax.swing.JFrame {
         Management_panel.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         Management_panel.setName("Management"); // NOI18N
 
-        panel_empInfo.setBackground(new java.awt.Color(255, 255, 255));
-
-        table_empInfo.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Name", "Mobile", "Birthday", "Email", "Gender", "Shift", "Position", "Start date", "Personal ID", "Status"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        table_empInfo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        scrollPane_empInfo1.setViewportView(table_empInfo);
-        table_empInfo.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
-        if (table_empInfo.getColumnModel().getColumnCount() > 0) {
-            table_empInfo.getColumnModel().getColumn(0).setResizable(false);
-            table_empInfo.getColumnModel().getColumn(0).setPreferredWidth(5);
-            table_empInfo.getColumnModel().getColumn(1).setResizable(false);
-            table_empInfo.getColumnModel().getColumn(1).setPreferredWidth(150);
-            table_empInfo.getColumnModel().getColumn(2).setResizable(false);
-            table_empInfo.getColumnModel().getColumn(2).setPreferredWidth(60);
-            table_empInfo.getColumnModel().getColumn(3).setResizable(false);
-            table_empInfo.getColumnModel().getColumn(3).setPreferredWidth(50);
-            table_empInfo.getColumnModel().getColumn(4).setResizable(false);
-            table_empInfo.getColumnModel().getColumn(4).setPreferredWidth(150);
-            table_empInfo.getColumnModel().getColumn(5).setResizable(false);
-            table_empInfo.getColumnModel().getColumn(5).setPreferredWidth(30);
-            table_empInfo.getColumnModel().getColumn(6).setResizable(false);
-            table_empInfo.getColumnModel().getColumn(7).setResizable(false);
-            table_empInfo.getColumnModel().getColumn(8).setResizable(false);
-            table_empInfo.getColumnModel().getColumn(8).setPreferredWidth(50);
-            table_empInfo.getColumnModel().getColumn(9).setResizable(false);
-            table_empInfo.getColumnModel().getColumn(10).setResizable(false);
-            table_empInfo.getColumnModel().getColumn(10).setPreferredWidth(50);
-        }
-        //table_empInfo.getTableHeader().setFont(new Font("Segoe UI",1,15));
-        //DefaultTableCellRenderer DTCR = (DefaultTableCellRenderer) table_empInfo.getTableHeader().getDefaultRenderer();
-        //DTCR.setHorizontalAlignment(0);
-        //DefaultTableModel dtm = (DefaultTableModel) table_empInfo.getModel();
-        //dtm.addRow(new Object[0]);
-        //dtm.setValueAt(1, 0, 0);
-        //dtm.setValueAt("Nguyễn Ngọc Minh Tú", 0, 1);
-        //dtm.setValueAt("0338758008", 0, 2);
-        //dtm.setValueAt("13/09/2000", 0, 3);
-        //dtm.setValueAt("minhtu@gmail.com", 0, 4);
-        //dtm.setValueAt("Male", 0, 5);
-        //dtm.setValueAt("M, N, A, E", 0, 6);
-        //dtm.setValueAt("Manager", 0, 7);
-        //dtm.setValueAt("12/05/2021", 0, 8);
-        //dtm.setValueAt("079200011633", 0, 9);
-        //dtm.setValueAt("Active", 0, 10);
-
-        //table_empInfo.setRowHeight(30);
-        //DefaultTableCellRenderer center = new DefaultTableCellRenderer();
-        //center.setHorizontalAlignment(JLabel.CENTER);
-        //table_empInfo.getColumnModel().getColumn(0).setCellRenderer(center);
-
-        panel_buttonEmp.setBackground(new java.awt.Color(255, 255, 255));
-        panel_buttonEmp.setLayout(new java.awt.GridLayout(1, 0, 50, 0));
-
-        button_modify.setText("Modify");
-        button_modify.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
-        button_modify.setPreferredSize(new java.awt.Dimension(115, 40));
-        panel_buttonEmp.add(button_modify);
-
-        button_add.setText("Add");
-        button_add.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
-        button_add.setPreferredSize(new java.awt.Dimension(115, 40));
-        button_add.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_addActionPerformed(evt);
-            }
-        });
-        panel_buttonEmp.add(button_add);
-
-        button_refresh.setText("Refresh");
-        button_refresh.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
-        button_refresh.setPreferredSize(new java.awt.Dimension(115, 40));
-        panel_buttonEmp.add(button_refresh);
-
-        label_searchEmp.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_searchEmp.setText("Type name to search");
-
-        textField_searchEmp.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        textField_searchEmp.setPreferredSize(new java.awt.Dimension(190, 30));
-
-        panel_infoEmpl.setBackground(new java.awt.Color(255, 255, 255));
-        panel_infoEmpl.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-
-        label_emplID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_emplID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        label_emplID.setText("Employee ID");
-
-        label_namePro.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_namePro.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        label_namePro.setText("Name");
-
-        label_personalID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_personalID.setText("Personal ID");
-
-        label_mobile.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_mobile.setText("Mobile");
-
-        textField_name.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        textField_name.setPreferredSize(new java.awt.Dimension(160, 30));
-
-        textField_mobile.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        textField_mobile.setPreferredSize(new java.awt.Dimension(160, 30));
-
-        textField_perID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        textField_perID.setPreferredSize(new java.awt.Dimension(160, 30));
-
-        lable_pass.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lable_pass.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lable_pass.setText("Password");
-
-        textField_emplID1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        textField_emplID1.setPreferredSize(new java.awt.Dimension(160, 30));
-
-        label_email.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_email.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        label_email.setText("Email");
-
-        label_gender.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_gender.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        label_gender.setText("Gender");
-
-        radioButton_male.setBackground(new java.awt.Color(255, 255, 255));
-        radioButton_male.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        radioButton_male.setText("Male");
-
-        radioButton_female.setBackground(new java.awt.Color(255, 255, 255));
-        radioButton_female.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        radioButton_female.setText("Female");
-
-        lable_status.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lable_status.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lable_status.setText("Status");
-
-        combobox_status.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        combobox_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Non-active" }));
-        combobox_status.setPreferredSize(new java.awt.Dimension(160, 30));
-
-        lable_position.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lable_position.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lable_position.setText("Position");
-
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Manager", "Cashier" }));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(160, 30));
-
-        lable_startDate.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lable_startDate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lable_startDate.setText("Start date");
-
-        lable_birthDay.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lable_birthDay.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lable_birthDay.setText("Birthday");
-
-        lable_shift.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lable_shift.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lable_shift.setText("Shift");
-
-        checkbox_shift1.setBackground(new java.awt.Color(255, 255, 255));
-        checkbox_shift1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        checkbox_shift1.setText("M");
-
-        checkbox_2.setBackground(new java.awt.Color(255, 255, 255));
-        checkbox_2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        checkbox_2.setText("N");
-
-        checkbox_shift3.setBackground(new java.awt.Color(255, 255, 255));
-        checkbox_shift3.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        checkbox_shift3.setText("A");
-
-        checkbox_shift4.setBackground(new java.awt.Color(255, 255, 255));
-        checkbox_shift4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        checkbox_shift4.setText("E");
-
-        textField_emplID2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-
-        textField_email.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-
-        dateChooser_StartDate.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-
-        dateChooser_Birthday.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-
-        javax.swing.GroupLayout panel_infoEmplLayout = new javax.swing.GroupLayout(panel_infoEmpl);
-        panel_infoEmpl.setLayout(panel_infoEmplLayout);
-        panel_infoEmplLayout.setHorizontalGroup(
-            panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_infoEmplLayout.createSequentialGroup()
-                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label_personalID, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panel_infoEmplLayout.createSequentialGroup()
-                                .addGap(51, 51, 51)
-                                .addComponent(label_namePro)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_infoEmplLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(label_mobile)))
-                    .addGroup(panel_infoEmplLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(label_emplID)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(textField_mobile, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-                    .addComponent(textField_perID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textField_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textField_emplID2))
-                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_infoEmplLayout.createSequentialGroup()
-                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel_infoEmplLayout.createSequentialGroup()
-                                .addGap(116, 116, 116)
-                                .addComponent(lable_status))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_infoEmplLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lable_pass, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(label_email, javax.swing.GroupLayout.Alignment.TRAILING))))
-                        .addGap(18, 18, 18)
-                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(combobox_status, 0, 256, Short.MAX_VALUE)
-                            .addComponent(textField_emplID1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textField_email)))
-                    .addGroup(panel_infoEmplLayout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addComponent(label_gender)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(radioButton_male)
-                        .addGap(72, 72, 72)
-                        .addComponent(radioButton_female)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
-                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lable_position, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lable_startDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lable_birthDay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lable_shift, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_infoEmplLayout.createSequentialGroup()
-                        .addComponent(checkbox_shift1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(checkbox_2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(checkbox_shift3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(checkbox_shift4))
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dateChooser_Birthday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dateChooser_StartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(22, 22, 22))
-        );
-        panel_infoEmplLayout.setVerticalGroup(
-            panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_infoEmplLayout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_infoEmplLayout.createSequentialGroup()
-                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textField_emplID2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label_emplID))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textField_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label_namePro))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textField_mobile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label_mobile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textField_perID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label_personalID)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_infoEmplLayout.createSequentialGroup()
-                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(panel_infoEmplLayout.createSequentialGroup()
-                                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(label_email)
-                                    .addComponent(textField_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(textField_emplID1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lable_pass))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(radioButton_male)
-                                    .addComponent(radioButton_female)
-                                    .addComponent(label_gender)))
-                            .addGroup(panel_infoEmplLayout.createSequentialGroup()
-                                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lable_position))
-                                .addGap(15, 15, 15)
-                                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(dateChooser_StartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lable_startDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(dateChooser_Birthday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lable_birthDay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel_infoEmplLayout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(lable_status))
-                            .addGroup(panel_infoEmplLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(combobox_status, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lable_shift)
-                                    .addComponent(checkbox_shift1)
-                                    .addComponent(checkbox_2)
-                                    .addComponent(checkbox_shift3)
-                                    .addComponent(checkbox_shift4))))))
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout panel_empInfoLayout = new javax.swing.GroupLayout(panel_empInfo);
-        panel_empInfo.setLayout(panel_empInfoLayout);
-        panel_empInfoLayout.setHorizontalGroup(
-            panel_empInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_empInfoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panel_empInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPane_empInfo1)
-                    .addComponent(panel_infoEmpl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panel_empInfoLayout.createSequentialGroup()
-                        .addComponent(label_searchEmp)
-                        .addGap(26, 26, 26)
-                        .addComponent(textField_searchEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panel_buttonEmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        panel_empInfoLayout.setVerticalGroup(
-            panel_empInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_empInfoLayout.createSequentialGroup()
-                .addComponent(panel_infoEmpl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(panel_empInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_empInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(label_searchEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(textField_searchEmp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panel_buttonEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(scrollPane_empInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        Management_panel.addTab("Employee Infomation", panel_empInfo);
-
         panel_products.setBackground(new java.awt.Color(255, 255, 255));
 
         panel_proInfoManagment.setBackground(new java.awt.Color(255, 255, 255));
         panel_proInfoManagment.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        label_productID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_productID.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         label_productID.setText("Product ID");
+        label_productID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_productID.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
-        label_size.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_size.setText("Size");
+        label_size.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        label_amount.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_amount.setText("Amount");
+        label_amount.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textField_ProID.setEditable(false);
         textField_ProID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         textField_ProID.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        jComboBox2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "S", "M", "L" }));
+        jComboBox2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jComboBox2.setPreferredSize(new java.awt.Dimension(160, 30));
 
         jSpinner1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jSpinner1.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        label_name.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_name.setText("Product Name");
+        label_name.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textField_proName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         textField_proName.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        label_cost.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_cost.setText("Cost");
+        label_cost.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textField_cost.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         textField_cost.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        label_ingredient.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_ingredient.setText("Selected Ingredients:");
+        label_ingredient.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_select.png"))); // NOI18N
         jButton1.setContentAreaFilled(false);
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -1669,7 +1436,7 @@ public class MainFrame extends javax.swing.JFrame {
         panel_proInfoManagmentLayout.setVerticalGroup(
             panel_proInfoManagmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_proInfoManagmentLayout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
+                .addContainerGap(40, Short.MAX_VALUE)
                 .addGroup(panel_proInfoManagmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_proInfoManagmentLayout.createSequentialGroup()
                         .addGroup(panel_proInfoManagmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1704,8 +1471,8 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addGap(58, 58, 58))))))
         );
 
-        label_searchProduct.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_searchProduct.setText("Type name to search");
+        label_searchProduct.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textField_searchProduct.setPreferredSize(new java.awt.Dimension(190, 30));
 
@@ -1804,41 +1571,41 @@ public class MainFrame extends javax.swing.JFrame {
         panel_ingreInfoManag.setBackground(new java.awt.Color(255, 255, 255));
         panel_ingreInfoManag.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(120, 120, 120))); // NOI18N
 
-        label_ingreID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_ingreID.setText("Ingredient ID");
+        label_ingreID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textField_ingreID.setEditable(false);
         textField_ingreID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         textField_ingreID.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        label_ingreName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_ingreName.setText("Ingredient Name");
+        label_ingreName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textField_ingreName.setEditable(false);
         textField_ingreName.setBackground(new java.awt.Color(255, 255, 255));
         textField_ingreName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         textField_ingreName.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        label_ingreCost.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_ingreCost.setText("Cost");
+        label_ingreCost.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textField_ingreCost.setEditable(false);
         textField_ingreCost.setBackground(new java.awt.Color(255, 255, 255));
         textField_ingreCost.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         textField_ingreCost.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        label_ingreType.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_ingreType.setText("Ingredient Type");
+        label_ingreType.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        jComboBox3.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jComboBox3.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        button_AddType.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         button_AddType.setText("Add type");
+        button_AddType.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
 
-        label_IngredientProvider.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_IngredientProvider.setText("Ingredient Provider");
+        label_IngredientProvider.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textField_IngredientProvider.setEditable(false);
         textField_IngredientProvider.setBackground(new java.awt.Color(255, 255, 255));
@@ -1902,8 +1669,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        label_searchIngre.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_searchIngre.setText("Type name to search");
+        label_searchIngre.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textField_searchIngre.setPreferredSize(new java.awt.Dimension(190, 30));
 
@@ -2035,7 +1802,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(panel_ingreInfoManag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_ingredientLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40)))
                 .addGroup(panel_ingredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -2050,172 +1817,44 @@ public class MainFrame extends javax.swing.JFrame {
 
         Management_panel.addTab("Ingredients", panel_ingredient);
 
-        panel_bill.setBackground(new java.awt.Color(255, 255, 255));
-
-        panel_dayCreatedbill.setBackground(new java.awt.Color(255, 255, 255));
-        panel_dayCreatedbill.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-
-        label_dayCreBillFrom.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_dayCreBillFrom.setText("From");
-
-        datePicker_dayCreBillFrom.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        datePicker_dayCreBillFrom.setPreferredSize(new java.awt.Dimension(160, 30));
-
-        label_dayCreBillTo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_dayCreBillTo.setText("To");
-
-        datePicker_dayCreBillTo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        datePicker_dayCreBillTo.setPreferredSize(new java.awt.Dimension(160, 30));
-
-        button_Apply.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
-        button_Apply.setText("Apply");
-
-        javax.swing.GroupLayout panel_dayCreatedbillLayout = new javax.swing.GroupLayout(panel_dayCreatedbill);
-        panel_dayCreatedbill.setLayout(panel_dayCreatedbillLayout);
-        panel_dayCreatedbillLayout.setHorizontalGroup(
-            panel_dayCreatedbillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_dayCreatedbillLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(label_dayCreBillFrom)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(datePicker_dayCreBillFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(label_dayCreBillTo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(datePicker_dayCreBillTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(button_Apply, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(243, 243, 243))
-        );
-        panel_dayCreatedbillLayout.setVerticalGroup(
-            panel_dayCreatedbillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_dayCreatedbillLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(panel_dayCreatedbillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(datePicker_dayCreBillFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_dayCreBillFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_dayCreBillTo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(datePicker_dayCreBillTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button_Apply, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
-
-        table_billInfo.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "No", "Bill ID", "Total Bill Money", "Customer Pay Money", "Change", "Day Created", "Employee Name"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, false, true, true, true, true, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane5.setViewportView(table_billInfo);
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel1.setText("Type employee name to search");
-
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new java.awt.GridLayout(1, 0, 50, 0));
-
-        button_DayCreBillDetails.setText("Details");
-        button_DayCreBillDetails.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
-        button_DayCreBillDetails.setPreferredSize(new java.awt.Dimension(115, 40));
-        jPanel2.add(button_DayCreBillDetails);
-
-        button_dayCreBillClear.setText("Clear");
-        button_dayCreBillClear.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
-        button_dayCreBillClear.setPreferredSize(new java.awt.Dimension(115, 40));
-        jPanel2.add(button_dayCreBillClear);
-
-        javax.swing.GroupLayout panel_billLayout = new javax.swing.GroupLayout(panel_bill);
-        panel_bill.setLayout(panel_billLayout);
-        panel_billLayout.setHorizontalGroup(
-            panel_billLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_billLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_billLayout.createSequentialGroup()
-                .addContainerGap(335, Short.MAX_VALUE)
-                .addComponent(panel_dayCreatedbill, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(303, 303, 303))
-            .addGroup(panel_billLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5)
-                .addContainerGap())
-        );
-        panel_billLayout.setVerticalGroup(
-            panel_billLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_billLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panel_dayCreatedbill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(panel_billLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_billLayout.createSequentialGroup()
-                        .addGroup(panel_billLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE))
-                    .addGroup(panel_billLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 698, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        Management_panel.addTab("Bills", panel_bill);
-
         panel_providers.setBackground(new java.awt.Color(255, 255, 255));
 
         panel_proInfoMa.setBackground(new java.awt.Color(255, 255, 255));
         panel_proInfoMa.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        label_provID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_provID.setText("Provider ID");
+        label_provID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textField_ingreID1.setEditable(false);
-        textField_ingreID1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         textField_ingreID1.setEnabled(false);
+        textField_ingreID1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         textField_ingreID1.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        label_provName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_provName.setText("Provider Name");
+        label_provName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textField_provName.setEditable(false);
         textField_provName.setBackground(new java.awt.Color(255, 255, 255));
         textField_provName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         textField_provName.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        label_provEmail.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_provEmail.setText("Email");
+        label_provEmail.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textField_provEmail.setEditable(false);
         textField_provEmail.setBackground(new java.awt.Color(255, 255, 255));
         textField_provEmail.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         textField_provEmail.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        label_provMobile.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_provMobile.setText("Mobile");
+        label_provMobile.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textField_provMobile.setBackground(new java.awt.Color(255, 255, 255));
         textField_provMobile.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         textField_provMobile.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        label_provAdd.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_provAdd.setText("Address");
+        label_provAdd.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textField_provAdd.setEditable(false);
         textField_provAdd.setBackground(new java.awt.Color(255, 255, 255));
@@ -2275,8 +1914,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         hideAndFix.setVisible(false);
 
-        label_searchProv.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_searchProv.setText("Type name to search");
+        label_searchProv.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textField_searchProv.setPreferredSize(new java.awt.Dimension(190, 30));
 
@@ -2350,7 +1989,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(label_searchProv))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2360,8 +1999,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         Home_panel.setName("Home"); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel3.setText("HOME");
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
 
         javax.swing.GroupLayout Home_panelLayout = new javax.swing.GroupLayout(Home_panel);
         Home_panel.setLayout(Home_panelLayout);
@@ -2382,83 +2021,421 @@ public class MainFrame extends javax.swing.JFrame {
 
         panel_Menu.add(Home_panel, "Home");
 
+        Employee_panel.setBackground(new java.awt.Color(255, 255, 255));
+        Employee_panel.setName("Employee"); // NOI18N
+
+        table_empInfo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        table_empInfo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Name", "Mobile", "Birthday", "Email", "Gender", "Shift", "Position", "Start date", "Personal ID", "Status"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scrollPane_empInfo1.setViewportView(table_empInfo);
+        table_empInfo.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
+        if (table_empInfo.getColumnModel().getColumnCount() > 0) {
+            table_empInfo.getColumnModel().getColumn(0).setResizable(false);
+            table_empInfo.getColumnModel().getColumn(0).setPreferredWidth(5);
+            table_empInfo.getColumnModel().getColumn(1).setResizable(false);
+            table_empInfo.getColumnModel().getColumn(1).setPreferredWidth(150);
+            table_empInfo.getColumnModel().getColumn(2).setResizable(false);
+            table_empInfo.getColumnModel().getColumn(2).setPreferredWidth(60);
+            table_empInfo.getColumnModel().getColumn(3).setResizable(false);
+            table_empInfo.getColumnModel().getColumn(3).setPreferredWidth(50);
+            table_empInfo.getColumnModel().getColumn(4).setResizable(false);
+            table_empInfo.getColumnModel().getColumn(4).setPreferredWidth(150);
+            table_empInfo.getColumnModel().getColumn(5).setResizable(false);
+            table_empInfo.getColumnModel().getColumn(5).setPreferredWidth(30);
+            table_empInfo.getColumnModel().getColumn(6).setResizable(false);
+            table_empInfo.getColumnModel().getColumn(7).setResizable(false);
+            table_empInfo.getColumnModel().getColumn(8).setResizable(false);
+            table_empInfo.getColumnModel().getColumn(8).setPreferredWidth(50);
+            table_empInfo.getColumnModel().getColumn(9).setResizable(false);
+            table_empInfo.getColumnModel().getColumn(10).setResizable(false);
+            table_empInfo.getColumnModel().getColumn(10).setPreferredWidth(50);
+        }
+        //table_empInfo.getTableHeader().setFont(new Font("Segoe UI",1,15));
+        //DefaultTableCellRenderer DTCR = (DefaultTableCellRenderer) table_empInfo.getTableHeader().getDefaultRenderer();
+        //DTCR.setHorizontalAlignment(0);
+        //DefaultTableModel dtm = (DefaultTableModel) table_empInfo.getModel();
+        //dtm.addRow(new Object[0]);
+        //dtm.setValueAt(1, 0, 0);
+        //dtm.setValueAt("Nguyễn Ngọc Minh Tú", 0, 1);
+        //dtm.setValueAt("0338758008", 0, 2);
+        //dtm.setValueAt("13/09/2000", 0, 3);
+        //dtm.setValueAt("minhtu@gmail.com", 0, 4);
+        //dtm.setValueAt("Male", 0, 5);
+        //dtm.setValueAt("M, N, A, E", 0, 6);
+        //dtm.setValueAt("Manager", 0, 7);
+        //dtm.setValueAt("12/05/2021", 0, 8);
+        //dtm.setValueAt("079200011633", 0, 9);
+        //dtm.setValueAt("Active", 0, 10);
+
+        //table_empInfo.setRowHeight(30);
+        //DefaultTableCellRenderer center = new DefaultTableCellRenderer();
+        //center.setHorizontalAlignment(JLabel.CENTER);
+        //table_empInfo.getColumnModel().getColumn(0).setCellRenderer(center);
+
+        panel_buttonEmp.setBackground(new java.awt.Color(255, 255, 255));
+        panel_buttonEmp.setLayout(new java.awt.GridLayout(1, 0, 50, 0));
+
+        button_modify.setText("Modify");
+        button_modify.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        button_modify.setPreferredSize(new java.awt.Dimension(115, 40));
+        panel_buttonEmp.add(button_modify);
+
+        button_add.setText("Add");
+        button_add.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        button_add.setPreferredSize(new java.awt.Dimension(115, 40));
+        button_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_addActionPerformed(evt);
+            }
+        });
+        panel_buttonEmp.add(button_add);
+
+        button_refresh.setText("Refresh");
+        button_refresh.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        button_refresh.setPreferredSize(new java.awt.Dimension(115, 40));
+        panel_buttonEmp.add(button_refresh);
+
+        label_searchEmp.setText("Type name to search");
+        label_searchEmp.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        textField_searchEmp.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        textField_searchEmp.setPreferredSize(new java.awt.Dimension(190, 30));
+        textField_searchEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textField_searchEmpActionPerformed(evt);
+            }
+        });
+
+        panel_infoEmpl.setBackground(new java.awt.Color(255, 255, 255));
+        panel_infoEmpl.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        label_emplID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        label_emplID.setText("Employee ID");
+        label_emplID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        label_namePro.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        label_namePro.setText("Name");
+        label_namePro.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        label_personalID.setText("Personal ID");
+        label_personalID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        label_mobile.setText("Mobile");
+        label_mobile.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        textField_name.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        textField_name.setPreferredSize(new java.awt.Dimension(160, 30));
+
+        textField_mobile.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        textField_mobile.setPreferredSize(new java.awt.Dimension(160, 30));
+
+        textField_perID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        textField_perID.setPreferredSize(new java.awt.Dimension(160, 30));
+
+        lable_pass.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lable_pass.setText("Password");
+        lable_pass.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        textField_emplID1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        textField_emplID1.setPreferredSize(new java.awt.Dimension(160, 30));
+
+        label_email.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        label_email.setText("Email");
+        label_email.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        label_gender.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        label_gender.setText("Gender");
+        label_gender.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        radioButton_male.setText("Male");
+        radioButton_male.setBackground(new java.awt.Color(255, 255, 255));
+        radioButton_male.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        radioButton_female.setText("Female");
+        radioButton_female.setBackground(new java.awt.Color(255, 255, 255));
+        radioButton_female.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        lable_status.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lable_status.setText("Status");
+        lable_status.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        combobox_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Non-active" }));
+        combobox_status.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        combobox_status.setPreferredSize(new java.awt.Dimension(160, 30));
+
+        lable_position.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lable_position.setText("Position");
+        lable_position.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Manager", "Cashier" }));
+        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jComboBox1.setPreferredSize(new java.awt.Dimension(160, 30));
+
+        lable_startDate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lable_startDate.setText("Start date");
+        lable_startDate.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        lable_birthDay.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lable_birthDay.setText("Birthday");
+        lable_birthDay.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        lable_shift.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lable_shift.setText("Shift");
+        lable_shift.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        checkbox_shift1.setText("M");
+        checkbox_shift1.setBackground(new java.awt.Color(255, 255, 255));
+        checkbox_shift1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        checkbox_2.setText("N");
+        checkbox_2.setBackground(new java.awt.Color(255, 255, 255));
+        checkbox_2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        checkbox_shift3.setText("A");
+        checkbox_shift3.setBackground(new java.awt.Color(255, 255, 255));
+        checkbox_shift3.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        checkbox_shift4.setText("E");
+        checkbox_shift4.setBackground(new java.awt.Color(255, 255, 255));
+        checkbox_shift4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        textField_emplID2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        textField_email.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        dateChooser_StartDate.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        dateChooser_Birthday.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        javax.swing.GroupLayout panel_infoEmplLayout = new javax.swing.GroupLayout(panel_infoEmpl);
+        panel_infoEmpl.setLayout(panel_infoEmplLayout);
+        panel_infoEmplLayout.setHorizontalGroup(
+            panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_infoEmplLayout.createSequentialGroup()
+                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label_personalID, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panel_infoEmplLayout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addComponent(label_namePro)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_infoEmplLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(label_mobile)))
+                    .addGroup(panel_infoEmplLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(label_emplID)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(textField_mobile, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                    .addComponent(textField_perID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textField_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textField_emplID2))
+                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_infoEmplLayout.createSequentialGroup()
+                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel_infoEmplLayout.createSequentialGroup()
+                                .addGap(116, 116, 116)
+                                .addComponent(lable_status))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_infoEmplLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lable_pass, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(label_email, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addGap(18, 18, 18)
+                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(combobox_status, 0, 256, Short.MAX_VALUE)
+                            .addComponent(textField_emplID1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textField_email)))
+                    .addGroup(panel_infoEmplLayout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addComponent(label_gender)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(radioButton_male)
+                        .addGap(72, 72, 72)
+                        .addComponent(radioButton_female)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lable_position, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lable_startDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lable_birthDay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lable_shift, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_infoEmplLayout.createSequentialGroup()
+                        .addComponent(checkbox_shift1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkbox_2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkbox_shift3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkbox_shift4))
+                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dateChooser_Birthday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dateChooser_StartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
+        );
+        panel_infoEmplLayout.setVerticalGroup(
+            panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_infoEmplLayout.createSequentialGroup()
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_infoEmplLayout.createSequentialGroup()
+                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textField_emplID2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label_emplID))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textField_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label_namePro))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textField_mobile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label_mobile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textField_perID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label_personalID)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_infoEmplLayout.createSequentialGroup()
+                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(panel_infoEmplLayout.createSequentialGroup()
+                                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(label_email)
+                                    .addComponent(textField_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(textField_emplID1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lable_pass))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(radioButton_male)
+                                    .addComponent(radioButton_female)
+                                    .addComponent(label_gender)))
+                            .addGroup(panel_infoEmplLayout.createSequentialGroup()
+                                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lable_position))
+                                .addGap(15, 15, 15)
+                                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(dateChooser_StartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lable_startDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(dateChooser_Birthday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lable_birthDay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel_infoEmplLayout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(lable_status))
+                            .addGroup(panel_infoEmplLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(panel_infoEmplLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(combobox_status, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lable_shift)
+                                    .addComponent(checkbox_shift1)
+                                    .addComponent(checkbox_2)
+                                    .addComponent(checkbox_shift3)
+                                    .addComponent(checkbox_shift4))))))
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout Employee_panelLayout = new javax.swing.GroupLayout(Employee_panel);
+        Employee_panel.setLayout(Employee_panelLayout);
+        Employee_panelLayout.setHorizontalGroup(
+            Employee_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Employee_panelLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(Employee_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panel_buttonEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrollPane_empInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 1176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
+            .addGroup(Employee_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(Employee_panelLayout.createSequentialGroup()
+                    .addGap(14, 14, 14)
+                    .addGroup(Employee_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(panel_infoEmpl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(Employee_panelLayout.createSequentialGroup()
+                            .addComponent(label_searchEmp)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(textField_searchEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(18, Short.MAX_VALUE)))
+        );
+        Employee_panelLayout.setVerticalGroup(
+            Employee_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Employee_panelLayout.createSequentialGroup()
+                .addContainerGap(224, Short.MAX_VALUE)
+                .addComponent(panel_buttonEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(scrollPane_empInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
+            .addGroup(Employee_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(Employee_panelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panel_infoEmpl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addGroup(Employee_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(label_searchEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textField_searchEmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(617, Short.MAX_VALUE)))
+        );
+
+        panel_Menu.add(Employee_panel, "Employee");
+
         panel_ControlMenu.setBackground(new java.awt.Color(204, 204, 204));
         panel_ControlMenu.setForeground(new java.awt.Color(51, 102, 255));
         panel_ControlMenu.setPreferredSize(new java.awt.Dimension(264, 925));
 
-        button_signOut.setBackground(new java.awt.Color(255, 255, 255));
-        button_signOut.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
         button_signOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buttonIMG_signOut.png"))); // NOI18N
+        button_signOut.setBackground(new java.awt.Color(255, 255, 255));
         button_signOut.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         button_signOut.setBorderPainted(false);
         button_signOut.setContentAreaFilled(false);
         button_signOut.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         button_signOut.setFocusPainted(false);
+        button_signOut.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
         button_signOut.setPreferredSize(new java.awt.Dimension(75, 25));
 
-        button_Statistics.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Unselected_Statistics.png"))); // NOI18N
-        button_Statistics.setBorder(null);
-        button_Statistics.setBorderPainted(false);
-        button_Statistics.setContentAreaFilled(false);
-        button_Statistics.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_Statistics.setFocusPainted(false);
-        button_Statistics.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_StatisticsActionPerformed(evt);
-            }
-        });
-
-        button_Management.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Selected_Management.png"))); // NOI18N
-        button_Management.setBorder(null);
-        button_Management.setBorderPainted(false);
-        button_Management.setContentAreaFilled(false);
-        button_Management.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_Management.setFocusPainted(false);
-        button_Management.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_ManagementActionPerformed(evt);
-            }
-        });
-
-        button_Selling.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Unselected_Selling.png"))); // NOI18N
-        button_Selling.setBorder(null);
-        button_Selling.setBorderPainted(false);
-        button_Selling.setContentAreaFilled(false);
-        button_Selling.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_Selling.setFocusPainted(false);
-        button_Selling.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_SellingActionPerformed(evt);
-            }
-        });
-
-        label_GreetingsAndPos.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        label_GreetingsAndPos.setForeground(new java.awt.Color(102, 102, 102));
         label_GreetingsAndPos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_GreetingsAndPos.setText("Hello, manager");
+        label_GreetingsAndPos.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        label_GreetingsAndPos.setForeground(new java.awt.Color(102, 102, 102));
 
-        label_Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Logo_60px.png"))); // NOI18N
-
-        label_EmpName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        label_EmpName.setForeground(new java.awt.Color(0, 102, 255));
         label_EmpName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_EmpName.setText("Nguyễn Ngọc Minh Tú");
         label_EmpName.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        label_EmpName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        label_EmpName.setForeground(new java.awt.Color(0, 102, 255));
         Font font = label_EmpName.getFont();
         Map attributes = font.getAttributes();
         attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
         label_EmpName.setFont(font.deriveFont(attributes));
 
-        button_IconManagement.setBackground(new java.awt.Color(204, 204, 204));
-        button_IconManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/selectedManagement_45px.png"))); // NOI18N
-        button_IconManagement.setContentAreaFilled(false);
-        button_IconManagement.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_IconManagement.setFocusPainted(false);
-        button_IconManagement.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_IconManagementActionPerformed(evt);
-            }
-        });
+        label_Menu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/unselectedMenu_45px.png"))); // NOI18N
+
+        jPanel8.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel8.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel8.setLayout(new java.awt.GridLayout(0, 1, 0, 60));
 
         button_Home.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Unselected_Home.png"))); // NOI18N
         button_Home.setBorder(null);
@@ -2471,6 +2448,63 @@ public class MainFrame extends javax.swing.JFrame {
                 button_HomeActionPerformed(evt);
             }
         });
+        jPanel8.add(button_Home);
+
+        button_Selling.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Unselected_Selling.png"))); // NOI18N
+        button_Selling.setBorder(null);
+        button_Selling.setBorderPainted(false);
+        button_Selling.setContentAreaFilled(false);
+        button_Selling.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        button_Selling.setFocusPainted(false);
+        button_Selling.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_SellingActionPerformed(evt);
+            }
+        });
+        jPanel8.add(button_Selling);
+
+        button_Statistics.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Unselected_Statistics.png"))); // NOI18N
+        button_Statistics.setBorder(null);
+        button_Statistics.setBorderPainted(false);
+        button_Statistics.setContentAreaFilled(false);
+        button_Statistics.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        button_Statistics.setFocusPainted(false);
+        button_Statistics.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_StatisticsActionPerformed(evt);
+            }
+        });
+        jPanel8.add(button_Statistics);
+
+        button_Management.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Selected_Management.png"))); // NOI18N
+        button_Management.setBorder(null);
+        button_Management.setBorderPainted(false);
+        button_Management.setContentAreaFilled(false);
+        button_Management.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        button_Management.setFocusPainted(false);
+        button_Management.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_ManagementActionPerformed(evt);
+            }
+        });
+        jPanel8.add(button_Management);
+
+        button_Employee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Unselected_Employee.png"))); // NOI18N
+        button_Employee.setBorder(null);
+        button_Employee.setBorderPainted(false);
+        button_Employee.setContentAreaFilled(false);
+        button_Employee.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        button_Employee.setFocusPainted(false);
+        button_Employee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_EmployeeActionPerformed(evt);
+            }
+        });
+        jPanel8.add(button_Employee);
+
+        jPanel9.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel9.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel9.setLayout(new java.awt.GridLayout(0, 1, 0, 60));
 
         button_IconHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/unselectedHome_45px.png"))); // NOI18N
         button_IconHome.setContentAreaFilled(false);
@@ -2481,6 +2515,7 @@ public class MainFrame extends javax.swing.JFrame {
                 button_IconHomeActionPerformed(evt);
             }
         });
+        jPanel9.add(button_IconHome);
 
         button_IconSelling.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/unselectedSelling_45px.png"))); // NOI18N
         button_IconSelling.setContentAreaFilled(false);
@@ -2491,6 +2526,7 @@ public class MainFrame extends javax.swing.JFrame {
                 button_IconSellingActionPerformed(evt);
             }
         });
+        jPanel9.add(button_IconSelling);
 
         button_IconStatistics.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/unselectedStat_45px.png"))); // NOI18N
         button_IconStatistics.setContentAreaFilled(false);
@@ -2501,42 +2537,54 @@ public class MainFrame extends javax.swing.JFrame {
                 button_IconStatisticsActionPerformed(evt);
             }
         });
+        jPanel9.add(button_IconStatistics);
 
-        label_Menu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/unselectedMenu_45px.png"))); // NOI18N
+        button_IconManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/selectedManagement_45px.png"))); // NOI18N
+        button_IconManagement.setBackground(new java.awt.Color(204, 204, 204));
+        button_IconManagement.setContentAreaFilled(false);
+        button_IconManagement.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        button_IconManagement.setFocusPainted(false);
+        button_IconManagement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_IconManagementActionPerformed(evt);
+            }
+        });
+        jPanel9.add(button_IconManagement);
+
+        button_IconEmployee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/unselectedEmployee_45px.png"))); // NOI18N
+        button_IconEmployee.setBackground(new java.awt.Color(204, 204, 204));
+        button_IconEmployee.setContentAreaFilled(false);
+        button_IconEmployee.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        button_IconEmployee.setFocusPainted(false);
+        button_IconEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_IconEmployeeActionPerformed(evt);
+            }
+        });
+        jPanel9.add(button_IconEmployee);
 
         javax.swing.GroupLayout panel_ControlMenuLayout = new javax.swing.GroupLayout(panel_ControlMenu);
         panel_ControlMenu.setLayout(panel_ControlMenuLayout);
         panel_ControlMenuLayout.setHorizontalGroup(
             panel_ControlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_ControlMenuLayout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addComponent(button_signOut, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(panel_ControlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_ControlMenuLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(button_signOut, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_ControlMenuLayout.createSequentialGroup()
+                        .addComponent(label_Menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panel_ControlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(label_GreetingsAndPos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(label_EmpName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)))))
             .addGroup(panel_ControlMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panel_ControlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button_IconSelling, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(button_IconHome, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(button_IconStatistics, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(button_IconManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(12, 12, 12)
-                .addGroup(panel_ControlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button_Home, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(button_Selling, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(button_Statistics, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(button_Management, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_ControlMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(label_Menu, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel_ControlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(label_GreetingsAndPos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label_EmpName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_ControlMenuLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(label_Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(92, 92, 92))
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel_ControlMenuLayout.setVerticalGroup(
             panel_ControlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2548,28 +2596,13 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(label_EmpName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(label_Menu))
-                .addGap(76, 76, 76)
-                .addComponent(label_Logo)
-                .addGap(98, 98, 98)
-                .addGroup(panel_ControlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panel_ControlMenuLayout.createSequentialGroup()
-                        .addGroup(panel_ControlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(button_Home)
-                            .addComponent(button_IconHome))
-                        .addGap(49, 49, 49)
-                        .addComponent(button_Selling))
-                    .addComponent(button_IconSelling))
-                .addGap(71, 71, 71)
-                .addGroup(panel_ControlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button_Statistics, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(button_IconStatistics, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(71, 71, 71)
-                .addGroup(panel_ControlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(button_Management)
-                    .addComponent(button_IconManagement))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
-                .addComponent(button_signOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                .addGap(75, 75, 75)
+                .addGroup(panel_ControlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addComponent(button_signOut, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
         );
 
         jLayeredPane1.setLayer(panel_Title, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -2703,6 +2736,9 @@ public class MainFrame extends javax.swing.JFrame {
         button_IconHome.setIcon(new ImageIcon(getClass().getResource("/img/unselectedHome_45px.png")));
         button_Home.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Home.png")));
         
+        button_IconEmployee.setIcon(new ImageIcon(getClass().getResource("/img/unselectedEmployee_45px.png")));
+        button_Employee.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Employee.png")));
+        
     }
     private void button_StatisticsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_StatisticsActionPerformed
        setIconForStatistics();
@@ -2724,13 +2760,16 @@ public class MainFrame extends javax.swing.JFrame {
         
         button_IconHome.setIcon(new ImageIcon(getClass().getResource("/img/unselectedHome_45px.png")));
         button_Home.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Home.png")));
+        
+        button_IconEmployee.setIcon(new ImageIcon(getClass().getResource("/img/unselectedEmployee_45px.png")));
+        button_Employee.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Employee.png")));
     }
     private void button_ManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_ManagementActionPerformed
         setIconForManagement();
          panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH,CONTROL_MENU_HEIGHT));
     }//GEN-LAST:event_button_ManagementActionPerformed
     private void setIconForSelling(){
-        showCardMenu(Selling_panel.getName());
+        showCardMenu(panel_selling.getName());
         label_title.setText("SELLING");
         
         button_IconSelling.setIcon(new ImageIcon(getClass().getResource("/img/selectedSelling_45px.png"))); 
@@ -2744,6 +2783,9 @@ public class MainFrame extends javax.swing.JFrame {
         
         button_IconHome.setIcon(new ImageIcon(getClass().getResource("/img/unselectedHome_45px.png")));
         button_Home.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Home.png")));
+        
+        button_IconEmployee.setIcon(new ImageIcon(getClass().getResource("/img/unselectedEmployee_45px.png")));
+        button_Employee.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Employee.png")));
        
     }
     private void button_SellingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_SellingActionPerformed
@@ -2764,17 +2806,40 @@ public class MainFrame extends javax.swing.JFrame {
         
         button_IconStatistics.setIcon(new ImageIcon(getClass().getResource("/img/unselectedStat_45px.png")));
         button_Statistics.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Statistics.png")));
+        
+        button_IconEmployee.setIcon(new ImageIcon(getClass().getResource("/img/unselectedEmployee_45px.png")));
+        button_Employee.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Employee.png")));
     }
     
+    
+    private void setIconForEmployee(){
+        showCardMenu(Employee_panel.getName());
+        label_title.setText("EMPLOYEE");
+        button_IconEmployee.setIcon(new ImageIcon(getClass().getResource("/img/selectedEmployee_45px.png")));
+        button_Employee.setIcon(new ImageIcon(getClass().getResource("/img/Selected_Employee.png")));
+       
+        button_IconHome.setIcon(new ImageIcon(getClass().getResource("/img/unselectedHome_45px.png")));
+        button_Home.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Home.png")));
+        
+        button_IconSelling.setIcon(new ImageIcon(getClass().getResource("/img/unselectedSelling_45px.png"))); 
+        button_Selling.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Selling.png"))); 
+        
+        button_IconManagement.setIcon(new ImageIcon(getClass().getResource("/img/unselectedManagement_45px.png")));
+        button_Management.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Management.png")));
+        
+        button_IconStatistics.setIcon(new ImageIcon(getClass().getResource("/img/unselectedStat_45px.png")));
+        button_Statistics.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Statistics.png")));
+       
+    }
     class OpenMenu extends Thread{
         Dimension size = new Dimension(CONTROL_MENU_CLOSED_WIDTH,CONTROL_MENU_HEIGHT);
         @Override
         public void run(){
             try{
-               for (int i =0 ;i <20;i++){
+               for (int i =0 ;i <21;i++){
                 size.setSize(size.width + 10, size.height);
                 panel_ControlMenu.setSize(size);
-                if (i != 19){
+                if (i != 20){
                     Thread.sleep(7);
                 }
             } 
@@ -2789,10 +2854,10 @@ public class MainFrame extends javax.swing.JFrame {
         @Override
         public void run(){
             try{
-               for (int i =0 ;i <20;i++){
+               for (int i =0 ;i <21;i++){
                 size.setSize(size.width - 10, size.height);
                 panel_ControlMenu.setSize(size);
-                if (i != 19){
+                if (i != 20){
                     Thread.sleep(7);
                 }
             } 
@@ -2861,10 +2926,6 @@ public class MainFrame extends javax.swing.JFrame {
         dialog_SelectIngredient.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void button_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_addActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_button_addActionPerformed
-
     private void button_revIngredientCostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_revIngredientCostActionPerformed
         
     }//GEN-LAST:event_button_revIngredientCostActionPerformed
@@ -2880,6 +2941,26 @@ public class MainFrame extends javax.swing.JFrame {
         dialog_importIngredient.setLocationRelativeTo(this);
         dialog_importIngredient.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void button_EmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_EmployeeActionPerformed
+        setIconForEmployee();
+        panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH,CONTROL_MENU_HEIGHT));
+    }//GEN-LAST:event_button_EmployeeActionPerformed
+
+    private void button_IconEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_IconEmployeeActionPerformed
+        setIconForEmployee();
+        if(!controlMenuIsOpened())
+        panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_CLOSED_WIDTH,CONTROL_MENU_HEIGHT));
+        else panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH,CONTROL_MENU_HEIGHT));
+    }//GEN-LAST:event_button_IconEmployeeActionPerformed
+
+    private void button_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_addActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_button_addActionPerformed
+
+    private void textField_searchEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textField_searchEmpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textField_searchEmpActionPerformed
     private void showCardMenu(String cardName) {
         CardLayout layout = (CardLayout) (panel_Menu.getLayout());
         layout.show(panel_Menu,cardName);
@@ -2924,14 +3005,17 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Employee_panel;
     private javax.swing.JPanel Home_panel;
     private javax.swing.JTabbedPane Management_panel;
-    private javax.swing.JPanel Selling_panel;
+    private javax.swing.JTabbedPane Selling_panel;
     private javax.swing.JPanel Statistics_panel;
     private javax.swing.JButton button_AddType;
     private javax.swing.JButton button_Apply;
     private javax.swing.JButton button_DayCreBillDetails;
+    private javax.swing.JButton button_Employee;
     private javax.swing.JButton button_Home;
+    private javax.swing.JButton button_IconEmployee;
     private javax.swing.JButton button_IconHome;
     private javax.swing.JButton button_IconManagement;
     private javax.swing.JButton button_IconSelling;
@@ -2979,10 +3063,10 @@ public class MainFrame extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser dateChooser_Birthday;
     private com.toedter.calendar.JDateChooser dateChooser_ImportDate;
     private com.toedter.calendar.JDateChooser dateChooser_StartDate;
+    private com.toedter.calendar.JDateChooser dateChooser_statis_from;
+    private com.toedter.calendar.JDateChooser dateChooser_statis_to;
     private com.github.lgooddatepicker.components.DatePicker datePicker_dayCreBillFrom;
     private com.github.lgooddatepicker.components.DatePicker datePicker_dayCreBillTo;
-    private com.github.lgooddatepicker.components.DatePicker datePicker_statisFrom;
-    private com.github.lgooddatepicker.components.DatePicker datePicker_statisTo;
     private javax.swing.JDialog dialog_SelectIngredient;
     private javax.swing.JDialog dialog_amount;
     private javax.swing.JDialog dialog_confirmRevenue;
@@ -3014,6 +3098,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane3;
@@ -3036,7 +3122,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel label_ImportDate;
     private javax.swing.JLabel label_Import_Ingr_Title;
     private javax.swing.JLabel label_IngredientProvider;
-    private javax.swing.JLabel label_Logo;
     private javax.swing.JLabel label_Menu;
     private javax.swing.JLabel label_SelectIngr;
     private javax.swing.JLabel label_addAmount;
@@ -3105,7 +3190,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panel_confirmButton;
     private javax.swing.JPanel panel_confirmExit;
     private javax.swing.JPanel panel_dayCreatedbill;
-    private javax.swing.JPanel panel_empInfo;
     private javax.swing.JPanel panel_infoEmpl;
     private javax.swing.JPanel panel_ingreInfoManag;
     private javax.swing.JPanel panel_ingredient;
@@ -3113,6 +3197,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panel_proInfoManagment;
     private javax.swing.JPanel panel_products;
     private javax.swing.JPanel panel_providers;
+    private javax.swing.JPanel panel_selling;
     private javax.swing.JPanel panel_sellingProdInfo;
     private javax.swing.JPanel panel_statisticsInfo;
     private javax.swing.JPanel panel_timeUser;
