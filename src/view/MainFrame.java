@@ -34,29 +34,30 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         customInit();
     }
-    
+
     public static final int CONTROL_MENU_CLOSED_WIDTH = 70;
     public static final int CONTROL_MENU_OPENED_WIDTH = 280;
     public static final int CONTROL_MENU_HEIGHT = 980;
-    private JTable [] AllTablesList;
-    private void customInit(){
+    private JTable[] AllTablesList;
+
+    private void customInit() {
         //default Visual
         showCardMenu(Management_panel.getName());
         jLayeredPane1.add(hideAndFix, JLayeredPane.PALETTE_LAYER, 0);
-      //  jLayeredPane1.setLayer(textField_emplID2, JLayeredPane.DEFAULT_LAYER, 0);
-        panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_CLOSED_WIDTH,CONTROL_MENU_HEIGHT));
-       //jLayeredPane1.setLayer(panel_Menu, JLayeredPane.DEFAULT_LAYER);
-      jLayeredPane1.setLayer(panel_ControlMenu, JLayeredPane.DRAG_LAYER);
+        //  jLayeredPane1.setLayer(textField_emplID2, JLayeredPane.DEFAULT_LAYER, 0);
+        panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_CLOSED_WIDTH, CONTROL_MENU_HEIGHT));
+        //jLayeredPane1.setLayer(panel_Menu, JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panel_ControlMenu, JLayeredPane.DRAG_LAYER);
 
         //action
         panel_ControlMenu.addMouseListener(new CustomOpenCloseMenu());
-        
+
         dialog_SelectIngredient.getContentPane().setBackground(Color.white);
         this.setDefaultTableHeader();
         AutoCompleteDecorator.decorate(comboBox_selectIngrToImport);
 
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -2655,251 +2656,267 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
-    private void setDefaultTableHeader(){
-        AllTablesList = new JTable [] {table_billInfo, table_chooseProd,table_empInfo,table_ingreInfo,
-        table_proInfo,table_prodInfo,table_provInfo, table_statisViewInfo, table_selectedIngre_selectIngre
-        ,table_IngreList_SelectIngre};
-        
+
+    private void setDefaultTableHeader() {
+        AllTablesList = new JTable[]{table_billInfo, table_chooseProd, table_empInfo, table_ingreInfo,
+            table_proInfo, table_prodInfo, table_provInfo, table_statisViewInfo, table_selectedIngre_selectIngre,
+             table_IngreList_SelectIngre};
+
         DefaultTableCellRenderer DTCR;
-        for(int i  = 0; i < AllTablesList.length; i++){
+        for (int i = 0; i < AllTablesList.length; i++) {
             AllTablesList[i].setRowHeight(30);
-             DTCR = (DefaultTableCellRenderer) AllTablesList[i].getTableHeader().getDefaultRenderer();
-             DTCR.setHorizontalAlignment(0);
-             AllTablesList[i].getTableHeader().setFont(new Font("Segoe UI",1,15));
+            DTCR = (DefaultTableCellRenderer) AllTablesList[i].getTableHeader().getDefaultRenderer();
+            DTCR.setHorizontalAlignment(0);
+            AllTablesList[i].getTableHeader().setFont(new Font("Segoe UI", 1, 15));
         }
-        
-        setHorizontalAlignmentForColumn(table_empInfo.getColumnModel().getColumn(0),JLabel.CENTER);
+
+        setHorizontalAlignmentForColumn(table_empInfo.getColumnModel().getColumn(0), JLabel.CENTER);
     }
-    
-    private void setHorizontalAlignmentForColumn(TableColumn column, int Alignment){
+
+    private void setHorizontalAlignmentForColumn(TableColumn column, int Alignment) {
         DefaultTableCellRenderer center = new DefaultTableCellRenderer();
         center.setHorizontalAlignment(Alignment);
         column.setCellRenderer(center);
     }
-    private boolean controlMenuIsOpened(){
+
+    private boolean controlMenuIsOpened() {
         return (panel_ControlMenu.getWidth() == CONTROL_MENU_OPENED_WIDTH);
     }
-    class CustomOpenCloseMenu extends MouseAdapter{
-    boolean mouseEntered = false;
-    @Override
-    public void mouseEntered(MouseEvent evt){
-        
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mouseEntered = true;
-                while (mouseEntered) {
-                    try {
-                        Thread.sleep(400);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    if (mouseEntered) {
-                        if(!controlMenuIsOpened()){
-                        OpenMenu openM = new OpenMenu();
-                        openM.start();
-                     }
+
+    class CustomOpenCloseMenu extends MouseAdapter {
+
+        boolean mouseEntered = false;
+
+        @Override
+        public void mouseEntered(MouseEvent evt) {
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    mouseEntered = true;
+                    while (mouseEntered) {
+                        try {
+                            Thread.sleep(400);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        if (mouseEntered) {
+                            if (!controlMenuIsOpened()) {
+                                OpenMenu openM = new OpenMenu();
+                                openM.start();
+                            }
+                        }
                     }
                 }
-            }
-        }).start();
-    }
-    
-    @Override
-    public void mouseExited(MouseEvent evt){
-        
-        mouseEntered = false;
-        if(controlMenuIsOpened() && (evt.getX() > CONTROL_MENU_OPENED_WIDTH -1 || evt.getX()<1)){
-                
-            CloseMenu closeM = new CloseMenu();
+            }).start();
+        }
+
+        @Override
+        public void mouseExited(MouseEvent evt) {
+
+            mouseEntered = false;
+            if (controlMenuIsOpened() && (evt.getX() > CONTROL_MENU_OPENED_WIDTH - 1 || evt.getX() < 1)) {
+
+                CloseMenu closeM = new CloseMenu();
                 closeM.start();
             }
-        panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_CLOSED_WIDTH,CONTROL_MENU_HEIGHT));
+            panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_CLOSED_WIDTH, CONTROL_MENU_HEIGHT));
+        }
     }
-}
-    
-    
-    private void setIconForStatistics(){
-         showCardMenu(Statistics_panel.getName());
-         label_title.setText("STATISTICS");
-        
+
+    private void setIconForStatistics() {
+        showCardMenu(Statistics_panel.getName());
+        label_title.setText("STATISTICS");
+
         button_IconStatistics.setIcon(new ImageIcon(getClass().getResource("/img/selectedStat_45px.png")));
         button_Statistics.setIcon(new ImageIcon(getClass().getResource("/img/Selected_Statistics.png")));
-        
-        button_IconSelling.setIcon(new ImageIcon(getClass().getResource("/img/unselectedSelling_45px.png"))); 
-        button_Selling.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Selling.png"))); 
-        
+
+        button_IconSelling.setIcon(new ImageIcon(getClass().getResource("/img/unselectedSelling_45px.png")));
+        button_Selling.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Selling.png")));
+
         button_IconManagement.setIcon(new ImageIcon(getClass().getResource("/img/unselectedManagement_45px.png")));
         button_Management.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Management.png")));
-        
+
         button_IconHome.setIcon(new ImageIcon(getClass().getResource("/img/unselectedHome_45px.png")));
         button_Home.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Home.png")));
-        
+
         button_IconEmployee.setIcon(new ImageIcon(getClass().getResource("/img/unselectedEmployee_45px.png")));
         button_Employee.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Employee.png")));
-        
+
     }
     private void button_StatisticsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_StatisticsActionPerformed
-       setIconForStatistics();
-       panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH,CONTROL_MENU_HEIGHT));
-        
+        setIconForStatistics();
+        panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH, CONTROL_MENU_HEIGHT));
+
     }//GEN-LAST:event_button_StatisticsActionPerformed
-    private void setIconForManagement(){
-          showCardMenu(Management_panel.getName());
-          label_title.setText("MANAGEMENT");
-        
+    private void setIconForManagement() {
+        showCardMenu(Management_panel.getName());
+        label_title.setText("MANAGEMENT");
+
         button_IconManagement.setIcon(new ImageIcon(getClass().getResource("/img/selectedManagement_45px.png")));
         button_Management.setIcon(new ImageIcon(getClass().getResource("/img/Selected_Management.png")));
-        
+
         button_IconStatistics.setIcon(new ImageIcon(getClass().getResource("/img/unselectedStat_45px.png")));
         button_Statistics.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Statistics.png")));
-        
-        button_IconSelling.setIcon(new ImageIcon(getClass().getResource("/img/unselectedSelling_45px.png"))); 
-        button_Selling.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Selling.png"))); 
-        
+
+        button_IconSelling.setIcon(new ImageIcon(getClass().getResource("/img/unselectedSelling_45px.png")));
+        button_Selling.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Selling.png")));
+
         button_IconHome.setIcon(new ImageIcon(getClass().getResource("/img/unselectedHome_45px.png")));
         button_Home.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Home.png")));
-        
+
         button_IconEmployee.setIcon(new ImageIcon(getClass().getResource("/img/unselectedEmployee_45px.png")));
         button_Employee.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Employee.png")));
     }
     private void button_ManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_ManagementActionPerformed
         setIconForManagement();
-         panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH,CONTROL_MENU_HEIGHT));
+        panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH, CONTROL_MENU_HEIGHT));
     }//GEN-LAST:event_button_ManagementActionPerformed
-    private void setIconForSelling(){
+    private void setIconForSelling() {
         showCardMenu(panel_selling.getName());
         label_title.setText("SELLING");
-        
-        button_IconSelling.setIcon(new ImageIcon(getClass().getResource("/img/selectedSelling_45px.png"))); 
-        button_Selling.setIcon(new ImageIcon(getClass().getResource("/img/Selected_Selling.png"))); 
-        
+
+        button_IconSelling.setIcon(new ImageIcon(getClass().getResource("/img/selectedSelling_45px.png")));
+        button_Selling.setIcon(new ImageIcon(getClass().getResource("/img/Selected_Selling.png")));
+
         button_IconManagement.setIcon(new ImageIcon(getClass().getResource("/img/unselectedManagement_45px.png")));
         button_Management.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Management.png")));
-        
+
         button_IconStatistics.setIcon(new ImageIcon(getClass().getResource("/img/unselectedStat_45px.png")));
         button_Statistics.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Statistics.png")));
-        
+
         button_IconHome.setIcon(new ImageIcon(getClass().getResource("/img/unselectedHome_45px.png")));
         button_Home.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Home.png")));
-        
+
         button_IconEmployee.setIcon(new ImageIcon(getClass().getResource("/img/unselectedEmployee_45px.png")));
         button_Employee.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Employee.png")));
-       
+
     }
     private void button_SellingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_SellingActionPerformed
-         setIconForSelling();
-         panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH,CONTROL_MENU_HEIGHT));
+        setIconForSelling();
+        panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH, CONTROL_MENU_HEIGHT));
     }//GEN-LAST:event_button_SellingActionPerformed
-    private void setIconForHome(){
+    private void setIconForHome() {
         showCardMenu(Home_panel.getName());
         label_title.setText("HOME");
         button_IconHome.setIcon(new ImageIcon(getClass().getResource("/img/selectedHome_45px.png")));
         button_Home.setIcon(new ImageIcon(getClass().getResource("/img/Selected_Home.png")));
-        
-        button_IconSelling.setIcon(new ImageIcon(getClass().getResource("/img/unselectedSelling_45px.png"))); 
-        button_Selling.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Selling.png"))); 
-        
+
+        button_IconSelling.setIcon(new ImageIcon(getClass().getResource("/img/unselectedSelling_45px.png")));
+        button_Selling.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Selling.png")));
+
         button_IconManagement.setIcon(new ImageIcon(getClass().getResource("/img/unselectedManagement_45px.png")));
         button_Management.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Management.png")));
-        
+
         button_IconStatistics.setIcon(new ImageIcon(getClass().getResource("/img/unselectedStat_45px.png")));
         button_Statistics.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Statistics.png")));
-        
+
         button_IconEmployee.setIcon(new ImageIcon(getClass().getResource("/img/unselectedEmployee_45px.png")));
         button_Employee.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Employee.png")));
     }
-    
-    
-    private void setIconForEmployee(){
+
+    private void setIconForEmployee() {
         showCardMenu(Employee_panel.getName());
         label_title.setText("EMPLOYEE");
         button_IconEmployee.setIcon(new ImageIcon(getClass().getResource("/img/selectedEmployee_45px.png")));
         button_Employee.setIcon(new ImageIcon(getClass().getResource("/img/Selected_Employee.png")));
-       
+
         button_IconHome.setIcon(new ImageIcon(getClass().getResource("/img/unselectedHome_45px.png")));
         button_Home.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Home.png")));
-        
-        button_IconSelling.setIcon(new ImageIcon(getClass().getResource("/img/unselectedSelling_45px.png"))); 
-        button_Selling.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Selling.png"))); 
-        
+
+        button_IconSelling.setIcon(new ImageIcon(getClass().getResource("/img/unselectedSelling_45px.png")));
+        button_Selling.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Selling.png")));
+
         button_IconManagement.setIcon(new ImageIcon(getClass().getResource("/img/unselectedManagement_45px.png")));
         button_Management.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Management.png")));
-        
+
         button_IconStatistics.setIcon(new ImageIcon(getClass().getResource("/img/unselectedStat_45px.png")));
         button_Statistics.setIcon(new ImageIcon(getClass().getResource("/img/Unselected_Statistics.png")));
-       
+
     }
-    class OpenMenu extends Thread{
-        Dimension size = new Dimension(CONTROL_MENU_CLOSED_WIDTH,CONTROL_MENU_HEIGHT);
+
+    class OpenMenu extends Thread {
+
+        Dimension size = new Dimension(CONTROL_MENU_CLOSED_WIDTH, CONTROL_MENU_HEIGHT);
+
         @Override
-        public void run(){
-            try{
-               for (int i =0 ;i <21;i++){
-                size.setSize(size.width + 10, size.height);
-                panel_ControlMenu.setSize(size);
-                if (i != 20){
-                    Thread.sleep(7);
+        public void run() {
+            try {
+                for (int i = 0; i < 21; i++) {
+                    size.setSize(size.width + 10, size.height);
+                    panel_ControlMenu.setSize(size);
+                    if (i != 20) {
+                        Thread.sleep(7);
+                    }
                 }
-            } 
-            }catch (Exception ex){
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
-            
+
         }
-}
-    class CloseMenu extends Thread{
-        Dimension size = new Dimension(CONTROL_MENU_OPENED_WIDTH,CONTROL_MENU_HEIGHT);
+    }
+
+    class CloseMenu extends Thread {
+
+        Dimension size = new Dimension(CONTROL_MENU_OPENED_WIDTH, CONTROL_MENU_HEIGHT);
+
         @Override
-        public void run(){
-            try{
-               for (int i =0 ;i <21;i++){
-                size.setSize(size.width - 10, size.height);
-                panel_ControlMenu.setSize(size);
-                if (i != 20){
-                    Thread.sleep(7);
+        public void run() {
+            try {
+                for (int i = 0; i < 21; i++) {
+                    size.setSize(size.width - 10, size.height);
+                    panel_ControlMenu.setSize(size);
+                    if (i != 20) {
+                        Thread.sleep(7);
+                    }
                 }
-            } 
-            }catch (Exception ex){
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
-            
+
         }
-}
+    }
 
 
     private void button_HomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_HomeActionPerformed
-       setIconForHome();
-       panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH,CONTROL_MENU_HEIGHT));
+        setIconForHome();
+        panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH, CONTROL_MENU_HEIGHT));
     }//GEN-LAST:event_button_HomeActionPerformed
 
     private void button_IconHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_IconHomeActionPerformed
         setIconForHome();
-        if(!controlMenuIsOpened())
-        panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_CLOSED_WIDTH,CONTROL_MENU_HEIGHT));
-        else panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH,CONTROL_MENU_HEIGHT));    
+        if (!controlMenuIsOpened()) {
+            panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_CLOSED_WIDTH, CONTROL_MENU_HEIGHT));
+        } else {
+            panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH, CONTROL_MENU_HEIGHT));
+        }
     }//GEN-LAST:event_button_IconHomeActionPerformed
 
     private void button_IconStatisticsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_IconStatisticsActionPerformed
         setIconForStatistics();
-        if(!controlMenuIsOpened())
-        panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_CLOSED_WIDTH,CONTROL_MENU_HEIGHT));
-        else panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH,CONTROL_MENU_HEIGHT));
+        if (!controlMenuIsOpened()) {
+            panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_CLOSED_WIDTH, CONTROL_MENU_HEIGHT));
+        } else {
+            panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH, CONTROL_MENU_HEIGHT));
+        }
     }//GEN-LAST:event_button_IconStatisticsActionPerformed
 
     private void button_IconSellingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_IconSellingActionPerformed
         setIconForSelling();
-        if(!controlMenuIsOpened())
-         panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_CLOSED_WIDTH,CONTROL_MENU_HEIGHT));
-        else panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH,CONTROL_MENU_HEIGHT));
+        if (!controlMenuIsOpened()) {
+            panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_CLOSED_WIDTH, CONTROL_MENU_HEIGHT));
+        } else {
+            panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH, CONTROL_MENU_HEIGHT));
+        }
     }//GEN-LAST:event_button_IconSellingActionPerformed
 
     private void button_IconManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_IconManagementActionPerformed
         setIconForManagement();
-        if(!controlMenuIsOpened())
-        panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_CLOSED_WIDTH,CONTROL_MENU_HEIGHT));
-        else panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH,CONTROL_MENU_HEIGHT));
+        if (!controlMenuIsOpened()) {
+            panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_CLOSED_WIDTH, CONTROL_MENU_HEIGHT));
+        } else {
+            panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH, CONTROL_MENU_HEIGHT));
+        }
     }//GEN-LAST:event_button_IconManagementActionPerformed
 
     private void button_chooseProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_chooseProdActionPerformed
@@ -2927,7 +2944,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void button_revIngredientCostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_revIngredientCostActionPerformed
-        
+
     }//GEN-LAST:event_button_revIngredientCostActionPerformed
 
     private void button_revRevenueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_revRevenueActionPerformed
@@ -2937,21 +2954,23 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_button_revRevenueActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        dialog_importIngredient.setSize(503,320);
+        dialog_importIngredient.setSize(503, 320);
         dialog_importIngredient.setLocationRelativeTo(this);
         dialog_importIngredient.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void button_EmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_EmployeeActionPerformed
         setIconForEmployee();
-        panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH,CONTROL_MENU_HEIGHT));
+        panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH, CONTROL_MENU_HEIGHT));
     }//GEN-LAST:event_button_EmployeeActionPerformed
 
     private void button_IconEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_IconEmployeeActionPerformed
         setIconForEmployee();
-        if(!controlMenuIsOpened())
-        panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_CLOSED_WIDTH,CONTROL_MENU_HEIGHT));
-        else panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH,CONTROL_MENU_HEIGHT));
+        if (!controlMenuIsOpened()) {
+            panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_CLOSED_WIDTH, CONTROL_MENU_HEIGHT));
+        } else {
+            panel_ControlMenu.setPreferredSize(new Dimension(CONTROL_MENU_OPENED_WIDTH, CONTROL_MENU_HEIGHT));
+        }
     }//GEN-LAST:event_button_IconEmployeeActionPerformed
 
     private void button_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_addActionPerformed
@@ -2963,9 +2982,10 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_textField_searchEmpActionPerformed
     private void showCardMenu(String cardName) {
         CardLayout layout = (CardLayout) (panel_Menu.getLayout());
-        layout.show(panel_Menu,cardName);
+        layout.show(panel_Menu, cardName);
         panel_Menu.repaint();
     }
+
     /**
      * @param args the command line arguments
      */
