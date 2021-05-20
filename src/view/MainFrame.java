@@ -290,7 +290,6 @@ public class MainFrame extends javax.swing.JFrame {
         button_modifyProv = new javax.swing.JButton();
         button_removeProv = new javax.swing.JButton();
         Home_panel = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         Employee_panel = new javax.swing.JPanel();
         scrollPane_empInfo1 = new javax.swing.JScrollPane();
         table_empInfo = new javax.swing.JTable();
@@ -2373,24 +2372,15 @@ public class MainFrame extends javax.swing.JFrame {
 
         Home_panel.setName("Home"); // NOI18N
 
-        jLabel3.setText("HOME");
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-
         javax.swing.GroupLayout Home_panelLayout = new javax.swing.GroupLayout(Home_panel);
         Home_panel.setLayout(Home_panelLayout);
         Home_panelLayout.setHorizontalGroup(
             Home_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Home_panelLayout.createSequentialGroup()
-                .addGap(424, 424, 424)
-                .addComponent(jLabel3)
-                .addContainerGap(709, Short.MAX_VALUE))
+            .addGap(0, 1205, Short.MAX_VALUE)
         );
         Home_panelLayout.setVerticalGroup(
             Home_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Home_panelLayout.createSequentialGroup()
-                .addGap(246, 246, 246)
-                .addComponent(jLabel3)
-                .addContainerGap(616, Short.MAX_VALUE))
+            .addGap(0, 894, Short.MAX_VALUE)
         );
 
         panel_Menu.add(Home_panel, "Home");
@@ -3517,7 +3507,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
