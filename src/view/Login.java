@@ -35,19 +35,26 @@ public class Login extends javax.swing.JFrame {
         label_confirmExit = new javax.swing.JLabel();
         button_yesExit = new javax.swing.JButton();
         button_noExit = new javax.swing.JButton();
+        dialog_recoverPassword = new javax.swing.JDialog();
+        label_recoverPass = new javax.swing.JLabel();
+        label_recoverEmail = new javax.swing.JLabel();
+        recover_empID = new javax.swing.JLabel();
+        textField_recoEmail = new javax.swing.JTextField();
+        textField_recoEmpID = new javax.swing.JTextField();
+        button_recover = new javax.swing.JButton();
         panel_Login = new javax.swing.JPanel();
         label_signIn = new javax.swing.JLabel();
         label_imgLogo = new javax.swing.JLabel();
         jLabel_dashLine = new javax.swing.JLabel();
         label_email = new javax.swing.JLabel();
         label_password = new javax.swing.JLabel();
-        label_forgotPass = new javax.swing.JLabel();
         textField_username = new javax.swing.JTextField();
         label_imgUser = new javax.swing.JLabel();
         label_imgPass = new javax.swing.JLabel();
         passwordField_Password = new javax.swing.JPasswordField();
         checkbox_ShowPassword = new javax.swing.JCheckBox();
         button_signIn = new javax.swing.JButton();
+        button_forgotPassword = new javax.swing.JButton();
 
         dialog_confirmExit.setMinimumSize(null);
         dialog_confirmExit.setModal(true);
@@ -108,6 +115,75 @@ public class Login extends javax.swing.JFrame {
 
         panel_confirmExit.getAccessibleContext().setAccessibleDescription("");
 
+        dialog_recoverPassword.setResizable(false);
+
+        label_recoverPass.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        label_recoverPass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_recoverPass.setText("RECOVER PASSWORD");
+
+        label_recoverEmail.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        label_recoverEmail.setText("Email");
+
+        recover_empID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        recover_empID.setText("Employee ID");
+
+        textField_recoEmail.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        textField_recoEmail.setPreferredSize(new java.awt.Dimension(160, 30));
+
+        textField_recoEmpID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        textField_recoEmpID.setPreferredSize(new java.awt.Dimension(160, 30));
+
+        button_recover.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        button_recover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buttonIMG_sendPW.png"))); // NOI18N
+        button_recover.setContentAreaFilled(false);
+        button_recover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_recoverActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout dialog_recoverPasswordLayout = new javax.swing.GroupLayout(dialog_recoverPassword.getContentPane());
+        dialog_recoverPassword.getContentPane().setLayout(dialog_recoverPasswordLayout);
+        dialog_recoverPasswordLayout.setHorizontalGroup(
+            dialog_recoverPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialog_recoverPasswordLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(dialog_recoverPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dialog_recoverPasswordLayout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(label_recoverPass, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(dialog_recoverPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(button_recover)
+                        .addGroup(dialog_recoverPasswordLayout.createSequentialGroup()
+                            .addGroup(dialog_recoverPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(recover_empID)
+                                .addComponent(label_recoverEmail))
+                            .addGroup(dialog_recoverPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(dialog_recoverPasswordLayout.createSequentialGroup()
+                                    .addGap(21, 21, 21)
+                                    .addComponent(textField_recoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(dialog_recoverPasswordLayout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addComponent(textField_recoEmpID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+        );
+        dialog_recoverPasswordLayout.setVerticalGroup(
+            dialog_recoverPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialog_recoverPasswordLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(label_recoverPass)
+                .addGap(18, 18, 18)
+                .addGroup(dialog_recoverPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_recoverEmail)
+                    .addComponent(textField_recoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(dialog_recoverPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textField_recoEmpID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(recover_empID))
+                .addGap(18, 18, 18)
+                .addComponent(button_recover)
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sign In");
 
@@ -115,9 +191,9 @@ public class Login extends javax.swing.JFrame {
         panel_Login.setBackground(new java.awt.Color(255, 255, 255));
         panel_Login.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
 
+        label_signIn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         label_signIn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_signIn.setText("Cake Shop Management");
-        label_signIn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         label_imgLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Logo_60px.png"))); // NOI18N
@@ -126,20 +202,15 @@ public class Login extends javax.swing.JFrame {
         jLabel_dashLine.setBackground(new java.awt.Color(0, 0, 0));
         jLabel_dashLine.setOpaque(true);
 
+        label_email.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_email.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_email.setText("Email:");
-        label_email.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_email.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        label_password.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_password.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_password.setText("Password:");
-        label_password.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_password.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        label_forgotPass.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
-        label_forgotPass.setForeground(new java.awt.Color(53, 131, 235));
-        label_forgotPass.setText("Forgot password?");
-        label_forgotPass.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         textField_username.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
@@ -150,10 +221,10 @@ public class Login extends javax.swing.JFrame {
 
         passwordField_Password.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        checkbox_ShowPassword.setText("Show password");
         checkbox_ShowPassword.setBackground(new java.awt.Color(255, 255, 255));
-        checkbox_ShowPassword.setFocusPainted(false);
         checkbox_ShowPassword.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        checkbox_ShowPassword.setText("Show password");
+        checkbox_ShowPassword.setFocusPainted(false);
 
         button_signIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buttonIMG_signIn.png"))); // NOI18N
         button_signIn.setContentAreaFilled(false);
@@ -162,6 +233,20 @@ public class Login extends javax.swing.JFrame {
         button_signIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button_signInActionPerformed(evt);
+            }
+        });
+
+        button_forgotPassword.setBackground(new java.awt.Color(51, 102, 255));
+        button_forgotPassword.setFont(new java.awt.Font("Segoe UI", 2, 15)); // NOI18N
+        button_forgotPassword.setForeground(new java.awt.Color(0, 123, 255));
+        button_forgotPassword.setText("Forgot password?");
+        button_forgotPassword.setContentAreaFilled(false);
+        button_forgotPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        button_forgotPassword.setFocusPainted(false);
+        button_forgotPassword.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        button_forgotPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_forgotPasswordActionPerformed(evt);
             }
         });
 
@@ -193,7 +278,7 @@ public class Login extends javax.swing.JFrame {
                             .addGroup(panel_LoginLayout.createSequentialGroup()
                                 .addGroup(panel_LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panel_LoginLayout.createSequentialGroup()
-                                        .addComponent(label_forgotPass)
+                                        .addComponent(button_forgotPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(checkbox_ShowPassword))
                                     .addComponent(passwordField_Password)
@@ -231,8 +316,8 @@ public class Login extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(panel_LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkbox_ShowPassword)
-                    .addComponent(label_forgotPass))
-                .addGap(35, 35, 35)
+                    .addComponent(button_forgotPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
                 .addComponent(button_signIn, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -256,6 +341,16 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_button_signInActionPerformed
+
+    private void button_recoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_recoverActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_button_recoverActionPerformed
+
+    private void button_forgotPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_forgotPasswordActionPerformed
+        dialog_recoverPassword.setSize(401,280);
+        dialog_recoverPassword.setLocationRelativeTo(this);
+        dialog_recoverPassword.setVisible(true);
+    }//GEN-LAST:event_button_forgotPasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -294,24 +389,31 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton button_forgotPassword;
     private javax.swing.JButton button_noExit;
+    private javax.swing.JButton button_recover;
     private javax.swing.JButton button_signIn;
     private javax.swing.JButton button_yesExit;
     private javax.swing.JCheckBox checkbox_ShowPassword;
     private javax.swing.JDialog dialog_confirmExit;
+    private javax.swing.JDialog dialog_recoverPassword;
     private javax.swing.JLabel jLabel_dashLine;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel label_confirmExit;
     private javax.swing.JLabel label_email;
-    private javax.swing.JLabel label_forgotPass;
     private javax.swing.JLabel label_imgLogo;
     private javax.swing.JLabel label_imgPass;
     private javax.swing.JLabel label_imgUser;
     private javax.swing.JLabel label_password;
+    private javax.swing.JLabel label_recoverEmail;
+    private javax.swing.JLabel label_recoverPass;
     private javax.swing.JLabel label_signIn;
     private javax.swing.JPanel panel_Login;
     private javax.swing.JPanel panel_confirmExit;
     private javax.swing.JPasswordField passwordField_Password;
+    private javax.swing.JLabel recover_empID;
+    private javax.swing.JTextField textField_recoEmail;
+    private javax.swing.JTextField textField_recoEmpID;
     private javax.swing.JTextField textField_username;
     // End of variables declaration//GEN-END:variables
 }
