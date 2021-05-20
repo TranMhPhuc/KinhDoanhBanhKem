@@ -1,43 +1,91 @@
-package Model;
+package model;
 
-import java.time.LocalTime;
-import java.util.Objects;
+import control.dbconnect.SQLServerConnect;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Time;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class WorkShift {
 
-    private String shiftCode;
+    private static WorkShift MORNING_SHIFT = new WorkShift(1, "Ca sáng", null, null);
+    private static WorkShift AFTERNOON_SHIFT = new WorkShift(2, "Ca chiều", null, null);
+    private static WorkShift EVENING_SHIFT = new WorkShift(3, "Ca tối", null, null);
+    private static WorkShift NIGHT_SHIFT = new WorkShift(4, "Ca đêm", null, null);
+
+    private int shiftCode;
     private String shiftName;
-    private LocalTime timeStart;
-    private LocalTime timeEnd;
+    private Time timeStart;
+    private Time timeEnd;
 
-    public WorkShift() {
-
+    static {
+        updateFromDB();
     }
 
-    public WorkShift(String shiftCode, String shiftName, LocalTime timeStart, LocalTime timeEnd) {
+    // Avoid to create instance
+    private WorkShift() {
+    }
+
+    private WorkShift(int shiftCode, String shiftName, Time timeStart, Time timeEnd) {
         this.shiftCode = shiftCode;
         this.shiftName = shiftName;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
     }
 
-    public String getShiftCode() {
-        return shiftCode;
+    public static void updateFromDB() {
+        Connection connection = SQLServerConnect.getConnection();
+
+        try {
+            Statement st = connection.createStatement();
+
+            String query = "SELECT TenCaLamViec, GioBatDau, GioKetThuc FROM CaLamViec";
+
+            ResultSet rs = st.executeQuery(query);
+
+            rs.next();
+            updateShift(MORNING_SHIFT, rs.getString("TenCaLamViec"), rs.getTime("GioBatDau"), rs.getTime("GioKetThuc"));
+
+            rs.next();
+            updateShift(AFTERNOON_SHIFT, rs.getString("TenCaLamViec"), rs.getTime("GioBatDau"), rs.getTime("GioKetThuc"));
+
+            rs.next();
+            updateShift(EVENING_SHIFT, rs.getString("TenCaLamViec"), rs.getTime("GioBatDau"), rs.getTime("GioKetThuc"));
+
+            rs.next();
+            updateShift(NIGHT_SHIFT, rs.getString("TenCaLamViec"), rs.getTime("GioBatDau"), rs.getTime("GioKetThuc"));
+
+        } catch (SQLException ex) {
+            Logger.getLogger(WorkShift.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public String getShiftName() {
-        return shiftName;
+    private static void updateShift(WorkShift shift, String shiftName, Time timeStart, Time timeEnd) {
+        shift.setShiftName(shiftName);
+        shift.setTimeStart(timeStart);
+        shift.setTimeEnd(timeEnd);
     }
 
-    public LocalTime getTimeStart() {
-        return timeStart;
+    public static WorkShift getMorningShift() {
+        return MORNING_SHIFT;
     }
 
-    public LocalTime getTimeEnd() {
-        return timeEnd;
+    public static WorkShift getAfternoonShift() {
+        return AFTERNOON_SHIFT;
     }
 
-    public void setShiftCode(String shiftCode) {
+    public static WorkShift getEveningShift() {
+        return EVENING_SHIFT;
+    }
+
+    public static WorkShift getNightShift() {
+        return NIGHT_SHIFT;
+    }
+
+    public void setShiftCode(int shiftCode) {
         this.shiftCode = shiftCode;
     }
 
@@ -45,42 +93,24 @@ public class WorkShift {
         this.shiftName = shiftName;
     }
 
-    public void setTimeStart(LocalTime timeStart) {
+    public void setTimeStart(Time timeStart) {
         this.timeStart = timeStart;
     }
 
-    public void setTimeEnd(LocalTime timeEnd) {
+    public void setTimeEnd(Time timeEnd) {
         this.timeEnd = timeEnd;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 31 * hash + Objects.hashCode(this.shiftCode);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final WorkShift other = (WorkShift) obj;
-        if (!Objects.equals(this.shiftCode, other.shiftCode)) {
-            return false;
-        }
-        return true;
     }
 
     @Override
     public String toString() {
         return "WorkShift{" + "shiftCode=" + shiftCode + ", shiftName=" + shiftName + ", timeStart=" + timeStart + ", timeEnd=" + timeEnd + '}';
+    }
+
+    public static void main(String[] args) {
+        System.out.println(MORNING_SHIFT);
+        System.out.println(AFTERNOON_SHIFT);
+        System.out.println(EVENING_SHIFT);
+        System.out.println(NIGHT_SHIFT);
     }
 
 }//end WorkShift
