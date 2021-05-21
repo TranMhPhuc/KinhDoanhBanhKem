@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Cake {
 
-    private String cakeCode;
+    private int cakeCode;
     private String cakeName;
     private int bareCost;
     private int amount = 0;
@@ -14,13 +14,13 @@ public class Cake {
 
     }
 
-    public Cake(String cakeCode, String cakeName, int bareCost) {
+    public Cake(int cakeCode, String cakeName, int bareCost) {
         this.cakeCode = cakeCode;
         this.cakeName = cakeName;
         this.bareCost = bareCost;
     }
 
-    public String getCakeCode() {
+    public int getCakeCode() {
         return cakeCode;
     }
 
@@ -40,7 +40,7 @@ public class Cake {
         return cakeSize;
     }
 
-    public void setCakeCode(String cakeCode) {
+    public void setCakeCode(int cakeCode) {
         this.cakeCode = cakeCode;
     }
 

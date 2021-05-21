@@ -2,50 +2,69 @@ package model;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.javatuples.Pair;
 
 public class BillDetail {
 
     private Bill bill;
-    private HashMap<Cake, Integer> products;
-    private int totalCost = 0;
+    private HashMap<Cake, Pair<Integer, Integer>> products;
 
-    public BillDetail(Bill bill) {
-        this.bill = bill;
-        products = new HashMap<Cake, Integer>();
+    public BillDetail() {
+        bill = new Bill();
+        products = new HashMap<>();
+    }
+
+    public Bill getBill() {
+        return bill;
+    }
+
+    public HashMap<Cake, Pair<Integer, Integer>> getProducts() {
+        return products;
+    }
+
+    public boolean havingProduct(Cake cake) {
+        return products.containsKey(cake);
     }
 
     public void addProduct(Cake cake) {
-        Integer value = products.get(cake);
+        Pair<Integer, Integer> value = products.get(cake);
 
         if (value != null) {
-            products.put(cake, value++);
+            value.setAt0(value.getValue0() + 1);
+            value.setAt1(value.getValue1() + cake.getBareCost());
         } else {
-            products.put(cake, 0);
+            products.put(cake, new Pair<>(0, 0));
         }
 
-        totalCost += cake.getBareCost();
+        bill.setTotalCost(bill.getTotalCost() + cake.getBareCost());
     }
 
-    public void removeProduct(Cake cake) throws Exception {
-        Integer value = products.get(cake);
+    public void removeProduct(Cake cake) throws IllegalArgumentException {
+        Pair<Integer, Integer> value = products.get(cake);
 
         if (value != null) {
-            products.put(cake, value--);
+            value.setAt0(value.getValue0() - 1);
+            value.setAt1(value.getValue1() - cake.getBareCost());
         } else {
-            throw new Exception("Removed cake is not available.");
+            throw new IllegalArgumentException("Product removed is not available.");
         }
 
-        totalCost -= cake.getBareCost();
-        checkTotalCost();
+        bill.setTotalCost(bill.getTotalCost() - cake.getBareCost());
     }
 
-    public int getTotalCost() {
-        return this.totalCost;
+    Pair<Integer, Integer> getAmountAndCost(Cake cake) {
+        return products.get(cake);
     }
 
-    private void checkTotalCost() {
-        if (this.totalCost < 0) {
-            throw new AssertionError("Total cost is negative!");
-        }
+    public String getAmountText(Cake cake) {
+        return String.valueOf(products.get(cake).getValue0());
+    }
+
+    public String getText(Cake cake) {
+        return String.valueOf(products.get(cake).getValue1());
+    }
+
+    public String getTotalCostText(Cake cake) {
+        return String.valueOf(bill.getTotalCost());
     }
 }

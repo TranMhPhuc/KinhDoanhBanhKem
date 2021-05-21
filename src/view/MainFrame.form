@@ -1900,6 +1900,9 @@
                         </Component>
                         <Component class="javax.swing.JButton" name="button_exportBill">
                           <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Segoe UI" size="17" style="1"/>
+                            </Property>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                               <Image iconType="3" name="/img/button_export.png"/>
                             </Property>
@@ -1908,9 +1911,6 @@
                               <Color id="Hand Cursor"/>
                             </Property>
                             <Property name="focusPainted" type="boolean" value="false"/>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Segoe UI" size="17" style="1"/>
-                            </Property>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_exportBillActionPerformed"/>
