@@ -1,5 +1,6 @@
 package control;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import model.BillDetail;
 import model.Cake;
@@ -32,4 +33,9 @@ public class BillDetailController {
     public void exportBill() {
 
     }
+    
+    public void getBillData(LocalDate dateFrom, LocalDate dateTo) {
+        
+    }
+    
 }
