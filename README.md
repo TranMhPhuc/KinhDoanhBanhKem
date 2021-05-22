@@ -20,13 +20,13 @@ Tên đồ án: Quản lý cửa hàng kinh doanh bánh kem.
   - [x] Yêu cầu chất lượng
 - [ ] Phân tích
   - [ ] Mô hình hóa yêu cầu chức năng nghiệp vụ với sơ đồ Activity
-  - [x] Mô hình hóa yêu cầu chức năng hệ thống với sơ đồ Use-case
+  - [ ] Mô hình hóa yêu cầu chức năng hệ thống với sơ đồ Use-case
     - [ ] Mô tả từng Use-case
     - [ ] Phân rã biểu đồ Use-case
     - [ ] Lập biểu đồ lớp cho Use-case
   - [ ] Mô hình hóa sự tương tác với sơ đồ Sequence
-- [x] Thiết kế
-  - [x] Thiết kế cơ sở dữ liệu (lập sơ đồ ERD).
+- [ ] Thiết kế
+  - [ ] Thiết kế cơ sở dữ liệu (lập sơ đồ ERD).
   - [ ] Thiết kế các lớp chi tiết (theo mô hình 3 lớp).
   - [x] Thiết kế giao diện (đánh dấu các ảnh form giao diện).
 - [ ] Cài đặt và kết quả thực nghiệm.
