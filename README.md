@@ -14,24 +14,23 @@ Tên đồ án: Quản lý cửa hàng kinh doanh bánh kem.
 
 # TODO List
 
-- Viết đặc tả yêu cầu phần mềm
+- [x] Khảo sát hiện trạng, xác định yêu cầu
   - [x] Yêu cầu chức năng nghiệp vụ
   - [x] Yêu cầu chức năng hệ thống
   - [x] Yêu cầu chất lượng
-  - [x] Mô hình hóa sơ đồ Use-case
-  - [ ] Mô hình hóa sơ đồ ERD
-  - [x] Mô hình hóa sơ đồ các lớp model
-- Thiết kế cơ sở dữ liệu.
-  - [x] Tạo cơ sở dữ liệu.
-  - [ ] Chuẩn hóa cơ sở dữ liệu.
-  - [ ] Tạo Views, Store Procedures cần thiết.
-  - [ ] Tạo constraint để nhập liệu.
-  - [ ] Nhập dữ liệu thô.
-- [x] Tạo prototype giao diện.
-- Viết mã nguồn:
-  - XXX: chưa xác định.
-- Thực hiện kiểm thử:
-  - [ ] Unit test.
-  - [ ] Integration test.
-  - [ ] Acception test.
-  - [ ] Kiểm thử beta
+- [ ] Phân tích
+  - [ ] Mô hình hóa yêu cầu chức năng nghiệp vụ với sơ đồ Activity
+  - [x] Mô hình hóa yêu cầu chức năng hệ thống với sơ đồ Use-case
+    - [ ] Mô tả từng Use-case
+    - [ ] Phân rã biểu đồ Use-case
+    - [ ] Lập biểu đồ lớp cho Use-case
+  - [ ] Mô hình hóa sự tương tác với sơ đồ Sequence
+- [x] Thiết kế
+  - [x] Thiết kế cơ sở dữ liệu (lập sơ đồ ERD).
+  - [ ] Thiết kế các lớp chi tiết (theo mô hình 3 lớp).
+  - [x] Thiết kế giao diện (đánh dấu các ảnh form giao diện).
+- [ ] Cài đặt và kết quả thực nghiệm.
+- [ ] Tổng kết
+  - [ ] Kết quả đạt được.
+  - [ ] Đánh giá ưu khuyết điểm.
+  - [ ] Hướng phát triển trong tương lai.
