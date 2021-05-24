@@ -9,12 +9,12 @@ package view;
  *
  * @author DELL
  */
-public class StatisticManagePanel extends javax.swing.JPanel {
+public class StatisticPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form StatisticPanel
      */
-    public StatisticManagePanel() {
+    public StatisticPanel() {
         initComponents();
     }
 
