@@ -6,4 +6,6 @@ public interface UserInterface {
     
     void showInformationMessage(String message);
     
+    void showWarningMessage(String message);
+    
 }
