@@ -28,7 +28,7 @@ Tên đồ án: Quản lý cửa hàng kinh doanh bánh kem.
 - [ ] Thiết kế
   - [ ] Thiết kế cơ sở dữ liệu (lập sơ đồ ERD).
   - [ ] Thiết kế các lớp chi tiết (theo mô hình 3 lớp).
-  - [x] Thiết kế giao diện (đánh dấu các ảnh form giao diện).
+  - [ ] Thiết kế giao diện (đánh dấu các ảnh form giao diện).
 - [ ] Cài đặt và kết quả thực nghiệm.
 - [ ] Tổng kết
   - [ ] Kết quả đạt được.
