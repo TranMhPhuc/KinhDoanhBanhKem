@@ -5,8 +5,11 @@
  */
 package view.function;
 
+import javax.swing.DefaultComboBoxModel;
 import view.UserInterface;
 import javax.swing.JTable;
+import util.swing.CheckableItem;
+import util.swing.CheckedComboBox;
 
 /**
  *
@@ -19,6 +22,17 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
      */
     public EmployeeManagePanel() {
         initComponents();
+
+        CheckableItem[] m = {
+            new CheckableItem("aaa", false),
+            new CheckableItem("bb", true),
+            new CheckableItem("111", false),
+            new CheckableItem("33333", true),
+            new CheckableItem("2222", true),
+            new CheckableItem("c", false)
+        };
+        
+        checkedComboBox1.setModel(new DefaultComboBoxModel<>(m));
     }
 
     /**
@@ -57,14 +71,11 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         lable_startDate = new javax.swing.JLabel();
         lable_birthDay = new javax.swing.JLabel();
         lable_shift = new javax.swing.JLabel();
-        ckbShiftMorning = new javax.swing.JCheckBox();
-        ckbShiftNight = new javax.swing.JCheckBox();
-        ckbShiftAfternoon = new javax.swing.JCheckBox();
-        ckbShiftEvening = new javax.swing.JCheckBox();
         textfEmployeeID = new javax.swing.JTextField();
         textfEmail = new javax.swing.JTextField();
         dateChooserStartDate = new com.toedter.calendar.JDateChooser();
         dateChooserBirthday = new com.toedter.calendar.JDateChooser();
+        checkedComboBox1 = new util.swing.CheckedComboBox();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -242,22 +253,6 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         lable_shift.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lable_shift.setText("Shift");
 
-        ckbShiftMorning.setBackground(new java.awt.Color(255, 255, 255));
-        ckbShiftMorning.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        ckbShiftMorning.setText("M");
-
-        ckbShiftNight.setBackground(new java.awt.Color(255, 255, 255));
-        ckbShiftNight.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        ckbShiftNight.setText("N");
-
-        ckbShiftAfternoon.setBackground(new java.awt.Color(255, 255, 255));
-        ckbShiftAfternoon.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        ckbShiftAfternoon.setText("A");
-
-        ckbShiftEvening.setBackground(new java.awt.Color(255, 255, 255));
-        ckbShiftEvening.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        ckbShiftEvening.setText("E");
-
         textfEmployeeID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textfEmail.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -291,54 +286,44 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
                         .addComponent(textfPhoneNum, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
                         .addComponent(textfName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(textfEmployeeID, javax.swing.GroupLayout.Alignment.TRAILING)))
+                .addGap(94, 94, 94)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelInfoLayout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelInfoLayout.createSequentialGroup()
-                                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(label_email, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lable_status, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(textfEmail)
-                                    .addComponent(combStatus, 0, 241, Short.MAX_VALUE)))
-                            .addGroup(panelInfoLayout.createSequentialGroup()
-                                .addComponent(label_gender, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(rbtGenderMale)
-                                .addGap(18, 18, 18)
-                                .addComponent(rbtGenderFemale)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(panelInfoLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lable_position, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(combPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(83, 83, 83)))
-                .addGap(115, 115, 115)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelInfoLayout.createSequentialGroup()
+                        .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(label_email, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lable_status, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(textfEmail)
+                            .addComponent(combStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelInfoLayout.createSequentialGroup()
+                        .addComponent(label_gender, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbtGenderMale)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbtGenderFemale)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(89, 89, 89)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lable_startDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lable_birthDay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lable_shift, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(38, 38, 38)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoLayout.createSequentialGroup()
-                        .addComponent(ckbShiftMorning, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ckbShiftNight)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ckbShiftAfternoon)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ckbShiftEvening))
                     .addComponent(dateChooserBirthday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dateChooserStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21))
+                    .addComponent(dateChooserStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addComponent(checkedComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                .addGap(52, 52, 52))
         );
         panelInfoLayout.setVerticalGroup(
             panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInfoLayout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoLayout.createSequentialGroup()
                         .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -376,25 +361,19 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
                                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(dateChooserStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lable_startDate, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(dateChooserBirthday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lable_birthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lable_shift)
-                                    .addComponent(ckbShiftMorning)
-                                    .addComponent(ckbShiftNight)
-                                    .addComponent(ckbShiftAfternoon)
-                                    .addComponent(ckbShiftEvening))))
-                        .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelInfoLayout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(lable_status))
-                            .addGroup(panelInfoLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(combStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                                    .addComponent(checkedComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(12, 12, 12)
+                        .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lable_status)
+                            .addComponent(combStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -404,16 +383,15 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(label_searchEmp)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panelOpBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(panelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(scrollpane, javax.swing.GroupLayout.PREFERRED_SIZE, 1216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addComponent(scrollpane, javax.swing.GroupLayout.PREFERRED_SIZE, 1216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(label_searchEmp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(275, 275, 275)
+                        .addComponent(panelOpBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -459,10 +437,7 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnModify;
     private javax.swing.JButton btnRefresh;
-    private javax.swing.JCheckBox ckbShiftAfternoon;
-    private javax.swing.JCheckBox ckbShiftEvening;
-    private javax.swing.JCheckBox ckbShiftMorning;
-    private javax.swing.JCheckBox ckbShiftNight;
+    private util.swing.CheckedComboBox checkedComboBox1;
     private javax.swing.JComboBox<String> combPosition;
     private javax.swing.JComboBox<String> combStatus;
     private com.toedter.calendar.JDateChooser dateChooserBirthday;

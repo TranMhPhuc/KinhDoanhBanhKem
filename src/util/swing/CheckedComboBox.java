@@ -19,30 +19,6 @@ import javax.swing.KeyStroke;
 import javax.swing.ListModel;
 import javax.swing.plaf.basic.ComboPopup;
 
-class CheckableItem {
-
-    private final String text;
-    private boolean selected;
-
-    protected CheckableItem(String text, boolean selected) {
-        this.text = text;
-        this.selected = selected;
-    }
-
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
-
-    @Override
-    public String toString() {
-        return text;
-    }
-}
-
 public class CheckedComboBox<E extends CheckableItem> extends JComboBox<E> {
 
     private boolean keepOpen;
@@ -56,9 +32,6 @@ public class CheckedComboBox<E extends CheckableItem> extends JComboBox<E> {
         super(model);
     }
 
-    // protected CheckedComboBox(E[] m) {
-    //   super(m);
-    // }
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(200, 20);
@@ -121,13 +94,6 @@ public class CheckedComboBox<E extends CheckableItem> extends JComboBox<E> {
         if (isPopupVisible()) {
             E item = getItemAt(index);
             item.setSelected(!item.isSelected());
-            // item.selected ^= true;
-            // ComboBoxModel m = getModel();
-            // if (m instanceof CheckableComboBoxModel) {
-            //   ((CheckableComboBoxModel) m).fireContentsChanged(index);
-            // }
-            // removeItemAt(index);
-            // insertItemAt(item, index);
             setSelectedIndex(-1);
             setSelectedItem(item);
         }
@@ -141,4 +107,5 @@ public class CheckedComboBox<E extends CheckableItem> extends JComboBox<E> {
             super.setPopupVisible(v);
         }
     }
+
 }
