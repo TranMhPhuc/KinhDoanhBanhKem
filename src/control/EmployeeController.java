@@ -1,6 +1,6 @@
 package control;
 
-import view.UserInterface;
+import view.Functions.UserInterface;
 
 public class EmployeeController {
     

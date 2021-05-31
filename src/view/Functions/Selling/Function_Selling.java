@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.billView;
+package view.Functions.Selling;
 
 /**
  *
- * @author DELL
+ * @author Minh Tu
  */
-public class BillCreatePanel extends javax.swing.JPanel {
+public class Function_Selling extends javax.swing.JPanel {
 
     /**
-     * Creates new form BillCreatePanel
+     * Creates new form Function_Selling
      */
-    public BillCreatePanel() {
+    public Function_Selling() {
         initComponents();
     }
 
@@ -27,19 +27,31 @@ public class BillCreatePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        TabbedPanel = new javax.swing.JTabbedPane();
+        sellingPanel = new view.Functions.Selling.SellingPanel();
+        billHistoryPanel = new view.Functions.Selling.BillHistoryPanel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        TabbedPanel.addTab("Selling", sellingPanel);
+        TabbedPanel.addTab("Bill", billHistoryPanel);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(TabbedPanel, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(TabbedPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTabbedPane TabbedPanel;
+    private view.Functions.Selling.BillHistoryPanel billHistoryPanel;
+    private view.Functions.Selling.SellingPanel sellingPanel;
     // End of variables declaration//GEN-END:variables
 }

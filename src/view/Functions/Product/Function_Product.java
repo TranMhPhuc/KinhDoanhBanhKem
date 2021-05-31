@@ -3,18 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package view.Functions.Product;
+
+import javax.swing.JTable;
 
 /**
  *
- * @author DELL
+ * @author Minh Tu
  */
-public class ProductManagePanel extends javax.swing.JPanel {
+public class Function_Product extends javax.swing.JPanel {
 
     /**
-     * Creates new form ProductManagePanel
+     * Creates new form Function_ProductManagement
      */
-    public ProductManagePanel() {
+    public Function_Product() {
         initComponents();
     }
 
@@ -27,19 +29,33 @@ public class ProductManagePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        TabbedPanel = new javax.swing.JTabbedPane();
+        ingredientPanel = new view.Functions.Product.IngredientPanel();
+        providerPanel = new view.Functions.Product.ProviderPanel();
+        productPanel = new view.Functions.Product.ProductPanel();
+
+        TabbedPanel.setBackground(new java.awt.Color(255, 255, 255));
+        TabbedPanel.addTab("Ingredient", ingredientPanel);
+        TabbedPanel.addTab("Provider", providerPanel);
+        TabbedPanel.addTab("Product", productPanel);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(TabbedPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1232, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(TabbedPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 918, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTabbedPane TabbedPanel;
+    private view.Functions.Product.IngredientPanel ingredientPanel;
+    private view.Functions.Product.ProductPanel productPanel;
+    private view.Functions.Product.ProviderPanel providerPanel;
     // End of variables declaration//GEN-END:variables
 }
