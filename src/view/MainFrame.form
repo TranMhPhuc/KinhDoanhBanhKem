@@ -68,7 +68,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
           <SubComponents>
-            <Component class="view.Functions.Function_Employee" name="function_Employee">
+            <Component class="view.EmployeeManagePanel" name="function_Employee">
               <Properties>
                 <Property name="name" type="java.lang.String" value="Employee" noResource="true"/>
               </Properties>
@@ -78,12 +78,12 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="view.Functions.Function_Home" name="function_Home">
+            <Component class="view.HomePanel" name="function_Home">
               <Properties>
                 <Property name="name" type="java.lang.String" value="Home" noResource="true"/>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new view.Functions.Function_Home(new ImageIcon(getClass().getResource(&quot;/img/homeBackground.png&quot;)).getImage())"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new view.HomePanel(new ImageIcon(getClass().getResource(&quot;/img/homeBackground.png&quot;)).getImage())"/>
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
@@ -91,7 +91,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="view.Functions.Function_Statistics" name="function_Statistics">
+            <Component class="view.StatisticsPanel" name="function_Statistics">
               <Properties>
                 <Property name="name" type="java.lang.String" value="Statistics" noResource="true"/>
               </Properties>
@@ -101,7 +101,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="view.Functions.Product.Function_Product" name="function_Product">
+            <Component class="view.ProductManagePanel" name="function_Product">
               <Properties>
                 <Property name="name" type="java.lang.String" value="Product" noResource="true"/>
               </Properties>
@@ -111,7 +111,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="view.Functions.Selling.Function_Selling" name="function_Selling">
+            <Component class="view.BillManagePanel" name="function_Selling">
               <Properties>
                 <Property name="name" type="java.lang.String" value="Selling" noResource="true"/>
               </Properties>

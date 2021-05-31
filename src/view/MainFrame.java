@@ -33,11 +33,11 @@ public class MainFrame extends javax.swing.JFrame {
         jLayeredPane1 = new javax.swing.JLayeredPane();
         panel_Title = new view.TitleMainFrame();
         panel_Functions = new javax.swing.JPanel();
-        function_Employee = new view.Functions.Function_Employee();
-        function_Home = new view.Functions.Function_Home(new ImageIcon(getClass().getResource("/img/homeBackground.png")).getImage());
-        function_Statistics = new view.Functions.Function_Statistics();
-        function_Product = new view.Functions.Product.Function_Product();
-        function_Selling = new view.Functions.Selling.Function_Selling();
+        function_Employee = new view.EmployeeManagePanel();
+        function_Home = new view.HomePanel(new ImageIcon(getClass().getResource("/img/homeBackground.png")).getImage());
+        function_Statistics = new view.StatisticsPanel();
+        function_Product = new view.ProductManagePanel();
+        function_Selling = new view.BillManagePanel();
         panel_SideMenu = new view.SideMenuPanel(panel_Title.getLabel_title(), panel_Functions);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -136,11 +136,11 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private view.Functions.Function_Employee function_Employee;
-    private view.Functions.Function_Home function_Home;
-    private view.Functions.Product.Function_Product function_Product;
-    private view.Functions.Selling.Function_Selling function_Selling;
-    private view.Functions.Function_Statistics function_Statistics;
+    private view.EmployeeManagePanel function_Employee;
+    private view.HomePanel function_Home;
+    private view.ProductManagePanel function_Product;
+    private view.BillManagePanel function_Selling;
+    private view.StatisticsPanel function_Statistics;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel panel_Functions;
     private view.SideMenuPanel panel_SideMenu;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.Functions;
+package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,19 +15,19 @@ import javax.swing.ImageIcon;
  *
  * @author Minh Tu
  */
-public class Function_Home extends javax.swing.JPanel {
+public class HomePanel extends javax.swing.JPanel {
 //new ImageIcon(getClass().getResource("/img/edited.png")).getImage();
     /**
-     * Creates new form Function_Home
+     * Creates new form HomePanel
      *///
     private Image img;
-    public Function_Home(){
+    public HomePanel(){
         initComponents();
         this.img = null;
     }
     
  
-  public Function_Home(Image img) {
+  public HomePanel(Image img) {
     initComponents();
     this.img = img;
   }
@@ -78,7 +78,6 @@ public class Function_Home extends javax.swing.JPanel {
         panel_Revenue.setLayout(null);
 
         label_Title_Rev.setFont(new java.awt.Font("Segoe Print", 2, 28)); // NOI18N
-        label_Title_Rev.setForeground(new java.awt.Color(0, 0, 0));
         label_Title_Rev.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Title_Rev.setText("Revenue");
         panel_Revenue.add(label_Title_Rev);
@@ -107,7 +106,6 @@ public class Function_Home extends javax.swing.JPanel {
         panel_Profit.setLayout(null);
 
         label_Title_Profit.setFont(new java.awt.Font("Segoe Print", 2, 28)); // NOI18N
-        label_Title_Profit.setForeground(new java.awt.Color(0, 0, 0));
         label_Title_Profit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Title_Profit.setText("Profit");
         panel_Profit.add(label_Title_Profit);
@@ -136,7 +134,6 @@ public class Function_Home extends javax.swing.JPanel {
         panel_Bills.setLayout(null);
 
         label_Title_Bills.setFont(new java.awt.Font("Segoe Print", 2, 28)); // NOI18N
-        label_Title_Bills.setForeground(new java.awt.Color(0, 0, 0));
         label_Title_Bills.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Title_Bills.setText("Bills");
         panel_Bills.add(label_Title_Bills);
@@ -171,7 +168,6 @@ public class Function_Home extends javax.swing.JPanel {
         panel_Employee.setLayout(null);
 
         label_Title_Employee.setFont(new java.awt.Font("Segoe Print", 2, 28)); // NOI18N
-        label_Title_Employee.setForeground(new java.awt.Color(0, 0, 0));
         label_Title_Employee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Title_Employee.setText("Employee");
         panel_Employee.add(label_Title_Employee);
@@ -200,7 +196,6 @@ public class Function_Home extends javax.swing.JPanel {
         panel_CakeType.setLayout(null);
 
         label_Title_CakeType.setFont(new java.awt.Font("Segoe Print", 2, 28)); // NOI18N
-        label_Title_CakeType.setForeground(new java.awt.Color(0, 0, 0));
         label_Title_CakeType.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Title_CakeType.setText("Cake type");
         panel_CakeType.add(label_Title_CakeType);
