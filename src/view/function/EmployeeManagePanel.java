@@ -23,16 +23,15 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
     public EmployeeManagePanel() {
         initComponents();
 
-//        CheckableItem[] m = {
-//            new CheckableItem("aaa", false),
-//            new CheckableItem("bb", true),
-//            new CheckableItem("111", false),
-//            new CheckableItem("33333", true),
-//            new CheckableItem("2222", true),
-//            new CheckableItem("c", false)
-//        };
-//        
-//        checkedComboBox1.setModel(new DefaultComboBoxModel<>(m));
+        // Sample code for check combobox
+        CheckableItem[] m = {
+            new CheckableItem("Sáng", true),
+            new CheckableItem("Trưa", false),
+            new CheckableItem("Chiều", false),
+            new CheckableItem("Tối", false),
+        };
+        
+        combShift.setModel(new DefaultComboBoxModel<>(m));
     }
 
     /**
