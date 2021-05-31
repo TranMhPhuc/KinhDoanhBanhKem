@@ -255,17 +255,17 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="panel_Login" alignment="0" max="32767" attributes="0"/>
+          <Component id="panelLogin" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="panel_Login" alignment="0" max="32767" attributes="0"/>
+          <Component id="panelLogin" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="panel_Login">
+    <Container class="javax.swing.JPanel" name="panelLogin">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -305,16 +305,16 @@
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="button_signIn" alignment="1" pref="355" max="32767" attributes="0"/>
+                              <Component id="btnSignIn" alignment="1" pref="355" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="button_forgotPassword" min="-2" pref="157" max="-2" attributes="0"/>
+                                          <Component id="btnForgotPassword" min="-2" pref="157" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="checkbox_ShowPassword" min="-2" max="-2" attributes="0"/>
+                                          <Component id="ckbShowPassword" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="passwordField_Password" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="textField_username" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="passfPassword" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="textfUsername" alignment="1" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -348,7 +348,7 @@
                   <Component id="label_email" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="textField_username" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textfUsername" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="label_imgUser" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -356,15 +356,15 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="label_imgPass" min="-2" max="-2" attributes="0"/>
-                      <Component id="passwordField_Password" min="-2" max="-2" attributes="0"/>
+                      <Component id="passfPassword" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="checkbox_ShowPassword" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="button_forgotPassword" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="ckbShowPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnForgotPassword" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="button_signIn" min="-2" pref="56" max="-2" attributes="0"/>
+                  <Component id="btnSignIn" min="-2" pref="56" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -417,7 +417,7 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textField_username">
+        <Component class="javax.swing.JTextField" name="textfUsername">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="0"/>
@@ -439,14 +439,14 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JPasswordField" name="passwordField_Password">
+        <Component class="javax.swing.JPasswordField" name="passfPassword">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="checkbox_ShowPassword">
+        <Component class="javax.swing.JCheckBox" name="ckbShowPassword">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -458,7 +458,7 @@
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="button_signIn">
+        <Component class="javax.swing.JButton" name="btnSignIn">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/img/buttonIMG_signIn.png"/>
@@ -470,10 +470,10 @@
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_signInActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSignInActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="button_forgotPassword">
+        <Component class="javax.swing.JButton" name="btnForgotPassword">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="66" red="33" type="rgb"/>
@@ -493,7 +493,7 @@
             <Property name="horizontalAlignment" type="int" value="10"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_forgotPasswordActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnForgotPasswordActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

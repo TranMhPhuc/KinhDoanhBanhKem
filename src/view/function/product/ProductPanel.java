@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.Functions.Product;
+package view.function.product;
 
 import javax.swing.JTable;
 

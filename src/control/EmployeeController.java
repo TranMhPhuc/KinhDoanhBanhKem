@@ -4,7 +4,7 @@ package control;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import view.Functions.UserInterface;
+import view.UserInterface;
 
 
 public class EmployeeController {

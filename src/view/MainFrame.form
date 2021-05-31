@@ -38,14 +38,14 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="panel_SideMenu" alignment="0" min="-2" max="-2" attributes="0"/>
+              <Component id="panelSideMenu" alignment="0" min="-2" max="-2" attributes="0"/>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                  <Component id="panel_Functions" min="-2" max="-2" attributes="0"/>
+                  <Component id="panelManage" min="-2" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
-                  <Component id="panel_Title" min="-2" pref="1246" max="-2" attributes="0"/>
+                  <Component id="panelTitle" min="-2" pref="1246" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -53,22 +53,22 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="panel_Title" min="-2" max="-2" attributes="0"/>
+                  <Component id="panelTitle" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                  <Component id="panel_Functions" min="-2" max="-2" attributes="0"/>
+                  <Component id="panelManage" min="-2" max="-2" attributes="0"/>
               </Group>
-              <Component id="panel_SideMenu" max="32767" attributes="0"/>
+              <Component id="panelSideMenu" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="view.TitleMainFrame" name="panel_Title">
+        <Component class="view.TitleMainFrame" name="panelTitle">
         </Component>
-        <Container class="javax.swing.JPanel" name="panel_Functions">
+        <Container class="javax.swing.JPanel" name="panelManage">
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
           <SubComponents>
-            <Component class="view.Functions.Function_Employee" name="function_Employee">
+            <Component class="view.function.EmployeeManagePanel" name="panelEmployeeManage">
               <Properties>
                 <Property name="name" type="java.lang.String" value="Employee" noResource="true"/>
               </Properties>
@@ -78,12 +78,12 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="view.Functions.Function_Home" name="function_Home">
+            <Component class="view.function.HomePanel" name="panelHome">
               <Properties>
                 <Property name="name" type="java.lang.String" value="Home" noResource="true"/>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new view.Functions.Function_Home(new ImageIcon(getClass().getResource(&quot;/img/homeBackground.png&quot;)).getImage())"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new view.function.HomePanel(new ImageIcon(getClass().getResource(&quot;/img/homeBackground.png&quot;)).getImage())"/>
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
@@ -91,7 +91,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="view.Functions.Function_Statistics" name="function_Statistics">
+            <Component class="view.function.StatisticsPanel" name="panelStatistics">
               <Properties>
                 <Property name="name" type="java.lang.String" value="Statistics" noResource="true"/>
               </Properties>
@@ -101,7 +101,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="view.Functions.Product.Function_Product" name="function_Product">
+            <Component class="view.function.product.ProductManagePanel" name="panelProduct">
               <Properties>
                 <Property name="name" type="java.lang.String" value="Product" noResource="true"/>
               </Properties>
@@ -111,7 +111,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="view.Functions.Selling.Function_Selling" name="function_Selling">
+            <Component class="view.function.selling.SellManagePanel" name="panelSelling">
               <Properties>
                 <Property name="name" type="java.lang.String" value="Selling" noResource="true"/>
               </Properties>
@@ -123,10 +123,10 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="view.SideMenuPanel" name="panel_SideMenu">
+        <Component class="view.SideMenuPanel" name="panelSideMenu">
           <AuxValues>
             <AuxValue name="JLayeredPane.layer" type="java.lang.Integer" value="400"/>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new view.SideMenuPanel(panel_Title.getLabel_title(), panel_Functions)"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new view.SideMenuPanel(panelTitle.getLabel_title(), panelManage)"/>
           </AuxValues>
         </Component>
       </SubComponents>

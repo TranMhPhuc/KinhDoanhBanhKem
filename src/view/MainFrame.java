@@ -18,7 +18,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
-        panel_SideMenu.showCardMenu("Home");
+        panelSideMenu.showCardMenu("Home");
     }
 
     /**
@@ -31,58 +31,58 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        panel_Title = new view.TitleMainFrame();
-        panel_Functions = new javax.swing.JPanel();
-        function_Employee = new view.Functions.Function_Employee();
-        function_Home = new view.Functions.Function_Home(new ImageIcon(getClass().getResource("/img/homeBackground.png")).getImage());
-        function_Statistics = new view.Functions.Function_Statistics();
-        function_Product = new view.Functions.Product.Function_Product();
-        function_Selling = new view.Functions.Selling.Function_Selling();
-        panel_SideMenu = new view.SideMenuPanel(panel_Title.getLabel_title(), panel_Functions);
+        panelTitle = new view.TitleMainFrame();
+        panelManage = new javax.swing.JPanel();
+        panelEmployeeManage = new view.function.EmployeeManagePanel();
+        panelHome = new view.function.HomePanel(new ImageIcon(getClass().getResource("/img/homeBackground.png")).getImage());
+        panelStatistics = new view.function.StatisticsPanel();
+        panelProduct = new view.function.product.ProductManagePanel();
+        panelSelling = new view.function.selling.SellManagePanel();
+        panelSideMenu = new view.SideMenuPanel(panelTitle.getLabel_title(), panelManage);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panel_Functions.setLayout(new java.awt.CardLayout());
+        panelManage.setLayout(new java.awt.CardLayout());
 
-        function_Employee.setName("Employee"); // NOI18N
-        panel_Functions.add(function_Employee, "Employee");
+        panelEmployeeManage.setName("Employee"); // NOI18N
+        panelManage.add(panelEmployeeManage, "Employee");
 
-        function_Home.setName("Home"); // NOI18N
-        panel_Functions.add(function_Home, "Home");
+        panelHome.setName("Home"); // NOI18N
+        panelManage.add(panelHome, "Home");
 
-        function_Statistics.setName("Statistics"); // NOI18N
-        panel_Functions.add(function_Statistics, "Statistics");
+        panelStatistics.setName("Statistics"); // NOI18N
+        panelManage.add(panelStatistics, "Statistics");
 
-        function_Product.setName("Product"); // NOI18N
-        panel_Functions.add(function_Product, "Product");
+        panelProduct.setName("Product"); // NOI18N
+        panelManage.add(panelProduct, "Product");
 
-        function_Selling.setName("Selling"); // NOI18N
-        panel_Functions.add(function_Selling, "Selling");
+        panelSelling.setName("Selling"); // NOI18N
+        panelManage.add(panelSelling, "Selling");
 
-        jLayeredPane1.setLayer(panel_Title, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(panel_Functions, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(panel_SideMenu, javax.swing.JLayeredPane.DRAG_LAYER);
+        jLayeredPane1.setLayer(panelTitle, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelManage, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelSideMenu, javax.swing.JLayeredPane.DRAG_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_SideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelSideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
-                .addComponent(panel_Functions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(panelManage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addGap(64, 64, 64)
-                .addComponent(panel_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 1246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(panelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 1246, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(panel_Title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(panel_Functions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(panel_SideMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelManage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(panelSideMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -136,14 +136,14 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private view.Functions.Function_Employee function_Employee;
-    private view.Functions.Function_Home function_Home;
-    private view.Functions.Product.Function_Product function_Product;
-    private view.Functions.Selling.Function_Selling function_Selling;
-    private view.Functions.Function_Statistics function_Statistics;
     private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JPanel panel_Functions;
-    private view.SideMenuPanel panel_SideMenu;
-    private view.TitleMainFrame panel_Title;
+    private view.function.EmployeeManagePanel panelEmployeeManage;
+    private view.function.HomePanel panelHome;
+    private javax.swing.JPanel panelManage;
+    private view.function.product.ProductManagePanel panelProduct;
+    private view.function.selling.SellManagePanel panelSelling;
+    private view.SideMenuPanel panelSideMenu;
+    private view.function.StatisticsPanel panelStatistics;
+    private view.TitleMainFrame panelTitle;
     // End of variables declaration//GEN-END:variables
 }

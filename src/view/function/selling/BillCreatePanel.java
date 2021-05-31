@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.Functions.Selling;
+package view.function.selling;
 
 /**
  *
  * @author Minh Tu
  */
-public class SellingPanel extends javax.swing.JPanel {
+public class BillCreatePanel extends javax.swing.JPanel {
 
     /**
      * Creates new form SellingPanel
      */
-    public SellingPanel() {
+    public BillCreatePanel() {
         initComponents();
     }
 

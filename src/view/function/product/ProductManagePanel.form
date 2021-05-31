@@ -35,7 +35,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Component class="view.Functions.Product.IngredientPanel" name="ingredientPanel">
+        <Component class="view.function.product.IngredientPanel" name="ingredientPanel">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Ingredient">
@@ -44,7 +44,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="view.Functions.Product.ProviderPanel" name="providerPanel">
+        <Component class="view.function.product.ProviderPanel" name="providerPanel">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Provider">
@@ -53,7 +53,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="view.Functions.Product.ProductPanel" name="productPanel">
+        <Component class="view.function.product.ProductPanel" name="productPanel">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Product">

@@ -3,18 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.Functions.Selling;
+package view.function.product;
+
+import javax.swing.JTable;
 
 /**
  *
  * @author Minh Tu
  */
-public class Function_Selling extends javax.swing.JPanel {
+public class ProductManagePanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form Function_Selling
+     * Creates new form Function_ProductManagement
      */
-    public Function_Selling() {
+    public ProductManagePanel() {
         initComponents();
     }
 
@@ -28,30 +30,32 @@ public class Function_Selling extends javax.swing.JPanel {
     private void initComponents() {
 
         TabbedPanel = new javax.swing.JTabbedPane();
-        sellingPanel = new view.Functions.Selling.SellingPanel();
-        billHistoryPanel = new view.Functions.Selling.BillHistoryPanel();
+        ingredientPanel = new view.function.product.IngredientPanel();
+        providerPanel = new view.function.product.ProviderPanel();
+        productPanel = new view.function.product.ProductPanel();
 
-        setBackground(new java.awt.Color(255, 255, 255));
-
-        TabbedPanel.addTab("Selling", sellingPanel);
-        TabbedPanel.addTab("Bill", billHistoryPanel);
+        TabbedPanel.setBackground(new java.awt.Color(255, 255, 255));
+        TabbedPanel.addTab("Ingredient", ingredientPanel);
+        TabbedPanel.addTab("Provider", providerPanel);
+        TabbedPanel.addTab("Product", productPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TabbedPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1239, Short.MAX_VALUE)
+            .addComponent(TabbedPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1232, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TabbedPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE)
+            .addComponent(TabbedPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 918, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane TabbedPanel;
-    private view.Functions.Selling.BillHistoryPanel billHistoryPanel;
-    private view.Functions.Selling.SellingPanel sellingPanel;
+    private view.function.product.IngredientPanel ingredientPanel;
+    private view.function.product.ProductPanel productPanel;
+    private view.function.product.ProviderPanel providerPanel;
     // End of variables declaration//GEN-END:variables
 }

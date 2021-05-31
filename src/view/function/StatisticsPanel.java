@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.Functions;
+package view.function;
 
 /**
  *
  * @author Minh Tu
  */
-public class Function_Statistics extends javax.swing.JPanel {
+public class StatisticsPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form Function_Statistics
      */
-    public Function_Statistics() {
+    public StatisticsPanel() {
         initComponents();
     }
 

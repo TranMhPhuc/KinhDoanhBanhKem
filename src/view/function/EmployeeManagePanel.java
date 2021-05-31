@@ -3,20 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.Functions;
+package view.function;
 
+import view.UserInterface;
 import javax.swing.JTable;
 
 /**
  *
  * @author DELL
  */
-public class Function_Employee extends javax.swing.JPanel implements UserInterface {
+public class EmployeeManagePanel extends javax.swing.JPanel implements UserInterface {
 
     /**
      * Creates new form ManageEmployeePanel
      */
-    public Function_Employee() {
+    public EmployeeManagePanel() {
         initComponents();
     }
 
