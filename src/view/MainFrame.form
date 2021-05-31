@@ -111,7 +111,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="view.function.selling.SellManagePanel" name="panelSelling">
+            <Component class="view.function.bill.BillManagePanel" name="panelBill">
               <Properties>
                 <Property name="name" type="java.lang.String" value="Selling" noResource="true"/>
               </Properties>

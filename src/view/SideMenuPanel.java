@@ -88,19 +88,19 @@ public class SideMenuPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panel_longButton = new javax.swing.JPanel();
-        button_Home = new javax.swing.JButton();
-        button_Selling = new javax.swing.JButton();
-        button_Statistics = new javax.swing.JButton();
-        button_Management = new javax.swing.JButton();
-        button_Employee = new javax.swing.JButton();
-        panel_IconButton = new javax.swing.JPanel();
-        button_IconHome = new javax.swing.JButton();
-        button_IconSelling = new javax.swing.JButton();
-        button_IconStatistics = new javax.swing.JButton();
-        button_IconManagement = new javax.swing.JButton();
-        button_IconEmployee = new javax.swing.JButton();
-        button_signOut = new javax.swing.JButton();
+        panelLongButton = new javax.swing.JPanel();
+        btnHome = new javax.swing.JButton();
+        btnSelling = new javax.swing.JButton();
+        btnStatistics = new javax.swing.JButton();
+        btnManagement = new javax.swing.JButton();
+        btnEmployee = new javax.swing.JButton();
+        panelIconButton = new javax.swing.JPanel();
+        btnIconHome = new javax.swing.JButton();
+        btnIconSelling = new javax.swing.JButton();
+        btnIconStatistics = new javax.swing.JButton();
+        btnIconManagement = new javax.swing.JButton();
+        btnIconEmployee = new javax.swing.JButton();
+        btnSignOut = new javax.swing.JButton();
         label_EmpName = new javax.swing.JLabel();
         label_GreetingsAndPos = new javax.swing.JLabel();
         label_Menu = new javax.swing.JLabel();
@@ -113,113 +113,113 @@ public class SideMenuPanel extends javax.swing.JPanel {
             }
         });
 
-        panel_longButton.setBackground(new java.awt.Color(204, 204, 204));
-        panel_longButton.setForeground(new java.awt.Color(204, 204, 204));
-        panel_longButton.setLayout(new java.awt.GridLayout(0, 1, 0, 60));
+        panelLongButton.setBackground(new java.awt.Color(204, 204, 204));
+        panelLongButton.setForeground(new java.awt.Color(204, 204, 204));
+        panelLongButton.setLayout(new java.awt.GridLayout(0, 1, 0, 60));
 
-        button_Home.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Selected_Home.png"))); // NOI18N
-        button_Home.setBorder(null);
-        button_Home.setBorderPainted(false);
-        button_Home.setContentAreaFilled(false);
-        button_Home.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_Home.setFocusPainted(false);
-        button_Home.setName("HOME_MENU"); // NOI18N
-        panel_longButton.add(button_Home);
+        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Selected_Home.png"))); // NOI18N
+        btnHome.setBorder(null);
+        btnHome.setBorderPainted(false);
+        btnHome.setContentAreaFilled(false);
+        btnHome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnHome.setFocusPainted(false);
+        btnHome.setName("HOME_MENU"); // NOI18N
+        panelLongButton.add(btnHome);
 
-        button_Selling.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Unselected_Selling.png"))); // NOI18N
-        button_Selling.setBorder(null);
-        button_Selling.setBorderPainted(false);
-        button_Selling.setContentAreaFilled(false);
-        button_Selling.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_Selling.setFocusPainted(false);
-        button_Selling.setName("SELLING_MENU"); // NOI18N
-        button_Selling.addActionListener(new java.awt.event.ActionListener() {
+        btnSelling.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Unselected_Selling.png"))); // NOI18N
+        btnSelling.setBorder(null);
+        btnSelling.setBorderPainted(false);
+        btnSelling.setContentAreaFilled(false);
+        btnSelling.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSelling.setFocusPainted(false);
+        btnSelling.setName("SELLING_MENU"); // NOI18N
+        btnSelling.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_SellingActionPerformed(evt);
+                btnSellingActionPerformed(evt);
             }
         });
-        panel_longButton.add(button_Selling);
+        panelLongButton.add(btnSelling);
 
-        button_Statistics.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Unselected_Statistics.png"))); // NOI18N
-        button_Statistics.setBorder(null);
-        button_Statistics.setBorderPainted(false);
-        button_Statistics.setContentAreaFilled(false);
-        button_Statistics.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_Statistics.setFocusPainted(false);
-        button_Statistics.setName("STATISTICS_MENU"); // NOI18N
-        panel_longButton.add(button_Statistics);
+        btnStatistics.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Unselected_Statistics.png"))); // NOI18N
+        btnStatistics.setBorder(null);
+        btnStatistics.setBorderPainted(false);
+        btnStatistics.setContentAreaFilled(false);
+        btnStatistics.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnStatistics.setFocusPainted(false);
+        btnStatistics.setName("STATISTICS_MENU"); // NOI18N
+        panelLongButton.add(btnStatistics);
 
-        button_Management.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Unselected_Management.png"))); // NOI18N
-        button_Management.setBorder(null);
-        button_Management.setBorderPainted(false);
-        button_Management.setContentAreaFilled(false);
-        button_Management.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_Management.setFocusPainted(false);
-        button_Management.setName("PRODUCT_MENU"); // NOI18N
-        panel_longButton.add(button_Management);
+        btnManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Unselected_Management.png"))); // NOI18N
+        btnManagement.setBorder(null);
+        btnManagement.setBorderPainted(false);
+        btnManagement.setContentAreaFilled(false);
+        btnManagement.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnManagement.setFocusPainted(false);
+        btnManagement.setName("PRODUCT_MENU"); // NOI18N
+        panelLongButton.add(btnManagement);
 
-        button_Employee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Unselected_Employee.png"))); // NOI18N
-        button_Employee.setBorder(null);
-        button_Employee.setBorderPainted(false);
-        button_Employee.setContentAreaFilled(false);
-        button_Employee.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_Employee.setFocusPainted(false);
-        button_Employee.setName("EMPLOYEE_MENU"); // NOI18N
-        panel_longButton.add(button_Employee);
+        btnEmployee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Unselected_Employee.png"))); // NOI18N
+        btnEmployee.setBorder(null);
+        btnEmployee.setBorderPainted(false);
+        btnEmployee.setContentAreaFilled(false);
+        btnEmployee.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEmployee.setFocusPainted(false);
+        btnEmployee.setName("EMPLOYEE_MENU"); // NOI18N
+        panelLongButton.add(btnEmployee);
 
-        panel_IconButton.setBackground(new java.awt.Color(204, 204, 204));
-        panel_IconButton.setForeground(new java.awt.Color(204, 204, 204));
-        panel_IconButton.setLayout(new java.awt.GridLayout(0, 1, 0, 60));
+        panelIconButton.setBackground(new java.awt.Color(204, 204, 204));
+        panelIconButton.setForeground(new java.awt.Color(204, 204, 204));
+        panelIconButton.setLayout(new java.awt.GridLayout(0, 1, 0, 60));
 
-        button_IconHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/selectedHome_45px.png"))); // NOI18N
-        button_IconHome.setContentAreaFilled(false);
-        button_IconHome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_IconHome.setFocusPainted(false);
-        button_IconHome.setName("HOME_ICON"); // NOI18N
-        panel_IconButton.add(button_IconHome);
+        btnIconHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/selectedHome_45px.png"))); // NOI18N
+        btnIconHome.setContentAreaFilled(false);
+        btnIconHome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIconHome.setFocusPainted(false);
+        btnIconHome.setName("HOME_ICON"); // NOI18N
+        panelIconButton.add(btnIconHome);
 
-        button_IconSelling.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/unselectedSelling_45px.png"))); // NOI18N
-        button_IconSelling.setContentAreaFilled(false);
-        button_IconSelling.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_IconSelling.setFocusPainted(false);
-        button_IconSelling.setName("SELLING_ICON"); // NOI18N
-        panel_IconButton.add(button_IconSelling);
+        btnIconSelling.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/unselectedSelling_45px.png"))); // NOI18N
+        btnIconSelling.setContentAreaFilled(false);
+        btnIconSelling.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIconSelling.setFocusPainted(false);
+        btnIconSelling.setName("SELLING_ICON"); // NOI18N
+        panelIconButton.add(btnIconSelling);
 
-        button_IconStatistics.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/unselectedStatistics_45px.png"))); // NOI18N
-        button_IconStatistics.setContentAreaFilled(false);
-        button_IconStatistics.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_IconStatistics.setFocusPainted(false);
-        button_IconStatistics.setName("STATISTICS_ICON"); // NOI18N
-        panel_IconButton.add(button_IconStatistics);
+        btnIconStatistics.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/unselectedStatistics_45px.png"))); // NOI18N
+        btnIconStatistics.setContentAreaFilled(false);
+        btnIconStatistics.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIconStatistics.setFocusPainted(false);
+        btnIconStatistics.setName("STATISTICS_ICON"); // NOI18N
+        panelIconButton.add(btnIconStatistics);
 
-        button_IconManagement.setBackground(new java.awt.Color(204, 204, 204));
-        button_IconManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/unselectedManagement_45px.png"))); // NOI18N
-        button_IconManagement.setContentAreaFilled(false);
-        button_IconManagement.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_IconManagement.setFocusPainted(false);
-        button_IconManagement.setName("PRODUCT_ICON"); // NOI18N
-        panel_IconButton.add(button_IconManagement);
+        btnIconManagement.setBackground(new java.awt.Color(204, 204, 204));
+        btnIconManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/unselectedManagement_45px.png"))); // NOI18N
+        btnIconManagement.setContentAreaFilled(false);
+        btnIconManagement.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIconManagement.setFocusPainted(false);
+        btnIconManagement.setName("PRODUCT_ICON"); // NOI18N
+        panelIconButton.add(btnIconManagement);
 
-        button_IconEmployee.setBackground(new java.awt.Color(204, 204, 204));
-        button_IconEmployee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/unselectedEmployee_45px.png"))); // NOI18N
-        button_IconEmployee.setContentAreaFilled(false);
-        button_IconEmployee.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_IconEmployee.setFocusPainted(false);
-        button_IconEmployee.setName("EMPLOYEE_ICON"); // NOI18N
-        panel_IconButton.add(button_IconEmployee);
+        btnIconEmployee.setBackground(new java.awt.Color(204, 204, 204));
+        btnIconEmployee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/unselectedEmployee_45px.png"))); // NOI18N
+        btnIconEmployee.setContentAreaFilled(false);
+        btnIconEmployee.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIconEmployee.setFocusPainted(false);
+        btnIconEmployee.setName("EMPLOYEE_ICON"); // NOI18N
+        panelIconButton.add(btnIconEmployee);
 
-        button_signOut.setBackground(new java.awt.Color(255, 255, 255));
-        button_signOut.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
-        button_signOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buttonIMG_signOut.png"))); // NOI18N
-        button_signOut.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        button_signOut.setBorderPainted(false);
-        button_signOut.setContentAreaFilled(false);
-        button_signOut.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_signOut.setFocusPainted(false);
-        button_signOut.setPreferredSize(new java.awt.Dimension(75, 25));
-        button_signOut.addActionListener(new java.awt.event.ActionListener() {
+        btnSignOut.setBackground(new java.awt.Color(255, 255, 255));
+        btnSignOut.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
+        btnSignOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buttonIMG_signOut.png"))); // NOI18N
+        btnSignOut.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnSignOut.setBorderPainted(false);
+        btnSignOut.setContentAreaFilled(false);
+        btnSignOut.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSignOut.setFocusPainted(false);
+        btnSignOut.setPreferredSize(new java.awt.Dimension(75, 25));
+        btnSignOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_signOutActionPerformed(evt);
+                btnSignOutActionPerformed(evt);
             }
         });
 
@@ -253,19 +253,19 @@ public class SideMenuPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(panel_IconButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panelIconButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panel_longButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(panelLongButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(label_Menu)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(label_EmpName, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(label_GreetingsAndPos, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(button_signOut, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSignOut, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(69, 69, 69))
         );
         layout.setVerticalGroup(
@@ -282,10 +282,10 @@ public class SideMenuPanel extends javax.swing.JPanel {
                         .addComponent(label_Menu)))
                 .addGap(76, 76, 76)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_IconButton, javax.swing.GroupLayout.PREFERRED_SIZE, 698, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panel_longButton, javax.swing.GroupLayout.PREFERRED_SIZE, 698, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelIconButton, javax.swing.GroupLayout.PREFERRED_SIZE, 698, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelLongButton, javax.swing.GroupLayout.PREFERRED_SIZE, 698, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addComponent(button_signOut, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSignOut, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -293,15 +293,15 @@ public class SideMenuPanel extends javax.swing.JPanel {
     
     
     private void customButtonInit(){
-        imageButtonIcon set1 = new imageButtonIcon(button_IconHome, button_Home, "/img/unselectedHome_45px.png",
+        imageButtonIcon set1 = new imageButtonIcon(btnIconHome, btnHome, "/img/unselectedHome_45px.png",
             "/img/Unselected_Home.png", "/img/selectedHome_45px.png", "/img/Selected_Home.png");
-        imageButtonIcon set2 = new imageButtonIcon(button_IconSelling, button_Selling, "/img/unselectedSelling_45px.png",
+        imageButtonIcon set2 = new imageButtonIcon(btnIconSelling, btnSelling, "/img/unselectedSelling_45px.png",
             "/img/Unselected_Selling.png", "/img/selectedSelling_45px.png", "/img/Selected_Selling.png");
-        imageButtonIcon set3 = new imageButtonIcon(button_IconStatistics, button_Statistics, "/img/unselectedStatistics_45px.png",
+        imageButtonIcon set3 = new imageButtonIcon(btnIconStatistics, btnStatistics, "/img/unselectedStatistics_45px.png",
             "/img/Unselected_Statistics.png", "/img/selectedStatistics_45px.png", "/img/Selected_Statistics.png");
-        imageButtonIcon set4 = new imageButtonIcon(button_IconManagement, button_Management, "/img/unselectedManagement_45px.png",
+        imageButtonIcon set4 = new imageButtonIcon(btnIconManagement, btnManagement, "/img/unselectedManagement_45px.png",
             "/img/Unselected_Management.png", "/img/selectedManagement_45px.png", "/img/Selected_Management.png");
-        imageButtonIcon set5 = new imageButtonIcon(button_IconEmployee, button_Employee, "/img/unselectedEmployee_45px.png",
+        imageButtonIcon set5 = new imageButtonIcon(btnIconEmployee, btnEmployee, "/img/unselectedEmployee_45px.png",
             "/img/Unselected_Employee.png", "/img/selectedEmployee_45px.png", "/img/Selected_Employee.png");
         
         buttonList = new imageButtonIcon[]{set1, set2, set3, set4, set5};
@@ -343,20 +343,20 @@ public class SideMenuPanel extends javax.swing.JPanel {
     }
     
     private void setALForButtons(){
-        button_IconHome.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.HOME, true));
-        button_Home.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.HOME, false));
+        btnIconHome.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.HOME, true));
+        btnHome.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.HOME, false));
         
-        button_IconSelling.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.SELLING, true));
-        button_Selling.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.SELLING, false));
+        btnIconSelling.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.SELLING, true));
+        btnSelling.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.SELLING, false));
         
-        button_IconStatistics.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.STATISTICS, true));
-        button_Statistics.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.STATISTICS, false));
+        btnIconStatistics.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.STATISTICS, true));
+        btnStatistics.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.STATISTICS, false));
         
-        button_IconManagement.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.PRODUCT, true));
-        button_Management.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.PRODUCT, false));
+        btnIconManagement.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.PRODUCT, true));
+        btnManagement.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.PRODUCT, false));
         
-        button_IconEmployee.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.EMPLOYEE, true));
-        button_Employee.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.EMPLOYEE, false));
+        btnIconEmployee.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.EMPLOYEE, true));
+        btnEmployee.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.EMPLOYEE, false));
         
         
     }
@@ -449,9 +449,9 @@ public class SideMenuPanel extends javax.swing.JPanel {
             setPreferredSize(new Dimension(SIDE_MENU_CLOSED_WIDTH, getHeight()));
         }
     }
-    private void button_signOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_signOutActionPerformed
+    private void btnSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignOutActionPerformed
      
-    }//GEN-LAST:event_button_signOutActionPerformed
+    }//GEN-LAST:event_btnSignOutActionPerformed
 
     private void label_EmpNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_EmpNameMousePressed
        
@@ -461,27 +461,27 @@ public class SideMenuPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_formMouseEntered
 
-    private void button_SellingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_SellingActionPerformed
+    private void btnSellingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSellingActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_button_SellingActionPerformed
+    }//GEN-LAST:event_btnSellingActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton button_Employee;
-    private javax.swing.JButton button_Home;
-    private javax.swing.JButton button_IconEmployee;
-    private javax.swing.JButton button_IconHome;
-    private javax.swing.JButton button_IconManagement;
-    private javax.swing.JButton button_IconSelling;
-    private javax.swing.JButton button_IconStatistics;
-    private javax.swing.JButton button_Management;
-    private javax.swing.JButton button_Selling;
-    private javax.swing.JButton button_Statistics;
-    private javax.swing.JButton button_signOut;
+    private javax.swing.JButton btnEmployee;
+    private javax.swing.JButton btnHome;
+    private javax.swing.JButton btnIconEmployee;
+    private javax.swing.JButton btnIconHome;
+    private javax.swing.JButton btnIconManagement;
+    private javax.swing.JButton btnIconSelling;
+    private javax.swing.JButton btnIconStatistics;
+    private javax.swing.JButton btnManagement;
+    private javax.swing.JButton btnSelling;
+    private javax.swing.JButton btnSignOut;
+    private javax.swing.JButton btnStatistics;
     private javax.swing.JLabel label_EmpName;
     private javax.swing.JLabel label_GreetingsAndPos;
     private javax.swing.JLabel label_Menu;
-    private javax.swing.JPanel panel_IconButton;
-    private javax.swing.JPanel panel_longButton;
+    private javax.swing.JPanel panelIconButton;
+    private javax.swing.JPanel panelLongButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -35,7 +35,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Component class="view.function.selling.BillCreatePanel" name="sellingPanel">
+        <Component class="view.function.bill.BillCreatePanel" name="sellingPanel">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Selling">
@@ -44,7 +44,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="view.function.selling.BillHistoryPanel" name="billHistoryPanel">
+        <Component class="view.function.bill.BillHistoryPanel" name="billHistoryPanel">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Bill">

@@ -37,7 +37,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelHome = new view.function.HomePanel(new ImageIcon(getClass().getResource("/img/homeBackground.png")).getImage());
         panelStatistics = new view.function.StatisticsPanel();
         panelProduct = new view.function.product.ProductManagePanel();
-        panelSelling = new view.function.selling.SellManagePanel();
+        panelBill = new view.function.bill.BillManagePanel();
         panelSideMenu = new view.SideMenuPanel(panelTitle.getLabel_title(), panelManage);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,8 +56,8 @@ public class MainFrame extends javax.swing.JFrame {
         panelProduct.setName("Product"); // NOI18N
         panelManage.add(panelProduct, "Product");
 
-        panelSelling.setName("Selling"); // NOI18N
-        panelManage.add(panelSelling, "Selling");
+        panelBill.setName("Selling"); // NOI18N
+        panelManage.add(panelBill, "Selling");
 
         jLayeredPane1.setLayer(panelTitle, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(panelManage, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -137,11 +137,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane jLayeredPane1;
+    private view.function.bill.BillManagePanel panelBill;
     private view.function.EmployeeManagePanel panelEmployeeManage;
     private view.function.HomePanel panelHome;
     private javax.swing.JPanel panelManage;
     private view.function.product.ProductManagePanel panelProduct;
-    private view.function.selling.SellManagePanel panelSelling;
     private view.SideMenuPanel panelSideMenu;
     private view.function.StatisticsPanel panelStatistics;
     private view.TitleMainFrame panelTitle;

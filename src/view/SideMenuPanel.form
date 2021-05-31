@@ -31,9 +31,9 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="panel_IconButton" min="-2" pref="57" max="-2" attributes="0"/>
+                      <Component id="panelIconButton" min="-2" pref="57" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="panel_longButton" max="32767" attributes="0"/>
+                      <Component id="panelLongButton" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="label_Menu" min="-2" max="-2" attributes="0"/>
@@ -44,11 +44,11 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="16" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="button_signOut" min="-2" pref="118" max="-2" attributes="0"/>
+              <Component id="btnSignOut" min="-2" pref="118" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -70,18 +70,18 @@
               </Group>
               <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="panel_IconButton" min="-2" pref="698" max="-2" attributes="0"/>
-                  <Component id="panel_longButton" min="-2" pref="698" max="-2" attributes="0"/>
+                  <Component id="panelIconButton" min="-2" pref="698" max="-2" attributes="0"/>
+                  <Component id="panelLongButton" min="-2" pref="698" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="58" max="32767" attributes="0"/>
-              <Component id="button_signOut" min="-2" pref="51" max="-2" attributes="0"/>
+              <Component id="btnSignOut" min="-2" pref="51" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="panel_longButton">
+    <Container class="javax.swing.JPanel" name="panelLongButton">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -97,7 +97,7 @@
         <Property name="verticalGap" type="int" value="60"/>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="button_Home">
+        <Component class="javax.swing.JButton" name="btnHome">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/img/Selected_Home.png"/>
@@ -114,7 +114,7 @@
             <Property name="name" type="java.lang.String" value="HOME_MENU" noResource="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="button_Selling">
+        <Component class="javax.swing.JButton" name="btnSelling">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/img/Unselected_Selling.png"/>
@@ -131,10 +131,10 @@
             <Property name="name" type="java.lang.String" value="SELLING_MENU" noResource="true"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_SellingActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSellingActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="button_Statistics">
+        <Component class="javax.swing.JButton" name="btnStatistics">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/img/Unselected_Statistics.png"/>
@@ -151,7 +151,7 @@
             <Property name="name" type="java.lang.String" value="STATISTICS_MENU" noResource="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="button_Management">
+        <Component class="javax.swing.JButton" name="btnManagement">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/img/Unselected_Management.png"/>
@@ -168,7 +168,7 @@
             <Property name="name" type="java.lang.String" value="PRODUCT_MENU" noResource="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="button_Employee">
+        <Component class="javax.swing.JButton" name="btnEmployee">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/img/Unselected_Employee.png"/>
@@ -187,7 +187,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="panel_IconButton">
+    <Container class="javax.swing.JPanel" name="panelIconButton">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -203,7 +203,7 @@
         <Property name="verticalGap" type="int" value="60"/>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="button_IconHome">
+        <Component class="javax.swing.JButton" name="btnIconHome">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/img/selectedHome_45px.png"/>
@@ -216,7 +216,7 @@
             <Property name="name" type="java.lang.String" value="HOME_ICON" noResource="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="button_IconSelling">
+        <Component class="javax.swing.JButton" name="btnIconSelling">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/img/unselectedSelling_45px.png"/>
@@ -229,7 +229,7 @@
             <Property name="name" type="java.lang.String" value="SELLING_ICON" noResource="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="button_IconStatistics">
+        <Component class="javax.swing.JButton" name="btnIconStatistics">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/img/unselectedStatistics_45px.png"/>
@@ -242,7 +242,7 @@
             <Property name="name" type="java.lang.String" value="STATISTICS_ICON" noResource="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="button_IconManagement">
+        <Component class="javax.swing.JButton" name="btnIconManagement">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -258,7 +258,7 @@
             <Property name="name" type="java.lang.String" value="PRODUCT_ICON" noResource="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="button_IconEmployee">
+        <Component class="javax.swing.JButton" name="btnIconEmployee">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -276,7 +276,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="button_signOut">
+    <Component class="javax.swing.JButton" name="btnSignOut">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -303,7 +303,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_signOutActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSignOutActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="label_EmpName">

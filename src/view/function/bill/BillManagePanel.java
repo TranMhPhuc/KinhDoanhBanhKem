@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.function.selling;
+package view.function.bill;
 
 /**
  *
  * @author Minh Tu
  */
-public class SellManagePanel extends javax.swing.JPanel {
+public class BillManagePanel extends javax.swing.JPanel {
 
     /**
      * Creates new form Function_Selling
      */
-    public SellManagePanel() {
+    public BillManagePanel() {
         initComponents();
     }
 
@@ -28,8 +28,8 @@ public class SellManagePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         TabbedPanel = new javax.swing.JTabbedPane();
-        sellingPanel = new view.function.selling.BillCreatePanel();
-        billHistoryPanel = new view.function.selling.BillHistoryPanel();
+        sellingPanel = new view.function.bill.BillCreatePanel();
+        billHistoryPanel = new view.function.bill.BillHistoryPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -51,7 +51,7 @@ public class SellManagePanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane TabbedPanel;
-    private view.function.selling.BillHistoryPanel billHistoryPanel;
-    private view.function.selling.BillCreatePanel sellingPanel;
+    private view.function.bill.BillHistoryPanel billHistoryPanel;
+    private view.function.bill.BillCreatePanel sellingPanel;
     // End of variables declaration//GEN-END:variables
 }

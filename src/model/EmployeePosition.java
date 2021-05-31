@@ -1,6 +1,6 @@
 package model;
 
-import control.dbconnect.SQLServerConnect;
+import util.db.SQLServerConnect;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
