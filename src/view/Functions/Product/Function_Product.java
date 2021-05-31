@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package view.Functions.Product;
 
 import javax.swing.JTable;
 
@@ -11,12 +11,12 @@ import javax.swing.JTable;
  *
  * @author Minh Tu
  */
-public class ProductManagePanel extends javax.swing.JPanel {
+public class Function_Product extends javax.swing.JPanel {
 
     /**
      * Creates new form Function_ProductManagement
      */
-    public ProductManagePanel() {
+    public Function_Product() {
         initComponents();
     }
 
@@ -30,9 +30,9 @@ public class ProductManagePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         TabbedPanel = new javax.swing.JTabbedPane();
-        ingredientPanel = new view.product.IngredientPanel();
-        providerPanel = new view.product.ProviderPanel();
-        productPanel = new view.product.ProductPanel();
+        ingredientPanel = new view.Functions.Product.IngredientPanel();
+        providerPanel = new view.Functions.Product.ProviderPanel();
+        productPanel = new view.Functions.Product.ProductPanel();
 
         TabbedPanel.setBackground(new java.awt.Color(255, 255, 255));
         TabbedPanel.addTab("Ingredient", ingredientPanel);
@@ -54,8 +54,8 @@ public class ProductManagePanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane TabbedPanel;
-    private view.product.IngredientPanel ingredientPanel;
-    private view.product.ProductPanel productPanel;
-    private view.product.ProviderPanel providerPanel;
+    private view.Functions.Product.IngredientPanel ingredientPanel;
+    private view.Functions.Product.ProductPanel productPanel;
+    private view.Functions.Product.ProviderPanel providerPanel;
     // End of variables declaration//GEN-END:variables
 }

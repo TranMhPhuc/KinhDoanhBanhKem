@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.product;
+package view.Functions.Product;
 
 /**
  *
@@ -60,7 +60,7 @@ public class IngredientPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
 
         panel_IngredientInfomation.setBackground(new java.awt.Color(255, 255, 255));
-        panel_IngredientInfomation.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(120, 120, 120))); // NOI18N
+        panel_IngredientInfomation.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(120, 120, 120))); // NOI18N
 
         label_ingreID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_ingreID.setText("Ingredient ID");

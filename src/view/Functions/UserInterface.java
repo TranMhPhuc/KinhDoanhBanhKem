@@ -1,4 +1,4 @@
-package view;
+package view.Functions;
 
 public interface UserInterface {
     

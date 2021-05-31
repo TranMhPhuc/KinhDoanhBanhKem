@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package view.Functions.Selling;
 
 /**
  *
  * @author Minh Tu
  */
-public class BillManagePanel extends javax.swing.JPanel {
+public class Function_Selling extends javax.swing.JPanel {
 
     /**
      * Creates new form Function_Selling
      */
-    public BillManagePanel() {
+    public Function_Selling() {
         initComponents();
     }
 
@@ -28,8 +28,8 @@ public class BillManagePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         TabbedPanel = new javax.swing.JTabbedPane();
-        sellingPanel = new view.bill.BillCreatePanel();
-        billHistoryPanel = new view.bill.BillHistoryPanel();
+        sellingPanel = new view.Functions.Selling.SellingPanel();
+        billHistoryPanel = new view.Functions.Selling.BillHistoryPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -44,14 +44,14 @@ public class BillManagePanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TabbedPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 894, Short.MAX_VALUE)
+            .addComponent(TabbedPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane TabbedPanel;
-    private view.bill.BillHistoryPanel billHistoryPanel;
-    private view.bill.BillCreatePanel sellingPanel;
+    private view.Functions.Selling.BillHistoryPanel billHistoryPanel;
+    private view.Functions.Selling.SellingPanel sellingPanel;
     // End of variables declaration//GEN-END:variables
 }

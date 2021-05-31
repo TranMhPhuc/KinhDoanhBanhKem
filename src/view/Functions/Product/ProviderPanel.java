@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.product;
+package view.Functions.Product;
 
 /**
  *
@@ -80,6 +80,7 @@ public class ProviderPanel extends javax.swing.JPanel {
         label_provMobile4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_provMobile4.setText("Mobile");
 
+        textField_provMobile4.setBackground(new java.awt.Color(255, 255, 255));
         textField_provMobile4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         textField_provMobile4.setPreferredSize(new java.awt.Dimension(160, 30));
 
