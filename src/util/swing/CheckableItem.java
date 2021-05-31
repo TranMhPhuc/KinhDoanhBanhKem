@@ -1,5 +1,7 @@
 package util.swing;
 
+import java.util.Comparator;
+
 public class CheckableItem {
 
     private final String text;
@@ -22,4 +24,5 @@ public class CheckableItem {
     public String toString() {
         return text;
     }
+
 }
