@@ -27,11 +27,11 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="label_Seperator" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="panel_Revenue" min="-2" pref="325" max="-2" attributes="0"/>
+                              <Component id="panelRevenue" min="-2" pref="325" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
-                              <Component id="panel_Bills" min="-2" pref="325" max="-2" attributes="0"/>
+                              <Component id="panelBills" min="-2" pref="325" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="panel_Profit" min="-2" pref="325" max="-2" attributes="0"/>
+                              <Component id="panelProfit" min="-2" pref="325" max="-2" attributes="0"/>
                           </Group>
                           <Component id="label_Numbers" alignment="1" max="32767" attributes="0"/>
                       </Group>
@@ -42,9 +42,9 @@
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="195" max="-2" attributes="0"/>
-              <Component id="panel_CakeType" min="-2" pref="325" max="-2" attributes="0"/>
+              <Component id="panelCakeType" min="-2" pref="325" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="panel_Employee" min="-2" pref="325" max="-2" attributes="0"/>
+              <Component id="panelEmployee" min="-2" pref="325" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="158" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -56,11 +56,11 @@
               <Component id="label_Today" min="-2" pref="61" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="panel_Revenue" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
-                  <Component id="panel_Profit" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
+                  <Component id="panelRevenue" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
+                  <Component id="panelProfit" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                      <Component id="panel_Bills" min="-2" pref="219" max="-2" attributes="0"/>
+                      <Component id="panelBills" min="-2" pref="219" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -69,8 +69,8 @@
               <Component id="label_Numbers" min="-2" pref="54" max="-2" attributes="0"/>
               <EmptySpace pref="68" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="panel_CakeType" alignment="1" min="-2" pref="219" max="-2" attributes="0"/>
-                  <Component id="panel_Employee" alignment="1" min="-2" pref="219" max="-2" attributes="0"/>
+                  <Component id="panelCakeType" alignment="1" min="-2" pref="219" max="-2" attributes="0"/>
+                  <Component id="panelEmployee" alignment="1" min="-2" pref="219" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
           </Group>
@@ -86,7 +86,7 @@
         </Property>
       </Properties>
     </Component>
-    <Container class="javax.swing.JPanel" name="panel_Revenue">
+    <Container class="javax.swing.JPanel" name="panelRevenue">
       <Properties>
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>
@@ -144,7 +144,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="panel_Profit">
+    <Container class="javax.swing.JPanel" name="panelProfit">
       <Properties>
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>
@@ -202,7 +202,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="panel_Bills">
+    <Container class="javax.swing.JPanel" name="panelBills">
       <Properties>
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>
@@ -276,7 +276,7 @@
         </Property>
       </Properties>
     </Component>
-    <Container class="javax.swing.JPanel" name="panel_Employee">
+    <Container class="javax.swing.JPanel" name="panelEmployee">
       <Properties>
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>
@@ -334,7 +334,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="panel_CakeType">
+    <Container class="javax.swing.JPanel" name="panelCakeType">
       <Properties>
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>

@@ -30,14 +30,14 @@ public class ProductManagePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         TabbedPanel = new javax.swing.JTabbedPane();
-        ingredientPanel = new view.function.product.IngredientPanel();
-        providerPanel = new view.function.product.ProviderPanel();
-        productPanel = new view.function.product.ProductPanel();
+        panelIngredient = new view.function.product.IngredientPanel();
+        panelProvider = new view.function.product.ProviderPanel();
+        panelProduct = new view.function.product.ProductPanel();
 
         TabbedPanel.setBackground(new java.awt.Color(255, 255, 255));
-        TabbedPanel.addTab("Ingredient", ingredientPanel);
-        TabbedPanel.addTab("Provider", providerPanel);
-        TabbedPanel.addTab("Product", productPanel);
+        TabbedPanel.addTab("Ingredient", panelIngredient);
+        TabbedPanel.addTab("Provider", panelProvider);
+        TabbedPanel.addTab("Product", panelProduct);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -54,8 +54,8 @@ public class ProductManagePanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane TabbedPanel;
-    private view.function.product.IngredientPanel ingredientPanel;
-    private view.function.product.ProductPanel productPanel;
-    private view.function.product.ProviderPanel providerPanel;
+    private view.function.product.IngredientPanel panelIngredient;
+    private view.function.product.ProductPanel panelProduct;
+    private view.function.product.ProviderPanel panelProvider;
     // End of variables declaration//GEN-END:variables
 }

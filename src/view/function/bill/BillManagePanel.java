@@ -28,13 +28,13 @@ public class BillManagePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         TabbedPanel = new javax.swing.JTabbedPane();
-        sellingPanel = new view.function.bill.BillCreatePanel();
-        billHistoryPanel = new view.function.bill.BillHistoryPanel();
+        panelBillCreate = new view.function.bill.BillCreatePanel();
+        panelBillHistory = new view.function.bill.BillHistoryPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        TabbedPanel.addTab("Selling", sellingPanel);
-        TabbedPanel.addTab("Bill", billHistoryPanel);
+        TabbedPanel.addTab("Selling", panelBillCreate);
+        TabbedPanel.addTab("Bill", panelBillHistory);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -51,7 +51,7 @@ public class BillManagePanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane TabbedPanel;
-    private view.function.bill.BillHistoryPanel billHistoryPanel;
-    private view.function.bill.BillCreatePanel sellingPanel;
+    private view.function.bill.BillCreatePanel panelBillCreate;
+    private view.function.bill.BillHistoryPanel panelBillHistory;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,8 +8,8 @@ package view.function;
 import javax.swing.DefaultComboBoxModel;
 import view.UserInterface;
 import javax.swing.JTable;
-import util.swing.CheckableItem;
-import util.swing.CheckedComboBox;
+import util.swing.checkcombobox.CheckableItem;
+import util.swing.checkcombobox.CheckedComboBox;
 
 /**
  *
@@ -23,16 +23,16 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
     public EmployeeManagePanel() {
         initComponents();
 
-        CheckableItem[] m = {
-            new CheckableItem("aaa", false),
-            new CheckableItem("bb", true),
-            new CheckableItem("111", false),
-            new CheckableItem("33333", true),
-            new CheckableItem("2222", true),
-            new CheckableItem("c", false)
-        };
-        
-        checkedComboBox1.setModel(new DefaultComboBoxModel<>(m));
+//        CheckableItem[] m = {
+//            new CheckableItem("aaa", false),
+//            new CheckableItem("bb", true),
+//            new CheckableItem("111", false),
+//            new CheckableItem("33333", true),
+//            new CheckableItem("2222", true),
+//            new CheckableItem("c", false)
+//        };
+//        
+//        checkedComboBox1.setModel(new DefaultComboBoxModel<>(m));
     }
 
     /**
@@ -75,7 +75,7 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         textfEmail = new javax.swing.JTextField();
         dateChooserStartDate = new com.toedter.calendar.JDateChooser();
         dateChooserBirthday = new com.toedter.calendar.JDateChooser();
-        checkedComboBox1 = new util.swing.CheckedComboBox();
+        combShift = new util.swing.checkcombobox.CheckedComboBox();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -317,7 +317,7 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(dateChooserBirthday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(dateChooserStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                    .addComponent(checkedComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                    .addComponent(combShift, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                 .addGap(52, 52, 52))
         );
         panelInfoLayout.setVerticalGroup(
@@ -344,8 +344,8 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoLayout.createSequentialGroup()
                         .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelInfoLayout.createSequentialGroup()
-                                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(label_email)
+                                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(label_email, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(textfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -368,7 +368,7 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lable_shift)
-                                    .addComponent(checkedComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(combShift, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(12, 12, 12)
                         .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lable_status)
@@ -437,8 +437,8 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnModify;
     private javax.swing.JButton btnRefresh;
-    private util.swing.CheckedComboBox checkedComboBox1;
     private javax.swing.JComboBox<String> combPosition;
+    private util.swing.checkcombobox.CheckedComboBox combShift;
     private javax.swing.JComboBox<String> combStatus;
     private com.toedter.calendar.JDateChooser dateChooserBirthday;
     private com.toedter.calendar.JDateChooser dateChooserStartDate;

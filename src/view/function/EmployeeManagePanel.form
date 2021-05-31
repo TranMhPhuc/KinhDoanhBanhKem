@@ -252,7 +252,7 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="dateChooserBirthday" alignment="0" max="32767" attributes="0"/>
                       <Component id="dateChooserStartDate" alignment="0" pref="160" max="32767" attributes="0"/>
-                      <Component id="checkedComboBox1" pref="0" max="32767" attributes="0"/>
+                      <Component id="combShift" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
               </Group>
@@ -287,9 +287,9 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="label_email" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="textfEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="textfEmail" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -317,7 +317,7 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="lable_shift" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="checkedComboBox1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                      <Component id="combShift" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -550,7 +550,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="util.swing.CheckedComboBox" name="checkedComboBox1">
+        <Component class="util.swing.checkcombobox.CheckedComboBox" name="combShift">
         </Component>
       </SubComponents>
     </Container>

@@ -1,4 +1,4 @@
-package util.swing;
+package util.swing.checkcombobox;
 
 import java.awt.AWTEvent;
 import java.awt.Dimension;

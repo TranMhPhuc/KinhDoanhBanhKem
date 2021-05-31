@@ -27,23 +27,23 @@ public class StatisticsPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        scrollPane_Statistics = new javax.swing.JScrollPane();
-        table_Statistics = new javax.swing.JTable();
-        panel_statisticsInfo = new javax.swing.JPanel();
+        scrpaneStatistics = new javax.swing.JScrollPane();
+        tableInfo = new javax.swing.JTable();
+        panelStatisticsInfo = new javax.swing.JPanel();
         label_statisTo = new javax.swing.JLabel();
         label_statisFrom = new javax.swing.JLabel();
-        dateChooser_statis_from = new com.toedter.calendar.JDateChooser();
-        dateChooser_statis_to = new com.toedter.calendar.JDateChooser();
-        panel_Buttons = new javax.swing.JPanel();
-        button_revIngredientCost = new javax.swing.JButton();
-        button_revRevenue = new javax.swing.JButton();
+        dateChooserDateFrom = new com.toedter.calendar.JDateChooser();
+        dateChooserDateTo = new com.toedter.calendar.JDateChooser();
+        panelButtons = new javax.swing.JPanel();
+        btnIngredientCost = new javax.swing.JButton();
+        btnRevenue = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        scrollPane_Statistics.setPreferredSize(new java.awt.Dimension(500, 500));
+        scrpaneStatistics.setPreferredSize(new java.awt.Dimension(500, 500));
 
-        table_Statistics.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        table_Statistics.setModel(new javax.swing.table.DefaultTableModel(
+        tableInfo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        tableInfo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -51,10 +51,10 @@ public class StatisticsPanel extends javax.swing.JPanel {
                 "No", "Month", "Year", "Total Sell Money", "Total Ingredient Money", "Total Month Revenue"
             }
         ));
-        scrollPane_Statistics.setViewportView(table_Statistics);
+        scrpaneStatistics.setViewportView(tableInfo);
 
-        panel_statisticsInfo.setBackground(new java.awt.Color(255, 255, 255));
-        panel_statisticsInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Date filter", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 15), new java.awt.Color(200, 200, 200))); // NOI18N
+        panelStatisticsInfo.setBackground(new java.awt.Color(255, 255, 255));
+        panelStatisticsInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Date filter", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 15), new java.awt.Color(200, 200, 200))); // NOI18N
 
         label_statisTo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_statisTo.setText("To");
@@ -62,80 +62,80 @@ public class StatisticsPanel extends javax.swing.JPanel {
         label_statisFrom.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_statisFrom.setText("From");
 
-        dateChooser_statis_from.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        dateChooserDateFrom.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        dateChooser_statis_to.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        dateChooserDateTo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        javax.swing.GroupLayout panel_statisticsInfoLayout = new javax.swing.GroupLayout(panel_statisticsInfo);
-        panel_statisticsInfo.setLayout(panel_statisticsInfoLayout);
-        panel_statisticsInfoLayout.setHorizontalGroup(
-            panel_statisticsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_statisticsInfoLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelStatisticsInfoLayout = new javax.swing.GroupLayout(panelStatisticsInfo);
+        panelStatisticsInfo.setLayout(panelStatisticsInfoLayout);
+        panelStatisticsInfoLayout.setHorizontalGroup(
+            panelStatisticsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelStatisticsInfoLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(label_statisFrom)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(dateChooser_statis_from, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dateChooserDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(label_statisTo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(dateChooser_statis_to, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dateChooserDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
-        panel_statisticsInfoLayout.setVerticalGroup(
-            panel_statisticsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_statisticsInfoLayout.createSequentialGroup()
+        panelStatisticsInfoLayout.setVerticalGroup(
+            panelStatisticsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelStatisticsInfoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panel_statisticsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panelStatisticsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(label_statisFrom, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panel_statisticsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(dateChooser_statis_to, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                        .addComponent(dateChooser_statis_from, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelStatisticsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(dateChooserDateTo, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                        .addComponent(dateChooserDateFrom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(label_statisTo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(31, 31, 31))
         );
 
-        panel_Buttons.setBackground(new java.awt.Color(255, 255, 255));
-        panel_Buttons.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Review", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 15), new java.awt.Color(200, 200, 200))); // NOI18N
+        panelButtons.setBackground(new java.awt.Color(255, 255, 255));
+        panelButtons.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Review", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 15), new java.awt.Color(200, 200, 200))); // NOI18N
 
-        button_revIngredientCost.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
-        button_revIngredientCost.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_ingredient-cost.png"))); // NOI18N
-        button_revIngredientCost.setContentAreaFilled(false);
-        button_revIngredientCost.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_revIngredientCost.setFocusPainted(false);
-        button_revIngredientCost.addActionListener(new java.awt.event.ActionListener() {
+        btnIngredientCost.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnIngredientCost.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_ingredient-cost.png"))); // NOI18N
+        btnIngredientCost.setContentAreaFilled(false);
+        btnIngredientCost.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIngredientCost.setFocusPainted(false);
+        btnIngredientCost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_revIngredientCostActionPerformed(evt);
+                btnIngredientCostActionPerformed(evt);
             }
         });
 
-        button_revRevenue.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
-        button_revRevenue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_revenue.png"))); // NOI18N
-        button_revRevenue.setContentAreaFilled(false);
-        button_revRevenue.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_revRevenue.setFocusPainted(false);
-        button_revRevenue.addActionListener(new java.awt.event.ActionListener() {
+        btnRevenue.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnRevenue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_revenue.png"))); // NOI18N
+        btnRevenue.setContentAreaFilled(false);
+        btnRevenue.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRevenue.setFocusPainted(false);
+        btnRevenue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_revRevenueActionPerformed(evt);
+                btnRevenueActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout panel_ButtonsLayout = new javax.swing.GroupLayout(panel_Buttons);
-        panel_Buttons.setLayout(panel_ButtonsLayout);
-        panel_ButtonsLayout.setHorizontalGroup(
-            panel_ButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_ButtonsLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelButtonsLayout = new javax.swing.GroupLayout(panelButtons);
+        panelButtons.setLayout(panelButtonsLayout);
+        panelButtonsLayout.setHorizontalGroup(
+            panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelButtonsLayout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
-                .addGroup(panel_ButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(button_revIngredientCost, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button_revRevenue, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnIngredientCost, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRevenue, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16))
         );
-        panel_ButtonsLayout.setVerticalGroup(
-            panel_ButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_ButtonsLayout.createSequentialGroup()
-                .addComponent(button_revIngredientCost, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+        panelButtonsLayout.setVerticalGroup(
+            panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelButtonsLayout.createSequentialGroup()
+                .addComponent(btnIngredientCost, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(button_revRevenue, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRevenue, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -146,11 +146,11 @@ public class StatisticsPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPane_Statistics, javax.swing.GroupLayout.PREFERRED_SIZE, 1216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrpaneStatistics, javax.swing.GroupLayout.PREFERRED_SIZE, 1216, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(panel_statisticsInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panelStatisticsInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(panel_Buttons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -158,33 +158,33 @@ public class StatisticsPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panel_Buttons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panel_statisticsInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelStatisticsInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(scrollPane_Statistics, javax.swing.GroupLayout.PREFERRED_SIZE, 748, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrpaneStatistics, javax.swing.GroupLayout.PREFERRED_SIZE, 748, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(16, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button_revIngredientCostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_revIngredientCostActionPerformed
+    private void btnIngredientCostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngredientCostActionPerformed
 
-    }//GEN-LAST:event_button_revIngredientCostActionPerformed
+    }//GEN-LAST:event_btnIngredientCostActionPerformed
 
-    private void button_revRevenueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_revRevenueActionPerformed
+    private void btnRevenueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRevenueActionPerformed
         
-    }//GEN-LAST:event_button_revRevenueActionPerformed
+    }//GEN-LAST:event_btnRevenueActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton button_revIngredientCost;
-    private javax.swing.JButton button_revRevenue;
-    private com.toedter.calendar.JDateChooser dateChooser_statis_from;
-    private com.toedter.calendar.JDateChooser dateChooser_statis_to;
+    private javax.swing.JButton btnIngredientCost;
+    private javax.swing.JButton btnRevenue;
+    private com.toedter.calendar.JDateChooser dateChooserDateFrom;
+    private com.toedter.calendar.JDateChooser dateChooserDateTo;
     private javax.swing.JLabel label_statisFrom;
     private javax.swing.JLabel label_statisTo;
-    private javax.swing.JPanel panel_Buttons;
-    private javax.swing.JPanel panel_statisticsInfo;
-    private javax.swing.JScrollPane scrollPane_Statistics;
-    private javax.swing.JTable table_Statistics;
+    private javax.swing.JPanel panelButtons;
+    private javax.swing.JPanel panelStatisticsInfo;
+    private javax.swing.JScrollPane scrpaneStatistics;
+    private javax.swing.JTable tableInfo;
     // End of variables declaration//GEN-END:variables
 }

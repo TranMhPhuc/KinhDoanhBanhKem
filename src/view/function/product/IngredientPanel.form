@@ -34,21 +34,21 @@
                               <EmptySpace min="99" pref="99" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="seperator1" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="panel_IngredientInfomation" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="button_ImportIngredient" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="panelIngredientInfo" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="btnImport" alignment="1" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="label_Search" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="textField_Search" min="-2" pref="282" max="-2" attributes="0"/>
+                              <Component id="textfSearch" min="-2" pref="282" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                              <Component id="panel_Buttons" min="-2" pref="580" max="-2" attributes="0"/>
+                              <Component id="panelBtn" min="-2" pref="580" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="0" pref="149" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="scrollPane_Ingredient" alignment="1" max="32767" attributes="0"/>
+                  <Component id="scrpaneIngredient" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -60,7 +60,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="button_ImportIngredient" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnImport" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -72,7 +72,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="seperator1" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="panel_IngredientInfomation" min="-2" max="-2" attributes="0"/>
+                      <Component id="panelIngredientInfo" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace pref="122" max="32767" attributes="0"/>
@@ -84,21 +84,21 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="textField_Search" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfSearch" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="label_Search" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="panel_Buttons" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="panelBtn" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="scrollPane_Ingredient" min="-2" pref="563" max="-2" attributes="0"/>
+              <Component id="scrpaneIngredient" min="-2" pref="563" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="panel_IngredientInfomation">
+    <Container class="javax.swing.JPanel" name="panelIngredientInfo">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -124,21 +124,21 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="textField_ingreID" min="-2" pref="96" max="-2" attributes="0"/>
+                          <Component id="textfID" min="-2" pref="96" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="label_ingreType" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jComboBox3" max="32767" attributes="0"/>
+                          <Component id="combType" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="button_AddType" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAddType" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="textField_ingreName" min="-2" pref="268" max="-2" attributes="0"/>
+                          <Component id="textfName" min="-2" pref="268" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="label_ingreCost" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="textField_ingreCost" min="-2" pref="191" max="-2" attributes="0"/>
+                          <Component id="textfCost" min="-2" pref="191" max="-2" attributes="0"/>
                           <EmptySpace pref="36" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -147,7 +147,7 @@
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="label_IngredientProvider" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="textField_IngredientProvider" min="-2" pref="268" max="-2" attributes="0"/>
+                  <Component id="textfProviderName" min="-2" pref="268" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="139" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -158,21 +158,21 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="label_ingreID" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="textField_ingreID" alignment="3" max="32767" attributes="0"/>
-                      <Component id="button_AddType" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="jComboBox3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textfID" alignment="3" max="32767" attributes="0"/>
+                      <Component id="btnAddType" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="combType" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="label_ingreType" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="textField_ingreName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textfName" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="label_ingreName" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="textField_ingreCost" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textfCost" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="label_ingreCost" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="textField_IngredientProvider" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textfProviderName" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="label_IngredientProvider" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -189,7 +189,7 @@
             <Property name="text" type="java.lang.String" value="Ingredient ID"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textField_ingreID">
+        <Component class="javax.swing.JTextField" name="textfID">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -208,7 +208,7 @@
             <Property name="text" type="java.lang.String" value="Ingredient Name"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textField_ingreName">
+        <Component class="javax.swing.JTextField" name="textfName">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -230,7 +230,7 @@
             <Property name="text" type="java.lang.String" value="Cost"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textField_ingreCost">
+        <Component class="javax.swing.JTextField" name="textfCost">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -252,7 +252,7 @@
             <Property name="text" type="java.lang.String" value="Ingredient Type"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox3">
+        <Component class="javax.swing.JComboBox" name="combType">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="0"/>
@@ -273,7 +273,7 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JButton" name="button_AddType">
+        <Component class="javax.swing.JButton" name="btnAddType">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="1"/>
@@ -288,7 +288,7 @@
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_AddTypeActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddTypeActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="label_IngredientProvider">
@@ -299,7 +299,7 @@
             <Property name="text" type="java.lang.String" value="Ingredient Provider"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textField_IngredientProvider">
+        <Component class="javax.swing.JTextField" name="textfProviderName">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -323,24 +323,24 @@
         <Property name="text" type="java.lang.String" value="Type name to search"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="textField_Search">
+    <Component class="javax.swing.JTextField" name="textfSearch">
       <Properties>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[190, 30]"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textField_SearchActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfSearchActionPerformed"/>
       </Events>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="scrollPane_Ingredient">
+    <Container class="javax.swing.JScrollPane" name="scrpaneIngredient">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="table_Ingredient">
+        <Component class="javax.swing.JTable" name="tableIngredient">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="5" rowCount="0">
@@ -358,7 +358,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="panel_Buttons">
+    <Container class="javax.swing.JPanel" name="panelBtn">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -371,49 +371,49 @@
         <Property name="rows" type="int" value="1"/>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="button_refreshIngre">
+        <Component class="javax.swing.JButton" name="btnRefresh">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="17" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Refresh"/>
             <Property name="focusPainted" type="boolean" value="false"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="17" style="1"/>
-            </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[115, 40]"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="button_addIngre">
+        <Component class="javax.swing.JButton" name="btnAdd">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="17" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Add"/>
             <Property name="focusPainted" type="boolean" value="false"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="17" style="1"/>
-            </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[115, 40]"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="button_modifyIngre">
+        <Component class="javax.swing.JButton" name="btnModify">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="17" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Modify"/>
             <Property name="focusPainted" type="boolean" value="false"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="17" style="1"/>
-            </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[115, 40]"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="button_removeIngre">
+        <Component class="javax.swing.JButton" name="btnRemove">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Remove"/>
-            <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="17" style="1"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="Remove"/>
+            <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[115, 40]"/>
             </Property>
@@ -421,7 +421,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="button_ImportIngredient">
+    <Component class="javax.swing.JButton" name="btnImport">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/button_import-ingredient.png"/>
@@ -433,7 +433,7 @@
         <Property name="focusPainted" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_ImportIngredientActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnImportActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="seperator1">

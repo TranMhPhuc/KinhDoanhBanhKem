@@ -47,25 +47,25 @@ public class HomePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         label_Today = new javax.swing.JLabel();
-        panel_Revenue = new javax.swing.JPanel();
+        panelRevenue = new javax.swing.JPanel();
         label_Title_Rev = new javax.swing.JLabel();
         label_RevAmount = new javax.swing.JLabel();
         background_Rev = new javax.swing.JLabel();
-        panel_Profit = new javax.swing.JPanel();
+        panelProfit = new javax.swing.JPanel();
         label_Title_Profit = new javax.swing.JLabel();
         label_ProfitAmount = new javax.swing.JLabel();
         background_Profit = new javax.swing.JLabel();
-        panel_Bills = new javax.swing.JPanel();
+        panelBills = new javax.swing.JPanel();
         label_Title_Bills = new javax.swing.JLabel();
         label_BillsAmount = new javax.swing.JLabel();
         background_Bills = new javax.swing.JLabel();
         label_Seperator = new javax.swing.JLabel();
         label_Numbers = new javax.swing.JLabel();
-        panel_Employee = new javax.swing.JPanel();
+        panelEmployee = new javax.swing.JPanel();
         label_Title_Employee = new javax.swing.JLabel();
         label_EmployeeAmount = new javax.swing.JLabel();
         background_Employee = new javax.swing.JLabel();
-        panel_CakeType = new javax.swing.JPanel();
+        panelCakeType = new javax.swing.JPanel();
         label_Title_CakeType = new javax.swing.JLabel();
         label_CakeTypeAmount = new javax.swing.JLabel();
         background_CakeType = new javax.swing.JLabel();
@@ -73,20 +73,20 @@ public class HomePanel extends javax.swing.JPanel {
         label_Today.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Today.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_today.png"))); // NOI18N
 
-        panel_Revenue.setOpaque(false);
-        panel_Revenue.setLayout(null);
+        panelRevenue.setOpaque(false);
+        panelRevenue.setLayout(null);
 
         label_Title_Rev.setFont(new java.awt.Font("Segoe Print", 2, 28)); // NOI18N
         label_Title_Rev.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Title_Rev.setText("Revenue");
-        panel_Revenue.add(label_Title_Rev);
+        panelRevenue.add(label_Title_Rev);
         label_Title_Rev.setBounds(50, 40, 230, 70);
 
         label_RevAmount.setFont(new java.awt.Font("Segoe Print", 3, 32)); // NOI18N
         label_RevAmount.setForeground(new java.awt.Color(253, 94, 83));
         label_RevAmount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_RevAmount.setText("2000K");
-        panel_Revenue.add(label_RevAmount);
+        panelRevenue.add(label_RevAmount);
         label_RevAmount.setBounds(30, 80, 260, 90);
 
         background_Rev.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/blue_25.png"))); // NOI18N
@@ -98,23 +98,23 @@ public class HomePanel extends javax.swing.JPanel {
                 background_RevMouseExited(evt);
             }
         });
-        panel_Revenue.add(background_Rev);
+        panelRevenue.add(background_Rev);
         background_Rev.setBounds(30, 20, 270, 190);
 
-        panel_Profit.setOpaque(false);
-        panel_Profit.setLayout(null);
+        panelProfit.setOpaque(false);
+        panelProfit.setLayout(null);
 
         label_Title_Profit.setFont(new java.awt.Font("Segoe Print", 2, 28)); // NOI18N
         label_Title_Profit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Title_Profit.setText("Profit");
-        panel_Profit.add(label_Title_Profit);
+        panelProfit.add(label_Title_Profit);
         label_Title_Profit.setBounds(50, 40, 230, 70);
 
         label_ProfitAmount.setFont(new java.awt.Font("Segoe Print", 3, 32)); // NOI18N
         label_ProfitAmount.setForeground(new java.awt.Color(253, 94, 83));
         label_ProfitAmount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_ProfitAmount.setText("500K");
-        panel_Profit.add(label_ProfitAmount);
+        panelProfit.add(label_ProfitAmount);
         label_ProfitAmount.setBounds(30, 80, 260, 90);
 
         background_Profit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/blue_25.png"))); // NOI18N
@@ -126,23 +126,23 @@ public class HomePanel extends javax.swing.JPanel {
                 background_ProfitMouseExited(evt);
             }
         });
-        panel_Profit.add(background_Profit);
+        panelProfit.add(background_Profit);
         background_Profit.setBounds(30, 20, 270, 190);
 
-        panel_Bills.setOpaque(false);
-        panel_Bills.setLayout(null);
+        panelBills.setOpaque(false);
+        panelBills.setLayout(null);
 
         label_Title_Bills.setFont(new java.awt.Font("Segoe Print", 2, 28)); // NOI18N
         label_Title_Bills.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Title_Bills.setText("Bills");
-        panel_Bills.add(label_Title_Bills);
+        panelBills.add(label_Title_Bills);
         label_Title_Bills.setBounds(50, 40, 230, 70);
 
         label_BillsAmount.setFont(new java.awt.Font("Segoe Print", 3, 32)); // NOI18N
         label_BillsAmount.setForeground(new java.awt.Color(253, 94, 83));
         label_BillsAmount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_BillsAmount.setText("23");
-        panel_Bills.add(label_BillsAmount);
+        panelBills.add(label_BillsAmount);
         label_BillsAmount.setBounds(30, 80, 260, 90);
 
         background_Bills.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/blue_25.png"))); // NOI18N
@@ -154,7 +154,7 @@ public class HomePanel extends javax.swing.JPanel {
                 background_BillsMouseExited(evt);
             }
         });
-        panel_Bills.add(background_Bills);
+        panelBills.add(background_Bills);
         background_Bills.setBounds(30, 20, 270, 190);
 
         label_Seperator.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -163,20 +163,20 @@ public class HomePanel extends javax.swing.JPanel {
         label_Numbers.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Numbers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_numbers.png"))); // NOI18N
 
-        panel_Employee.setOpaque(false);
-        panel_Employee.setLayout(null);
+        panelEmployee.setOpaque(false);
+        panelEmployee.setLayout(null);
 
         label_Title_Employee.setFont(new java.awt.Font("Segoe Print", 2, 28)); // NOI18N
         label_Title_Employee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Title_Employee.setText("Employee");
-        panel_Employee.add(label_Title_Employee);
+        panelEmployee.add(label_Title_Employee);
         label_Title_Employee.setBounds(50, 40, 230, 70);
 
         label_EmployeeAmount.setFont(new java.awt.Font("Segoe Print", 3, 32)); // NOI18N
         label_EmployeeAmount.setForeground(new java.awt.Color(253, 94, 83));
         label_EmployeeAmount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_EmployeeAmount.setText("9");
-        panel_Employee.add(label_EmployeeAmount);
+        panelEmployee.add(label_EmployeeAmount);
         label_EmployeeAmount.setBounds(30, 80, 260, 90);
 
         background_Employee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/blue_25.png"))); // NOI18N
@@ -188,23 +188,23 @@ public class HomePanel extends javax.swing.JPanel {
                 background_EmployeeMouseExited(evt);
             }
         });
-        panel_Employee.add(background_Employee);
+        panelEmployee.add(background_Employee);
         background_Employee.setBounds(30, 10, 270, 190);
 
-        panel_CakeType.setOpaque(false);
-        panel_CakeType.setLayout(null);
+        panelCakeType.setOpaque(false);
+        panelCakeType.setLayout(null);
 
         label_Title_CakeType.setFont(new java.awt.Font("Segoe Print", 2, 28)); // NOI18N
         label_Title_CakeType.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Title_CakeType.setText("Cake type");
-        panel_CakeType.add(label_Title_CakeType);
+        panelCakeType.add(label_Title_CakeType);
         label_Title_CakeType.setBounds(50, 40, 230, 70);
 
         label_CakeTypeAmount.setFont(new java.awt.Font("Segoe Print", 3, 32)); // NOI18N
         label_CakeTypeAmount.setForeground(new java.awt.Color(253, 94, 83));
         label_CakeTypeAmount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_CakeTypeAmount.setText("13");
-        panel_CakeType.add(label_CakeTypeAmount);
+        panelCakeType.add(label_CakeTypeAmount);
         label_CakeTypeAmount.setBounds(30, 80, 260, 90);
 
         background_CakeType.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/blue_25.png"))); // NOI18N
@@ -216,7 +216,7 @@ public class HomePanel extends javax.swing.JPanel {
                 background_CakeTypeMouseExited(evt);
             }
         });
-        panel_CakeType.add(background_CakeType);
+        panelCakeType.add(background_CakeType);
         background_CakeType.setBounds(30, 20, 270, 190);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -233,19 +233,19 @@ public class HomePanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(label_Seperator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(panel_Revenue, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(panelRevenue, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(94, 94, 94)
-                                .addComponent(panel_Bills, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(panelBills, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(panel_Profit, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(panelProfit, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(label_Numbers, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(12, 12, 12)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(195, 195, 195)
-                .addComponent(panel_CakeType, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelCakeType, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panel_Employee, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(158, 158, 158))
         );
         layout.setVerticalGroup(
@@ -255,19 +255,19 @@ public class HomePanel extends javax.swing.JPanel {
                 .addComponent(label_Today, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_Revenue, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panel_Profit, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelRevenue, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelProfit, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(80, 80, 80)
-                        .addComponent(panel_Bills, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(panelBills, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label_Seperator, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(label_Numbers, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_CakeType, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panel_Employee, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelCakeType, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelEmployee, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(54, 54, 54))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -353,10 +353,10 @@ public class HomePanel extends javax.swing.JPanel {
     private javax.swing.JLabel label_Title_Profit;
     private javax.swing.JLabel label_Title_Rev;
     private javax.swing.JLabel label_Today;
-    private javax.swing.JPanel panel_Bills;
-    private javax.swing.JPanel panel_CakeType;
-    private javax.swing.JPanel panel_Employee;
-    private javax.swing.JPanel panel_Profit;
-    private javax.swing.JPanel panel_Revenue;
+    private javax.swing.JPanel panelBills;
+    private javax.swing.JPanel panelCakeType;
+    private javax.swing.JPanel panelEmployee;
+    private javax.swing.JPanel panelProfit;
+    private javax.swing.JPanel panelRevenue;
     // End of variables declaration//GEN-END:variables
 }

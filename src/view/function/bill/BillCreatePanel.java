@@ -27,130 +27,113 @@ public class BillCreatePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panel_sellingProdInfo = new javax.swing.JPanel();
+        panelProductOfferInfo = new javax.swing.JPanel();
         label_prodName = new javax.swing.JLabel();
-        label_prodSize = new javax.swing.JLabel();
-        textField_prodName = new javax.swing.JTextField();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        panel_timeUser = new javax.swing.JPanel();
-        label_sellingTime = new javax.swing.JLabel();
-        label_sellingTimeInfo = new javax.swing.JLabel();
-        label_sellingUser = new javax.swing.JLabel();
-        label_sellingUserInfo = new javax.swing.JLabel();
+        textfProductName = new javax.swing.JTextField();
+        panelTimeUser = new javax.swing.JPanel();
+        labelTitleTime = new javax.swing.JLabel();
+        labelTime = new javax.swing.JLabel();
+        labelTitleUser = new javax.swing.JLabel();
+        lableUser = new javax.swing.JLabel();
         label_prodChoose = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        table_chooseProd = new javax.swing.JTable();
-        button_chooseProd = new javax.swing.JButton();
+        tableProductSelected = new javax.swing.JTable();
+        btnChoose = new javax.swing.JButton();
         panel_BillInfo = new javax.swing.JPanel();
         label_billID = new javax.swing.JLabel();
         label_totalMoney = new javax.swing.JLabel();
         label_guestMoney = new javax.swing.JLabel();
         label_change = new javax.swing.JLabel();
-        button_exportBill = new javax.swing.JButton();
-        textField_billID = new javax.swing.JTextField();
-        textField_totalMoney = new javax.swing.JTextField();
+        btnExportBill = new javax.swing.JButton();
+        textfBillID = new javax.swing.JTextField();
+        textfTotalMoney = new javax.swing.JTextField();
         textField_guestMoney = new javax.swing.JTextField();
         textField_Change = new javax.swing.JTextField();
         jScrollPane7 = new javax.swing.JScrollPane();
-        table_prodInfo = new javax.swing.JTable();
-        panel_buttonRemveClear = new javax.swing.JPanel();
-        button_clearProd = new javax.swing.JButton();
-        button_removeProd = new javax.swing.JButton();
+        tableProductOffered = new javax.swing.JTable();
+        jPanel = new javax.swing.JPanel();
+        btnClear = new javax.swing.JButton();
+        btnRemove = new javax.swing.JButton();
         label_prodChoose1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        panel_sellingProdInfo.setBackground(new java.awt.Color(255, 255, 255));
-        panel_sellingProdInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search for products", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(190, 190, 190))); // NOI18N
+        panelProductOfferInfo.setBackground(new java.awt.Color(255, 255, 255));
+        panelProductOfferInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search for products", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(190, 190, 190))); // NOI18N
 
         label_prodName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_prodName.setText("Product Name");
 
-        label_prodSize.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_prodSize.setText("Size");
+        textfProductName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        textfProductName.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        textField_prodName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        textField_prodName.setPreferredSize(new java.awt.Dimension(160, 30));
-
-        jComboBox4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "S", "M", "L" }));
-        jComboBox4.setMinimumSize(new java.awt.Dimension(160, 30));
-
-        javax.swing.GroupLayout panel_sellingProdInfoLayout = new javax.swing.GroupLayout(panel_sellingProdInfo);
-        panel_sellingProdInfo.setLayout(panel_sellingProdInfoLayout);
-        panel_sellingProdInfoLayout.setHorizontalGroup(
-            panel_sellingProdInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_sellingProdInfoLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelProductOfferInfoLayout = new javax.swing.GroupLayout(panelProductOfferInfo);
+        panelProductOfferInfo.setLayout(panelProductOfferInfoLayout);
+        panelProductOfferInfoLayout.setHorizontalGroup(
+            panelProductOfferInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelProductOfferInfoLayout.createSequentialGroup()
                 .addGap(63, 63, 63)
-                .addGroup(panel_sellingProdInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(label_prodName)
-                    .addComponent(label_prodSize))
+                .addComponent(label_prodName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel_sellingProdInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textField_prodName, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(textfProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(150, Short.MAX_VALUE))
         );
-        panel_sellingProdInfoLayout.setVerticalGroup(
-            panel_sellingProdInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_sellingProdInfoLayout.createSequentialGroup()
+        panelProductOfferInfoLayout.setVerticalGroup(
+            panelProductOfferInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelProductOfferInfoLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addGroup(panel_sellingProdInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textField_prodName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelProductOfferInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textfProductName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_prodName))
-                .addGap(27, 27, 27)
-                .addGroup(panel_sellingProdInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_prodSize)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
 
-        panel_timeUser.setBackground(new java.awt.Color(255, 255, 255));
-        panel_timeUser.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelTimeUser.setBackground(new java.awt.Color(255, 255, 255));
+        panelTimeUser.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        label_sellingTime.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_sellingTime.setText("Time");
+        labelTitleTime.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelTitleTime.setText("Time");
 
-        label_sellingTimeInfo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_sellingTimeInfo.setText("dd/mm/yyyy hh:mm");
+        labelTime.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelTime.setText("dd/mm/yyyy hh:mm");
 
-        label_sellingUser.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_sellingUser.setText("User");
+        labelTitleUser.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelTitleUser.setText("User");
 
-        label_sellingUserInfo.setText("____________________");
+        lableUser.setText("____________________");
 
-        javax.swing.GroupLayout panel_timeUserLayout = new javax.swing.GroupLayout(panel_timeUser);
-        panel_timeUser.setLayout(panel_timeUserLayout);
-        panel_timeUserLayout.setHorizontalGroup(
-            panel_timeUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_timeUserLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelTimeUserLayout = new javax.swing.GroupLayout(panelTimeUser);
+        panelTimeUser.setLayout(panelTimeUserLayout);
+        panelTimeUserLayout.setHorizontalGroup(
+            panelTimeUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTimeUserLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(label_sellingTime)
+                .addComponent(labelTitleTime)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(label_sellingTimeInfo)
+                .addComponent(labelTime)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 276, Short.MAX_VALUE)
-                .addComponent(label_sellingUser)
+                .addComponent(labelTitleUser)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(label_sellingUserInfo)
+                .addComponent(lableUser)
                 .addGap(37, 37, 37))
         );
-        panel_timeUserLayout.setVerticalGroup(
-            panel_timeUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_timeUserLayout.createSequentialGroup()
+        panelTimeUserLayout.setVerticalGroup(
+            panelTimeUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTimeUserLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panel_timeUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_sellingTime)
-                    .addComponent(label_sellingTimeInfo)
-                    .addComponent(label_sellingUser)
-                    .addComponent(label_sellingUserInfo))
+                .addGroup(panelTimeUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelTitleTime)
+                    .addComponent(labelTime)
+                    .addComponent(labelTitleUser)
+                    .addComponent(lableUser))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         label_prodChoose.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         label_prodChoose.setText("Chosen products");
 
-        table_chooseProd.setModel(new javax.swing.table.DefaultTableModel(
+        tableProductSelected.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -158,13 +141,13 @@ public class BillCreatePanel extends javax.swing.JPanel {
                 "No", "Product", "Size", "Amount", "Price"
             }
         ));
-        jScrollPane8.setViewportView(table_chooseProd);
+        jScrollPane8.setViewportView(tableProductSelected);
 
-        button_chooseProd.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
-        button_chooseProd.setText("Choose");
-        button_chooseProd.addActionListener(new java.awt.event.ActionListener() {
+        btnChoose.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnChoose.setText("Choose");
+        btnChoose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_chooseProdActionPerformed(evt);
+                btnChooseActionPerformed(evt);
             }
         });
 
@@ -183,20 +166,20 @@ public class BillCreatePanel extends javax.swing.JPanel {
         label_change.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_change.setText("Change");
 
-        button_exportBill.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
-        button_exportBill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_export.png"))); // NOI18N
-        button_exportBill.setContentAreaFilled(false);
-        button_exportBill.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_exportBill.setFocusPainted(false);
-        button_exportBill.addActionListener(new java.awt.event.ActionListener() {
+        btnExportBill.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnExportBill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_export.png"))); // NOI18N
+        btnExportBill.setContentAreaFilled(false);
+        btnExportBill.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExportBill.setFocusPainted(false);
+        btnExportBill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_exportBillActionPerformed(evt);
+                btnExportBillActionPerformed(evt);
             }
         });
 
-        textField_billID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        textfBillID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        textField_totalMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        textfTotalMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textField_guestMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
@@ -214,18 +197,18 @@ public class BillCreatePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_BillInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_BillInfoLayout.createSequentialGroup()
-                        .addComponent(textField_billID, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textfBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                         .addComponent(label_guestMoney)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textField_guestMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_BillInfoLayout.createSequentialGroup()
-                        .addComponent(textField_totalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textfTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(label_change)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textField_Change, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(button_exportBill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnExportBill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(41, 41, 41))
         );
         panel_BillInfoLayout.setVerticalGroup(
@@ -239,22 +222,22 @@ public class BillCreatePanel extends javax.swing.JPanel {
                     .addGroup(panel_BillInfoLayout.createSequentialGroup()
                         .addGroup(panel_BillInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(panel_BillInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(textField_billID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textfBillID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(textField_guestMoney, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(label_guestMoney, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(label_billID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(panel_BillInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textField_totalMoney, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textfTotalMoney, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_BillInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(textField_Change, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(label_change, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(button_exportBill, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnExportBill, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8))
         );
 
-        table_prodInfo.setModel(new javax.swing.table.DefaultTableModel(
+        tableProductOffered.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -262,19 +245,19 @@ public class BillCreatePanel extends javax.swing.JPanel {
                 "No", "Product Name", "Size", "Unit Price"
             }
         ));
-        jScrollPane7.setViewportView(table_prodInfo);
+        jScrollPane7.setViewportView(tableProductOffered);
 
-        panel_buttonRemveClear.setBackground(new java.awt.Color(255, 255, 255));
-        panel_buttonRemveClear.setLayout(new java.awt.GridLayout(1, 0, 30, 0));
+        jPanel.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel.setLayout(new java.awt.GridLayout(1, 0, 30, 0));
 
-        button_clearProd.setText("Clear");
-        button_clearProd.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
-        button_clearProd.setPreferredSize(new java.awt.Dimension(89, 29));
-        panel_buttonRemveClear.add(button_clearProd);
+        btnClear.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnClear.setText("Clear");
+        btnClear.setPreferredSize(new java.awt.Dimension(89, 29));
+        jPanel.add(btnClear);
 
-        button_removeProd.setText("Remove");
-        button_removeProd.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
-        panel_buttonRemveClear.add(button_removeProd);
+        btnRemove.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnRemove.setText("Remove");
+        jPanel.add(btnRemove);
 
         label_prodChoose1.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         label_prodChoose1.setText("Product list");
@@ -295,10 +278,10 @@ public class BillCreatePanel extends javax.swing.JPanel {
                         .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(220, 220, 220)
-                        .addComponent(button_chooseProd, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnChoose, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(panel_sellingProdInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(panelProductOfferInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -315,23 +298,23 @@ public class BillCreatePanel extends javax.swing.JPanel {
                                     .addComponent(panel_BillInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addContainerGap())))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(panel_buttonRemveClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(176, 176, 176))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panel_timeUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelTimeUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(243, 243, 243))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(16, Short.MAX_VALUE)
-                .addComponent(panel_timeUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelTimeUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panel_sellingProdInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panelProductOfferInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(panel_BillInfo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,52 +329,50 @@ public class BillCreatePanel extends javax.swing.JPanel {
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button_chooseProd)
-                    .addComponent(panel_buttonRemveClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnChoose)
+                    .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button_chooseProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_chooseProdActionPerformed
+    private void btnChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseActionPerformed
         
-    }//GEN-LAST:event_button_chooseProdActionPerformed
+    }//GEN-LAST:event_btnChooseActionPerformed
 
-    private void button_exportBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_exportBillActionPerformed
+    private void btnExportBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportBillActionPerformed
         
-    }//GEN-LAST:event_button_exportBillActionPerformed
+    }//GEN-LAST:event_btnExportBillActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton button_chooseProd;
-    private javax.swing.JButton button_clearProd;
-    private javax.swing.JButton button_exportBill;
-    private javax.swing.JButton button_removeProd;
-    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JButton btnChoose;
+    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnExportBill;
+    private javax.swing.JButton btnRemove;
+    private javax.swing.JPanel jPanel;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel labelTime;
+    private javax.swing.JLabel labelTitleTime;
+    private javax.swing.JLabel labelTitleUser;
     private javax.swing.JLabel label_billID;
     private javax.swing.JLabel label_change;
     private javax.swing.JLabel label_guestMoney;
     private javax.swing.JLabel label_prodChoose;
     private javax.swing.JLabel label_prodChoose1;
     private javax.swing.JLabel label_prodName;
-    private javax.swing.JLabel label_prodSize;
-    private javax.swing.JLabel label_sellingTime;
-    private javax.swing.JLabel label_sellingTimeInfo;
-    private javax.swing.JLabel label_sellingUser;
-    private javax.swing.JLabel label_sellingUserInfo;
     private javax.swing.JLabel label_totalMoney;
+    private javax.swing.JLabel lableUser;
+    private javax.swing.JPanel panelProductOfferInfo;
+    private javax.swing.JPanel panelTimeUser;
     private javax.swing.JPanel panel_BillInfo;
-    private javax.swing.JPanel panel_buttonRemveClear;
-    private javax.swing.JPanel panel_sellingProdInfo;
-    private javax.swing.JPanel panel_timeUser;
-    private javax.swing.JTable table_chooseProd;
-    private javax.swing.JTable table_prodInfo;
+    private javax.swing.JTable tableProductOffered;
+    private javax.swing.JTable tableProductSelected;
     private javax.swing.JTextField textField_Change;
-    private javax.swing.JTextField textField_billID;
     private javax.swing.JTextField textField_guestMoney;
-    private javax.swing.JTextField textField_prodName;
-    private javax.swing.JTextField textField_totalMoney;
+    private javax.swing.JTextField textfBillID;
+    private javax.swing.JTextField textfProductName;
+    private javax.swing.JTextField textfTotalMoney;
     // End of variables declaration//GEN-END:variables
 }

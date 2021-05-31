@@ -1,4 +1,4 @@
-package util.swing;
+package util.swing.checkcombobox;
 
 import java.util.Comparator;
 
