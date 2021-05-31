@@ -35,7 +35,7 @@ public class TitleMainFrame extends javax.swing.JPanel {
         label_logo = new javax.swing.JLabel();
         label_title = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(204, 204, 204));
+        setBackground(new java.awt.Color(253, 250, 246));
 
         label_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Logo_43px.png"))); // NOI18N
 

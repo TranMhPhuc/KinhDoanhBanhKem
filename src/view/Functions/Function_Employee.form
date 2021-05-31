@@ -27,19 +27,19 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="label_searchEmp" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="textField_searchEmp" min="-2" pref="274" max="-2" attributes="0"/>
-                      <EmptySpace pref="342" max="32767" attributes="0"/>
-                      <Component id="panel_buttonEmp" min="-2" pref="451" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="scrollPane_empInfo1" max="32767" attributes="0"/>
-                      <Component id="panel_infoEmpl" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="label_searchEmp" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="textField_searchEmp" min="-2" pref="274" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="panel_buttonEmp" min="-2" pref="457" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="panel_infoEmpl" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="scrollPane_empInfo1" min="-2" pref="1216" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="9" max="32767" attributes="0"/>
+              <EmptySpace pref="15" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -48,10 +48,12 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="panel_infoEmpl" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="textField_searchEmp" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="label_searchEmp" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="panel_buttonEmp" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="textField_searchEmp" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="label_searchEmp" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="scrollPane_empInfo1" min="-2" pref="645" max="-2" attributes="0"/>
@@ -225,7 +227,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="textField_email" max="32767" attributes="0"/>
-                              <Component id="textField_emplID1" alignment="1" pref="294" max="32767" attributes="0"/>
+                              <Component id="textField_emplID1" alignment="1" pref="241" max="32767" attributes="0"/>
                               <Component id="combobox_status" alignment="1" max="32767" attributes="0"/>
                           </Group>
                       </Group>

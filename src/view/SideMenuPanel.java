@@ -330,12 +330,9 @@ public class SideMenuPanel extends javax.swing.JPanel {
                     showCardMenu(cardName);
                     if(!isIconButton){
                         setPreferredSize(new Dimension(SIDE_MENU_OPENED_WIDTH, getHeight()));
-                        System.out.println("Extends plese");
                     }
                     else {
-                        setPreferredSize(new Dimension(SIDE_MENU_CLOSED_WIDTH, getHeight()));
-                        
-                        System.out.println(getPreferredSize().toString());
+                        setPreferredSize(new Dimension(SIDE_MENU_CLOSED_WIDTH, getHeight()));                          
                     } 
                 }else{
                     element.iconButton.setIcon(new ImageIcon(getClass().getResource(element.unselectedIconImage)));
@@ -424,7 +421,7 @@ public class SideMenuPanel extends javax.swing.JPanel {
 
         @Override
         public void mouseEntered(MouseEvent evt) {
-         //   longEnough = true;
+            longEnough = true;
             if (delay == null) {
                 delay = new java.util.Timer();
             }

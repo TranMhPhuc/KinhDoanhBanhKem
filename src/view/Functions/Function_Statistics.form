@@ -21,15 +21,15 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="scrollPane_Statistics" min="-2" pref="1216" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="panel_statisticsInfo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="panel_Buttons" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="scrollPane_Statistics" min="-2" pref="1210" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="15" max="32767" attributes="0"/>
           </Group>
