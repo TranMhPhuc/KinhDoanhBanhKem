@@ -1,95 +1,76 @@
 package model.provider;
 
-import java.util.Objects;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class ProviderModel {
+public class ProviderModel implements ProviderModelInterface {
 
-    private String producerCode;
-    private String producerName;
+    public static final String TABLE_NAME = "NhaCungCap";
+    public static final String ID_HEADER = "MaNCC";
+    public static final String NAME_HEADER = "TenNCC";
+    public static final String EMAIL_HEADER = "Email";
+    public static final String ADDRESS_HEADER = "DiaChi";
+    public static final String PHONE_HEADER = "SDT";
+
+    private String id;
+    private String name;
     private String email;
     private String address;
     private int phoneNum;
 
     public ProviderModel() {
-
     }
 
-    public ProviderModel(String producerCode, String producerName, String email, String address, int phoneNum) {
-        this.producerCode = producerCode;
-        this.producerName = producerName;
+    public ProviderModel(String id, String producerName, String email, String address, int phoneNum) {
+        this.id = id;
+        this.name = producerName;
         this.email = email;
         this.address = address;
         this.phoneNum = phoneNum;
     }
 
-    public String getProducerCode() {
-        return producerCode;
-    }
+    public static ProviderModelInterface getInstance(ResultSet resultSet) {
+        ProviderModel ret = new ProviderModel();
 
-    public String getProducerName() {
-        return producerName;
-    }
+        try {
+            ret.id = resultSet.getString(ID_HEADER);
+            ret.name = resultSet.getString(NAME_HEADER);
+            ret.email = resultSet.getString(EMAIL_HEADER);
+            ret.address = resultSet.getString(ADDRESS_HEADER);
+            ret.phoneNum = resultSet.getInt(PHONE_HEADER);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProviderModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public int getPhoneNum() {
-        return phoneNum;
-    }
-
-    public void setProducerCode(String producerCode) {
-        this.producerCode = producerCode;
-    }
-
-    public void setProducerName(String producerName) {
-        this.producerName = producerName;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setPhoneNum(int phoneNum) {
-        this.phoneNum = phoneNum;
+        return ret;
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 29 * hash + Objects.hashCode(this.producerCode);
-        return hash;
+    public String getIDText() {
+        return this.id;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ProviderModel other = (ProviderModel) obj;
-        if (!Objects.equals(this.producerCode, other.producerCode)) {
-            return false;
-        }
-        return true;
+    public void notifyObserver() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void registerObserver() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void removeObserver() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String toString() {
-        return "Producer{" + "producerCode=" + producerCode + ", producerName=" + producerName + ", email=" + email + ", address=" + address + ", phoneNum=" + phoneNum + '}';
+        return "ProviderModel{" + "id=" + id + ", name=" + name + ", email=" + email + ", "
+                + "address=" + address + ", phoneNum=" + phoneNum + '}';
     }
 
-}//end ProviderModel
+}

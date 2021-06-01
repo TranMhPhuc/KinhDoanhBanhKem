@@ -1,10 +1,16 @@
 package util.db;
 
 import java.sql.Connection;
+import java.text.NumberFormat;
 import model.bill.BillDataStorage;
 import model.employee.EmployeeDataStorage;
 import model.employee.position.EmployeePositionDataStorage;
 import model.employee.shift.EmployeeShiftDataStorage;
+import model.ingredient.IngredientDataStorage;
+import model.ingredient.ingredientType.IngredientTypeDataStorage;
+import model.ingredient.ingredientUnit.IngredientUnitDataStorage;
+import model.product.ProductDataStorage;
+import model.provider.ProviderDataStorage;
 
 /**
  * Utility class to update data model from database.
@@ -20,6 +26,11 @@ public class DataModelUpdateManager {
     private static EmployeeDataStorage employeeDataStorage;
     private static EmployeeShiftDataStorage employeeShiftDataStorage;
     private static EmployeePositionDataStorage employeePositionDataStorage;
+    private static IngredientTypeDataStorage ingredientTypeDataStorage;
+    private static ProviderDataStorage providerDataStorage;
+    private static ProductDataStorage productDataStorage;
+    private static IngredientUnitDataStorage ingredientUnitDataStorage;
+    private static IngredientDataStorage ingredientDataStorage;
 
     static {
         uniqueInstance = new DataModelUpdateManager();
@@ -30,6 +41,11 @@ public class DataModelUpdateManager {
         employeeDataStorage = EmployeeDataStorage.getInstance();
         employeeShiftDataStorage = EmployeeShiftDataStorage.getInstance();
         employeePositionDataStorage = EmployeePositionDataStorage.getInstance();
+        ingredientTypeDataStorage = IngredientTypeDataStorage.getInstance();
+        providerDataStorage = ProviderDataStorage.getInstance();
+        productDataStorage = ProductDataStorage.getInstance();
+        ingredientUnitDataStorage = IngredientUnitDataStorage.getInstance();
+        ingredientDataStorage = IngredientDataStorage.getInstance();
     }
 
     private DataModelUpdateManager() {
@@ -43,11 +59,18 @@ public class DataModelUpdateManager {
         employeeShiftDataStorage.updateFromDB(connection);
         employeePositionDataStorage.updateFromDB(connection);
         employeeDataStorage.updateFromDB(connection);
+        ingredientTypeDataStorage.updateFromDB(connection);
+        providerDataStorage.updateFromDB(connection);
+        productDataStorage.updateFromDB(connection);
+        ingredientUnitDataStorage.updateFromDB(connection);
+        ingredientDataStorage.updateFromDB(connection);
     }
 
     public static void main(String[] args) {
         DataModelUpdateManager dataModelUpdateManager = new DataModelUpdateManager();
         dataModelUpdateManager.updateFromDB();
+
+        ingredientDataStorage.get();
     }
-    
+
 }
