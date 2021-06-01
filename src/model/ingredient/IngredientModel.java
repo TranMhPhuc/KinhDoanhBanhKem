@@ -2,7 +2,7 @@ package model.ingredient;
 
 import java.util.Objects;
 
-public class Ingredient {
+public class IngredientModel {
 
     private String ingreCode;
     private String ingreName;
@@ -11,11 +11,11 @@ public class Ingredient {
     private int totalAmount;
     private String producerCode;
 
-    public Ingredient() {
+    public IngredientModel() {
 
     }
 
-    public Ingredient(String ingreCode, String ingreName, String ingreType, int ingreCost, int totalAmount, String producerCode) {
+    public IngredientModel(String ingreCode, String ingreName, String ingreType, int ingreCost, int totalAmount, String producerCode) {
         this.ingreCode = ingreCode;
         this.ingreName = ingreName;
         this.ingreType = ingreType;
@@ -90,7 +90,7 @@ public class Ingredient {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Ingredient other = (Ingredient) obj;
+        final IngredientModel other = (IngredientModel) obj;
         if (!Objects.equals(this.ingreCode, other.ingreCode)) {
             return false;
         }
@@ -102,4 +102,4 @@ public class Ingredient {
         return "Ingredient{" + "ingreCode=" + ingreCode + ", ingreName=" + ingreName + ", ingreType=" + ingreType + ", ingreCost=" + ingreCost + ", totalAmount=" + totalAmount + ", producerCode=" + producerCode + '}';
     }
 
-}//end Ingredient
+}//end IngredientModel

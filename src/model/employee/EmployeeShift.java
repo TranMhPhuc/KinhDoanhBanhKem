@@ -1,4 +1,4 @@
-package model.shift;
+package model.employee;
 
 import util.db.SQLServerConnect;
 import util.AppLog;
@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class WorkShift {
+public class EmployeeShift {
 
-    private static ArrayList<WorkShift> workShifts;
+    private static ArrayList<EmployeeShift> workShifts;
 
     private int shiftCode;
     private String shiftName;
@@ -25,10 +25,10 @@ public class WorkShift {
         updateFromDB();
     }
 
-    private WorkShift() {
+    private EmployeeShift() {
     }
 
-    private WorkShift(int shiftCode, String shiftName, Time timeStart, Time timeEnd) {
+    private EmployeeShift(int shiftCode, String shiftName, Time timeStart, Time timeEnd) {
         this.shiftCode = shiftCode;
         this.shiftName = shiftName;
         this.timeStart = timeStart;
@@ -48,7 +48,7 @@ public class WorkShift {
             workShifts.clear();
 
             while (resultSet.next()) {
-                workShifts.add(new WorkShift(resultSet.getInt("MaCaLamViec"),
+                workShifts.add(new EmployeeShift(resultSet.getInt("MaCaLamViec"),
                         resultSet.getString("TenCaLamViec"),
                         resultSet.getTime("GioBatDau"), 
                         resultSet.getTime("GioKetThuc")));
@@ -95,4 +95,4 @@ public class WorkShift {
         }
     }
 
-}//end WorkShift
+}//end EmployeeShift

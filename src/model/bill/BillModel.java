@@ -3,7 +3,7 @@ package model.bill;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
-import model.employee.Employee;
+import model.employee.EmployeeModel;
 
 public class BillModel implements BillModelInterface {
 
@@ -12,11 +12,11 @@ public class BillModel implements BillModelInterface {
     private int payment;
     private int guestMoney;
     private int changeMoney;
-    private Employee employee;
+    private EmployeeModel employee;
     
     private BillDetailModel billDetail;
 
-    public BillModel(LocalDate dateExport, int payment, int givenMoney, int changeMoney, Employee employee) {
+    public BillModel(LocalDate dateExport, int payment, int givenMoney, int changeMoney, EmployeeModel employee) {
         this.billID = billID;
         this.dateExport = dateExport;
         this.payment = payment;
@@ -49,7 +49,7 @@ public class BillModel implements BillModelInterface {
         return changeMoney;
     }
 
-    public Employee getEmployee() {
+    public EmployeeModel getEmployee() {
         return employee;
     }
 
@@ -73,7 +73,7 @@ public class BillModel implements BillModelInterface {
         this.changeMoney = changeMoney;
     }
 
-    public void setEmployee(Employee employee) {
+    public void setEmployee(EmployeeModel employee) {
         this.employee = employee;
     }
 

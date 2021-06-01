@@ -2,7 +2,7 @@ package model.product;
 
 import java.util.Objects;
 
-public class Product {
+public class ProductModel {
 
     private int cakeCode;
     private String cakeName;
@@ -10,11 +10,11 @@ public class Product {
     private int amount = 0;
     private ProductSize cakeSize = ProductSize.M;
 
-    public Product() {
+    public ProductModel() {
 
     }
 
-    public Product(int cakeCode, String cakeName, int bareCost) {
+    public ProductModel(int cakeCode, String cakeName, int bareCost) {
         this.cakeCode = cakeCode;
         this.cakeName = cakeName;
         this.bareCost = bareCost;
@@ -78,7 +78,7 @@ public class Product {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Product other = (Product) obj;
+        final ProductModel other = (ProductModel) obj;
         if (!Objects.equals(this.cakeCode, other.cakeCode)) {
             return false;
         }
@@ -89,4 +89,4 @@ public class Product {
     public String toString() {
         return "Cake{" + "cakeCode=" + cakeCode + ", cakeName=" + cakeName + ", bareCost=" + bareCost + ", amount=" + amount + ", cakeSize=" + cakeSize + '}';
     }
-}//end Product
+}//end ProductModel

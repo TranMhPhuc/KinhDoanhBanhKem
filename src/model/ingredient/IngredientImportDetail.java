@@ -4,13 +4,13 @@ import java.time.LocalDate;
 
 public class IngredientImportDetail {
 
-    private Ingredient ingredient;
+    private IngredientModel ingredient;
     private LocalDate importDay;
     private int importAmount;
     private int importCost;
     private IngredientUnit unit;
 
-    public IngredientImportDetail(Ingredient ingredient, LocalDate importDay, int importAmount, int importCost, IngredientUnit unit) {
+    public IngredientImportDetail(IngredientModel ingredient, LocalDate importDay, int importAmount, int importCost, IngredientUnit unit) {
         this.ingredient = ingredient;
         this.importDay = importDay;
         this.importAmount = importAmount;
@@ -18,7 +18,7 @@ public class IngredientImportDetail {
         this.unit = unit;
     }
 
-    public void setIngredient(Ingredient ingredient) {
+    public void setIngredient(IngredientModel ingredient) {
         this.ingredient = ingredient;
     }
 
@@ -38,7 +38,7 @@ public class IngredientImportDetail {
         this.unit = unit;
     }
 
-    public Ingredient getIngredient() {
+    public IngredientModel getIngredient() {
         return ingredient;
     }
 

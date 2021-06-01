@@ -1,9 +1,8 @@
 package model.employee;
 
 import java.time.LocalDate;
-import model.shift.WorkShift;
 
-public class Employee {
+public class EmployeeModel {
 
     private int employeeID;
     private String name;
@@ -17,9 +16,9 @@ public class Employee {
     private String position;
     private EmployeeStatus status = EmployeeStatus.Active;
     private LocalDate numDayOff;
-    private WorkShift shift[];
+    private EmployeeShift shift[];
 
-    public Employee() {
+    public EmployeeModel() {
     }
 
     public int getEmployeeID() {
@@ -70,7 +69,7 @@ public class Employee {
         return numDayOff;
     }
 
-    public WorkShift[] getShift() {
+    public EmployeeShift[] getShift() {
         return shift;
     }
 

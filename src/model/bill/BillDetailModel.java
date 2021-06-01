@@ -1,13 +1,13 @@
 package model.bill;
 
 import java.util.HashMap;
-import model.product.Product;
+import model.product.ProductModel;
 import org.javatuples.Pair;
 
 public class BillDetailModel {
 
     private BillModel bill;
-    private HashMap<Product, Pair<Integer, Integer>> products;
+    private HashMap<ProductModel, Pair<Integer, Integer>> products;
 
     public BillDetailModel() {
         products = new HashMap<>();
@@ -17,15 +17,15 @@ public class BillDetailModel {
         return bill;
     }
 
-    public HashMap<Product, Pair<Integer, Integer>> getProducts() {
+    public HashMap<ProductModel, Pair<Integer, Integer>> getProducts() {
         return products;
     }
 
-    public boolean havingProduct(Product cake) {
+    public boolean havingProduct(ProductModel cake) {
         return products.containsKey(cake);
     }
 
-    public void addProduct(Product cake) {
+    public void addProduct(ProductModel cake) {
         Pair<Integer, Integer> value = products.get(cake);
 
         if (value != null) {
@@ -38,7 +38,7 @@ public class BillDetailModel {
 //        bill.setTotalCost(bill.getPayment()+ cake.getBareCost());
     }
 
-    public void removeProduct(Product cake) throws IllegalArgumentException {
+    public void removeProduct(ProductModel cake) throws IllegalArgumentException {
         Pair<Integer, Integer> value = products.get(cake);
 
         if (value != null) {
@@ -51,19 +51,19 @@ public class BillDetailModel {
 //        bill.setTotalCost(bill.getTotalCost() - cake.getBareCost());
     }
 
-    Pair<Integer, Integer> getAmountAndCost(Product cake) {
+    Pair<Integer, Integer> getAmountAndCost(ProductModel cake) {
         return products.get(cake);
     }
 
-    public String getAmountText(Product cake) {
+    public String getAmountText(ProductModel cake) {
         return String.valueOf(products.get(cake).getValue0());
     }
 
-    public String getText(Product cake) {
+    public String getText(ProductModel cake) {
         return String.valueOf(products.get(cake).getValue1());
     }
 
-//    public String getTotalCostText(Product cake) {
+//    public String getTotalCostText(ProductModel cake) {
 //        return String.valueOf(bill.getTotalCost());
 //    }
 }
