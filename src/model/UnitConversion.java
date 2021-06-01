@@ -1,5 +1,7 @@
 package model;
 
+import model.ingredient.IngredientUnit;
+
 public class UnitConversion {
 
     private IngredientUnit unitFrom;

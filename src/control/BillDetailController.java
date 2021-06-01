@@ -2,8 +2,8 @@ package control;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import model.BillDetail;
-import model.Cake;
+import model.bill.BillDetailModel;
+import model.product.Product;
 import org.javatuples.Pair;
 
 public class BillDetailController {
@@ -11,15 +11,15 @@ public class BillDetailController {
     private BillDetailController() {
     }
 
-    public static void addProduct(BillDetail billDetail, Cake cake) {
+    public static void addProduct(BillDetailModel billDetail, Product cake) {
         billDetail.addProduct(cake);
     }
 
-    public static void removeProduct(BillDetail billDetail, Cake cake) {
+    public static void removeProduct(BillDetailModel billDetail, Product cake) {
         billDetail.removeProduct(cake);
     }
 
-    public static void getUpdateView(BillDetail billDetail, Cake cake, String[] view)
+    public static void getUpdateView(BillDetailModel billDetail, Product cake, String[] view)
             throws IllegalArgumentException {
         if (!billDetail.havingProduct(cake)) {
             throw new IllegalArgumentException("Cake code is not in bill.");
