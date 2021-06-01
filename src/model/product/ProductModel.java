@@ -1,9 +1,14 @@
 package model.product;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.ingredient.IngredientDataStorage;
+import model.ingredientOfProduct.IngredientOfProductDetailInterface;
+import util.db.SQLServerConnect;
 
 public class ProductModel implements ProductModelInterface {
 
@@ -15,23 +20,35 @@ public class ProductModel implements ProductModelInterface {
     public static final String AMOUNT_HEADER = "SoLuong";
     public static final String PRICE_HEADER = "GiaBan";
 
+    private static Connection dbConnection;
+    private static IngredientDataStorage ingredientDataStorage;
+    
     private int id;
     private String name;
     private String size;
     private int cost;
     private int amount;
     private int price;
+    private ArrayList<IngredientOfProductDetailInterface> ingredientDetails;
 
+    static {
+        dbConnection = SQLServerConnect.getConnection();
+        ingredientDataStorage = IngredientDataStorage.getInstance();
+    }
+    
     public ProductModel() {
+        ingredientDetails = new ArrayList<>();
     }
 
-    public ProductModel(int id, String name, int cost, int price, int amount, String size) {
+    public ProductModel(int id, String name, int cost, int price, int amount, 
+            String size, ArrayList<IngredientOfProductDetailInterface> ingredients) {
         this.id = id;
         this.name = name;
         this.cost = cost;
         this.price = price;
         this.amount = amount;
         this.size = size;
+        this.ingredientDetails = ingredients;
     }
 
     @Override
@@ -70,9 +87,13 @@ public class ProductModel implements ProductModelInterface {
     }
 
     @Override
+    public void addIngredientDetail(IngredientOfProductDetailInterface ingredientOfProductDetailInterface) {
+        this.ingredientDetails.add(ingredientOfProductDetailInterface);
+    }
+    
+    @Override
     public String toString() {
         return "ProductModel{" + "id=" + id + ", name=" + name + ", cost=" + cost
                 + ", price=" + price + ", amount=" + amount + ", size=" + size + '}';
     }
-
 }

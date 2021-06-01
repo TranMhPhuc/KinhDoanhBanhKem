@@ -1,7 +1,6 @@
 package util.db;
 
 import java.sql.Connection;
-import java.text.NumberFormat;
 import model.bill.BillDataStorage;
 import model.employee.EmployeeDataStorage;
 import model.employee.position.EmployeePositionDataStorage;
@@ -9,6 +8,7 @@ import model.employee.shift.EmployeeShiftDataStorage;
 import model.ingredient.IngredientDataStorage;
 import model.ingredient.ingredientType.IngredientTypeDataStorage;
 import model.ingredient.ingredientUnit.IngredientUnitDataStorage;
+import model.ingredientOfProduct.IngredientOfProductDataStorage;
 import model.product.ProductDataStorage;
 import model.provider.ProviderDataStorage;
 
@@ -31,6 +31,7 @@ public class DataModelUpdateManager {
     private static ProductDataStorage productDataStorage;
     private static IngredientUnitDataStorage ingredientUnitDataStorage;
     private static IngredientDataStorage ingredientDataStorage;
+    private static IngredientOfProductDataStorage ingredientOfProductDataStorage;
 
     static {
         uniqueInstance = new DataModelUpdateManager();
@@ -46,6 +47,7 @@ public class DataModelUpdateManager {
         productDataStorage = ProductDataStorage.getInstance();
         ingredientUnitDataStorage = IngredientUnitDataStorage.getInstance();
         ingredientDataStorage = IngredientDataStorage.getInstance();
+        ingredientOfProductDataStorage = IngredientOfProductDataStorage.getInstance();
     }
 
     private DataModelUpdateManager() {
@@ -64,13 +66,13 @@ public class DataModelUpdateManager {
         productDataStorage.updateFromDB(connection);
         ingredientUnitDataStorage.updateFromDB(connection);
         ingredientDataStorage.updateFromDB(connection);
+        ingredientOfProductDataStorage.updateFromDB(connection);
     }
 
     public static void main(String[] args) {
         DataModelUpdateManager dataModelUpdateManager = new DataModelUpdateManager();
         dataModelUpdateManager.updateFromDB();
 
-        ingredientDataStorage.get();
     }
 
 }

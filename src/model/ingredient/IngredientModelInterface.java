@@ -1,6 +1,10 @@
 package model.ingredient;
 
+import model.ingredientOfProduct.IngredientOfProductDetailInterface;
+
 public interface IngredientModelInterface {
 
-    String getIDText();
+    String getIngredientIDText();
+    
+    void addProductDetail(IngredientOfProductDetailInterface ingredientOfProductDetailInterface);
 }

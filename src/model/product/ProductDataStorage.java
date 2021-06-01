@@ -44,10 +44,14 @@ public class ProductDataStorage implements DatabaseUpdate {
         }
     }
     
-    public void get() {
-        for (ProductModelInterface e : products) {
-            System.out.println(e);
+    public ProductModelInterface getProduct(String productIDText) {
+        for (ProductModelInterface element: products) {
+            if (element.getProductIDText().equals(productIDText)) {
+                return element;
+            }
         }
+        return null;
     }
+    
 
 }

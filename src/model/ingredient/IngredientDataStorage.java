@@ -44,9 +44,12 @@ public class IngredientDataStorage implements DatabaseUpdate {
         }
     }
 
-    public void get() {
-        for (IngredientModelInterface e : ingredients) {
-            System.out.println(e);
+    public IngredientModelInterface getIngredient(String ingredientIDText) {
+        for (IngredientModelInterface element: ingredients) {
+            if (element.getIngredientIDText().equals(ingredientIDText)) {
+                return element;
+            }
         }
+        return null;
     }
 }
