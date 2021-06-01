@@ -5,11 +5,15 @@
  */
 package view.function;
 
+import java.awt.Font;
+import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JLabel;
 import view.UserInterface;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 import util.swing.checkcombobox.CheckableItem;
-import util.swing.checkcombobox.CheckedComboBox;
 
 /**
  *
@@ -20,18 +24,23 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
     /**
      * Creates new form ManageEmployeePanel
      */
-    public EmployeeManagePanel() {
-        initComponents();
-
-        // Sample code for check combobox
-        CheckableItem[] m = {
+    CheckableItem[] defaultCheckedModel = {
             new CheckableItem("Sáng", true),
             new CheckableItem("Trưa", false),
             new CheckableItem("Chiều", false),
             new CheckableItem("Tối", false),
         };
+    public EmployeeManagePanel() {
+        initComponents();
+
+        // Sample code for check combobox
         
-        combShift.setModel(new DefaultComboBoxModel<>(m));
+        
+        combShift.setModel(new DefaultComboBoxModel<>(defaultCheckedModel));
+        buttonGroup_Gender.setSelected(rbtGenderMale.getModel(), true);
+        setEditableForAll(false);
+        setDefaultTableHeader();
+        
     }
 
     /**
@@ -43,12 +52,13 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup_Gender = new javax.swing.ButtonGroup();
         scrollpane = new javax.swing.JScrollPane();
         tableInfo = new javax.swing.JTable();
         panelOpBtn = new javax.swing.JPanel();
+        btnExport = new javax.swing.JButton();
         btnModify = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
-        btnRefresh = new javax.swing.JButton();
         label_searchEmp = new javax.swing.JLabel();
         textfSearch = new javax.swing.JTextField();
         panelInfo = new javax.swing.JPanel();
@@ -75,6 +85,8 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         dateChooserStartDate = new com.toedter.calendar.JDateChooser();
         dateChooserBirthday = new com.toedter.calendar.JDateChooser();
         combShift = new util.swing.checkcombobox.CheckedComboBox();
+        dateChooser_EndDate = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -151,6 +163,11 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         panelOpBtn.setBackground(new java.awt.Color(255, 255, 255));
         panelOpBtn.setLayout(new java.awt.GridLayout(1, 0, 50, 0));
 
+        btnExport.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnExport.setText("Export");
+        btnExport.setPreferredSize(new java.awt.Dimension(115, 40));
+        panelOpBtn.add(btnExport);
+
         btnModify.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         btnModify.setText("Modify");
         btnModify.setPreferredSize(new java.awt.Dimension(115, 40));
@@ -166,11 +183,6 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         });
         panelOpBtn.add(btnAdd);
 
-        btnRefresh.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
-        btnRefresh.setText("Refresh");
-        btnRefresh.setPreferredSize(new java.awt.Dimension(115, 40));
-        panelOpBtn.add(btnRefresh);
-
         label_searchEmp.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_searchEmp.setText("Type name to search");
 
@@ -183,7 +195,7 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         });
 
         panelInfo.setBackground(new java.awt.Color(255, 255, 255));
-        panelInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        panelInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 14))); // NOI18N
 
         label_emplID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_emplID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -217,10 +229,12 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         label_gender.setText("Gender");
 
         rbtGenderMale.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup_Gender.add(rbtGenderMale);
         rbtGenderMale.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         rbtGenderMale.setText("Male");
 
         rbtGenderFemale.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup_Gender.add(rbtGenderFemale);
         rbtGenderFemale.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         rbtGenderFemale.setText("Female");
 
@@ -237,7 +251,7 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         lable_position.setText("Position");
 
         combPosition.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        combPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Manager", "Cashier" }));
+        combPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thu ngân", "Kế toán", "Thợ làm bánh" }));
         combPosition.setPreferredSize(new java.awt.Dimension(160, 30));
 
         lable_startDate.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -259,6 +273,11 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         dateChooserStartDate.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         dateChooserBirthday.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        dateChooser_EndDate.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel1.setText("End date");
 
         javax.swing.GroupLayout panelInfoLayout = new javax.swing.GroupLayout(panelInfo);
         panelInfo.setLayout(panelInfoLayout);
@@ -286,44 +305,49 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
                         .addComponent(textfName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(textfEmployeeID, javax.swing.GroupLayout.Alignment.TRAILING)))
                 .addGap(94, 94, 94)
-                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelInfoLayout.createSequentialGroup()
-                        .addComponent(lable_position, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(combPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelInfoLayout.createSequentialGroup()
-                        .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(label_email, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lable_status, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(textfEmail)
-                            .addComponent(combStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelInfoLayout.createSequentialGroup()
                         .addComponent(label_gender, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(rbtGenderMale)
-                        .addGap(18, 18, 18)
+                        .addGap(45, 45, 45)
                         .addComponent(rbtGenderFemale)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(89, 89, 89)
-                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lable_startDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lable_birthDay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lable_shift, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelInfoLayout.createSequentialGroup()
+                        .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelInfoLayout.createSequentialGroup()
+                                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(label_email, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lable_status, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(textfEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                    .addGroup(panelInfoLayout.createSequentialGroup()
+                                        .addComponent(combStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(75, 75, 75))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelInfoLayout.createSequentialGroup()
+                                .addComponent(lable_position, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(combPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)))
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lable_startDate, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lable_birthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lable_shift, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(dateChooserBirthday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dateChooserStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                    .addComponent(combShift, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                .addGap(52, 52, 52))
+                    .addComponent(dateChooserStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(combShift, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                    .addComponent(dateChooser_EndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26))
         );
         panelInfoLayout.setVerticalGroup(
             panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInfoLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoLayout.createSequentialGroup()
                         .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textfEmployeeID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -341,37 +365,38 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
                             .addComponent(textfPersonalID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(label_personalID)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoLayout.createSequentialGroup()
-                        .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panelInfoLayout.createSequentialGroup()
-                                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(label_email, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(textfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(rbtGenderMale)
-                                    .addComponent(rbtGenderFemale)
-                                    .addComponent(label_gender))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lable_position)
-                                    .addComponent(combPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(4, 4, 4))
-                            .addGroup(panelInfoLayout.createSequentialGroup()
-                                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(dateChooserStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lable_startDate, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(dateChooserBirthday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lable_birthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lable_shift)
-                                    .addComponent(combShift, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(12, 12, 12)
+                        .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label_email, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(textfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rbtGenderMale)
+                            .addComponent(rbtGenderFemale)
+                            .addComponent(label_gender))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lable_position)
+                            .addComponent(combPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(16, 16, 16)
                         .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lable_status)
-                            .addComponent(combStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(combStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelInfoLayout.createSequentialGroup()
+                        .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(dateChooserStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lable_startDate, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dateChooserBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lable_birthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(dateChooser_EndDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(combShift, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lable_shift))))
                 .addContainerGap())
         );
 
@@ -381,16 +406,16 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollpane, javax.swing.GroupLayout.PREFERRED_SIZE, 1216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(label_searchEmp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(275, 275, 275)
-                        .addComponent(panelOpBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelOpBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scrollpane, javax.swing.GroupLayout.DEFAULT_SIZE, 1216, Short.MAX_VALUE)
+                    .addComponent(panelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -403,11 +428,57 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
                         .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(label_searchEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollpane, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(scrollpane, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public void setEditableForAll(boolean editable){  
+        textfEmployeeID.setEditable(false);
+        textfName.setEditable(editable);
+        textfPersonalID.setEditable(editable);
+        textfPhoneNum.setEditable(editable);
+        textfEmail.setEditable(editable);
+        rbtGenderFemale.setEnabled(editable);
+        rbtGenderMale.setEnabled(editable);
+        combPosition.setEnabled(editable);
+        combShift.setEnabled(editable);
+        combStatus.setEnabled(editable);
+        dateChooserBirthday.setEnabled(editable);
+        dateChooserStartDate.setEnabled(editable);
+        dateChooser_EndDate.setEnabled(editable);
+    }
+    
+    public void clearAll(){
+        textfName.setText(null);
+        textfPersonalID.setText(null);
+        textfPhoneNum.setText(null);
+        textfEmail.setText(null);
+        buttonGroup_Gender.setSelected(rbtGenderMale.getModel(), true);
+        combPosition.setSelectedIndex(0);
+        combStatus.setSelectedIndex(0);
+        combShift.setModel(new DefaultComboBoxModel<>(defaultCheckedModel));
+        dateChooserBirthday.setDate(null);
+        dateChooserStartDate.setDate(new Date());
+        dateChooser_EndDate.setDate(null);
+        
+    }
+    
+    private void setDefaultTableHeader() {
+            DefaultTableCellRenderer DTCR;
+            tableInfo.setRowHeight(30);
+            DTCR = (DefaultTableCellRenderer) tableInfo.getTableHeader().getDefaultRenderer();
+            DTCR.setHorizontalAlignment(0);
+            tableInfo.getTableHeader().setFont(new Font("Segoe UI", 1, 15));
+
+      //  setHorizontalAlignmentForColumn(tableInfo.getColumnModel().getColumn(0), JLabel.CENTER);
+    }
+    private void setHorizontalAlignmentForColumn(TableColumn column, int Alignment) {
+        DefaultTableCellRenderer center = new DefaultTableCellRenderer();
+        center.setHorizontalAlignment(Alignment);
+        column.setCellRenderer(center);
+    }
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddActionPerformed
@@ -434,13 +505,16 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnExport;
     private javax.swing.JButton btnModify;
-    private javax.swing.JButton btnRefresh;
+    private javax.swing.ButtonGroup buttonGroup_Gender;
     private javax.swing.JComboBox<String> combPosition;
     private util.swing.checkcombobox.CheckedComboBox combShift;
     private javax.swing.JComboBox<String> combStatus;
     private com.toedter.calendar.JDateChooser dateChooserBirthday;
     private com.toedter.calendar.JDateChooser dateChooserStartDate;
+    private com.toedter.calendar.JDateChooser dateChooser_EndDate;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel label_email;
     private javax.swing.JLabel label_emplID;
     private javax.swing.JLabel label_gender;

@@ -41,20 +41,23 @@ public class ProviderPanel extends javax.swing.JPanel {
         textfSearch = new javax.swing.JTextField();
         label_searchProv = new javax.swing.JLabel();
         panelBtn = new javax.swing.JPanel();
-        btnRefresh = new javax.swing.JButton();
+        btnExport = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         btnModify = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
         scrpaneTable = new javax.swing.JScrollPane();
         tableProduct = new javax.swing.JTable();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         panelProviderInfo.setBackground(new java.awt.Color(255, 255, 255));
-        panelProviderInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        panelProviderInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Provider Information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 14))); // NOI18N
 
         label_provID4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_provID4.setText("Provider ID");
+        label_provID4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        label_provID4.setText(" ID");
 
         textfID.setEditable(false);
         textfID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -62,7 +65,8 @@ public class ProviderPanel extends javax.swing.JPanel {
         textfID.setPreferredSize(new java.awt.Dimension(160, 30));
 
         label_provName4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_provName4.setText("Provider Name");
+        label_provName4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        label_provName4.setText("Name");
 
         textfName.setEditable(false);
         textfName.setBackground(new java.awt.Color(255, 255, 255));
@@ -70,6 +74,7 @@ public class ProviderPanel extends javax.swing.JPanel {
         textfName.setPreferredSize(new java.awt.Dimension(160, 30));
 
         label_provEmail4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        label_provEmail4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         label_provEmail4.setText("Email");
 
         textfEmail.setEditable(false);
@@ -78,12 +83,14 @@ public class ProviderPanel extends javax.swing.JPanel {
         textfEmail.setPreferredSize(new java.awt.Dimension(160, 30));
 
         label_provMobile4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        label_provMobile4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         label_provMobile4.setText("Mobile");
 
         textfPhoneNum.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         textfPhoneNum.setPreferredSize(new java.awt.Dimension(160, 30));
 
         label_provAdd4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        label_provAdd4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         label_provAdd4.setText("Address");
 
         textfAddress.setEditable(false);
@@ -96,28 +103,28 @@ public class ProviderPanel extends javax.swing.JPanel {
         panelProviderInfoLayout.setHorizontalGroup(
             panelProviderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProviderInfoLayout.createSequentialGroup()
-                .addGap(111, 111, 111)
-                .addGroup(panelProviderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(label_provID4)
-                    .addComponent(label_provName4))
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addGroup(panelProviderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(label_provName4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(label_provID4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelProviderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelProviderInfoLayout.createSequentialGroup()
                         .addComponent(textfID, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(label_provMobile4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textfPhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textfPhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(textfName, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addGroup(panelProviderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label_provEmail4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(label_provAdd4, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelProviderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(textfEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(label_provAdd4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(label_provEmail4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelProviderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textfAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         panelProviderInfoLayout.setVerticalGroup(
             panelProviderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,8 +139,8 @@ public class ProviderPanel extends javax.swing.JPanel {
                     .addComponent(textfEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelProviderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textfName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_provName4)
+                    .addComponent(textfName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_provAdd4)
                     .addComponent(textfAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13))
@@ -142,16 +149,16 @@ public class ProviderPanel extends javax.swing.JPanel {
         textfSearch.setPreferredSize(new java.awt.Dimension(190, 30));
 
         label_searchProv.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_searchProv.setText("Type name to search");
+        label_searchProv.setText("Type");
 
         panelBtn.setBackground(new java.awt.Color(255, 255, 255));
         panelBtn.setLayout(new java.awt.GridLayout(1, 0, 40, 0));
 
-        btnRefresh.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        btnRefresh.setText("Refresh");
-        btnRefresh.setFocusPainted(false);
-        btnRefresh.setPreferredSize(new java.awt.Dimension(115, 40));
-        panelBtn.add(btnRefresh);
+        btnExport.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        btnExport.setText("Export");
+        btnExport.setFocusPainted(false);
+        btnExport.setPreferredSize(new java.awt.Dimension(115, 40));
+        panelBtn.add(btnExport);
 
         btnAdd.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         btnAdd.setText("Add");
@@ -189,6 +196,12 @@ public class ProviderPanel extends javax.swing.JPanel {
         });
         scrpaneTable.setViewportView(tableProduct);
 
+        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Name", "ID" }));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel1.setText("to search");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -197,15 +210,21 @@ public class ProviderPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(scrpaneTable)
-                    .addComponent(panelProviderInfo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(label_searchProv)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 202, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
+                        .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(panelProviderInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,10 +235,12 @@ public class ProviderPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(label_searchProv))
+                        .addComponent(label_searchProv)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1))
                     .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(scrpaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE)
+                .addComponent(scrpaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -227,9 +248,11 @@ public class ProviderPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnExport;
     private javax.swing.JButton btnModify;
-    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnRemove;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel label_provAdd4;
     private javax.swing.JLabel label_provEmail4;
     private javax.swing.JLabel label_provID4;
