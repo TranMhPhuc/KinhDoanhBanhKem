@@ -10,7 +10,7 @@ public class AppLog {
 
     private static final String CONFIG_PROPERTY = "log4j2.configurationFile";
     private static final String CONFIG_PATH = new File("").getAbsolutePath()
-            + "/src/appconf/log4j2.properties";
+            + "/src/appconfig/log4j2.properties";
 
     private static final Logger logger;
 

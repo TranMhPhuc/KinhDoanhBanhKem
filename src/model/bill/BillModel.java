@@ -1,40 +1,69 @@
 package model.bill;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Objects;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.employee.EmployeeDataStorage;
 import model.employee.EmployeeModel;
+import model.employee.EmployeeModelInterface;
+import view.function.product.ProductViewObserver;
 
 public class BillModel implements BillModelInterface {
 
+    private static EmployeeDataStorage employeeDataStorage;
+
     private int billID;
-    private LocalDate dateExport;
+    private Timestamp dateTimeExport;
     private int payment;
     private int guestMoney;
     private int changeMoney;
-    private EmployeeModel employee;
-    
+    private EmployeeModelInterface employee;
+
     private BillDetailModel billDetail;
 
-    public BillModel(LocalDate dateExport, int payment, int givenMoney, int changeMoney, EmployeeModel employee) {
-        this.billID = billID;
-        this.dateExport = dateExport;
-        this.payment = payment;
-        this.guestMoney = givenMoney;
-        this.changeMoney = changeMoney;
-        this.employee = employee;
+    static {
+        employeeDataStorage = EmployeeDataStorage.getInstance();
+    }
+
+    public BillModel() {
+    }
+
+    public static BillModel getInstance(ResultSet resultSet) {
+        BillModel ret = new BillModel();
+                
+        try {
+            ret.billID = resultSet.getInt("MaHD");
+            ret.dateTimeExport = resultSet.getTimestamp("NgayLap");
+            ret.payment = resultSet.getInt("TongTien");
+            ret.guestMoney = resultSet.getInt("TienKhachTra");
+            ret.changeMoney = resultSet.getInt("TienThoi");
+            
+            String employeeIDText = resultSet.getString(EmployeeModel.ID_HEADER);
+
+            EmployeeModelInterface employee = employeeDataStorage
+                    .getEmployee(employeeIDText);
+            
+            ret.employee = employee;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BillModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return ret;
     }
 
     private static void updateFromDB() {
 
     }
-    
+
     public int getBillID() {
         return billID;
     }
 
-    public LocalDate getDateExport() {
-        return dateExport;
+    public Timestamp getDateExport() {
+        return dateTimeExport;
     }
 
     public int getPayment() {
@@ -49,7 +78,7 @@ public class BillModel implements BillModelInterface {
         return changeMoney;
     }
 
-    public EmployeeModel getEmployee() {
+    public EmployeeModelInterface getEmployee() {
         return employee;
     }
 
@@ -57,8 +86,8 @@ public class BillModel implements BillModelInterface {
         this.billID = billID;
     }
 
-    public void setDateExport(LocalDate dateExport) {
-        this.dateExport = dateExport;
+    public void setDateTimeExport(Timestamp dateExport) {
+        this.dateTimeExport = dateExport;
     }
 
     public void setPayment(int payment) {
@@ -79,7 +108,7 @@ public class BillModel implements BillModelInterface {
 
     @Override
     public String toString() {
-        return "Bill{" + "billID=" + billID + ", dateExport=" + dateExport + ", payment=" + payment + ", givenMoney=" + guestMoney + ", changeMoney=" + changeMoney + ", employee=" + employee + '}';
+        return "Bill{" + "billID=" + billID + ", dateExport=" + dateTimeExport + ", payment=" + payment + ", givenMoney=" + guestMoney + ", changeMoney=" + changeMoney + ", employee=" + employee + '}';
     }
 
     @Override
@@ -88,16 +117,12 @@ public class BillModel implements BillModelInterface {
     }
 
     @Override
-    public void registerObserver() {
+    public void registerObserver(ProductViewObserver productViewObserver) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void removeObserver() {
+    public void removeObserver(ProductViewObserver productViewObserver) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public static void main(String[] args) {
-
     }
 }

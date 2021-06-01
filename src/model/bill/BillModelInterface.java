@@ -1,10 +1,16 @@
 package model.bill;
 
+import view.function.product.ProductViewObserver;
+
 public interface BillModelInterface {
 
     void notifyObserver();
 
-    void registerObserver();
+    /**
+     * Update product amount when new bill created.
+     * @param productViewObserver 
+     */
+    void registerObserver(ProductViewObserver productViewObserver);
 
-    void removeObserver();
+    void removeObserver(ProductViewObserver productViewObserver);
 }
