@@ -1,5 +1,5 @@
 package view.function;
 
-public interface StatisticsObserver {
+public interface StatisticsViewObserver {
     void updateStatistics();
 }

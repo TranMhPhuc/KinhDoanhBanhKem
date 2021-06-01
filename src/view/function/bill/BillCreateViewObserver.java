@@ -1,5 +1,5 @@
 package view.function.bill;
 
-public interface BillCreateObserver {
+public interface BillCreateViewObserver {
     void updateBillCreate();
 }

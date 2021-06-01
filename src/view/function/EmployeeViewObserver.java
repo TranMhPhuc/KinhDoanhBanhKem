@@ -1,5 +1,5 @@
 package view.function;
 
-public interface EmployeeObserver {
+public interface EmployeeViewObserver {
     void updateEmployeeManage();
 }

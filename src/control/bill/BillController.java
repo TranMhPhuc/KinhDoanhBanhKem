@@ -1,4 +1,4 @@
-package control;
+package control.bill;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -6,9 +6,9 @@ import model.bill.BillDetailModel;
 import model.product.Product;
 import org.javatuples.Pair;
 
-public class BillDetailController {
+public class BillController {
 
-    private BillDetailController() {
+    private BillController() {
     }
 
     public static void addProduct(BillDetailModel billDetail, Product cake) {

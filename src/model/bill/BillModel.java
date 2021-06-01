@@ -1,10 +1,11 @@
 package model.bill;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Objects;
 import model.employee.Employee;
 
-public class BillModel {
+public class BillModel implements BillModelInterface {
 
     private int billID;
     private LocalDate dateExport;
@@ -12,6 +13,8 @@ public class BillModel {
     private int guestMoney;
     private int changeMoney;
     private Employee employee;
+    
+    private BillDetailModel billDetail;
 
     public BillModel(LocalDate dateExport, int payment, int givenMoney, int changeMoney, Employee employee) {
         this.billID = billID;
@@ -22,6 +25,10 @@ public class BillModel {
         this.employee = employee;
     }
 
+    private static void updateFromDB() {
+
+    }
+    
     public int getBillID() {
         return billID;
     }
@@ -75,7 +82,22 @@ public class BillModel {
         return "Bill{" + "billID=" + billID + ", dateExport=" + dateExport + ", payment=" + payment + ", givenMoney=" + guestMoney + ", changeMoney=" + changeMoney + ", employee=" + employee + '}';
     }
 
+    @Override
+    public void notifyObserver() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void registerObserver() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void removeObserver() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public static void main(String[] args) {
-        
+
     }
 }

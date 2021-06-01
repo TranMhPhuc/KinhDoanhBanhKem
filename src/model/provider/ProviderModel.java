@@ -2,7 +2,7 @@ package model.provider;
 
 import java.util.Objects;
 
-public class Producer {
+public class ProviderModel {
 
     private String producerCode;
     private String producerName;
@@ -10,11 +10,11 @@ public class Producer {
     private String address;
     private int phoneNum;
 
-    public Producer() {
+    public ProviderModel() {
 
     }
 
-    public Producer(String producerCode, String producerName, String email, String address, int phoneNum) {
+    public ProviderModel(String producerCode, String producerName, String email, String address, int phoneNum) {
         this.producerCode = producerCode;
         this.producerName = producerName;
         this.email = email;
@@ -80,7 +80,7 @@ public class Producer {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Producer other = (Producer) obj;
+        final ProviderModel other = (ProviderModel) obj;
         if (!Objects.equals(this.producerCode, other.producerCode)) {
             return false;
         }
@@ -92,4 +92,4 @@ public class Producer {
         return "Producer{" + "producerCode=" + producerCode + ", producerName=" + producerName + ", email=" + email + ", address=" + address + ", phoneNum=" + phoneNum + '}';
     }
 
-}//end Producer
+}//end ProviderModel

@@ -10,7 +10,6 @@ public class BillDetailModel {
     private HashMap<Product, Pair<Integer, Integer>> products;
 
     public BillDetailModel() {
-        bill = new BillModel();
         products = new HashMap<>();
     }
 
@@ -36,7 +35,7 @@ public class BillDetailModel {
             products.put(cake, new Pair<>(0, 0));
         }
 
-        bill.setTotalCost(bill.getTotalCost() + cake.getBareCost());
+//        bill.setTotalCost(bill.getPayment()+ cake.getBareCost());
     }
 
     public void removeProduct(Product cake) throws IllegalArgumentException {
@@ -49,7 +48,7 @@ public class BillDetailModel {
             throw new IllegalArgumentException("Product removed is not available.");
         }
 
-        bill.setTotalCost(bill.getTotalCost() - cake.getBareCost());
+//        bill.setTotalCost(bill.getTotalCost() - cake.getBareCost());
     }
 
     Pair<Integer, Integer> getAmountAndCost(Product cake) {
@@ -64,7 +63,7 @@ public class BillDetailModel {
         return String.valueOf(products.get(cake).getValue1());
     }
 
-    public String getTotalCostText(Product cake) {
-        return String.valueOf(bill.getTotalCost());
-    }
+//    public String getTotalCostText(Product cake) {
+//        return String.valueOf(bill.getTotalCost());
+//    }
 }

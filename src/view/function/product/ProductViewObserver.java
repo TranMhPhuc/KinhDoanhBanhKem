@@ -1,5 +1,5 @@
 package view.function.product;
 
-public interface ProductObserver {
+public interface ProductViewObserver {
     void updateProduct();
 }

@@ -1,5 +1,5 @@
 package view.function.bill;
 
-public interface BillHistoryObserver {
+public interface BillHistoryViewObserver {
     void udpateBillHistory();
 }
