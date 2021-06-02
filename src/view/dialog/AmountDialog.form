@@ -28,12 +28,12 @@
               <EmptySpace pref="34" max="32767" attributes="0"/>
               <Component id="label_AddAmount" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="spinner_Amount" min="-2" pref="78" max="-2" attributes="0"/>
+              <Component id="spinnerAmount" min="-2" pref="78" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="buttonSave" max="32767" attributes="0"/>
+              <Component id="btnSave" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -43,17 +43,17 @@
               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="label_AddAmount" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="spinner_Amount" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="spinnerAmount" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-              <Component id="buttonSave" min="-2" pref="41" max="-2" attributes="0"/>
+              <Component id="btnSave" min="-2" pref="41" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="9" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JSpinner" name="spinner_Amount">
+    <Component class="javax.swing.JSpinner" name="spinnerAmount">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="15" style="0"/>
@@ -71,7 +71,7 @@
         <Property name="text" type="java.lang.String" value="Amount"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonSave">
+    <Component class="javax.swing.JButton" name="btnSave">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/button_save_25.png"/>

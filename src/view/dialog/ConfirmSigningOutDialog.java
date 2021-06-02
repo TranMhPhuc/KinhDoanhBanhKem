@@ -28,28 +28,28 @@ public class ConfirmSigningOutDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        button_Yes = new javax.swing.JButton();
-        button_No = new javax.swing.JButton();
+        btnYes = new javax.swing.JButton();
+        btnNo = new javax.swing.JButton();
         label_Confirm = new javax.swing.JLabel();
         label_QuesttionMark = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        button_Yes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_yes_red.png"))); // NOI18N
-        button_Yes.setBorderPainted(false);
-        button_Yes.setContentAreaFilled(false);
-        button_Yes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_Yes.setFocusPainted(false);
-        button_Yes.addActionListener(new java.awt.event.ActionListener() {
+        btnYes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_yes_red.png"))); // NOI18N
+        btnYes.setBorderPainted(false);
+        btnYes.setContentAreaFilled(false);
+        btnYes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnYes.setFocusPainted(false);
+        btnYes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_YesActionPerformed(evt);
+                btnYesActionPerformed(evt);
             }
         });
 
-        button_No.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_no_red.png"))); // NOI18N
-        button_No.setContentAreaFilled(false);
-        button_No.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_no_red.png"))); // NOI18N
+        btnNo.setContentAreaFilled(false);
+        btnNo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         label_Confirm.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         label_Confirm.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -70,9 +70,9 @@ public class ConfirmSigningOutDialog extends javax.swing.JDialog {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(71, 71, 71)
-                .addComponent(button_Yes)
+                .addComponent(btnYes)
                 .addGap(39, 39, 39)
-                .addComponent(button_No)
+                .addComponent(btnNo)
                 .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -84,17 +84,17 @@ public class ConfirmSigningOutDialog extends javax.swing.JDialog {
                 .addComponent(label_Confirm)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button_No)
-                    .addComponent(button_Yes))
+                    .addComponent(btnNo)
+                    .addComponent(btnYes))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button_YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_YesActionPerformed
+    private void btnYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnYesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_button_YesActionPerformed
+    }//GEN-LAST:event_btnYesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,8 +140,8 @@ public class ConfirmSigningOutDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton button_No;
-    private javax.swing.JButton button_Yes;
+    private javax.swing.JButton btnNo;
+    private javax.swing.JButton btnYes;
     private javax.swing.JLabel label_Confirm;
     private javax.swing.JLabel label_QuesttionMark;
     // End of variables declaration//GEN-END:variables

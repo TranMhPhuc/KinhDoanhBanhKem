@@ -9,12 +9,12 @@ package view.dialog;
  *
  * @author Minh Tu
  */
-public class NewIngredientType extends javax.swing.JDialog {
+public class NewIngredientTypeCreateDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form newIngredientType
      */
-    public NewIngredientType(java.awt.Frame parent, boolean modal) {
+    public NewIngredientTypeCreateDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -31,10 +31,10 @@ public class NewIngredientType extends javax.swing.JDialog {
         label_addIngre_title = new javax.swing.JLabel();
         label_ingredientID = new javax.swing.JLabel();
         label_ingredientName = new javax.swing.JLabel();
-        textFiled_ingredientID = new javax.swing.JTextField();
-        textField_ingredientName = new javax.swing.JTextField();
-        buttonDialog_add = new javax.swing.JButton();
-        buttonCancel = new javax.swing.JButton();
+        textfTypeID = new javax.swing.JTextField();
+        textfTypeName = new javax.swing.JTextField();
+        btnCreate = new javax.swing.JButton();
+        btnCancle = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -49,21 +49,21 @@ public class NewIngredientType extends javax.swing.JDialog {
         label_ingredientName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_ingredientName.setText(" Name");
 
-        textFiled_ingredientID.setEditable(false);
-        textFiled_ingredientID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        textfTypeID.setEditable(false);
+        textfTypeID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        textField_ingredientName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        textfTypeName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        buttonDialog_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_create.png"))); // NOI18N
-        buttonDialog_add.setContentAreaFilled(false);
-        buttonDialog_add.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        buttonDialog_add.addActionListener(new java.awt.event.ActionListener() {
+        btnCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_create.png"))); // NOI18N
+        btnCreate.setContentAreaFilled(false);
+        btnCreate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDialog_addActionPerformed(evt);
+                btnCreateActionPerformed(evt);
             }
         });
 
-        buttonCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_cancel_40.png"))); // NOI18N
+        btnCancle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_cancel_40.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,14 +77,14 @@ public class NewIngredientType extends javax.swing.JDialog {
                     .addComponent(label_ingredientID))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textFiled_ingredientID, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textField_ingredientName, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textfTypeID, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textfTypeName, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buttonDialog_add)
+                .addComponent(btnCreate)
                 .addGap(34, 34, 34)
-                .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancle, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
@@ -95,26 +95,24 @@ public class NewIngredientType extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_ingredientID)
-                    .addComponent(textFiled_ingredientID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textfTypeID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_ingredientName)
-                    .addComponent(textField_ingredientName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textfTypeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(buttonDialog_add, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(buttonCancel))
+                    .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancle))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonDialog_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDialog_addActionPerformed
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_buttonDialog_addActionPerformed
+    }//GEN-LAST:event_btnCreateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -133,21 +131,23 @@ public class NewIngredientType extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewIngredientType.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewIngredientTypeCreateDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewIngredientType.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewIngredientTypeCreateDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewIngredientType.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewIngredientTypeCreateDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewIngredientType.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewIngredientTypeCreateDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                NewIngredientType dialog = new NewIngredientType(new javax.swing.JFrame(), true);
+                NewIngredientTypeCreateDialog dialog = new NewIngredientTypeCreateDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -160,12 +160,12 @@ public class NewIngredientType extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonCancel;
-    private javax.swing.JButton buttonDialog_add;
+    private javax.swing.JButton btnCancle;
+    private javax.swing.JButton btnCreate;
     private javax.swing.JLabel label_addIngre_title;
     private javax.swing.JLabel label_ingredientID;
     private javax.swing.JLabel label_ingredientName;
-    private javax.swing.JTextField textField_ingredientName;
-    private javax.swing.JTextField textFiled_ingredientID;
+    private javax.swing.JTextField textfTypeID;
+    private javax.swing.JTextField textfTypeName;
     // End of variables declaration//GEN-END:variables
 }

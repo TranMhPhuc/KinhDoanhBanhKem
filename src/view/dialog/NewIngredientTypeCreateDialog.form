@@ -33,16 +33,16 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="textFiled_ingredientID" min="-2" pref="62" max="-2" attributes="0"/>
-                  <Component id="textField_ingredientName" min="-2" pref="174" max="-2" attributes="0"/>
+                  <Component id="textfTypeID" min="-2" pref="62" max="-2" attributes="0"/>
+                  <Component id="textfTypeName" min="-2" pref="174" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="buttonDialog_add" min="-2" max="-2" attributes="0"/>
+              <Component id="btnCreate" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-              <Component id="buttonCancel" min="-2" pref="123" max="-2" attributes="0"/>
+              <Component id="btnCancle" min="-2" pref="123" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -55,20 +55,17 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="label_ingredientID" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="textFiled_ingredientID" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="textfTypeID" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="label_ingredientName" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="textField_ingredientName" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="textfTypeName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
-                      <Component id="buttonDialog_add" min="-2" pref="53" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCreate" alignment="1" min="-2" pref="53" max="-2" attributes="0"/>
+                  <Component id="btnCancle" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="28" max="32767" attributes="0"/>
           </Group>
@@ -101,7 +98,7 @@
         <Property name="text" type="java.lang.String" value=" Name"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="textFiled_ingredientID">
+    <Component class="javax.swing.JTextField" name="textfTypeID">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -109,14 +106,14 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="textField_ingredientName">
+    <Component class="javax.swing.JTextField" name="textfTypeName">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="15" style="0"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonDialog_add">
+    <Component class="javax.swing.JButton" name="btnCreate">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/button_create.png"/>
@@ -127,10 +124,10 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDialog_addActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCreateActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonCancel">
+    <Component class="javax.swing.JButton" name="btnCancle">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/button_cancel_40.png"/>

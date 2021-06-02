@@ -9,12 +9,12 @@ package view.dialog;
  *
  * @author Minh Tu
  */
-public class PersonalProfileDialog extends javax.swing.JDialog {
+public class PersonalProfileEditDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form personalProfileDialog
      */
-    public PersonalProfileDialog(java.awt.Frame parent, boolean modal) {
+    public PersonalProfileEditDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -29,21 +29,21 @@ public class PersonalProfileDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         label_Title = new javax.swing.JLabel();
-        panel_EmpInfo_label = new javax.swing.JPanel();
+        panelTitle = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        panel_EmpInfo_textField = new javax.swing.JPanel();
-        textField_Name = new javax.swing.JTextField();
-        textField_Position = new javax.swing.JTextField();
-        textField_Email = new javax.swing.JTextField();
-        dateChooser_Birthday = new com.toedter.calendar.JDateChooser();
-        textField_PhoneNumber = new javax.swing.JTextField();
-        button_changePassword = new javax.swing.JButton();
-        button_EditProfile = new javax.swing.JButton();
-        button_EmpID = new javax.swing.JLabel();
+        panelInput = new javax.swing.JPanel();
+        textfName = new javax.swing.JTextField();
+        textfPosition = new javax.swing.JTextField();
+        textfEmail = new javax.swing.JTextField();
+        dateChooserBirthday = new com.toedter.calendar.JDateChooser();
+        textfPhoneNumber = new javax.swing.JTextField();
+        btnChangePassword = new javax.swing.JButton();
+        btnEditProfile = new javax.swing.JButton();
+        labelEmployeeID = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -52,64 +52,64 @@ public class PersonalProfileDialog extends javax.swing.JDialog {
         label_Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Title.setText("Personal Profile");
 
-        panel_EmpInfo_label.setLayout(new java.awt.GridLayout(0, 1, 0, 30));
+        panelTitle.setLayout(new java.awt.GridLayout(0, 1, 0, 30));
 
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel14.setText("Name");
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        panel_EmpInfo_label.add(jLabel14);
+        panelTitle.add(jLabel14);
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel15.setText("Position");
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        panel_EmpInfo_label.add(jLabel15);
+        panelTitle.add(jLabel15);
 
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel16.setText("Email");
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        panel_EmpInfo_label.add(jLabel16);
+        panelTitle.add(jLabel16);
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel17.setText("Birthday");
-        panel_EmpInfo_label.add(jLabel17);
+        panelTitle.add(jLabel17);
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel19.setText("Phone number");
-        panel_EmpInfo_label.add(jLabel19);
+        panelTitle.add(jLabel19);
 
-        panel_EmpInfo_textField.setLayout(new java.awt.GridLayout(0, 1, 0, 30));
+        panelInput.setLayout(new java.awt.GridLayout(0, 1, 0, 30));
 
-        textField_Name.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        panel_EmpInfo_textField.add(textField_Name);
+        textfName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        panelInput.add(textfName);
 
-        textField_Position.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        panel_EmpInfo_textField.add(textField_Position);
+        textfPosition.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        panelInput.add(textfPosition);
 
-        textField_Email.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        panel_EmpInfo_textField.add(textField_Email);
+        textfEmail.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        panelInput.add(textfEmail);
 
-        dateChooser_Birthday.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        panel_EmpInfo_textField.add(dateChooser_Birthday);
+        dateChooserBirthday.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        panelInput.add(dateChooserBirthday);
 
-        textField_PhoneNumber.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        panel_EmpInfo_textField.add(textField_PhoneNumber);
+        textfPhoneNumber.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        panelInput.add(textfPhoneNumber);
 
-        button_changePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_change-password.png"))); // NOI18N
-        button_changePassword.setContentAreaFilled(false);
-        button_changePassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_changePassword.setFocusPainted(false);
+        btnChangePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_change-password.png"))); // NOI18N
+        btnChangePassword.setContentAreaFilled(false);
+        btnChangePassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnChangePassword.setFocusPainted(false);
 
-        button_EditProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_edit-profile.png"))); // NOI18N
-        button_EditProfile.setContentAreaFilled(false);
-        button_EditProfile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_EditProfile.setFocusPainted(false);
+        btnEditProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_edit-profile.png"))); // NOI18N
+        btnEditProfile.setContentAreaFilled(false);
+        btnEditProfile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditProfile.setFocusPainted(false);
 
-        button_EmpID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        button_EmpID.setForeground(new java.awt.Color(255, 0, 51));
-        button_EmpID.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        button_EmpID.setText("Emp ID: 1");
+        labelEmployeeID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelEmployeeID.setForeground(new java.awt.Color(255, 0, 51));
+        labelEmployeeID.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelEmployeeID.setText("Emp ID: 1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,18 +120,18 @@ public class PersonalProfileDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(button_EditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(button_changePassword))
+                        .addComponent(btnChangePassword))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(panel_EmpInfo_label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(label_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(button_EmpID, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(panel_EmpInfo_textField, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(labelEmployeeID, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(panelInput, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -140,15 +140,15 @@ public class PersonalProfileDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(label_Title)
-                    .addComponent(button_EmpID))
+                    .addComponent(labelEmployeeID))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panel_EmpInfo_textField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panel_EmpInfo_label, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button_changePassword)
-                    .addComponent(button_EditProfile))
+                    .addComponent(btnChangePassword)
+                    .addComponent(btnEditProfile))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
@@ -172,21 +172,23 @@ public class PersonalProfileDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PersonalProfileDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PersonalProfileEditDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PersonalProfileDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PersonalProfileEditDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PersonalProfileDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PersonalProfileEditDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PersonalProfileDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PersonalProfileEditDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PersonalProfileDialog dialog = new PersonalProfileDialog(new javax.swing.JFrame(), true);
+                PersonalProfileEditDialog dialog = new PersonalProfileEditDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -199,21 +201,21 @@ public class PersonalProfileDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton button_EditProfile;
-    private javax.swing.JLabel button_EmpID;
-    private javax.swing.JButton button_changePassword;
-    private com.toedter.calendar.JDateChooser dateChooser_Birthday;
+    private javax.swing.JButton btnChangePassword;
+    private javax.swing.JButton btnEditProfile;
+    private com.toedter.calendar.JDateChooser dateChooserBirthday;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel labelEmployeeID;
     private javax.swing.JLabel label_Title;
-    private javax.swing.JPanel panel_EmpInfo_label;
-    private javax.swing.JPanel panel_EmpInfo_textField;
-    private javax.swing.JTextField textField_Email;
-    private javax.swing.JTextField textField_Name;
-    private javax.swing.JTextField textField_PhoneNumber;
-    private javax.swing.JTextField textField_Position;
+    private javax.swing.JPanel panelInput;
+    private javax.swing.JPanel panelTitle;
+    private javax.swing.JTextField textfEmail;
+    private javax.swing.JTextField textfName;
+    private javax.swing.JTextField textfPhoneNumber;
+    private javax.swing.JTextField textfPosition;
     // End of variables declaration//GEN-END:variables
 }

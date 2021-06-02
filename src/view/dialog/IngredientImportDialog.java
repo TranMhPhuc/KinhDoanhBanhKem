@@ -9,12 +9,12 @@ package view.dialog;
  *
  * @author Minh Tu
  */
-public class ImportIngredientDialog extends javax.swing.JDialog {
+public class IngredientImportDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form importIngredientDialog
      */
-    public ImportIngredientDialog(java.awt.Frame parent, boolean modal) {
+    public IngredientImportDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -29,17 +29,17 @@ public class ImportIngredientDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         label_Import_Ingr_Title = new javax.swing.JLabel();
-        panel_ImportIngredient = new javax.swing.JPanel();
+        panelInfo = new javax.swing.JPanel();
         label_SelectIngr = new javax.swing.JLabel();
         label_ImportDate = new javax.swing.JLabel();
-        spinner_AmountToImport = new javax.swing.JSpinner();
+        spinnerImportAmount = new javax.swing.JSpinner();
         label_Amount = new javax.swing.JLabel();
         label_Cost = new javax.swing.JLabel();
-        textField_Cost = new javax.swing.JTextField();
-        dateChooser_ImportDate = new com.toedter.calendar.JDateChooser();
-        textField_SelectedIngredient = new javax.swing.JTextField();
-        buttonDialog_Import = new javax.swing.JButton();
-        button_Cancel = new javax.swing.JButton();
+        textfCost = new javax.swing.JTextField();
+        dateChooserImportDate = new com.toedter.calendar.JDateChooser();
+        textfSelectedIngredient = new javax.swing.JTextField();
+        btnImport = new javax.swing.JButton();
+        btnCancle = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -54,7 +54,7 @@ public class ImportIngredientDialog extends javax.swing.JDialog {
         label_ImportDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         label_ImportDate.setText("Import date");
 
-        spinner_AmountToImport.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        spinnerImportAmount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         label_Amount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         label_Amount.setText("Amount");
@@ -62,72 +62,72 @@ public class ImportIngredientDialog extends javax.swing.JDialog {
         label_Cost.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         label_Cost.setText("Cost");
 
-        textField_Cost.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        textfCost.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        dateChooser_ImportDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        dateChooserImportDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        textField_SelectedIngredient.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        textfSelectedIngredient.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        javax.swing.GroupLayout panel_ImportIngredientLayout = new javax.swing.GroupLayout(panel_ImportIngredient);
-        panel_ImportIngredient.setLayout(panel_ImportIngredientLayout);
-        panel_ImportIngredientLayout.setHorizontalGroup(
-            panel_ImportIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_ImportIngredientLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelInfoLayout = new javax.swing.GroupLayout(panelInfo);
+        panelInfo.setLayout(panelInfoLayout);
+        panelInfoLayout.setHorizontalGroup(
+            panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoLayout.createSequentialGroup()
                 .addContainerGap(87, Short.MAX_VALUE)
                 .addComponent(label_Amount)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panel_ImportIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(spinner_AmountToImport, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textField_SelectedIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(spinnerImportAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textfSelectedIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addGroup(panel_ImportIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panel_ImportIngredientLayout.createSequentialGroup()
+            .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelInfoLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(panel_ImportIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(label_ImportDate)
                         .addComponent(label_SelectIngr)
                         .addComponent(label_Cost))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(panel_ImportIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(textField_Cost)
-                        .addComponent(dateChooser_ImportDate, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(textfCost)
+                        .addComponent(dateChooserImportDate, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
-        panel_ImportIngredientLayout.setVerticalGroup(
-            panel_ImportIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_ImportIngredientLayout.createSequentialGroup()
+        panelInfoLayout.setVerticalGroup(
+            panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInfoLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(textField_SelectedIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textfSelectedIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
-                .addGroup(panel_ImportIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(spinner_AmountToImport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(spinnerImportAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_Amount, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(60, Short.MAX_VALUE))
-            .addGroup(panel_ImportIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panel_ImportIngredientLayout.createSequentialGroup()
+            .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelInfoLayout.createSequentialGroup()
                     .addGap(11, 11, 11)
                     .addComponent(label_SelectIngr, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(panel_ImportIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(dateChooser_ImportDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(dateChooserImportDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(label_ImportDate, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(60, 60, 60)
-                    .addGroup(panel_ImportIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(panel_ImportIngredientLayout.createSequentialGroup()
+                    .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(panelInfoLayout.createSequentialGroup()
                             .addGap(1, 1, 1)
                             .addComponent(label_Cost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(textField_Cost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textfCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(17, Short.MAX_VALUE)))
         );
 
-        buttonDialog_Import.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_SaveImport.png"))); // NOI18N
-        buttonDialog_Import.setContentAreaFilled(false);
-        buttonDialog_Import.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_SaveImport.png"))); // NOI18N
+        btnImport.setContentAreaFilled(false);
+        btnImport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        button_Cancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_cancel.png"))); // NOI18N
-        button_Cancel.setContentAreaFilled(false);
-        button_Cancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_Cancel.setFocusPainted(false);
+        btnCancle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_cancel.png"))); // NOI18N
+        btnCancle.setContentAreaFilled(false);
+        btnCancle.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancle.setFocusPainted(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,11 +141,11 @@ public class ImportIngredientDialog extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(59, 59, 59)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(panel_ImportIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(buttonDialog_Import)
+                                .addComponent(btnImport)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(button_Cancel)))
+                                .addComponent(btnCancle)))
                         .addGap(0, 56, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -155,11 +155,11 @@ public class ImportIngredientDialog extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(label_Import_Ingr_Title)
                 .addGap(18, 18, 18)
-                .addComponent(panel_ImportIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(buttonDialog_Import, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(button_Cancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnImport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCancle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -183,21 +183,23 @@ public class ImportIngredientDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ImportIngredientDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IngredientImportDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ImportIngredientDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IngredientImportDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ImportIngredientDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IngredientImportDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ImportIngredientDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IngredientImportDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ImportIngredientDialog dialog = new ImportIngredientDialog(new javax.swing.JFrame(), true);
+                IngredientImportDialog dialog = new IngredientImportDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -210,17 +212,17 @@ public class ImportIngredientDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonDialog_Import;
-    private javax.swing.JButton button_Cancel;
-    private com.toedter.calendar.JDateChooser dateChooser_ImportDate;
+    private javax.swing.JButton btnCancle;
+    private javax.swing.JButton btnImport;
+    private com.toedter.calendar.JDateChooser dateChooserImportDate;
     private javax.swing.JLabel label_Amount;
     private javax.swing.JLabel label_Cost;
     private javax.swing.JLabel label_ImportDate;
     private javax.swing.JLabel label_Import_Ingr_Title;
     private javax.swing.JLabel label_SelectIngr;
-    private javax.swing.JPanel panel_ImportIngredient;
-    private javax.swing.JSpinner spinner_AmountToImport;
-    private javax.swing.JTextField textField_Cost;
-    private javax.swing.JTextField textField_SelectedIngredient;
+    private javax.swing.JPanel panelInfo;
+    private javax.swing.JSpinner spinnerImportAmount;
+    private javax.swing.JTextField textfCost;
+    private javax.swing.JTextField textfSelectedIngredient;
     // End of variables declaration//GEN-END:variables
 }
