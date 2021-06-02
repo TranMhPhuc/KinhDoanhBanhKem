@@ -17,6 +17,7 @@ public class PersonalProfileEditDialog extends javax.swing.JDialog {
     public PersonalProfileEditDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setEditableForAll(false);
     }
 
     /**
@@ -81,15 +82,18 @@ public class PersonalProfileEditDialog extends javax.swing.JDialog {
 
         panelInput.setLayout(new java.awt.GridLayout(0, 1, 0, 30));
 
+        textfName.setEditable(false);
         textfName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         panelInput.add(textfName);
 
+        textfPosition.setEditable(false);
         textfPosition.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         panelInput.add(textfPosition);
 
         textfEmail.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         panelInput.add(textfEmail);
 
+        dateChooserBirthday.setEnabled(false);
         dateChooserBirthday.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         panelInput.add(dateChooserBirthday);
 
@@ -105,6 +109,11 @@ public class PersonalProfileEditDialog extends javax.swing.JDialog {
         btnEditProfile.setContentAreaFilled(false);
         btnEditProfile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditProfile.setFocusPainted(false);
+        btnEditProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditProfileActionPerformed(evt);
+            }
+        });
 
         labelEmployeeID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         labelEmployeeID.setForeground(new java.awt.Color(255, 0, 51));
@@ -155,6 +164,16 @@ public class PersonalProfileEditDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnEditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProfileActionPerformed
+        setEditableForAll(true);
+    }//GEN-LAST:event_btnEditProfileActionPerformed
+
+    public void setEditableForAll(boolean editable){
+        textfEmail.setEditable(editable);
+        textfPhoneNumber.setEditable(editable);
+    }
+    
+        
     /**
      * @param args the command line arguments
      */

@@ -87,6 +87,7 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         combShift = new util.swing.checkcombobox.CheckedComboBox();
         dateChooser_EndDate = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
+        button_ClearSearch = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -195,7 +196,7 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         });
 
         panelInfo.setBackground(new java.awt.Color(255, 255, 255));
-        panelInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Employee Information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 14))); // NOI18N
+        panelInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Employee Information", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 14), new java.awt.Color(153, 153, 153))); // NOI18N
 
         label_emplID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_emplID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -391,7 +392,7 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
                             .addComponent(lable_birthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(dateChooser_EndDate, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                            .addComponent(dateChooser_EndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 27, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -399,6 +400,11 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
                             .addComponent(lable_shift))))
                 .addContainerGap())
         );
+
+        button_ClearSearch.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        button_ClearSearch.setText("Clear");
+        button_ClearSearch.setFocusPainted(false);
+        button_ClearSearch.setPreferredSize(new java.awt.Dimension(89, 29));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -411,6 +417,8 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
                         .addComponent(label_searchEmp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(panelOpBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(scrollpane, javax.swing.GroupLayout.DEFAULT_SIZE, 1216, Short.MAX_VALUE)
@@ -426,9 +434,10 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
                     .addComponent(panelOpBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(label_searchEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollpane, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
+                        .addComponent(label_searchEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(scrollpane, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -497,6 +506,7 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
     private javax.swing.JButton btnExport;
     private javax.swing.JButton btnModify;
     private javax.swing.ButtonGroup buttonGroup_Gender;
+    private javax.swing.JButton button_ClearSearch;
     private javax.swing.JComboBox<String> combPosition;
     private util.swing.checkcombobox.CheckedComboBox combShift;
     private javax.swing.JComboBox<String> combStatus;

@@ -5,11 +5,10 @@
  */
 package view.function.product;
 
-import java.awt.Dimension;
 import javax.swing.JTable;
-import javax.swing.SpinnerModel;
 import util.swing.UIControl;
 import view.dialog.IngredientSelectDialog;
+import view.dialog.ProductImportDialog;
 
 /**
  *
@@ -21,7 +20,7 @@ public class ProductPanel extends javax.swing.JPanel {
      * Creates new form ProductManagePanel
      */
     IngredientSelectDialog ingredientSelectDialog = new IngredientSelectDialog(null, true);
-
+    ProductImportDialog importProduct = new ProductImportDialog(null, true);
     public ProductPanel() {
         initComponents();
         UIControl.setDefaultTableHeader(tableProduct);
@@ -45,14 +44,14 @@ public class ProductPanel extends javax.swing.JPanel {
         combSize = new javax.swing.JComboBox<>();
         spnAmount = new javax.swing.JSpinner();
         label_name = new javax.swing.JLabel();
-        textfName = new javax.swing.JTextField();
         label_cost = new javax.swing.JLabel();
-        textfCost = new javax.swing.JTextField();
         label_ingredient = new javax.swing.JLabel();
         btnSelectIngredient = new javax.swing.JButton();
         scrpaneList = new javax.swing.JScrollPane();
         listIngredient = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
+        textfName = new javax.swing.JTextField();
+        textfCost = new javax.swing.JTextField();
         label_searchProduct = new javax.swing.JLabel();
         textfSearch = new javax.swing.JTextField();
         scrpaneTable = new javax.swing.JScrollPane();
@@ -62,11 +61,14 @@ public class ProductPanel extends javax.swing.JPanel {
         btnModify = new javax.swing.JButton();
         btnExport = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        button_ClearSearch = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setForeground(new java.awt.Color(255, 255, 255));
 
         panelProductInfo.setBackground(new java.awt.Color(255, 255, 255));
-        panelProductInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Product Information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 14))); // NOI18N
+        panelProductInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Product Information", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 14), new java.awt.Color(153, 153, 153))); // NOI18N
 
         label_productID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_productID.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -99,14 +101,8 @@ public class ProductPanel extends javax.swing.JPanel {
         label_name.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_name.setText(" Name");
 
-        textfName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        textfName.setPreferredSize(new java.awt.Dimension(160, 30));
-
         label_cost.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_cost.setText("Cost");
-
-        textfCost.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        textfCost.setPreferredSize(new java.awt.Dimension(160, 30));
 
         label_ingredient.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_ingredient.setText("Selected Ingredients:");
@@ -127,6 +123,10 @@ public class ProductPanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel1.setText("Unit");
+
+        textfName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        textfCost.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         javax.swing.GroupLayout panelProductInfoLayout = new javax.swing.GroupLayout(panelProductInfo);
         panelProductInfo.setLayout(panelProductInfoLayout);
@@ -152,8 +152,8 @@ public class ProductPanel extends javax.swing.JPanel {
                                     .addComponent(label_name))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelProductInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(textfName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(textfCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(textfCost)
+                                    .addComponent(textfName))))
                         .addGap(37, 37, 37))
                     .addGroup(panelProductInfoLayout.createSequentialGroup()
                         .addGap(47, 47, 47)
@@ -176,7 +176,7 @@ public class ProductPanel extends javax.swing.JPanel {
         panelProductInfoLayout.setVerticalGroup(
             panelProductInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProductInfoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(panelProductInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelProductInfoLayout.createSequentialGroup()
                         .addGroup(panelProductInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -186,13 +186,13 @@ public class ProductPanel extends javax.swing.JPanel {
                             .addComponent(combSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(panelProductInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label_name))
+                            .addComponent(label_name)
+                            .addComponent(textfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panelProductInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textfCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label_cost, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelProductInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(label_cost, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textfCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(16, 16, 16)
                         .addGroup(panelProductInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panelProductInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -274,6 +274,22 @@ public class ProductPanel extends javax.swing.JPanel {
         btnRemove.setPreferredSize(new java.awt.Dimension(115, 40));
         panelBtn.add(btnRemove);
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_import-selected-product.png"))); // NOI18N
+        jButton1.setContentAreaFilled(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setFocusPainted(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        button_ClearSearch.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        button_ClearSearch.setText("Clear");
+        button_ClearSearch.setFocusPainted(false);
+        button_ClearSearch.setPreferredSize(new java.awt.Dimension(89, 29));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -286,11 +302,14 @@ public class ProductPanel extends javax.swing.JPanel {
                         .addComponent(label_searchProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 242, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
                         .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelProductInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 732, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -302,11 +321,14 @@ public class ProductPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(label_searchProduct))
+                        .addComponent(label_searchProduct)
+                        .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(scrpaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrpaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addGap(30, 30, 30))
         );
     }// </editor-fold>//GEN-END:initComponents
     public void setEditableForAll(boolean editable) {
@@ -337,6 +359,11 @@ public class ProductPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_spnAmountPropertyChange
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        UIControl.setLocationCenterForDialog(importProduct);
+        importProduct.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -344,7 +371,9 @@ public class ProductPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnModify;
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnSelectIngredient;
+    private javax.swing.JButton button_ClearSearch;
     private javax.swing.JComboBox<String> combSize;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel label_amount;
     private javax.swing.JLabel label_cost;

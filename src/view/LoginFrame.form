@@ -131,15 +131,10 @@
                                   <Component id="recover_empID" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="label_recoverEmail" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                                      <Component id="textField_recoEmail" min="-2" pref="253" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="textField_recoEmpID" max="32767" attributes="0"/>
-                                  </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="textField_recoEmail" min="-2" pref="256" max="-2" attributes="0"/>
+                                  <Component id="textField_recoEmpID" min="-2" pref="68" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>

@@ -158,13 +158,10 @@ public class LoginFrame extends javax.swing.JFrame {
                             .addGroup(dialog_recoverPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(recover_empID)
                                 .addComponent(label_recoverEmail))
-                            .addGroup(dialog_recoverPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(dialog_recoverPasswordLayout.createSequentialGroup()
-                                    .addGap(21, 21, 21)
-                                    .addComponent(textField_recoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(dialog_recoverPasswordLayout.createSequentialGroup()
-                                    .addGap(18, 18, 18)
-                                    .addComponent(textField_recoEmpID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                            .addGap(18, 18, 18)
+                            .addGroup(dialog_recoverPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(textField_recoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textField_recoEmpID, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))))))
         );
         dialog_recoverPasswordLayout.setVerticalGroup(
             dialog_recoverPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

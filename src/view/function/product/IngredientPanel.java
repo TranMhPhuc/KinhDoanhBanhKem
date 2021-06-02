@@ -5,8 +5,8 @@
  */
 package view.function.product;
 
-import javax.swing.JDialog;
 import util.swing.UIControl;
+import view.dialog.ImportHistoryDialog;
 import view.dialog.IngredientImportDialog;
 import view.dialog.NewIngredientTypeCreateDialog;
 
@@ -21,6 +21,7 @@ public class IngredientPanel extends javax.swing.JPanel {
      */
     NewIngredientTypeCreateDialog newIngredientTypeCreateDialog = new NewIngredientTypeCreateDialog(null, true);
     IngredientImportDialog ingredientImportDialog=new IngredientImportDialog(null, true);
+    ImportHistoryDialog history = new ImportHistoryDialog(null, true);
     public IngredientPanel() {
         initComponents();
         setEditableForAll(false);
@@ -40,13 +41,13 @@ public class IngredientPanel extends javax.swing.JPanel {
         label_ingreID = new javax.swing.JLabel();
         textfID = new javax.swing.JTextField();
         label_ingreName = new javax.swing.JLabel();
-        textfName = new javax.swing.JTextField();
         label_ingreCost = new javax.swing.JLabel();
-        textfCost = new javax.swing.JTextField();
         label_ingreType = new javax.swing.JLabel();
         combType = new javax.swing.JComboBox<>();
         btnAddType = new javax.swing.JButton();
         label_IngredientProvider = new javax.swing.JLabel();
+        textfName = new javax.swing.JTextField();
+        textfCost = new javax.swing.JTextField();
         textfProviderName = new javax.swing.JTextField();
         label_Search = new javax.swing.JLabel();
         textfSearch = new javax.swing.JTextField();
@@ -58,6 +59,8 @@ public class IngredientPanel extends javax.swing.JPanel {
         btnModify = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
         btnImport = new javax.swing.JButton();
+        button_ShowImportHistory = new javax.swing.JButton();
+        button_ClearSearch = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -74,18 +77,8 @@ public class IngredientPanel extends javax.swing.JPanel {
         label_ingreName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_ingreName.setText(" Name");
 
-        textfName.setEditable(false);
-        textfName.setBackground(new java.awt.Color(255, 255, 255));
-        textfName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        textfName.setPreferredSize(new java.awt.Dimension(160, 30));
-
         label_ingreCost.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_ingreCost.setText("Cost");
-
-        textfCost.setEditable(false);
-        textfCost.setBackground(new java.awt.Color(255, 255, 255));
-        textfCost.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        textfCost.setPreferredSize(new java.awt.Dimension(160, 30));
 
         label_ingreType.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_ingreType.setText("Ingredient Type");
@@ -93,11 +86,6 @@ public class IngredientPanel extends javax.swing.JPanel {
         combType.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         combType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         combType.setPreferredSize(new java.awt.Dimension(160, 30));
-        combType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                combTypeActionPerformed(evt);
-            }
-        });
 
         btnAddType.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnAddType.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_new-type.png"))); // NOI18N
@@ -113,10 +101,16 @@ public class IngredientPanel extends javax.swing.JPanel {
         label_IngredientProvider.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_IngredientProvider.setText("Provider");
 
-        textfProviderName.setEditable(false);
-        textfProviderName.setBackground(new java.awt.Color(255, 255, 255));
+        textfName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        textfCost.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
         textfProviderName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        textfProviderName.setPreferredSize(new java.awt.Dimension(160, 30));
+        textfProviderName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textfProviderNameActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelIngredientInfoLayout = new javax.swing.GroupLayout(panelIngredientInfo);
         panelIngredientInfo.setLayout(panelIngredientInfoLayout);
@@ -134,23 +128,22 @@ public class IngredientPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(label_ingreType)
                         .addGap(18, 18, 18)
-                        .addComponent(combType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(combType, 0, 165, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAddType)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnAddType))
                     .addGroup(panelIngredientInfoLayout.createSequentialGroup()
-                        .addComponent(textfName, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(label_ingreCost)
+                        .addComponent(textfName, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(textfCost, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(36, Short.MAX_VALUE))))
+                        .addComponent(label_ingreCost)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textfCost)))
+                .addGap(17, 17, 17))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelIngredientInfoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(label_IngredientProvider)
-                .addGap(18, 18, 18)
-                .addComponent(textfProviderName, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(139, 139, 139))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textfProviderName, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(176, 176, 176))
         );
         panelIngredientInfoLayout.setVerticalGroup(
             panelIngredientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,14 +157,14 @@ public class IngredientPanel extends javax.swing.JPanel {
                     .addComponent(label_ingreType))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelIngredientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_ingreName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textfCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_ingreCost, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(label_ingreCost, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textfCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelIngredientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textfProviderName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_IngredientProvider, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(label_IngredientProvider, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textfProviderName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -245,6 +238,21 @@ public class IngredientPanel extends javax.swing.JPanel {
             }
         });
 
+        button_ShowImportHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_show-import-history.png"))); // NOI18N
+        button_ShowImportHistory.setContentAreaFilled(false);
+        button_ShowImportHistory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        button_ShowImportHistory.setFocusPainted(false);
+        button_ShowImportHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_ShowImportHistoryActionPerformed(evt);
+            }
+        });
+
+        button_ClearSearch.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        button_ClearSearch.setText("Clear");
+        button_ClearSearch.setFocusPainted(false);
+        button_ClearSearch.setPreferredSize(new java.awt.Dimension(89, 29));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -257,16 +265,20 @@ public class IngredientPanel extends javax.swing.JPanel {
                         .addComponent(label_Search)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelIngredientInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(275, 275, 275)
-                .addComponent(btnImport, javax.swing.GroupLayout.PREFERRED_SIZE, 647, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(250, Short.MAX_VALUE)
+                .addComponent(btnImport)
+                .addGap(54, 54, 54)
+                .addComponent(button_ShowImportHistory)
+                .addGap(250, 250, 250))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,13 +289,16 @@ public class IngredientPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(label_Search)
-                        .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(scrpaneIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrpaneIngredient, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnImport)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(button_ShowImportHistory, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnImport, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(30, 30, 30))
         );
     }// </editor-fold>//GEN-END:initComponents
     public void setEditableForAll(boolean editable) {
@@ -319,9 +334,14 @@ public class IngredientPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnModifyActionPerformed
 
-    private void combTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combTypeActionPerformed
+    private void textfProviderNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfProviderNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_combTypeActionPerformed
+    }//GEN-LAST:event_textfProviderNameActionPerformed
+
+    private void button_ShowImportHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_ShowImportHistoryActionPerformed
+        UIControl.setLocationCenterForDialog(history);
+        history.setVisible(true);
+    }//GEN-LAST:event_button_ShowImportHistoryActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -331,6 +351,8 @@ public class IngredientPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnImport;
     private javax.swing.JButton btnModify;
     private javax.swing.JButton btnRemove;
+    private javax.swing.JButton button_ClearSearch;
+    private javax.swing.JButton button_ShowImportHistory;
     private javax.swing.JComboBox<String> combType;
     private javax.swing.JLabel label_IngredientProvider;
     private javax.swing.JLabel label_Search;

@@ -49,7 +49,7 @@ public class BillHistoryPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
 
         panelBillDateInfo.setBackground(new java.awt.Color(255, 255, 255));
-        panelBillDateInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Date filter", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
+        panelBillDateInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Date filter", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(153, 153, 153))); // NOI18N
 
         label_dayCreBillFrom.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_dayCreBillFrom.setText("From");
@@ -178,8 +178,9 @@ public class BillHistoryPanel extends javax.swing.JPanel {
                         .addComponent(combobox_typeToSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1))
                     .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane_BillTable, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(scrollPane_BillTable, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
     }// </editor-fold>//GEN-END:initComponents
     public void clearAll(){
