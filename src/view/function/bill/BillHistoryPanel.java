@@ -6,12 +6,15 @@
 package view.function.bill;
 
 import util.swing.UIControl;
+import view.dialog.BillDetails;
 
 /**
  *
  * @author DELL
  */
 public class BillHistoryPanel extends javax.swing.JPanel {
+
+    private BillDetails details = new BillDetails(null, true);
 
     /**
      * Creates new form BillHistoryPanel
@@ -41,10 +44,10 @@ public class BillHistoryPanel extends javax.swing.JPanel {
         label_Search = new javax.swing.JLabel();
         textfSearch = new javax.swing.JTextField();
         panelBtn = new javax.swing.JPanel();
-        btnDetail = new javax.swing.JButton();
-        btnClear = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
         combobox_typeToSearch = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        btnDetail = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -57,7 +60,7 @@ public class BillHistoryPanel extends javax.swing.JPanel {
         label_dayCreBillTo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_dayCreBillTo.setText("To");
 
-        btnApply.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnApply.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         btnApply.setText("Apply");
         btnApply.setFocusPainted(false);
 
@@ -75,10 +78,10 @@ public class BillHistoryPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(datechooserBillDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(label_dayCreBillTo)
+                .addComponent(label_dayCreBillTo, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(datechooserBillDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnApply, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(243, 243, 243))
         );
@@ -86,13 +89,13 @@ public class BillHistoryPanel extends javax.swing.JPanel {
             panelBillDateInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBillDateInfoLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(panelBillDateInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(datechooserBillDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(datechooserBillDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelBillDateInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelBillDateInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(label_dayCreBillFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(label_dayCreBillTo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnApply, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnApply, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(datechooserBillDateTo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(datechooserBillDateFrom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -122,16 +125,11 @@ public class BillHistoryPanel extends javax.swing.JPanel {
         panelBtn.setBackground(new java.awt.Color(255, 255, 255));
         panelBtn.setLayout(new java.awt.GridLayout(1, 0, 50, 0));
 
-        btnDetail.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
-        btnDetail.setText("Details");
-        btnDetail.setFocusPainted(false);
-        btnDetail.setPreferredSize(new java.awt.Dimension(115, 40));
-        panelBtn.add(btnDetail);
-
-        btnClear.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
-        btnClear.setText("Clear");
-        btnClear.setPreferredSize(new java.awt.Dimension(115, 40));
-        panelBtn.add(btnClear);
+        btnReset.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnReset.setText("Today Bills");
+        btnReset.setBorderPainted(false);
+        btnReset.setPreferredSize(new java.awt.Dimension(115, 40));
+        panelBtn.add(btnReset);
 
         combobox_typeToSearch.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         combobox_typeToSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Employee name", "Bill ID" }));
@@ -139,14 +137,23 @@ public class BillHistoryPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel1.setText("to search");
 
+        btnDetail.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_bill-details.png"))); // NOI18N
+        btnDetail.setBorderPainted(false);
+        btnDetail.setContentAreaFilled(false);
+        btnDetail.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDetail.setFocusPainted(false);
+        btnDetail.setPreferredSize(new java.awt.Dimension(115, 40));
+        btnDetail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetailActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelBillDateInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -158,11 +165,17 @@ public class BillHistoryPanel extends javax.swing.JPanel {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 409, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 574, Short.MAX_VALUE)
                         .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(scrollPane_BillTable)))
+                        .addComponent(panelBillDateInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnDetail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(scrollPane_BillTable))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -171,18 +184,24 @@ public class BillHistoryPanel extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addComponent(panelBillDateInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(label_Search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(combobox_typeToSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1))
-                    .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_Search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(combobox_typeToSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(scrollPane_BillTable, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addComponent(scrollPane_BillTable, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailActionPerformed
+        UIControl.setLocationCenterForDialog(details);
+        details.setVisible(true);
+    }//GEN-LAST:event_btnDetailActionPerformed
     public void clearAll() {
         datechooserBillDateFrom.setDate(null);
         datechooserBillDateTo.setDate(null);
@@ -192,8 +211,8 @@ public class BillHistoryPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApply;
-    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDetail;
+    private javax.swing.JButton btnReset;
     private javax.swing.JComboBox<String> combobox_typeToSearch;
     private com.toedter.calendar.JDateChooser datechooserBillDateFrom;
     private com.toedter.calendar.JDateChooser datechooserBillDateTo;

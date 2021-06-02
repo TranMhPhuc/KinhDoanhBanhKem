@@ -5,6 +5,7 @@
  */
 package view.dialog;
 
+import java.awt.Color;
 import util.swing.UIControl;
 
 /**
@@ -21,6 +22,7 @@ public class IngredientSelectDialog extends javax.swing.JDialog {
         initComponents();
         UIControl.setDefaultTableHeader(tableIngredientOffered);
         UIControl.setDefaultTableHeader(tableIngredientSelected);
+        this.getContentPane().setBackground(Color.WHITE);
     }
 
     /**
@@ -53,7 +55,7 @@ public class IngredientSelectDialog extends javax.swing.JDialog {
 
         label_titleSelectIngre.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         label_titleSelectIngre.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        label_titleSelectIngre.setText("Select/Modify Ingredient For");
+        label_titleSelectIngre.setText("Select ingredient for");
 
         tableIngredientOffered.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -113,25 +115,25 @@ public class IngredientSelectDialog extends javax.swing.JDialog {
 
         seperator.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        label_IngredientList.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        label_IngredientList.setFont(new java.awt.Font("Segoe UI", 2, 15)); // NOI18N
         label_IngredientList.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_IngredientList.setText("Ingredient list");
 
-        label_SelectedIngredients.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        label_SelectedIngredients.setFont(new java.awt.Font("Segoe UI", 2, 15)); // NOI18N
         label_SelectedIngredients.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_SelectedIngredients.setText("Selected ingredients");
 
-        btnChoose.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnChoose.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         btnChoose.setText("Choose");
 
         panel_Buttons.setBackground(new java.awt.Color(255, 255, 255));
         panel_Buttons.setLayout(new java.awt.GridLayout(1, 0, 40, 0));
 
-        btnRemove.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnRemove.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         btnRemove.setText("Remove");
         panel_Buttons.add(btnRemove);
 
-        btnClear.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnClear.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         btnClear.setText("Clear");
         panel_Buttons.add(btnClear);
 
@@ -142,7 +144,7 @@ public class IngredientSelectDialog extends javax.swing.JDialog {
 
         label_ProductName.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         label_ProductName.setForeground(new java.awt.Color(255, 51, 0));
-        label_ProductName.setText("<Name>");
+        label_ProductName.setText("Name");
 
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_cancel_50.png"))); // NOI18N
         btnCancel.setContentAreaFilled(false);
@@ -164,31 +166,35 @@ public class IngredientSelectDialog extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 119, Short.MAX_VALUE)
                         .addComponent(label_titleSelectIngre, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(label_ProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(157, 157, 157))
+                        .addGap(163, 163, 163))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnSaveChange, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(label_IngredientList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(scrpaneIngredientOffered, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)))
+                        .addComponent(scrpaneIngredientOffered, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(seperator, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label_SelectedIngredients, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(scrpaneIngredientSelected)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addComponent(scrpaneIngredientSelected)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(153, 153, 153)
+                .addGap(154, 154, 154)
                 .addComponent(btnChoose, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panel_Buttons, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(119, 119, 119))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(207, 207, 207)
+                        .addComponent(btnSaveChange, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(label_IngredientList, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(label_SelectedIngredients, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,32 +203,32 @@ public class IngredientSelectDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_titleSelectIngre)
                     .addComponent(label_ProductName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_IngredientList)
+                    .addComponent(label_SelectedIngredients))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(153, 153, 153)
+                        .addGap(107, 107, 107)
                         .addComponent(seperator, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(252, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(43, 43, 43)
-                                .addComponent(scrpaneIngredientOffered, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(label_SelectedIngredients)
-                                    .addComponent(label_IngredientList))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(scrpaneIngredientSelected, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(panel_Buttons, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnChoose, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(18, 18, 18)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(scrpaneIngredientOffered, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(scrpaneIngredientSelected, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnSaveChange)
-                            .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(59, 59, 59))))
+                            .addComponent(panel_Buttons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnChoose))
+                        .addGap(31, 31, 31)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSaveChange)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20))
         );
 
         pack();

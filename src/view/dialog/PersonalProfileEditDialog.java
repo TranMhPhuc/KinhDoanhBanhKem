@@ -5,6 +5,9 @@
  */
 package view.dialog;
 
+import java.awt.Color;
+import util.swing.UIControl;
+
 /**
  *
  * @author Minh Tu
@@ -14,10 +17,13 @@ public class PersonalProfileEditDialog extends javax.swing.JDialog {
     /**
      * Creates new form personalProfileDialog
      */
+    private PasswordChangeDialog changePW = new PasswordChangeDialog(null, true);
+
     public PersonalProfileEditDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setEditableForAll(false);
+        this.getContentPane().setBackground(Color.WHITE);
     }
 
     /**
@@ -53,6 +59,7 @@ public class PersonalProfileEditDialog extends javax.swing.JDialog {
         label_Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Title.setText("Personal Profile");
 
+        panelTitle.setBackground(new java.awt.Color(255, 255, 255));
         panelTitle.setLayout(new java.awt.GridLayout(0, 1, 0, 30));
 
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -80,6 +87,7 @@ public class PersonalProfileEditDialog extends javax.swing.JDialog {
         jLabel19.setText("Phone number");
         panelTitle.add(jLabel19);
 
+        panelInput.setBackground(new java.awt.Color(255, 255, 255));
         panelInput.setLayout(new java.awt.GridLayout(0, 1, 0, 30));
 
         textfName.setEditable(false);
@@ -104,6 +112,11 @@ public class PersonalProfileEditDialog extends javax.swing.JDialog {
         btnChangePassword.setContentAreaFilled(false);
         btnChangePassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnChangePassword.setFocusPainted(false);
+        btnChangePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangePasswordActionPerformed(evt);
+            }
+        });
 
         btnEditProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_edit-profile.png"))); // NOI18N
         btnEditProfile.setContentAreaFilled(false);
@@ -168,12 +181,16 @@ public class PersonalProfileEditDialog extends javax.swing.JDialog {
         setEditableForAll(true);
     }//GEN-LAST:event_btnEditProfileActionPerformed
 
-    public void setEditableForAll(boolean editable){
+    private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
+        UIControl.setLocationCenterForDialog(changePW);
+        changePW.setVisible(true);
+    }//GEN-LAST:event_btnChangePasswordActionPerformed
+    
+    public void setEditableForAll(boolean editable) {
         textfEmail.setEditable(editable);
         textfPhoneNumber.setEditable(editable);
     }
-    
-        
+
     /**
      * @param args the command line arguments
      */

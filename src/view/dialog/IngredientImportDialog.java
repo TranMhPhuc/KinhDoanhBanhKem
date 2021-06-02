@@ -5,6 +5,9 @@
  */
 package view.dialog;
 
+import java.awt.Color;
+import java.util.Date;
+
 /**
  *
  * @author Minh Tu
@@ -17,6 +20,8 @@ public class IngredientImportDialog extends javax.swing.JDialog {
     public IngredientImportDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        dateChooserImportDate.setDate(new Date());
+        this.getContentPane().setBackground(Color.WHITE);
     }
 
     /**
@@ -49,6 +54,9 @@ public class IngredientImportDialog extends javax.swing.JDialog {
         label_Import_Ingr_Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Import_Ingr_Title.setText("Import Ingredient");
 
+        panelInfo.setBackground(new java.awt.Color(255, 255, 255));
+        panelInfo.setForeground(new java.awt.Color(255, 255, 255));
+
         label_SelectIngr.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         label_SelectIngr.setText("Selected ingredient");
 
@@ -56,7 +64,7 @@ public class IngredientImportDialog extends javax.swing.JDialog {
         label_ImportDate.setText("Import date");
 
         spinnerImportAmount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        spinnerImportAmount.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        spinnerImportAmount.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         label_Amount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         label_Amount.setText("Amount");
@@ -64,10 +72,12 @@ public class IngredientImportDialog extends javax.swing.JDialog {
         label_Cost.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         label_Cost.setText("Cost");
 
+        textfCost.setEditable(false);
         textfCost.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         dateChooserImportDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        textfSelectedIngredient.setEditable(false);
         textfSelectedIngredient.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -110,10 +120,11 @@ public class IngredientImportDialog extends javax.swing.JDialog {
                 .addGap(11, 11, 11)
                 .addComponent(dateChooserImportDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(spinnerImportAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_Amount, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(spinnerImportAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label_Amount, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(63, Short.MAX_VALUE))
             .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelInfoLayout.createSequentialGroup()

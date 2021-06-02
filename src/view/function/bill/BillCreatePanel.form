@@ -141,7 +141,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="button_ClearSearch" min="-2" pref="94" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="183" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -154,8 +154,8 @@
                       <Component id="label_prodName" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="button_ClearSearch" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace pref="35" max="32767" attributes="0"/>
+                  <Component id="button_ClearSearch" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="46" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -182,7 +182,7 @@
         <Component class="javax.swing.JButton" name="button_ClearSearch">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="17" style="1"/>
+              <Font name="Segoe UI" size="15" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Clear"/>
             <Property name="focusPainted" type="boolean" value="false"/>
@@ -333,7 +333,7 @@
     <Component class="javax.swing.JButton" name="btnChoose">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="17" style="1"/>
+          <Font name="Segoe UI" size="15" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Choose"/>
         <Property name="focusPainted" type="boolean" value="false"/>
@@ -571,7 +571,7 @@
         <Component class="javax.swing.JButton" name="btnRemove">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="17" style="1"/>
+              <Font name="Segoe UI" size="15" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Remove"/>
             <Property name="focusPainted" type="boolean" value="false"/>
@@ -580,7 +580,7 @@
         <Component class="javax.swing.JButton" name="btnClear">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="17" style="1"/>
+              <Font name="Segoe UI" size="15" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Clear"/>
             <Property name="focusPainted" type="boolean" value="false"/>

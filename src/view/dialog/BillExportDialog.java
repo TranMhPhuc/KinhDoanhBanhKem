@@ -5,6 +5,8 @@
  */
 package view.dialog;
 
+import java.awt.Color;
+
 /**
  *
  * @author Minh Tu
@@ -17,6 +19,7 @@ public class BillExportDialog extends javax.swing.JDialog {
     public BillExportDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.getContentPane().setBackground(Color.WHITE);
     }
 
     /**

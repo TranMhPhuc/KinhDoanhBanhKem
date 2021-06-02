@@ -5,6 +5,7 @@
  */
 package view.dialog;
 
+import java.awt.Color;
 import util.swing.UIControl;
 
 /**
@@ -20,6 +21,7 @@ public class ImportHistoryDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         UIControl.setDefaultTableHeader(table_History);
+        this.getContentPane().setBackground(Color.WHITE);
     }
 
     /**
@@ -43,10 +45,7 @@ public class ImportHistoryDialog extends javax.swing.JDialog {
 
         table_History.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Ingredient name", "Import date", "Amount", "Unit", "Cost"

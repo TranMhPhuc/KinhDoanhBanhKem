@@ -25,18 +25,22 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="scrpaneIngredient" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="label_Search" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="textfSearch" min="-2" pref="282" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="button_ClearSearch" min="-2" pref="94" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="panelBtn" min="-2" pref="580" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" attributes="0">
-                      <Component id="panelIngredientInfo" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="label_Search" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="textfSearch" min="-2" pref="282" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="button_ClearSearch" min="-2" pref="94" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="panelIngredientInfo" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="panelBtn" min="-2" pref="550" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -60,12 +64,12 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="label_Search" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="textfSearch" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="button_ClearSearch" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="button_ClearSearch" alignment="0" pref="30" max="32767" attributes="0"/>
                   </Group>
                   <Component id="panelBtn" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="scrpaneIngredient" pref="484" max="32767" attributes="0"/>
+              <Component id="scrpaneIngredient" pref="483" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="button_ShowImportHistory" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -84,9 +88,9 @@
         </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Ingredient Information">
+            <TitledBorder justification="2" title="Ingredient Information">
               <Font PropertyName="font" name="Segoe UI" size="14" style="2"/>
-              <Color PropertyName="color" blue="78" green="78" red="78" type="rgb"/>
+              <Color PropertyName="color" blue="99" green="99" red="99" type="rgb"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -382,7 +386,7 @@
         <Component class="javax.swing.JButton" name="btnExport">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="17" style="1"/>
+              <Font name="Segoe UI" size="15" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Export"/>
             <Property name="focusPainted" type="boolean" value="false"/>
@@ -394,7 +398,7 @@
         <Component class="javax.swing.JButton" name="btnAdd">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="17" style="1"/>
+              <Font name="Segoe UI" size="15" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Add"/>
             <Property name="focusPainted" type="boolean" value="false"/>
@@ -406,7 +410,7 @@
         <Component class="javax.swing.JButton" name="btnModify">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="17" style="1"/>
+              <Font name="Segoe UI" size="15" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Modify"/>
             <Property name="focusPainted" type="boolean" value="false"/>
@@ -421,7 +425,7 @@
         <Component class="javax.swing.JButton" name="btnRemove">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="17" style="1"/>
+              <Font name="Segoe UI" size="15" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Remove"/>
             <Property name="focusPainted" type="boolean" value="false"/>
@@ -465,7 +469,7 @@
     <Component class="javax.swing.JButton" name="button_ClearSearch">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="17" style="1"/>
+          <Font name="Segoe UI" size="15" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Clear"/>
         <Property name="focusPainted" type="boolean" value="false"/>

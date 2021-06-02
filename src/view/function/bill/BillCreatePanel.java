@@ -77,7 +77,7 @@ public class BillCreatePanel extends javax.swing.JPanel {
         textfProductName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         textfProductName.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        button_ClearSearch.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        button_ClearSearch.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         button_ClearSearch.setText("Clear");
         button_ClearSearch.setFocusPainted(false);
         button_ClearSearch.setPreferredSize(new java.awt.Dimension(89, 29));
@@ -95,7 +95,7 @@ public class BillCreatePanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProductOfferInfoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(183, 183, 183))
+                .addGap(181, 181, 181))
         );
         panelProductOfferInfoLayout.setVerticalGroup(
             panelProductOfferInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,8 +105,8 @@ public class BillCreatePanel extends javax.swing.JPanel {
                     .addComponent(textfProductName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_prodName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         panelTimeUser.setBackground(new java.awt.Color(255, 255, 255));
@@ -163,7 +163,7 @@ public class BillCreatePanel extends javax.swing.JPanel {
         ));
         jScrollPane8.setViewportView(tableProductSelected);
 
-        btnChoose.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnChoose.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         btnChoose.setText("Choose");
         btnChoose.setFocusPainted(false);
         btnChoose.addActionListener(new java.awt.event.ActionListener() {
@@ -274,12 +274,12 @@ public class BillCreatePanel extends javax.swing.JPanel {
         jPanel.setBackground(new java.awt.Color(255, 255, 255));
         jPanel.setLayout(new java.awt.GridLayout(1, 0, 30, 0));
 
-        btnRemove.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnRemove.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         btnRemove.setText("Remove");
         btnRemove.setFocusPainted(false);
         jPanel.add(btnRemove);
 
-        btnClear.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnClear.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         btnClear.setText("Clear");
         btnClear.setFocusPainted(false);
         btnClear.setPreferredSize(new java.awt.Dimension(89, 29));

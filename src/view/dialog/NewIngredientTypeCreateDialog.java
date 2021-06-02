@@ -5,6 +5,8 @@
  */
 package view.dialog;
 
+import java.awt.Color;
+
 /**
  *
  * @author Minh Tu
@@ -17,6 +19,7 @@ public class NewIngredientTypeCreateDialog extends javax.swing.JDialog {
     public NewIngredientTypeCreateDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.getContentPane().setBackground(Color.white);
     }
 
     /**
@@ -65,6 +68,8 @@ public class NewIngredientTypeCreateDialog extends javax.swing.JDialog {
         });
 
         btnCancle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_cancel_40.png"))); // NOI18N
+        btnCancle.setContentAreaFilled(false);
+        btnCancle.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancle.setFocusPainted(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

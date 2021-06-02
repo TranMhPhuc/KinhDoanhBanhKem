@@ -5,6 +5,8 @@
  */
 package view.dialog;
 
+import java.awt.Color;
+
 /**
  *
  * @author Minh Tu
@@ -17,6 +19,7 @@ public class ProductImportDialog extends javax.swing.JDialog {
     public ProductImportDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.getContentPane().setBackground(Color.WHITE);
     }
 
     /**
@@ -47,11 +50,14 @@ public class ProductImportDialog extends javax.swing.JDialog {
         label_ImportProdcut.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_ImportProdcut.setText("Import product");
 
+        panelInfo.setBackground(new java.awt.Color(255, 255, 255));
+        panelInfo.setForeground(new java.awt.Color(255, 255, 255));
+
         label_SelectProduct.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         label_SelectProduct.setText("Selected product");
 
         spinner_Amount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        spinner_Amount.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        spinner_Amount.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         label_Amount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         label_Amount.setText("Amount");
@@ -59,6 +65,7 @@ public class ProductImportDialog extends javax.swing.JDialog {
         label_Cost.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         label_Cost.setText("Cost");
 
+        textfSelectedIngredient.setEditable(false);
         textfSelectedIngredient.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         jScrollPane1.setViewportView(List_IngredientCost);

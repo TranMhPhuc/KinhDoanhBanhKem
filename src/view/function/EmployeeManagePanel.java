@@ -160,18 +160,21 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         panelOpBtn.setBackground(new java.awt.Color(255, 255, 255));
         panelOpBtn.setLayout(new java.awt.GridLayout(1, 0, 50, 0));
 
-        btnExport.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnExport.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         btnExport.setText("Export");
+        btnExport.setFocusPainted(false);
         btnExport.setPreferredSize(new java.awt.Dimension(115, 40));
         panelOpBtn.add(btnExport);
 
-        btnModify.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnModify.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         btnModify.setText("Modify");
+        btnModify.setFocusPainted(false);
         btnModify.setPreferredSize(new java.awt.Dimension(115, 40));
         panelOpBtn.add(btnModify);
 
-        btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         btnAdd.setText("Add");
+        btnAdd.setFocusPainted(false);
         btnAdd.setPreferredSize(new java.awt.Dimension(115, 40));
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -397,7 +400,7 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
                 .addContainerGap())
         );
 
-        button_ClearSearch.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        button_ClearSearch.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         button_ClearSearch.setText("Clear");
         button_ClearSearch.setFocusPainted(false);
         button_ClearSearch.setPreferredSize(new java.awt.Dimension(89, 29));

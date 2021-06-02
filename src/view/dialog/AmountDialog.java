@@ -5,6 +5,8 @@
  */
 package view.dialog;
 
+import java.awt.Color;
+
 /**
  *
  * @author Minh Tu
@@ -17,6 +19,7 @@ public class AmountDialog extends javax.swing.JDialog {
     public AmountDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.getContentPane().setBackground(Color.WHITE);
     }
 
     /**
@@ -36,7 +39,7 @@ public class AmountDialog extends javax.swing.JDialog {
         setResizable(false);
 
         spinnerAmount.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        spinnerAmount.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        spinnerAmount.setModel(new javax.swing.SpinnerNumberModel());
 
         label_AddAmount.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_AddAmount.setText("Amount");
