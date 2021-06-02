@@ -248,15 +248,16 @@ public class ProviderPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-    public void setEditableForAll(boolean editable){
+    public void setEditableForAll(boolean editable) {
         textfID.setEditable(false);
         textfAddress.setEditable(editable);
         textfEmail.setEditable(editable);
         textfName.setEditable(editable);
         textfPhoneNum.setEditable(editable);
-        
+
     }
-    public void clearAll(){
+
+    public void clearAll() {
         textfAddress.setText(null);
         textfEmail.setText(null);
         textfID.setText(null);

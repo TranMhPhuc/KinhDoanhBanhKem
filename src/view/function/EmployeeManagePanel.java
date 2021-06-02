@@ -12,7 +12,6 @@ import javax.swing.JTable;
 import static util.swing.UIControl.setDefaultTableHeader;
 import util.swing.checkcombobox.CheckableItem;
 
-
 /**
  *
  * @author DELL
@@ -23,24 +22,21 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
      * Creates new form ManageEmployeePanel
      */
     CheckableItem[] defaultCheckedModel = {
-            new CheckableItem("Sáng", true),
-            new CheckableItem("Trưa", false),
-            new CheckableItem("Chiều", false),
-            new CheckableItem("Tối", false),
-        };
+        new CheckableItem("Sáng", true),
+        new CheckableItem("Trưa", false),
+        new CheckableItem("Chiều", false),
+        new CheckableItem("Tối", false),};
+
     public EmployeeManagePanel() {
         initComponents();
 
         // Sample code for check combobox
-        
-        
         combShift.setModel(new DefaultComboBoxModel<>(defaultCheckedModel));
         buttonGroup_Gender.setSelected(rbtGenderMale.getModel(), true);
-        
+
         setEditableForAll(false);
         setDefaultTableHeader(tableInfo);
-        
-        
+
     }
 
     /**
@@ -442,8 +438,7 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    public void setEditableForAll(boolean editable){  
+    public void setEditableForAll(boolean editable) {
         textfEmployeeID.setEditable(false);
         textfName.setEditable(editable);
         textfPersonalID.setEditable(editable);
@@ -458,8 +453,8 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         dateChooserStartDate.setEnabled(editable);
         dateChooser_EndDate.setEnabled(editable);
     }
-    
-    public void clearAll(){
+
+    public void clearAll() {
         textfName.setText(null);
         textfPersonalID.setText(null);
         textfPhoneNum.setText(null);
@@ -471,12 +466,10 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         dateChooserBirthday.setDate(null);
         dateChooserStartDate.setDate(new Date());
         dateChooser_EndDate.setDate(null);
-        
+
     }
-    
-    
-    
-    
+
+
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddActionPerformed

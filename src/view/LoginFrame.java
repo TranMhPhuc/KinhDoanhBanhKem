@@ -5,8 +5,6 @@
  */
 package view;
 
-
-
 /**
  *
  * @author TRUONG MINH TAN
@@ -336,7 +334,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnSignInActionPerformed
 
     private void button_recoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_recoverActionPerformed
@@ -344,7 +342,7 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_button_recoverActionPerformed
 
     private void btnForgotPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForgotPasswordActionPerformed
-        dialog_recoverPassword.setSize(401,280);
+        dialog_recoverPassword.setSize(401, 280);
         dialog_recoverPassword.setLocationRelativeTo(this);
         dialog_recoverPassword.setVisible(true);
     }//GEN-LAST:event_btnForgotPasswordActionPerformed

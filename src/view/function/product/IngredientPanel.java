@@ -20,8 +20,9 @@ public class IngredientPanel extends javax.swing.JPanel {
      * Creates new form IngredientManagePanel
      */
     NewIngredientTypeCreateDialog newIngredientTypeCreateDialog = new NewIngredientTypeCreateDialog(null, true);
-    IngredientImportDialog ingredientImportDialog=new IngredientImportDialog(null, true);
+    IngredientImportDialog ingredientImportDialog = new IngredientImportDialog(null, true);
     ImportHistoryDialog history = new ImportHistoryDialog(null, true);
+
     public IngredientPanel() {
         initComponents();
         setEditableForAll(false);
@@ -307,9 +308,10 @@ public class IngredientPanel extends javax.swing.JPanel {
         textfName.setEditable(editable);
         textfProviderName.setEditable(editable);
         combType.setSelectedIndex(0);
-        
+
     }
-    public void clearAll(){
+
+    public void clearAll() {
         textfCost.setText(null);
         textfID.setText(null);
         textfName.setText(null);

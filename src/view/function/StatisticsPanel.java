@@ -5,6 +5,8 @@
  */
 package view.function;
 
+import util.swing.UIControl;
+
 /**
  *
  * @author Minh Tu
@@ -16,6 +18,7 @@ public class StatisticsPanel extends javax.swing.JPanel {
      */
     public StatisticsPanel() {
         initComponents();
+        UIControl.setDefaultTableHeader(tableInfo);
     }
 
     /**
@@ -177,7 +180,7 @@ public class StatisticsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnIngredientCostActionPerformed
 
     private void btnRevenueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRevenueActionPerformed
-        
+
     }//GEN-LAST:event_btnRevenueActionPerformed
 
 

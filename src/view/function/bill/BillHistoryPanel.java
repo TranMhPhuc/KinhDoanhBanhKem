@@ -183,7 +183,7 @@ public class BillHistoryPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18))
         );
     }// </editor-fold>//GEN-END:initComponents
-    public void clearAll(){
+    public void clearAll() {
         datechooserBillDateFrom.setDate(null);
         datechooserBillDateTo.setDate(null);
         combobox_typeToSearch.setSelectedIndex(0);
