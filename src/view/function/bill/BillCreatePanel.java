@@ -5,7 +5,7 @@
  */
 package view.function.bill;
 
-import javax.swing.JFrame;
+import static util.swing.UIControl.setLocationCenterForDialog;
 import view.dialog.ExportBillDialog;
 
 /**
@@ -345,8 +345,8 @@ public class BillCreatePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnChooseActionPerformed
 
     private void btnExportBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportBillActionPerformed
+        setLocationCenterForDialog(exportConfirm);
         exportConfirm.setVisible(true);
-        exportConfirm.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnExportBillActionPerformed
 
 

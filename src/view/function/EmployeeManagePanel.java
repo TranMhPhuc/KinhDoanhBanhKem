@@ -5,15 +5,13 @@
  */
 package view.function;
 
-import java.awt.Font;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JLabel;
 import view.UserInterface;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumn;
+import static util.swing.UIControl.setDefaultTableHeader;
 import util.swing.checkcombobox.CheckableItem;
+
 
 /**
  *
@@ -38,8 +36,10 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         
         combShift.setModel(new DefaultComboBoxModel<>(defaultCheckedModel));
         buttonGroup_Gender.setSelected(rbtGenderMale.getModel(), true);
+        
         setEditableForAll(false);
-        setDefaultTableHeader();
+        setDefaultTableHeader(tableInfo);
+        
         
     }
 
@@ -465,20 +465,9 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         
     }
     
-    private void setDefaultTableHeader() {
-            DefaultTableCellRenderer DTCR;
-            tableInfo.setRowHeight(30);
-            DTCR = (DefaultTableCellRenderer) tableInfo.getTableHeader().getDefaultRenderer();
-            DTCR.setHorizontalAlignment(0);
-            tableInfo.getTableHeader().setFont(new Font("Segoe UI", 1, 15));
-
-      //  setHorizontalAlignmentForColumn(tableInfo.getColumnModel().getColumn(0), JLabel.CENTER);
-    }
-    private void setHorizontalAlignmentForColumn(TableColumn column, int Alignment) {
-        DefaultTableCellRenderer center = new DefaultTableCellRenderer();
-        center.setHorizontalAlignment(Alignment);
-        column.setCellRenderer(center);
-    }
+    
+    
+    
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddActionPerformed
