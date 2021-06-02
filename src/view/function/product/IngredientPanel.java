@@ -5,6 +5,11 @@
  */
 package view.function.product;
 
+import javax.swing.JDialog;
+import util.swing.UIControl;
+import view.dialog.IngredientImportDialog;
+import view.dialog.NewIngredientTypeCreateDialog;
+
 /**
  *
  * @author DELL
@@ -14,8 +19,12 @@ public class IngredientPanel extends javax.swing.JPanel {
     /**
      * Creates new form IngredientManagePanel
      */
+    NewIngredientTypeCreateDialog newIngredientTypeCreateDialog = new NewIngredientTypeCreateDialog(null, true);
+    IngredientImportDialog ingredientImportDialog=new IngredientImportDialog(null, true);
     public IngredientPanel() {
         initComponents();
+        setEditableForAll(false);
+        UIControl.setDefaultTableHeader(tableIngredient);
     }
 
     /**
@@ -84,6 +93,11 @@ public class IngredientPanel extends javax.swing.JPanel {
         combType.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         combType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         combType.setPreferredSize(new java.awt.Dimension(160, 30));
+        combType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combTypeActionPerformed(evt);
+            }
+        });
 
         btnAddType.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnAddType.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_new-type.png"))); // NOI18N
@@ -208,6 +222,11 @@ public class IngredientPanel extends javax.swing.JPanel {
         btnModify.setText("Modify");
         btnModify.setFocusPainted(false);
         btnModify.setPreferredSize(new java.awt.Dimension(115, 40));
+        btnModify.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModifyActionPerformed(evt);
+            }
+        });
         panelBtn.add(btnModify);
 
         btnRemove.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
@@ -231,19 +250,16 @@ public class IngredientPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrpaneIngredient)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(scrpaneIngredient)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(label_Search)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
-                                .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(label_Search)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                        .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(panelIngredientInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -270,9 +286,24 @@ public class IngredientPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnAddTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTypeActionPerformed
+    public void setEditableForAll(boolean editable) {
+        textfID.setEditable(false);
+        textfCost.setEditable(editable);
+        textfName.setEditable(editable);
+        textfProviderName.setEditable(editable);
+        combType.setSelectedIndex(0);
         
+    }
+    public void clearAll(){
+        textfCost.setText(null);
+        textfID.setText(null);
+        textfName.setText(null);
+        textfProviderName.setText(null);
+    }
+    private void btnAddTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTypeActionPerformed
+
+        UIControl.setLocationCenterForDialog(newIngredientTypeCreateDialog);
+        newIngredientTypeCreateDialog.setVisible(true);
     }//GEN-LAST:event_btnAddTypeActionPerformed
 
     private void textfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfSearchActionPerformed
@@ -280,8 +311,17 @@ public class IngredientPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_textfSearchActionPerformed
 
     private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
-        
+        UIControl.setLocationCenterForDialog(ingredientImportDialog);
+        ingredientImportDialog.setVisible(true);
     }//GEN-LAST:event_btnImportActionPerformed
+
+    private void btnModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModifyActionPerformed
+
+    private void combTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combTypeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

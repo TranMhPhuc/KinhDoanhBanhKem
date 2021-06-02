@@ -5,6 +5,8 @@
  */
 package view.function.bill;
 
+import util.swing.UIControl;
+
 /**
  *
  * @author DELL
@@ -16,6 +18,7 @@ public class BillHistoryPanel extends javax.swing.JPanel {
      */
     public BillHistoryPanel() {
         initComponents();
+        UIControl.setDefaultTableHeader(tableBill);
     }
 
     /**
@@ -40,7 +43,7 @@ public class BillHistoryPanel extends javax.swing.JPanel {
         panelBtn = new javax.swing.JPanel();
         btnDetail = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        combobox_typeToSearch = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -56,6 +59,7 @@ public class BillHistoryPanel extends javax.swing.JPanel {
 
         btnApply.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         btnApply.setText("Apply");
+        btnApply.setFocusPainted(false);
 
         datechooserBillDateFrom.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
@@ -120,6 +124,7 @@ public class BillHistoryPanel extends javax.swing.JPanel {
 
         btnDetail.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         btnDetail.setText("Details");
+        btnDetail.setFocusPainted(false);
         btnDetail.setPreferredSize(new java.awt.Dimension(115, 40));
         panelBtn.add(btnDetail);
 
@@ -128,8 +133,8 @@ public class BillHistoryPanel extends javax.swing.JPanel {
         btnClear.setPreferredSize(new java.awt.Dimension(115, 40));
         panelBtn.add(btnClear);
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Employee name", "Bill ID" }));
+        combobox_typeToSearch.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        combobox_typeToSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Employee name", "Bill ID" }));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel1.setText("to search");
@@ -148,7 +153,7 @@ public class BillHistoryPanel extends javax.swing.JPanel {
                         .addGap(22, 22, 22)
                         .addComponent(label_Search)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(combobox_typeToSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -170,24 +175,27 @@ public class BillHistoryPanel extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(label_Search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(combobox_typeToSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollPane_BillTable, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    public void clearAll(){
+        datechooserBillDateFrom.setDate(null);
+        datechooserBillDateTo.setDate(null);
+        combobox_typeToSearch.setSelectedIndex(0);
+        textfSearch.setText(null);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApply;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDetail;
+    private javax.swing.JComboBox<String> combobox_typeToSearch;
     private com.toedter.calendar.JDateChooser datechooserBillDateFrom;
     private com.toedter.calendar.JDateChooser datechooserBillDateTo;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel label_Search;
     private javax.swing.JLabel label_dayCreBillFrom;

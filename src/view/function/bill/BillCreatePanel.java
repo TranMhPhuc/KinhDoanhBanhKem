@@ -5,6 +5,7 @@
  */
 package view.function.bill;
 
+import util.swing.UIControl;
 import static util.swing.UIControl.setLocationCenterForDialog;
 import view.dialog.BillExportDialog;
 
@@ -18,8 +19,11 @@ public class BillCreatePanel extends javax.swing.JPanel {
      * Creates new form SellingPanel
      */
     BillExportDialog exportConfirm = new BillExportDialog(null, true);
+
     public BillCreatePanel() {
         initComponents();
+        UIControl.setDefaultTableHeader(tableProductOffered);
+        UIControl.setDefaultTableHeader(tableProductSelected);
     }
 
     /**
@@ -38,7 +42,7 @@ public class BillCreatePanel extends javax.swing.JPanel {
         labelTitleTime = new javax.swing.JLabel();
         labelTime = new javax.swing.JLabel();
         labelTitleUser = new javax.swing.JLabel();
-        lableUser = new javax.swing.JLabel();
+        labelUser = new javax.swing.JLabel();
         label_prodChoose = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         tableProductSelected = new javax.swing.JTable();
@@ -105,7 +109,7 @@ public class BillCreatePanel extends javax.swing.JPanel {
         labelTitleUser.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelTitleUser.setText("User");
 
-        lableUser.setText("____________________");
+        labelUser.setText("____________________");
 
         javax.swing.GroupLayout panelTimeUserLayout = new javax.swing.GroupLayout(panelTimeUser);
         panelTimeUser.setLayout(panelTimeUserLayout);
@@ -119,7 +123,7 @@ public class BillCreatePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 276, Short.MAX_VALUE)
                 .addComponent(labelTitleUser)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lableUser)
+                .addComponent(labelUser)
                 .addGap(37, 37, 37))
         );
         panelTimeUserLayout.setVerticalGroup(
@@ -130,7 +134,7 @@ public class BillCreatePanel extends javax.swing.JPanel {
                     .addComponent(labelTitleTime)
                     .addComponent(labelTime)
                     .addComponent(labelTitleUser)
-                    .addComponent(lableUser))
+                    .addComponent(labelUser))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -149,6 +153,7 @@ public class BillCreatePanel extends javax.swing.JPanel {
 
         btnChoose.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         btnChoose.setText("Choose");
+        btnChoose.setFocusPainted(false);
         btnChoose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChooseActionPerformed(evt);
@@ -181,12 +186,15 @@ public class BillCreatePanel extends javax.swing.JPanel {
             }
         });
 
+        textfBillID.setEditable(false);
         textfBillID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
+        textfTotalMoney.setEditable(false);
         textfTotalMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textField_guestMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
+        textField_Change.setEditable(false);
         textField_Change.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         javax.swing.GroupLayout panel_BillInfoLayout = new javax.swing.GroupLayout(panel_BillInfo);
@@ -256,11 +264,13 @@ public class BillCreatePanel extends javax.swing.JPanel {
 
         btnClear.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         btnClear.setText("Clear");
+        btnClear.setFocusPainted(false);
         btnClear.setPreferredSize(new java.awt.Dimension(89, 29));
         jPanel.add(btnClear);
 
         btnRemove.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         btnRemove.setText("Remove");
+        btnRemove.setFocusPainted(false);
         jPanel.add(btnRemove);
 
         label_prodChoose1.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
@@ -286,13 +296,8 @@ public class BillCreatePanel extends javax.swing.JPanel {
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(214, 214, 214)
-                        .addComponent(btnChoose, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnChoose, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(108, 108, 108)
-                        .addComponent(label_prodChoose)
-                        .addGap(201, 352, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 12, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,8 +306,13 @@ public class BillCreatePanel extends javax.swing.JPanel {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(147, 147, 147))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(147, 147, 147))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(label_prodChoose)
+                                .addGap(212, 212, 212))))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panelTimeUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -340,8 +350,16 @@ public class BillCreatePanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void clearAll() {
+        textfProductName.setText(null);
+        labelUser.setText("____________________");
+        textfBillID.setText(null);
+        textfTotalMoney.setText(null);
+        textField_guestMoney.setText(null);
+        textField_Change.setText(null);
+    }
     private void btnChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseActionPerformed
-        
+
     }//GEN-LAST:event_btnChooseActionPerformed
 
     private void btnExportBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportBillActionPerformed
@@ -362,6 +380,7 @@ public class BillCreatePanel extends javax.swing.JPanel {
     private javax.swing.JLabel labelTime;
     private javax.swing.JLabel labelTitleTime;
     private javax.swing.JLabel labelTitleUser;
+    private javax.swing.JLabel labelUser;
     private javax.swing.JLabel label_billID;
     private javax.swing.JLabel label_change;
     private javax.swing.JLabel label_guestMoney;
@@ -369,7 +388,6 @@ public class BillCreatePanel extends javax.swing.JPanel {
     private javax.swing.JLabel label_prodChoose1;
     private javax.swing.JLabel label_prodName;
     private javax.swing.JLabel label_totalMoney;
-    private javax.swing.JLabel lableUser;
     private javax.swing.JPanel panelProductOfferInfo;
     private javax.swing.JPanel panelTimeUser;
     private javax.swing.JPanel panel_BillInfo;

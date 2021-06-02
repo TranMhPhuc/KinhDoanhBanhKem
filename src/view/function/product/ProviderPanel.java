@@ -5,6 +5,8 @@
  */
 package view.function.product;
 
+import util.swing.UIControl;
+
 /**
  *
  * @author DELL
@@ -16,6 +18,8 @@ public class ProviderPanel extends javax.swing.JPanel {
      */
     public ProviderPanel() {
         initComponents();
+        UIControl.setDefaultTableHeader(tableProduct);
+        setEditableForAll(false);
     }
 
     /**
@@ -47,7 +51,7 @@ public class ProviderPanel extends javax.swing.JPanel {
         btnRemove = new javax.swing.JButton();
         scrpaneTable = new javax.swing.JScrollPane();
         tableProduct = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbbToSearch = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -196,8 +200,8 @@ public class ProviderPanel extends javax.swing.JPanel {
         });
         scrpaneTable.setViewportView(tableProduct);
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Name", "ID" }));
+        cbbToSearch.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        cbbToSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Name", "ID" }));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel1.setText("to search");
@@ -213,7 +217,7 @@ public class ProviderPanel extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(label_searchProv)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbbToSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -236,7 +240,7 @@ public class ProviderPanel extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(label_searchProv)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbbToSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1))
                     .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -244,14 +248,28 @@ public class ProviderPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    public void setEditableForAll(boolean editable){
+        textfID.setEditable(false);
+        textfAddress.setEditable(editable);
+        textfEmail.setEditable(editable);
+        textfName.setEditable(editable);
+        textfPhoneNum.setEditable(editable);
+        
+    }
+    public void clearAll(){
+        textfAddress.setText(null);
+        textfEmail.setText(null);
+        textfID.setText(null);
+        textfName.setText(null);
+        textfPhoneNum.setText(null);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnExport;
     private javax.swing.JButton btnModify;
     private javax.swing.JButton btnRemove;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbbToSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel label_provAdd4;
     private javax.swing.JLabel label_provEmail4;

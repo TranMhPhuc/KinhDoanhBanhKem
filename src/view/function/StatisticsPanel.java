@@ -165,7 +165,10 @@ public class StatisticsPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    public void clearAll() {
+        dateChooserDateFrom.setDate(null);
+        dateChooserDateTo.setDate(null);
+    }
     private void btnIngredientCostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngredientCostActionPerformed
 
     }//GEN-LAST:event_btnIngredientCostActionPerformed

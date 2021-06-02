@@ -5,7 +5,11 @@
  */
 package view.function.product;
 
+import java.awt.Dimension;
 import javax.swing.JTable;
+import javax.swing.SpinnerModel;
+import util.swing.UIControl;
+import view.dialog.IngredientSelectDialog;
 
 /**
  *
@@ -16,8 +20,12 @@ public class ProductPanel extends javax.swing.JPanel {
     /**
      * Creates new form ProductManagePanel
      */
+    IngredientSelectDialog ingredientSelectDialog = new IngredientSelectDialog(null, true);
+
     public ProductPanel() {
         initComponents();
+        UIControl.setDefaultTableHeader(tableProduct);
+        setEditableForAll(false);
     }
 
     /**
@@ -301,9 +309,28 @@ public class ProductPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+    public void setEditableForAll(boolean editable) {
+        textfID.setEditable(false);
+        textfCost.setEditable(editable);
+        textfName.setEditable(editable);
+        combSize.setEnabled(editable);
+        spnAmount.setEnabled(editable);
+        listIngredient.setEnabled(editable);
 
+    }
+
+    public void clearAll() {
+        textfID.setText(null);
+        textfCost.setText(null);
+        textfName.setText(null);
+        textfSearch.setText(null);
+        combSize.setSelectedIndex(0);
+        listIngredient.clearSelection();
+        spnAmount.setValue((int) 0);
+    }
     private void btnSelectIngredientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectIngredientActionPerformed
-        
+        UIControl.setLocationCenterForDialog(ingredientSelectDialog);
+        ingredientSelectDialog.setVisible(true);
     }//GEN-LAST:event_btnSelectIngredientActionPerformed
 
     private void spnAmountPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_spnAmountPropertyChange

@@ -5,6 +5,8 @@
  */
 package view.dialog;
 
+import util.swing.UIControl;
+
 /**
  *
  * @author Minh Tu
@@ -17,6 +19,8 @@ public class IngredientSelectDialog extends javax.swing.JDialog {
     public IngredientSelectDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        UIControl.setDefaultTableHeader(tableIngredientOffered);
+        UIControl.setDefaultTableHeader(tableIngredientSelected);
     }
 
     /**
@@ -134,6 +138,7 @@ public class IngredientSelectDialog extends javax.swing.JDialog {
         btnSaveChange.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_save-all-changes.png"))); // NOI18N
         btnSaveChange.setContentAreaFilled(false);
         btnSaveChange.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSaveChange.setFocusPainted(false);
 
         label_ProductName.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         label_ProductName.setForeground(new java.awt.Color(255, 51, 0));

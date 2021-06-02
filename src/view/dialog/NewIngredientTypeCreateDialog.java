@@ -57,6 +57,7 @@ public class NewIngredientTypeCreateDialog extends javax.swing.JDialog {
         btnCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_create.png"))); // NOI18N
         btnCreate.setContentAreaFilled(false);
         btnCreate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCreate.setFocusPainted(false);
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreateActionPerformed(evt);
@@ -64,6 +65,7 @@ public class NewIngredientTypeCreateDialog extends javax.swing.JDialog {
         });
 
         btnCancle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_cancel_40.png"))); // NOI18N
+        btnCancle.setFocusPainted(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -55,6 +55,7 @@ public class IngredientImportDialog extends javax.swing.JDialog {
         label_ImportDate.setText("Import date");
 
         spinnerImportAmount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        spinnerImportAmount.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
         label_Amount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         label_Amount.setText("Amount");
@@ -73,7 +74,7 @@ public class IngredientImportDialog extends javax.swing.JDialog {
         panelInfoLayout.setHorizontalGroup(
             panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoLayout.createSequentialGroup()
-                .addContainerGap(87, Short.MAX_VALUE)
+                .addContainerGap(92, Short.MAX_VALUE)
                 .addComponent(label_Amount)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,7 +103,7 @@ public class IngredientImportDialog extends javax.swing.JDialog {
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spinnerImportAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_Amount, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
             .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelInfoLayout.createSequentialGroup()
                     .addGap(11, 11, 11)
@@ -123,6 +124,7 @@ public class IngredientImportDialog extends javax.swing.JDialog {
         btnImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_SaveImport.png"))); // NOI18N
         btnImport.setContentAreaFilled(false);
         btnImport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnImport.setFocusPainted(false);
 
         btnCancle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_cancel.png"))); // NOI18N
         btnCancle.setContentAreaFilled(false);

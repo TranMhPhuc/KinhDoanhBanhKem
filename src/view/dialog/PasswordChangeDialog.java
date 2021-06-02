@@ -54,6 +54,7 @@ public class PasswordChangeDialog extends javax.swing.JDialog {
         btnChangePass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buttonIMG_updatePW.png"))); // NOI18N
         btnChangePass.setContentAreaFilled(false);
         btnChangePass.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnChangePass.setFocusPainted(false);
         btnChangePass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChangePassActionPerformed(evt);

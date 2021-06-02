@@ -50,6 +50,7 @@ public class ConfirmSigningOutDialog extends javax.swing.JDialog {
         btnNo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_no_red.png"))); // NOI18N
         btnNo.setContentAreaFilled(false);
         btnNo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNo.setFocusPainted(false);
 
         label_Confirm.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         label_Confirm.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -73,7 +74,7 @@ public class ConfirmSigningOutDialog extends javax.swing.JDialog {
                 .addComponent(btnYes)
                 .addGap(39, 39, 39)
                 .addComponent(btnNo)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
