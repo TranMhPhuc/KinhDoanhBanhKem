@@ -9,12 +9,12 @@ package view.dialog;
  *
  * @author Minh Tu
  */
-public class ChangePasswordDialog extends javax.swing.JDialog {
+public class PasswordChangeDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form changePasswordDialog
      */
-    public ChangePasswordDialog(java.awt.Frame parent, boolean modal) {
+    public PasswordChangeDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -31,11 +31,11 @@ public class ChangePasswordDialog extends javax.swing.JDialog {
         label_changePass = new javax.swing.JLabel();
         label_oldPass = new javax.swing.JLabel();
         label_newPass = new javax.swing.JLabel();
-        button_changePass = new javax.swing.JButton();
+        btnChangePass = new javax.swing.JButton();
         label_verifyPass = new javax.swing.JLabel();
-        PWF_oldPW = new javax.swing.JPasswordField();
-        PWF_newPW = new javax.swing.JPasswordField();
-        PWF_verifyNewPW = new javax.swing.JPasswordField();
+        passfOldPassword = new javax.swing.JPasswordField();
+        passfNewPassoword = new javax.swing.JPasswordField();
+        passfVerifyPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -50,24 +50,24 @@ public class ChangePasswordDialog extends javax.swing.JDialog {
         label_newPass.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_newPass.setText("New Password");
 
-        button_changePass.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        button_changePass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buttonIMG_updatePW.png"))); // NOI18N
-        button_changePass.setContentAreaFilled(false);
-        button_changePass.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_changePass.addActionListener(new java.awt.event.ActionListener() {
+        btnChangePass.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnChangePass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buttonIMG_updatePW.png"))); // NOI18N
+        btnChangePass.setContentAreaFilled(false);
+        btnChangePass.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnChangePass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_changePassActionPerformed(evt);
+                btnChangePassActionPerformed(evt);
             }
         });
 
         label_verifyPass.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_verifyPass.setText("Verify New Password");
 
-        PWF_oldPW.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        passfOldPassword.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        PWF_newPW.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        passfNewPassoword.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        PWF_verifyNewPW.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        passfVerifyPassword.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,16 +77,16 @@ public class ChangePasswordDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PWF_verifyNewPW, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passfVerifyPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_verifyPass)
-                    .addComponent(PWF_newPW, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passfNewPassoword, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_newPass)
-                    .addComponent(PWF_oldPW, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passfOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_oldPass))
                 .addContainerGap(44, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(button_changePass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnChangePass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -97,26 +97,26 @@ public class ChangePasswordDialog extends javax.swing.JDialog {
                 .addGap(22, 22, 22)
                 .addComponent(label_oldPass, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PWF_oldPW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(passfOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label_newPass)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PWF_newPW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(passfNewPassoword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label_verifyPass, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PWF_verifyNewPW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(passfVerifyPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(button_changePass, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnChangePass, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button_changePassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_changePassActionPerformed
+    private void btnChangePassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePassActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_button_changePassActionPerformed
+    }//GEN-LAST:event_btnChangePassActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,21 +135,23 @@ public class ChangePasswordDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChangePasswordDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordChangeDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChangePasswordDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordChangeDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChangePasswordDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordChangeDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChangePasswordDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordChangeDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ChangePasswordDialog dialog = new ChangePasswordDialog(new javax.swing.JFrame(), true);
+                PasswordChangeDialog dialog = new PasswordChangeDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -162,13 +164,13 @@ public class ChangePasswordDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPasswordField PWF_newPW;
-    private javax.swing.JPasswordField PWF_oldPW;
-    private javax.swing.JPasswordField PWF_verifyNewPW;
-    private javax.swing.JButton button_changePass;
+    private javax.swing.JButton btnChangePass;
     private javax.swing.JLabel label_changePass;
     private javax.swing.JLabel label_newPass;
     private javax.swing.JLabel label_oldPass;
     private javax.swing.JLabel label_verifyPass;
+    private javax.swing.JPasswordField passfNewPassoword;
+    private javax.swing.JPasswordField passfOldPassword;
+    private javax.swing.JPasswordField passfVerifyPassword;
     // End of variables declaration//GEN-END:variables
 }

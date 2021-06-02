@@ -36,10 +36,10 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="button_SaveAllChanges" min="-2" pref="222" max="-2" attributes="0"/>
+                          <Component id="btnSaveChange" min="-2" pref="222" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="label_IngredientList" max="32767" attributes="0"/>
-                              <Component id="scrollPane_IngredientList" pref="424" max="32767" attributes="0"/>
+                              <Component id="scrpaneIngredientOffered" pref="424" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -47,9 +47,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="label_SelectedIngredients" max="32767" attributes="0"/>
-                          <Component id="scrollPane_selectedIngredients" max="32767" attributes="0"/>
+                          <Component id="scrpaneIngredientSelected" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="jButton1" min="-2" pref="222" max="-2" attributes="0"/>
+                              <Component id="btnCancel" min="-2" pref="222" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -59,7 +59,7 @@
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
-              <Component id="button_Choose" min="-2" pref="96" max="-2" attributes="0"/>
+              <Component id="btnChoose" min="-2" pref="96" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="panel_Buttons" min="-2" pref="236" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
@@ -85,7 +85,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                              <Component id="scrollPane_IngredientList" min="-2" max="-2" attributes="0"/>
+                              <Component id="scrpaneIngredientOffered" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -93,18 +93,18 @@
                                   <Component id="label_IngredientList" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="scrollPane_selectedIngredients" min="-2" max="-2" attributes="0"/>
+                              <Component id="scrpaneIngredientSelected" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="panel_Buttons" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="button_Choose" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnChoose" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="button_SaveAllChanges" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="66" max="-2" attributes="0"/>
+                          <Component id="btnSaveChange" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnCancel" min="-2" pref="66" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                   </Group>
@@ -123,14 +123,14 @@
         <Property name="text" type="java.lang.String" value="Select/Modify Ingredient For"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="scrollPane_IngredientList">
+    <Container class="javax.swing.JScrollPane" name="scrpaneIngredientOffered">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="table_IngredientList">
+        <Component class="javax.swing.JTable" name="tableIngredientOffered">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="3" rowCount="4">
@@ -146,14 +146,14 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JScrollPane" name="scrollPane_selectedIngredients">
+    <Container class="javax.swing.JScrollPane" name="scrpaneIngredientSelected">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="table_selectedIngredients">
+        <Component class="javax.swing.JTable" name="tableIngredientSelected">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="4" rowCount="4">
@@ -193,7 +193,7 @@
         <Property name="text" type="java.lang.String" value="Selected ingredients"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="button_Choose">
+    <Component class="javax.swing.JButton" name="btnChoose">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="17" style="1"/>
@@ -214,7 +214,7 @@
         <Property name="rows" type="int" value="1"/>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="button_Remove">
+        <Component class="javax.swing.JButton" name="btnRemove">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="17" style="1"/>
@@ -222,7 +222,7 @@
             <Property name="text" type="java.lang.String" value="Remove"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="button_Clear">
+        <Component class="javax.swing.JButton" name="btnClear">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="17" style="1"/>
@@ -232,7 +232,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="button_SaveAllChanges">
+    <Component class="javax.swing.JButton" name="btnSaveChange">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/button_save-all-changes.png"/>
@@ -254,7 +254,7 @@
         <Property name="text" type="java.lang.String" value="&lt;Name&gt;"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnCancel">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/button_cancel_50.png"/>
@@ -266,7 +266,7 @@
         <Property name="focusPainted" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

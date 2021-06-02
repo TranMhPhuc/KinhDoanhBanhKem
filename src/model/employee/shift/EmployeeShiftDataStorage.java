@@ -6,19 +6,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import model.DatabaseUpdate;
+import util.AppLog;
 
 public class EmployeeShiftDataStorage implements DatabaseUpdate {
 
     private static EmployeeShiftDataStorage uniqueInstance;
     
-    private static ArrayList<EmployeeShiftModel> shifts;
+    private ArrayList<EmployeeShiftModel> shifts;
 
     static {
         uniqueInstance = new EmployeeShiftDataStorage();
-        shifts = new ArrayList<>();
     }
     
     private EmployeeShiftDataStorage() {
+        shifts = new ArrayList<>();
     }
 
     public static EmployeeShiftDataStorage getInstance() {
@@ -39,8 +40,11 @@ public class EmployeeShiftDataStorage implements DatabaseUpdate {
             while (resultSet.next()) {
                 shifts.add(EmployeeShiftModel.getInstance(resultSet));
             }
-
+            
+            AppLog.getLogger().info("Update employee shift database: sucessfully, " + shifts.size() + " rows inserted.");
+                
         } catch (SQLException ex) {
+            AppLog.getLogger().fatal("Update employee shift database: error.");
         }
     }
     

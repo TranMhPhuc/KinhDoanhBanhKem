@@ -28,23 +28,23 @@ public class AmountDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        spinner_Amount = new javax.swing.JSpinner();
+        spinnerAmount = new javax.swing.JSpinner();
         label_AddAmount = new javax.swing.JLabel();
-        buttonSave = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        spinner_Amount.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        spinner_Amount.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        spinnerAmount.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        spinnerAmount.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
         label_AddAmount.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_AddAmount.setText("Amount");
 
-        buttonSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_save_25.png"))); // NOI18N
-        buttonSave.setContentAreaFilled(false);
-        buttonSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        buttonSave.setFocusPainted(false);
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_save_25.png"))); // NOI18N
+        btnSave.setContentAreaFilled(false);
+        btnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSave.setFocusPainted(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -54,11 +54,11 @@ public class AmountDialog extends javax.swing.JDialog {
                 .addContainerGap(34, Short.MAX_VALUE)
                 .addComponent(label_AddAmount)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(spinner_Amount, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(spinnerAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(buttonSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -66,9 +66,9 @@ public class AmountDialog extends javax.swing.JDialog {
                 .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_AddAmount)
-                    .addComponent(spinner_Amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spinnerAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
-                .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 9, Short.MAX_VALUE))
         );
 
@@ -119,8 +119,8 @@ public class AmountDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonSave;
+    private javax.swing.JButton btnSave;
     private javax.swing.JLabel label_AddAmount;
-    private javax.swing.JSpinner spinner_Amount;
+    private javax.swing.JSpinner spinnerAmount;
     // End of variables declaration//GEN-END:variables
 }

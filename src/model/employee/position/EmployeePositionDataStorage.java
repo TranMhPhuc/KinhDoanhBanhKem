@@ -6,19 +6,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import model.DatabaseUpdate;
+import util.AppLog;
 
 public class EmployeePositionDataStorage implements DatabaseUpdate {
     
     private static EmployeePositionDataStorage uniqueInstance;
     
-    private static ArrayList<EmployeePositionModel> positions;
+    private ArrayList<EmployeePositionModel> positions;
     
     static {
         uniqueInstance = new EmployeePositionDataStorage();
-        positions = new ArrayList<>();
     }
     
     private EmployeePositionDataStorage() {
+        positions = new ArrayList<>();
     }
     
     public static EmployeePositionDataStorage getInstance() {
@@ -39,8 +40,10 @@ public class EmployeePositionDataStorage implements DatabaseUpdate {
             while (resultSet.next()) {
                 positions.add(EmployeePositionModel.getInstance(resultSet));
             }
-
+            
+            AppLog.getLogger().info("Update employee position database: sucessfully, " + positions.size() + " rows inserted.");
         } catch (SQLException ex) {
+            AppLog.getLogger().fatal("Update employee position database: error.");
         }
     }
     

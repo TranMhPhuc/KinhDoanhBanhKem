@@ -29,20 +29,20 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="button_EditProfile" min="-2" pref="211" max="-2" attributes="0"/>
+                      <Component id="btnEditProfile" min="-2" pref="211" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="button_changePassword" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnChangePassword" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="panel_EmpInfo_label" min="-2" max="-2" attributes="0"/>
+                      <Component id="panelTitle" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="label_Title" min="-2" pref="268" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="button_EmpID" min="-2" pref="92" max="-2" attributes="0"/>
+                              <Component id="labelEmployeeID" min="-2" pref="92" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="panel_EmpInfo_textField" alignment="0" min="-2" pref="316" max="-2" attributes="0"/>
+                          <Component id="panelInput" alignment="0" min="-2" pref="316" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -56,17 +56,17 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="label_Title" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="button_EmpID" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelEmployeeID" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="panel_EmpInfo_textField" alignment="0" max="32767" attributes="0"/>
-                  <Component id="panel_EmpInfo_label" alignment="0" min="-2" pref="265" max="-2" attributes="0"/>
+                  <Component id="panelInput" alignment="0" max="32767" attributes="0"/>
+                  <Component id="panelTitle" alignment="0" min="-2" pref="265" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="button_changePassword" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="button_EditProfile" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnChangePassword" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnEditProfile" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="33" max="32767" attributes="0"/>
           </Group>
@@ -83,7 +83,7 @@
         <Property name="text" type="java.lang.String" value="Personal Profile"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JPanel" name="panel_EmpInfo_label">
+    <Container class="javax.swing.JPanel" name="panelTitle">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
         <Property name="columns" type="int" value="1"/>
@@ -138,7 +138,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="panel_EmpInfo_textField">
+    <Container class="javax.swing.JPanel" name="panelInput">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
         <Property name="columns" type="int" value="1"/>
@@ -146,35 +146,35 @@
         <Property name="verticalGap" type="int" value="30"/>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="textField_Name">
+        <Component class="javax.swing.JTextField" name="textfName">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textField_Position">
+        <Component class="javax.swing.JTextField" name="textfPosition">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textField_Email">
+        <Component class="javax.swing.JTextField" name="textfEmail">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="dateChooser_Birthday">
+        <Component class="com.toedter.calendar.JDateChooser" name="dateChooserBirthday">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textField_PhoneNumber">
+        <Component class="javax.swing.JTextField" name="textfPhoneNumber">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="0"/>
@@ -183,7 +183,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="button_changePassword">
+    <Component class="javax.swing.JButton" name="btnChangePassword">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/button_change-password.png"/>
@@ -195,7 +195,7 @@
         <Property name="focusPainted" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="button_EditProfile">
+    <Component class="javax.swing.JButton" name="btnEditProfile">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/button_edit-profile.png"/>
@@ -207,7 +207,7 @@
         <Property name="focusPainted" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="button_EmpID">
+    <Component class="javax.swing.JLabel" name="labelEmployeeID">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="1"/>

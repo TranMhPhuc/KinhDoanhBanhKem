@@ -34,9 +34,9 @@
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
-              <Component id="button_Yes" min="-2" max="-2" attributes="0"/>
+              <Component id="btnYes" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-              <Component id="button_No" min="-2" max="-2" attributes="0"/>
+              <Component id="btnNo" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="70" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -50,8 +50,8 @@
               <Component id="label_Confirm" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="button_No" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="button_Yes" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnNo" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnYes" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -59,7 +59,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="button_Yes">
+    <Component class="javax.swing.JButton" name="btnYes">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/button_yes_red.png"/>
@@ -72,10 +72,10 @@
         <Property name="focusPainted" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_YesActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnYesActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="button_No">
+    <Component class="javax.swing.JButton" name="btnNo">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/img/button_no_red.png"/>

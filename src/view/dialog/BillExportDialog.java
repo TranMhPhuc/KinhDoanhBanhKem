@@ -9,12 +9,12 @@ package view.dialog;
  *
  * @author Minh Tu
  */
-public class ExportBillDialog extends javax.swing.JDialog {
+public class BillExportDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form exportBillDialog
      */
-    public ExportBillDialog(java.awt.Frame parent, boolean modal) {
+    public BillExportDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -28,28 +28,28 @@ public class ExportBillDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        button_Yes = new javax.swing.JButton();
-        button_No = new javax.swing.JButton();
+        btnYes = new javax.swing.JButton();
+        btnNo = new javax.swing.JButton();
         label_Confirm = new javax.swing.JLabel();
         label_QuestionMark = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        button_Yes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_yes_gray.png"))); // NOI18N
-        button_Yes.setBorderPainted(false);
-        button_Yes.setContentAreaFilled(false);
-        button_Yes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        button_Yes.setFocusPainted(false);
-        button_Yes.addActionListener(new java.awt.event.ActionListener() {
+        btnYes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_yes_gray.png"))); // NOI18N
+        btnYes.setBorderPainted(false);
+        btnYes.setContentAreaFilled(false);
+        btnYes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnYes.setFocusPainted(false);
+        btnYes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_YesActionPerformed(evt);
+                btnYesActionPerformed(evt);
             }
         });
 
-        button_No.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_no_gray.png"))); // NOI18N
-        button_No.setContentAreaFilled(false);
-        button_No.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_no_gray.png"))); // NOI18N
+        btnNo.setContentAreaFilled(false);
+        btnNo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         label_Confirm.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         label_Confirm.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -66,9 +66,9 @@ public class ExportBillDialog extends javax.swing.JDialog {
             .addComponent(label_QuestionMark, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(57, 57, 57)
-                .addComponent(button_Yes)
+                .addComponent(btnYes)
                 .addGap(32, 32, 32)
-                .addComponent(button_No)
+                .addComponent(btnNo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -80,17 +80,17 @@ public class ExportBillDialog extends javax.swing.JDialog {
                 .addComponent(label_Confirm)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button_Yes)
-                    .addComponent(button_No))
+                    .addComponent(btnYes)
+                    .addComponent(btnNo))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button_YesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_YesActionPerformed
+    private void btnYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnYesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_button_YesActionPerformed
+    }//GEN-LAST:event_btnYesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -109,21 +109,23 @@ public class ExportBillDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ExportBillDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BillExportDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ExportBillDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BillExportDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ExportBillDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BillExportDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ExportBillDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BillExportDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ExportBillDialog dialog = new ExportBillDialog(new javax.swing.JFrame(), true);
+                BillExportDialog dialog = new BillExportDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -136,8 +138,8 @@ public class ExportBillDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton button_No;
-    private javax.swing.JButton button_Yes;
+    private javax.swing.JButton btnNo;
+    private javax.swing.JButton btnYes;
     private javax.swing.JLabel label_Confirm;
     private javax.swing.JLabel label_QuestionMark;
     // End of variables declaration//GEN-END:variables

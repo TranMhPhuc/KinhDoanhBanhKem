@@ -5,22 +5,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.DatabaseUpdate;
+import util.AppLog;
 
 public class EmployeeDataStorage implements DatabaseUpdate {
 
     private static EmployeeDataStorage uniqueInstance;
 
-    private static ArrayList<EmployeeModelInterface> employees;
+    private ArrayList<EmployeeModelInterface> employees;
 
     static {
         uniqueInstance = new EmployeeDataStorage();
-        employees = new ArrayList<>();
     }
 
     private EmployeeDataStorage() {
+        employees = new ArrayList<>();
     }
 
     public static EmployeeDataStorage getInstance() {
@@ -41,13 +40,16 @@ public class EmployeeDataStorage implements DatabaseUpdate {
             while (resultSet.next()) {
                 employees.add(EmployeeModel.getInstance(resultSet));
             }
+            
+            AppLog.getLogger().info("Update employee database: sucessfully, " + employees.size() + " rows inserted.");
+            
         } catch (SQLException ex) {
-            Logger.getLogger(EmployeeDataStorage.class.getName()).log(Level.SEVERE, null, ex);
+            AppLog.getLogger().fatal("Update employee database: error.");
         }
     }
 
     public EmployeeModelInterface getEmployee(String employeeIDText) {
-        for (EmployeeModelInterface element: employees) {
+        for (EmployeeModelInterface element : employees) {
             if (element.getEmployeeIDText().equals(employeeIDText)) {
                 return element;
             }
