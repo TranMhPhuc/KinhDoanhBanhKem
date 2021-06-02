@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import model.DatabaseUpdate;
+import util.AppLog;
 
 public class IngredientOfProductDataStorage implements DatabaseUpdate {
     
@@ -39,8 +40,12 @@ public class IngredientOfProductDataStorage implements DatabaseUpdate {
             while (resultSet.next()) {
                 ingredientOfProductDetails.add(IngredientOfProductDetail.getInstance(resultSet));
             }
+            
+            AppLog.getLogger().info("Update ingredient of product database: successfully, " 
+                    + ingredientOfProductDetails.size() + " rows inserted.");
 
         } catch (SQLException ex) {
+            AppLog.getLogger().info("Update ingredient of product database: error.");
         }
     }
 }

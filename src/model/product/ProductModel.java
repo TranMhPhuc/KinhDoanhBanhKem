@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.ingredient.IngredientDataStorage;
 import model.ingredientOfProduct.IngredientOfProductDetailInterface;
+import model.productOfBill.ProductOfBillDetailInterface;
 import util.db.SQLServerConnect;
 
 public class ProductModel implements ProductModelInterface {
@@ -30,6 +31,7 @@ public class ProductModel implements ProductModelInterface {
     private int amount;
     private int price;
     private ArrayList<IngredientOfProductDetailInterface> ingredientDetails;
+    private ArrayList<ProductOfBillDetailInterface> billDetails;
 
     static {
         dbConnection = SQLServerConnect.getConnection();
@@ -38,6 +40,7 @@ public class ProductModel implements ProductModelInterface {
     
     public ProductModel() {
         ingredientDetails = new ArrayList<>();
+        billDetails = new ArrayList<>();
     }
 
     public ProductModel(int id, String name, int cost, int price, int amount, 
@@ -89,6 +92,11 @@ public class ProductModel implements ProductModelInterface {
     @Override
     public void addIngredientDetail(IngredientOfProductDetailInterface ingredientOfProductDetailInterface) {
         this.ingredientDetails.add(ingredientOfProductDetailInterface);
+    }
+
+    @Override
+    public void addBillDetail(ProductOfBillDetailInterface productOfBillDetailInterface) {
+        this.billDetails.add(productOfBillDetailInterface);
     }
     
     @Override

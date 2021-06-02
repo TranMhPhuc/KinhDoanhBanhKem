@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import model.DatabaseUpdate;
+import util.AppLog;
 
 public class ProviderDataStorage implements DatabaseUpdate {
 
@@ -39,8 +40,11 @@ public class ProviderDataStorage implements DatabaseUpdate {
             while (resultSet.next()) {
                 providers.add(ProviderModel.getInstance(resultSet));
             }
+            
+            AppLog.getLogger().info("Update provider database: successfully, " + providers.size() + " rows inserted.");
 
         } catch (SQLException ex) {
+            AppLog.getLogger().fatal("Update provider database: error.");
         }
     }
 

@@ -5,22 +5,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.DatabaseUpdate;
+import util.AppLog;
 
 public class BillDataStorage implements DatabaseUpdate {
 
     private volatile static BillDataStorage uniqueInstance;
 
-    private static ArrayList<BillModelInterface> bills;
+    private ArrayList<BillModelInterface> bills;
 
     static {
         uniqueInstance = new BillDataStorage();
-        bills = new ArrayList<>();
     }
 
     private BillDataStorage() {
+        bills = new ArrayList<>();
     }
 
     public static BillDataStorage getInstance() {
@@ -32,7 +31,7 @@ public class BillDataStorage implements DatabaseUpdate {
         try {
             Statement statement = connection.createStatement();
 
-            String query = "SELECT * FROM HoaDon";
+            String query = "SELECT * FROM " + BillModel.TABLE_NAME;
 
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -41,8 +40,19 @@ public class BillDataStorage implements DatabaseUpdate {
             while (resultSet.next()) {
                 bills.add(BillModel.getInstance(resultSet));
             }
+            
+            AppLog.getLogger().info("Update bill database: successfully, " + bills.size() + " rows inserted.");
         } catch (SQLException ex) {
-            Logger.getLogger(BillDataStorage.class.getName()).log(Level.SEVERE, null, ex);
+            AppLog.getLogger().fatal("Update bill database: error.");
         }
+    }
+    
+    public BillModelInterface getBill(String billIDText) {
+        for (BillModelInterface element : bills) {
+            if (element.getBillIDText().equals(billIDText)) {
+                return element;
+            }
+        }
+        return null;
     }
 }

@@ -1,9 +1,14 @@
 package model.bill;
 
+import model.productOfBill.ProductOfBillDetailInterface;
 import view.function.product.ProductViewObserver;
 
 public interface BillModelInterface {
 
+    String getBillIDText();
+    
+    void addProductDetail(ProductOfBillDetailInterface productOfBillDetailInterface);
+    
     void notifyObserver();
 
     /**

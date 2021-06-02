@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import model.DatabaseUpdate;
+import util.AppLog;
 
 public class IngredientDataStorage implements DatabaseUpdate {
 
@@ -40,12 +41,16 @@ public class IngredientDataStorage implements DatabaseUpdate {
                 ingredients.add(IngredientModel.getInstance(resultSet));
             }
 
+            AppLog.getLogger().info("Update ingredient database: successfully, "
+                    + ingredients.size() + " rows inserted.");
+
         } catch (SQLException ex) {
+            AppLog.getLogger().info("Update ingredient database: error.");
         }
     }
 
     public IngredientModelInterface getIngredient(String ingredientIDText) {
-        for (IngredientModelInterface element: ingredients) {
+        for (IngredientModelInterface element : ingredients) {
             if (element.getIngredientIDText().equals(ingredientIDText)) {
                 return element;
             }

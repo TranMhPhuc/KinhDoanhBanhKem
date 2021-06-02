@@ -1,1 +1,11 @@
-2021-06-01 13:19:48 [FATAL] AppLog:56 - Update work shift from DB is not successfully.
+2021-06-02 08:00:04 [INFO ] AppLog:44 - Update employee shift database: sucessfully, 4 rows inserted.
+2021-06-02 08:00:04 [INFO ] AppLog:44 - Update employee position database: sucessfully, 4 rows inserted.
+2021-06-02 08:00:04 [INFO ] AppLog:44 - Update employee database: sucessfully, 13 rows inserted.
+2021-06-02 08:00:04 [INFO ] AppLog:44 - Update bill database: successfully, 108 rows inserted.
+2021-06-02 08:00:04 [INFO ] AppLog:44 - Update ingredient type database: successfully, 11 rows inserted.
+2021-06-02 08:00:04 [INFO ] AppLog:44 - Update provider database: successfully, 5 rows inserted.
+2021-06-02 08:00:04 [INFO ] AppLog:44 - Update ingredient unit database: sucessfully, 3 rows inserted.
+2021-06-02 08:00:04 [INFO ] AppLog:44 - Update ingredient database: successfully, 24 rows inserted.
+2021-06-02 08:00:04 [INFO ] AppLog:44 - Update product database: successfully, 25 rows inserted.
+2021-06-02 08:00:04 [INFO ] AppLog:44 - Update ingredient of product database: successfully, 25 rows inserted.
+2021-06-02 08:00:04 [INFO ] AppLog:44 - Update bill's product database: successfully, 361 rows inserted

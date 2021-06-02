@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import model.DatabaseUpdate;
+import util.AppLog;
 
 public class IngredientTypeDataStorage implements DatabaseUpdate {
 
@@ -39,8 +40,12 @@ public class IngredientTypeDataStorage implements DatabaseUpdate {
             while (resultSet.next()) {
                 ingredientTypes.add(IngredientTypeModel.getInstance(resultSet));
             }
+            
+            AppLog.getLogger().info("Update ingredient type database: successfully, " 
+                    + ingredientTypes.size() + " rows inserted.");
 
         } catch (SQLException ex) {
+            AppLog.getLogger().fatal("Update ingredient type database: error");
         }
     }
     
@@ -53,10 +58,4 @@ public class IngredientTypeDataStorage implements DatabaseUpdate {
         return null;
     }
     
-    public void get() {
-        for (IngredientTypeModelInterface e: ingredientTypes) {
-            System.out.println(e);
-        }
-    }
-
 }

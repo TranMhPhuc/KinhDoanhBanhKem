@@ -6,19 +6,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import model.DatabaseUpdate;
+import util.AppLog;
 
 public class ProductDataStorage implements DatabaseUpdate {
 
     private static ProductDataStorage uniqueInstance;
 
-    private static ArrayList<ProductModelInterface> products;
+    private ArrayList<ProductModelInterface> products;
     
     static {
         uniqueInstance = new ProductDataStorage();
-        products = new ArrayList<>();
     }
     
     private ProductDataStorage() {
+        products = new ArrayList<>();
     }
 
     public static ProductDataStorage getInstance() {
@@ -39,8 +40,12 @@ public class ProductDataStorage implements DatabaseUpdate {
             while (resultSet.next()) {
                 products.add(ProductModel.getInstance(resultSet));
             }
+            
+            AppLog.getLogger().info("Update product database: successfully, " 
+                    + products.size() + " rows inserted.");
 
         } catch (SQLException ex) {
+            AppLog.getLogger().info("Update product database: error.");
         }
     }
     

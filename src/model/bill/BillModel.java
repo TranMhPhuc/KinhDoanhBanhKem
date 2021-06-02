@@ -3,14 +3,13 @@ package model.bill;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.employee.EmployeeDataStorage;
 import model.employee.EmployeeModel;
 import model.employee.EmployeeModelInterface;
-import model.product.ProductModelInterface;
-import org.javatuples.Pair;
+import model.productOfBill.ProductOfBillDetailInterface;
 import view.function.product.ProductViewObserver;
 
 public class BillModel implements BillModelInterface {
@@ -22,41 +21,38 @@ public class BillModel implements BillModelInterface {
     public static final String PAYMENT_HEADER = "TongTien";
     public static final String GUEST_MONEY_HEADER = "TienKhachTra";
     public static final String CHANGE_MONEY_HEADER = "TienThoi";
-    
+    public static final String EMPLOYEE_ID_HEADER = EmployeeModel.ID_HEADER;
+
     private static EmployeeDataStorage employeeDataStorage;
 
-    private int billID;
+    private int id;
     private Timestamp dateTimeExport;
     private int payment;
     private int guestMoney;
     private int changeMoney;
     private EmployeeModelInterface employee;
-    private HashMap<ProductModelInterface, Pair<Integer, Integer>> products;
+    private ArrayList<ProductOfBillDetailInterface> productDetails;
 
     static {
         employeeDataStorage = EmployeeDataStorage.getInstance();
     }
 
     public BillModel() {
-        products = new HashMap<>();
+        productDetails = new ArrayList<>();
     }
 
     public static BillModel getInstance(ResultSet resultSet) {
         BillModel ret = new BillModel();
 
         try {
-            ret.billID = resultSet.getInt("MaHD");
+            ret.id = resultSet.getInt("MaHD");
             ret.dateTimeExport = resultSet.getTimestamp("NgayLap");
             ret.payment = resultSet.getInt("TongTien");
             ret.guestMoney = resultSet.getInt("TienKhachTra");
             ret.changeMoney = resultSet.getInt("TienThoi");
 
-            String employeeIDText = resultSet.getString(EmployeeModel.ID_HEADER);
-
-            EmployeeModelInterface employee = employeeDataStorage
-                    .getEmployee(employeeIDText);
-
-            ret.employee = employee;
+            ret.employee = employeeDataStorage
+                    .getEmployee(resultSet.getString(EMPLOYEE_ID_HEADER));
 
         } catch (SQLException ex) {
             Logger.getLogger(BillModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,63 +61,16 @@ public class BillModel implements BillModelInterface {
         return ret;
     }
 
-    private static void updateFromDB() {
-
-    }
-
-    public int getBillID() {
-        return billID;
-    }
-
-    public Timestamp getDateExport() {
-        return dateTimeExport;
-    }
-
-    public int getPayment() {
-        return payment;
-    }
-
-    public int getGuestMoney() {
-        return guestMoney;
-    }
-
-    public int getChangeMoney() {
-        return changeMoney;
-    }
-
-    public EmployeeModelInterface getEmployee() {
-        return employee;
-    }
-
-    public void setBillID(int billID) {
-        this.billID = billID;
-    }
-
-    public void setDateTimeExport(Timestamp dateExport) {
-        this.dateTimeExport = dateExport;
-    }
-
-    public void setPayment(int payment) {
-        this.payment = payment;
-    }
-
-    public void setGuestMoney(int givenMoney) {
-        this.guestMoney = givenMoney;
-    }
-
-    public void setChangeMoney(int changeMoney) {
-        this.changeMoney = changeMoney;
-    }
-
-    public void setEmployee(EmployeeModel employee) {
-        this.employee = employee;
+    @Override
+    public String getBillIDText() {
+        return String.valueOf(this.id);
     }
 
     @Override
-    public String toString() {
-        return "Bill{" + "billID=" + billID + ", dateExport=" + dateTimeExport + ", payment=" + payment + ", givenMoney=" + guestMoney + ", changeMoney=" + changeMoney + ", employee=" + employee + '}';
+    public void addProductDetail(ProductOfBillDetailInterface productOfBillDetailInterface) {
+        this.productDetails.add(productOfBillDetailInterface);
     }
-
+    
     @Override
     public void notifyObserver() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -135,5 +84,10 @@ public class BillModel implements BillModelInterface {
     @Override
     public void removeObserver(ProductViewObserver productViewObserver) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String toString() {
+        return "Bill{" + "billID=" + id + ", dateExport=" + dateTimeExport + ", payment=" + payment + ", givenMoney=" + guestMoney + ", changeMoney=" + changeMoney + ", employee=" + employee + '}';
     }
 }
