@@ -6,7 +6,7 @@
 package view.function.bill;
 
 import static util.swing.UIControl.setLocationCenterForDialog;
-import view.dialog.ExportBillDialog;
+import view.dialog.BillExportDialog;
 
 /**
  *
@@ -17,7 +17,7 @@ public class BillCreatePanel extends javax.swing.JPanel {
     /**
      * Creates new form SellingPanel
      */
-    ExportBillDialog exportConfirm = new ExportBillDialog(null, true);
+    BillExportDialog exportConfirm = new BillExportDialog(null, true);
     public BillCreatePanel() {
         initComponents();
     }
