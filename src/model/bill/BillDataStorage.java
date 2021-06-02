@@ -28,6 +28,8 @@ public class BillDataStorage implements DatabaseUpdate {
 
     @Override
     public void updateFromDB(Connection connection) {
+        String dateNow = java.time.LocalDate.now().toString();
+
         try {
             Statement statement = connection.createStatement();
 
@@ -38,15 +40,17 @@ public class BillDataStorage implements DatabaseUpdate {
             bills.clear();
 
             while (resultSet.next()) {
-                bills.add(BillModel.getInstance(resultSet));
+                if (resultSet.getDate(BillModel.DATE_HEADER).toString().equals(dateNow)) {
+                    bills.add(BillModel.getInstance(resultSet));
+                }
             }
-            
+
             AppLog.getLogger().info("Update bill database: successfully, " + bills.size() + " rows inserted.");
         } catch (SQLException ex) {
             AppLog.getLogger().fatal("Update bill database: error.");
         }
     }
-    
+
     public BillModelInterface getBill(String billIDText) {
         for (BillModelInterface element : bills) {
             if (element.getBillIDText().equals(billIDText)) {

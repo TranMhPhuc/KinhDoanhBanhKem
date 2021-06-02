@@ -7,6 +7,9 @@ import java.util.logging.Logger;
 import model.ingredient.IngredientDataStorage;
 import model.ingredient.IngredientModel;
 import model.ingredient.IngredientModelInterface;
+import model.ingredient.ingredientUnit.IngredientUnitDataStorage;
+import model.ingredient.ingredientUnit.IngredientUnitModel;
+import model.ingredient.ingredientUnit.IngredientUnitModelInterface;
 import model.product.ProductDataStorage;
 import model.product.ProductModel;
 import model.product.ProductModelInterface;
@@ -17,17 +20,21 @@ public class IngredientOfProductDetail implements IngredientOfProductDetailInter
     public static final String PRODUCT_ID_HEADER = ProductModel.ID_HEADER;
     public static final String INGREDIENT_ID_HEADER = IngredientModel.ID_HEADER;
     public static final String AMOUNT_HEADER = "SoLuong";
+    public static final String UNIT_HEADER = IngredientUnitModel.ID_HEADER;
     
     private static ProductDataStorage productDataStorage;
     private static IngredientDataStorage ingredientDataStorage;
+    private static IngredientUnitDataStorage ingredientUnitDataStorage;
     
     private ProductModelInterface product;
     private IngredientModelInterface ingredient;
     private int amount;
+    private IngredientUnitModelInterface unit;
     
     static {
         productDataStorage = ProductDataStorage.getInstance();
         ingredientDataStorage = IngredientDataStorage.getInstance();
+        ingredientUnitDataStorage = IngredientUnitDataStorage.getInstance();
     }
 
     public IngredientOfProductDetail() {
@@ -41,6 +48,7 @@ public class IngredientOfProductDetail implements IngredientOfProductDetailInter
             ret.ingredient = ingredientDataStorage.getIngredient(resultSet.getString(INGREDIENT_ID_HEADER));
             ret.ingredient.addProductDetail(ret);
             ret.amount = resultSet.getInt(AMOUNT_HEADER);
+            ret.unit = ingredientUnitDataStorage.getIngredientUnit(resultSet.getString(UNIT_HEADER));
         } catch (SQLException ex) {
             Logger.getLogger(IngredientOfProductDetail.class.getName()).log(Level.SEVERE, null, ex);
         }

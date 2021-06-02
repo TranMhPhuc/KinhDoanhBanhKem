@@ -7,8 +7,6 @@ public interface BillModelInterface {
 
     String getBillIDText();
     
-    void addProductDetail(ProductOfBillDetailInterface productOfBillDetailInterface);
-    
     void notifyObserver();
 
     /**

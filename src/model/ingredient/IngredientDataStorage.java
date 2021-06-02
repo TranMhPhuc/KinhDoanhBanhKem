@@ -45,7 +45,7 @@ public class IngredientDataStorage implements DatabaseUpdate {
                     + ingredients.size() + " rows inserted.");
 
         } catch (SQLException ex) {
-            AppLog.getLogger().info("Update ingredient database: error.");
+            AppLog.getLogger().fatal("Update ingredient database: error.");
         }
     }
 

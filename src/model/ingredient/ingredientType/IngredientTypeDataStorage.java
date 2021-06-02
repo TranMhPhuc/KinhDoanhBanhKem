@@ -51,7 +51,7 @@ public class IngredientTypeDataStorage implements DatabaseUpdate {
     
     public IngredientTypeModelInterface getIngredientType(String ingredientTypeIDText) {
         for (IngredientTypeModelInterface element: ingredientTypes) {
-            if (element.getIngredientIDText().equals(ingredientTypeIDText)) {
+            if (element.getIngredientTypeIDText().equals(ingredientTypeIDText)) {
                 return element;
             }
         }

@@ -3,19 +3,16 @@ package model.bill;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.employee.EmployeeDataStorage;
 import model.employee.EmployeeModel;
 import model.employee.EmployeeModelInterface;
-import model.productOfBill.ProductOfBillDetailInterface;
 import view.function.product.ProductViewObserver;
 
 public class BillModel implements BillModelInterface {
 
     public static final String TABLE_NAME = "HoaDon";
-    public static final String TABLE_BILL_DETAIL_NAME = "ChiTietHoaDon";
     public static final String ID_HEADER = "MaHD";
     public static final String DATE_HEADER = "NgayLap";
     public static final String PAYMENT_HEADER = "TongTien";
@@ -31,14 +28,12 @@ public class BillModel implements BillModelInterface {
     private int guestMoney;
     private int changeMoney;
     private EmployeeModelInterface employee;
-    private ArrayList<ProductOfBillDetailInterface> productDetails;
 
     static {
         employeeDataStorage = EmployeeDataStorage.getInstance();
     }
 
     public BillModel() {
-        productDetails = new ArrayList<>();
     }
 
     public static BillModel getInstance(ResultSet resultSet) {
@@ -53,7 +48,6 @@ public class BillModel implements BillModelInterface {
 
             ret.employee = employeeDataStorage
                     .getEmployee(resultSet.getString(EMPLOYEE_ID_HEADER));
-
         } catch (SQLException ex) {
             Logger.getLogger(BillModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -66,11 +60,6 @@ public class BillModel implements BillModelInterface {
         return String.valueOf(this.id);
     }
 
-    @Override
-    public void addProductDetail(ProductOfBillDetailInterface productOfBillDetailInterface) {
-        this.productDetails.add(productOfBillDetailInterface);
-    }
-    
     @Override
     public void notifyObserver() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -88,6 +77,8 @@ public class BillModel implements BillModelInterface {
 
     @Override
     public String toString() {
-        return "Bill{" + "billID=" + id + ", dateExport=" + dateTimeExport + ", payment=" + payment + ", givenMoney=" + guestMoney + ", changeMoney=" + changeMoney + ", employee=" + employee + '}';
+        return "Bill{" + "billID=" + id + ", dateExport=" + dateTimeExport
+                + ", payment=" + payment + ", givenMoney=" + guestMoney + ", changeMoney="
+                + changeMoney + ", employee=" + employee + '}';
     }
 }

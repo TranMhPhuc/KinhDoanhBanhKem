@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import model.employee.position.EmployeePositionDataStorage;
 import model.employee.position.EmployeePositionModel;
 import model.employee.shift.EmployeeShiftDataStorage;
-import util.db.SQLServerConnect;
+import util.db.SQLServerConnection;
 import view.function.EmployeeViewObserver;
 
 public class EmployeeModel implements EmployeeModelInterface {
@@ -51,7 +51,7 @@ public class EmployeeModel implements EmployeeModelInterface {
     private ArrayList<EmployeeShiftModel> shifts;
 
     static {
-        dbConnection = SQLServerConnect.getConnection();
+        dbConnection = SQLServerConnection.getConnection();
         employeePositionDataStorage = EmployeePositionDataStorage.getInstance();
         employeeShiftDataStorage = EmployeeShiftDataStorage.getInstance();
     }

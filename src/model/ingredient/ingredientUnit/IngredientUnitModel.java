@@ -23,7 +23,7 @@ public class IngredientUnitModel implements IngredientUnitModelInterface {
     }
 
     @Override
-    public String getIDText() {
+    public String getIngredientUnitIDText() {
         return String.valueOf(this.id);
     }
 

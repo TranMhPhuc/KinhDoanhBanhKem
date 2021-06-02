@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SQLServerConnect {
+public class SQLServerConnection {
 
     private static final String DB_URL = "jdbc:sqlserver://;databaseName=BANHKEM_BLN";
 
@@ -18,7 +18,7 @@ public class SQLServerConnect {
 
     private static Connection connection;
 
-    private volatile static SQLServerConnect connectInstance;
+    private volatile static SQLServerConnection connectInstance;
     
     static {
         try {
@@ -29,14 +29,14 @@ public class SQLServerConnect {
         }
     }
 
-    private SQLServerConnect() {
+    private SQLServerConnection() {
     }
     
-    public static synchronized SQLServerConnect getInstance() {
+    public static synchronized SQLServerConnection getInstance() {
         if (connectInstance == null) {
-            synchronized (SQLServerConnect.class) {
+            synchronized (SQLServerConnection.class) {
                 if (connectInstance == null) {
-                    connectInstance = new SQLServerConnect();
+                    connectInstance = new SQLServerConnection();
                 }
             }
         }
@@ -55,7 +55,7 @@ public class SQLServerConnect {
                 System.out.println(resultSet.getInt("MaNV") + " | " + resultSet.getString("TenNV"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SQLServerConnect.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SQLServerConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

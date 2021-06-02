@@ -1,0 +1,11 @@
+2021-06-02 22:20:04 [INFO ] AppLog:44 - Update employee shift database: sucessfully, 4 rows inserted.
+2021-06-02 22:20:04 [INFO ] AppLog:44 - Update employee position database: sucessfully, 4 rows inserted.
+2021-06-02 22:20:04 [INFO ] AppLog:44 - Update employee database: sucessfully, 13 rows inserted.
+2021-06-02 22:20:04 [INFO ] AppLog:48 - Update bill database: successfully, 0 rows inserted.
+2021-06-02 22:20:04 [INFO ] AppLog:44 - Update provider database: successfully, 5 rows inserted.
+2021-06-02 22:20:04 [INFO ] AppLog:44 - Update ingredient type database: successfully, 11 rows inserted.
+2021-06-02 22:20:04 [INFO ] AppLog:44 - Update ingredient unit database: sucessfully, 3 rows inserted.
+2021-06-02 22:20:05 [INFO ] AppLog:44 - Update ingredient unit conversion database: successfully, 0 rows inserted.
+2021-06-02 22:20:05 [INFO ] AppLog:44 - Update ingredient database: successfully, 24 rows inserted.
+2021-06-02 22:20:05 [INFO ] AppLog:44 - Update product database: successfully, 25 rows inserted.
+2021-06-02 22:20:05 [INFO ] AppLog:44 - Update ingredient of product database: successfully, 25 rows inserted.

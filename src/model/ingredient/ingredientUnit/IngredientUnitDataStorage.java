@@ -45,13 +45,13 @@ public class IngredientUnitDataStorage implements DatabaseUpdate {
                     + ingredientUnits.size() + " rows inserted.");
 
         } catch (SQLException ex) {
-            AppLog.getLogger().info("Update ingredient unit database: error.");
+            AppLog.getLogger().fatal("Update ingredient unit database: error.");
         }
     }
     
     public IngredientUnitModelInterface getIngredientUnit(String ingredientUnitIDText) {
         for (IngredientUnitModelInterface element: ingredientUnits) {
-            if (element.getIDText().equals(ingredientUnitIDText)) {
+            if (element.getIngredientUnitIDText().equals(ingredientUnitIDText)) {
                 return element;
             }
         }

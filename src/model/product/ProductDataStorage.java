@@ -13,11 +13,11 @@ public class ProductDataStorage implements DatabaseUpdate {
     private static ProductDataStorage uniqueInstance;
 
     private ArrayList<ProductModelInterface> products;
-    
+
     static {
         uniqueInstance = new ProductDataStorage();
     }
-    
+
     private ProductDataStorage() {
         products = new ArrayList<>();
     }
@@ -25,7 +25,7 @@ public class ProductDataStorage implements DatabaseUpdate {
     public static ProductDataStorage getInstance() {
         return uniqueInstance;
     }
-    
+
     @Override
     public void updateFromDB(Connection connection) {
         try {
@@ -40,23 +40,22 @@ public class ProductDataStorage implements DatabaseUpdate {
             while (resultSet.next()) {
                 products.add(ProductModel.getInstance(resultSet));
             }
-            
-            AppLog.getLogger().info("Update product database: successfully, " 
+
+            AppLog.getLogger().info("Update product database: successfully, "
                     + products.size() + " rows inserted.");
 
         } catch (SQLException ex) {
-            AppLog.getLogger().info("Update product database: error.");
+            AppLog.getLogger().fatal("Update product database: error.");
         }
     }
-    
+
     public ProductModelInterface getProduct(String productIDText) {
-        for (ProductModelInterface element: products) {
+        for (ProductModelInterface element : products) {
             if (element.getProductIDText().equals(productIDText)) {
                 return element;
             }
         }
         return null;
     }
-    
 
 }

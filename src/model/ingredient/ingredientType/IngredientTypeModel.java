@@ -36,7 +36,7 @@ public class IngredientTypeModel implements IngredientTypeModelInterface {
     }
 
     @Override
-    public String getIngredientIDText() {
+    public String getIngredientTypeIDText() {
         return String.valueOf(this.id);
     }
 

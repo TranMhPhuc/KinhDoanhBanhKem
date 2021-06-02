@@ -1,5 +1,6 @@
 package model.ingredient;
 
+import model.ingredient.importDetail.IngredientImportDetail;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ import model.ingredient.ingredientUnit.IngredientUnitModelInterface;
 import model.ingredientOfProduct.IngredientOfProductDetailInterface;
 import model.provider.ProviderDataStorage;
 import model.provider.ProviderModelInterface;
-import util.db.SQLServerConnect;
+import util.db.SQLServerConnection;
 
 public class IngredientModel implements IngredientModelInterface {
 
@@ -39,25 +40,22 @@ public class IngredientModel implements IngredientModelInterface {
     private float amount;
     private ProviderModelInterface provider;
     private IngredientUnitModelInterface unit;
-    private ArrayList<IngredientImportDetail> importDetails;
     private ArrayList<IngredientOfProductDetailInterface> productDetails;
 
     static {
-        dbConnection = SQLServerConnect.getConnection();
+        dbConnection = SQLServerConnection.getConnection();
         ingredientTypeDataStorage = IngredientTypeDataStorage.getInstance();
         providerDataStorage = ProviderDataStorage.getInstance();
         ingredientUnitDataStorage = IngredientUnitDataStorage.getInstance();
     }
 
     public IngredientModel() {
-        importDetails = new ArrayList<>();
         productDetails = new ArrayList<>();
     }
 
     public IngredientModel(int id, String name, IngredientTypeModelInterface type,
-            int cost, float amount, ProviderModelInterface provider, 
+            int cost, float amount, ProviderModelInterface provider,
             IngredientUnitModelInterface unit,
-            ArrayList<IngredientImportDetail> importDetails, 
             ArrayList<IngredientOfProductDetailInterface> productDetails) {
         this.id = id;
         this.name = name;
@@ -66,7 +64,6 @@ public class IngredientModel implements IngredientModelInterface {
         this.amount = amount;
         this.provider = provider;
         this.unit = unit;
-        this.importDetails = importDetails;
         this.productDetails = productDetails;
     }
 
@@ -81,14 +78,6 @@ public class IngredientModel implements IngredientModelInterface {
             ret.provider = providerDataStorage.getProvider(resultSet.getString(PROVIDER_ID_HEADER));
             ret.unit = ingredientUnitDataStorage.getIngredientUnit(resultSet.getString(UNIT_ID_HEADER));
 
-            Statement importDetailSelectStatement = dbConnection.createStatement();
-            ResultSet importDetailResultSet = importDetailSelectStatement.executeQuery(
-                    "SELECT * FROM " + IngredientImportDetail.TABLE_NAME
-                    + " WHERE " + ID_HEADER + " = " + ret.id);
-
-            while (importDetailResultSet.next()) {
-                ret.importDetails.add(IngredientImportDetail.getInstance(importDetailResultSet));
-            }
         } catch (SQLException ex) {
             Logger.getLogger(IngredientModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -109,8 +98,7 @@ public class IngredientModel implements IngredientModelInterface {
     public String toString() {
         return "IngredientModel{" + "id=" + id + ", name=" + name + ", type="
                 + type + ", cost=" + cost + ", amount=" + amount + ", provider="
-                + provider + ", unit=" + unit + ", import times: "
-                + importDetails.size() + '}';
+                + provider + ", unit=" + unit + '}';
     }
 
 }
