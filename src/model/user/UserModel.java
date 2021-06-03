@@ -10,27 +10,25 @@ import view.login.LoginObserver;
 public class UserModel implements UserModelInterface {
 
     private EmployeeModelInterface impl;
-    
+
     private static UserModel uniqueInstance;
-    
+
     private ArrayList<LoginObserver> observers;
-    
+
     static {
         uniqueInstance = new UserModel();
     }
-    
+
     private UserModel() {
         observers = new ArrayList<>();
     }
-    
+
     @Override
     public void updateUser(EmployeeModelInterface impl) {
-        if (this.impl != impl) {
-            this.impl = impl;
-            notifyObservers();
-        }
+        this.impl = impl;
+        notifyObservers();
     }
-    
+
     public static UserModel getInstance() {
         return uniqueInstance;
     }
@@ -49,7 +47,7 @@ public class UserModel implements UserModelInterface {
     }
 
     public void notifyObservers() {
-        for (LoginObserver observer: observers) {
+        for (LoginObserver observer : observers) {
             observer.updateState();
         }
     }
@@ -75,5 +73,5 @@ public class UserModel implements UserModelInterface {
     public String getUserName() {
         return impl.getEmployeeName();
     }
-    
+
 }

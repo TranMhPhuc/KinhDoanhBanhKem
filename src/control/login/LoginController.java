@@ -45,7 +45,12 @@ public class LoginController implements LoginControllerInterface {
 
     @Override
     public void requestLogin(String email, String password) {
-        if (EmailValidator.isEmailEmpty(email) || !EmailValidator.isEmailVallid(email)) {
+        if (EmailValidator.isEmailEmpty(email)) {
+            this.loginView.showErrorMessage("Email must be required.");
+            return;
+        }
+        
+        if (!EmailValidator.isEmailVallid(email)) {
             this.loginView.showErrorMessage("Email is invallid.");
             return;
         }
@@ -63,9 +68,11 @@ public class LoginController implements LoginControllerInterface {
                 return;
             }
 
+            // Clone neccessary data from database to memory
             DataModelUpdateManager.getInstance().updateFromDB();
-            
-            this.model.updateUser(EmployeeDataStorage.getInstance().getEmployee(resultSet.getString(EmployeeModel.ID_HEADER)));
+
+            this.model.updateUser(EmployeeDataStorage.getInstance().getEmployee(
+                    resultSet.getString(EmployeeModel.ID_HEADER)));
 
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
