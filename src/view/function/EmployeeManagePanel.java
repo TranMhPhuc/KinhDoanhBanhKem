@@ -52,9 +52,9 @@ public class EmployeeManagePanel extends javax.swing.JPanel {
         scrollpane = new javax.swing.JScrollPane();
         tableInfo = new javax.swing.JTable();
         panelOpBtn = new javax.swing.JPanel();
-        btnExport = new javax.swing.JButton();
-        btnModify = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
+        btnModify = new javax.swing.JButton();
+        btnExport = new javax.swing.JButton();
         label_searchEmp = new javax.swing.JLabel();
         textfSearch = new javax.swing.JTextField();
         panelInfo = new javax.swing.JPanel();
@@ -158,21 +158,10 @@ public class EmployeeManagePanel extends javax.swing.JPanel {
         //table_empInfo.getColumnModel().getColumn(0).setCellRenderer(center);
 
         panelOpBtn.setBackground(new java.awt.Color(255, 255, 255));
-        panelOpBtn.setLayout(new java.awt.GridLayout(1, 0, 50, 0));
+        panelOpBtn.setLayout(new java.awt.GridLayout(1, 0, 35, 0));
 
-        btnExport.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        btnExport.setText("Export");
-        btnExport.setFocusPainted(false);
-        btnExport.setPreferredSize(new java.awt.Dimension(115, 40));
-        panelOpBtn.add(btnExport);
-
-        btnModify.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        btnModify.setText("Modify");
-        btnModify.setFocusPainted(false);
-        btnModify.setPreferredSize(new java.awt.Dimension(115, 40));
-        panelOpBtn.add(btnModify);
-
-        btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(51, 51, 51));
         btnAdd.setText("Add");
         btnAdd.setFocusPainted(false);
         btnAdd.setPreferredSize(new java.awt.Dimension(115, 40));
@@ -182,6 +171,20 @@ public class EmployeeManagePanel extends javax.swing.JPanel {
             }
         });
         panelOpBtn.add(btnAdd);
+
+        btnModify.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnModify.setForeground(new java.awt.Color(51, 51, 51));
+        btnModify.setText("Modify");
+        btnModify.setFocusPainted(false);
+        btnModify.setPreferredSize(new java.awt.Dimension(115, 40));
+        panelOpBtn.add(btnModify);
+
+        btnExport.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnExport.setForeground(new java.awt.Color(51, 51, 51));
+        btnExport.setText("Export");
+        btnExport.setFocusPainted(false);
+        btnExport.setPreferredSize(new java.awt.Dimension(115, 40));
+        panelOpBtn.add(btnExport);
 
         label_searchEmp.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_searchEmp.setText("Type name to search");
@@ -304,11 +307,12 @@ public class EmployeeManagePanel extends javax.swing.JPanel {
                         .addComponent(textfPhoneNum, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
                         .addComponent(textfName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(textfEmployeeID, javax.swing.GroupLayout.Alignment.TRAILING)))
-                .addGap(94, 94, 94)
+                .addGap(112, 112, 112)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelInfoLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
                         .addComponent(label_gender, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rbtGenderMale)
                         .addGap(45, 45, 45)
                         .addComponent(rbtGenderFemale)
@@ -391,8 +395,8 @@ public class EmployeeManagePanel extends javax.swing.JPanel {
                             .addComponent(lable_birthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(dateChooser_EndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 27, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(dateChooser_EndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(combShift, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -400,7 +404,8 @@ public class EmployeeManagePanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        button_ClearSearch.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        button_ClearSearch.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        button_ClearSearch.setForeground(new java.awt.Color(51, 51, 51));
         button_ClearSearch.setText("Clear");
         button_ClearSearch.setFocusPainted(false);
         button_ClearSearch.setPreferredSize(new java.awt.Dimension(89, 29));
@@ -411,17 +416,17 @@ public class EmployeeManagePanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(scrollpane, javax.swing.GroupLayout.DEFAULT_SIZE, 1216, Short.MAX_VALUE)
+                    .addComponent(panelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(label_searchEmp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panelOpBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(scrollpane, javax.swing.GroupLayout.DEFAULT_SIZE, 1216, Short.MAX_VALUE)
-                    .addComponent(panelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(panelOpBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -429,14 +434,14 @@ public class EmployeeManagePanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelOpBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(panelOpBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(label_searchEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(label_searchEmp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(scrollpane, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
+                .addComponent(scrollpane, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -480,6 +485,7 @@ public class EmployeeManagePanel extends javax.swing.JPanel {
     private void textfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfSearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textfSearchActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;

@@ -176,7 +176,7 @@ public class ProductPanel extends javax.swing.JPanel {
         panelProductInfoLayout.setVerticalGroup(
             panelProductInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProductInfoLayout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(40, Short.MAX_VALUE)
                 .addGroup(panelProductInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelProductInfoLayout.createSequentialGroup()
                         .addGroup(panelProductInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -248,27 +248,31 @@ public class ProductPanel extends javax.swing.JPanel {
         //table_proInfo.getColumnModel().getColumn(0).setCellRenderer(center);
 
         panelBtn.setBackground(new java.awt.Color(255, 255, 255));
-        panelBtn.setLayout(new java.awt.GridLayout(1, 0, 40, 0));
+        panelBtn.setLayout(new java.awt.GridLayout(1, 0, 35, 0));
 
-        btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(51, 51, 51));
         btnAdd.setText("Add");
         btnAdd.setFocusPainted(false);
         btnAdd.setPreferredSize(new java.awt.Dimension(115, 40));
         panelBtn.add(btnAdd);
 
-        btnModify.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnModify.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnModify.setForeground(new java.awt.Color(51, 51, 51));
         btnModify.setText("Modify");
         btnModify.setFocusPainted(false);
         btnModify.setPreferredSize(new java.awt.Dimension(115, 40));
         panelBtn.add(btnModify);
 
-        btnExport.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnExport.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnExport.setForeground(new java.awt.Color(51, 51, 51));
         btnExport.setText("Export");
         btnExport.setFocusPainted(false);
         btnExport.setPreferredSize(new java.awt.Dimension(115, 40));
         panelBtn.add(btnExport);
 
-        btnRemove.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        btnRemove.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnRemove.setForeground(new java.awt.Color(51, 51, 51));
         btnRemove.setText("Remove");
         btnRemove.setFocusPainted(false);
         btnRemove.setPreferredSize(new java.awt.Dimension(115, 40));
@@ -285,7 +289,8 @@ public class ProductPanel extends javax.swing.JPanel {
             }
         });
 
-        button_ClearSearch.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        button_ClearSearch.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        button_ClearSearch.setForeground(new java.awt.Color(51, 51, 51));
         button_ClearSearch.setText("Clear");
         button_ClearSearch.setFocusPainted(false);
         button_ClearSearch.setPreferredSize(new java.awt.Dimension(89, 29));
@@ -301,36 +306,36 @@ public class ProductPanel extends javax.swing.JPanel {
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelProductInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 732, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(label_searchProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(panelProductInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 732, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 459, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap()
                 .addComponent(panelProductInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(label_searchProduct)
-                        .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(label_searchProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrpaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(scrpaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addGap(30, 30, 30))
+                .addGap(63, 63, 63))
         );
     }// </editor-fold>//GEN-END:initComponents
     public void setEditableForAll(boolean editable) {

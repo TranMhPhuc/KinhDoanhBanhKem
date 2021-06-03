@@ -129,7 +129,7 @@ public class IngredientPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(label_ingreType)
                         .addGap(18, 18, 18)
-                        .addComponent(combType, 0, 165, Short.MAX_VALUE)
+                        .addComponent(combType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAddType))
                     .addGroup(panelIngredientInfoLayout.createSequentialGroup()
@@ -198,21 +198,24 @@ public class IngredientPanel extends javax.swing.JPanel {
         scrpaneIngredient.setViewportView(tableIngredient);
 
         panelBtn.setBackground(new java.awt.Color(255, 255, 255));
-        panelBtn.setLayout(new java.awt.GridLayout(1, 0, 40, 0));
+        panelBtn.setLayout(new java.awt.GridLayout(1, 0, 35, 0));
 
-        btnExport.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnExport.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnExport.setForeground(new java.awt.Color(51, 51, 51));
         btnExport.setText("Export");
         btnExport.setFocusPainted(false);
         btnExport.setPreferredSize(new java.awt.Dimension(115, 40));
         panelBtn.add(btnExport);
 
-        btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(51, 51, 51));
         btnAdd.setText("Add");
         btnAdd.setFocusPainted(false);
         btnAdd.setPreferredSize(new java.awt.Dimension(115, 40));
         panelBtn.add(btnAdd);
 
-        btnModify.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnModify.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnModify.setForeground(new java.awt.Color(51, 51, 51));
         btnModify.setText("Modify");
         btnModify.setFocusPainted(false);
         btnModify.setPreferredSize(new java.awt.Dimension(115, 40));
@@ -223,7 +226,8 @@ public class IngredientPanel extends javax.swing.JPanel {
         });
         panelBtn.add(btnModify);
 
-        btnRemove.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnRemove.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnRemove.setForeground(new java.awt.Color(51, 51, 51));
         btnRemove.setText("Remove");
         btnRemove.setFocusPainted(false);
         btnRemove.setPreferredSize(new java.awt.Dimension(115, 40));
@@ -249,7 +253,8 @@ public class IngredientPanel extends javax.swing.JPanel {
             }
         });
 
-        button_ClearSearch.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        button_ClearSearch.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        button_ClearSearch.setForeground(new java.awt.Color(51, 51, 51));
         button_ClearSearch.setText("Clear");
         button_ClearSearch.setFocusPainted(false);
         button_ClearSearch.setPreferredSize(new java.awt.Dimension(89, 29));
@@ -267,41 +272,39 @@ public class IngredientPanel extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(label_Search)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(panelIngredientInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                        .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(250, Short.MAX_VALUE)
+                .addGap(239, 239, 239)
                 .addComponent(btnImport)
-                .addGap(54, 54, 54)
+                .addGap(138, 138, 138)
                 .addComponent(button_ShowImportHistory)
-                .addGap(250, 250, 250))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addContainerGap()
                 .addComponent(panelIngredientInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(label_Search)
-                        .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE))
+                        .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(button_ClearSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(scrpaneIngredient, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrpaneIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button_ShowImportHistory, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnImport, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(30, 30, 30))
+                    .addComponent(btnImport)
+                    .addComponent(button_ShowImportHistory))
+                .addGap(0, 62, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     public void setEditableForAll(boolean editable) {
