@@ -16,7 +16,7 @@ import view.MessageShowing;
  *
  * @author DELL
  */
-public class EmployeeManagePanel extends javax.swing.JPanel implements MessageShowing {
+public class EmployeeManagePanel extends javax.swing.JPanel {
 
     /**
      * Creates new form ManageEmployeePanel
@@ -31,9 +31,9 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements MessageSh
         initComponents();
 
         // Sample code for check combobox
-        combShift.setModel(new DefaultComboBoxModel<>(defaultCheckedModel));
+//        combShift.setModel(new DefaultComboBoxModel<>(defaultCheckedModel));
         buttonGroup_Gender.setSelected(rbtGenderMale.getModel(), true);
-
+//
         setEditableForAll(false);
         setDefaultTableHeader(tableInfo);
 
@@ -465,7 +465,7 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements MessageSh
         buttonGroup_Gender.setSelected(rbtGenderMale.getModel(), true);
         combPosition.setSelectedIndex(0);
         combStatus.setSelectedIndex(0);
-        combShift.setModel(new DefaultComboBoxModel<>(defaultCheckedModel));
+//        combShift.setModel(new DefaultComboBoxModel<>(defaultCheckedModel));
         dateChooserBirthday.setDate(null);
         dateChooserStartDate.setDate(new Date());
         dateChooser_EndDate.setDate(null);
@@ -480,22 +480,6 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements MessageSh
     private void textfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfSearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textfSearchActionPerformed
-
-    @Override
-    public void showErrorMessage(String message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void showInformationMessage(String message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void showWarningMessage(String message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;

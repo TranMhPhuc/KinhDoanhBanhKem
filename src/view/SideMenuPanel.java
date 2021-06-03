@@ -1,6 +1,6 @@
 package view;
 
-import control.menu.MenuControllerInterface;
+import control.app.AppControllerInterface;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -42,7 +42,7 @@ class ImageButtonIcon {
     }
 }
 
-public class SideMenuPanel extends javax.swing.JPanel implements UpdateFromUser {
+public class SideMenuPanel extends javax.swing.JPanel {
 
     public static final int SIDE_MENU_CLOSED_WIDTH = 72;
     public static final int SIDE_MENU_OPENED_WIDTH = 282;
@@ -54,17 +54,26 @@ public class SideMenuPanel extends javax.swing.JPanel implements UpdateFromUser 
     private ConfirmSigningOutDialog signOut = new ConfirmSigningOutDialog(null, true);
 
     private UserModelInterface model;
-    private MenuControllerInterface controller;
+    private AppControllerInterface controller;
 
     /**
      * Creates new form SideMenu
      */
-    public SideMenuPanel(UserModelInterface model, MenuControllerInterface controller) {
+    public SideMenuPanel() {
+        initComponents();
+        this.setPreferredSize(new Dimension(SIDE_MENU_CLOSED_WIDTH, getHeight()));
+
+        customButtonInit();
+        setALForButtons();
+        this.addMouseListener(new CustomOpenCloseMenu());
+        this.setPreferredSize(new Dimension(SIDE_MENU_CLOSED_WIDTH, getHeight()));
+    }
+
+    public SideMenuPanel(UserModelInterface model, AppControllerInterface controller) {
         this.model = model;
         this.controller = controller;
 
-        this.model.registerObserver(this);
-
+//        this.model.registerObserver(this);
         initComponents();
 
         this.setPreferredSize(new Dimension(SIDE_MENU_CLOSED_WIDTH, getHeight()));
@@ -315,7 +324,7 @@ public class SideMenuPanel extends javax.swing.JPanel implements UpdateFromUser 
         buttonList = new ImageButtonIcon[]{set1, set2, set3, set4, set5};
     }
 
-    @Override
+//    @Override
     public void updateState() {
         switch (this.model.getUserType()) {
             case MANAGER_USER: {

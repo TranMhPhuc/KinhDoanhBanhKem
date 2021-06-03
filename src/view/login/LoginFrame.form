@@ -464,9 +464,6 @@
             </Property>
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSignInActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnForgotPassword">
           <Properties>
@@ -487,9 +484,6 @@
             <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="horizontalAlignment" type="int" value="10"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnForgotPasswordActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

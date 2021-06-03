@@ -2,7 +2,7 @@ package model.user;
 
 import java.util.ArrayList;
 import model.employee.EmployeeModelInterface;
-import view.UpdateFromUser;
+import view.login.LoginUpdateObserver;
 
 /**
  * UserModel is a singleton class. Only one user use application one time.
@@ -13,7 +13,7 @@ public class UserModel implements UserModelInterface {
     
     private static UserModel uniqueInstance;
     
-    private ArrayList<UpdateFromUser> observers;
+    private ArrayList<LoginUpdateObserver> observers;
     
     static {
         uniqueInstance = new UserModel();
@@ -27,7 +27,7 @@ public class UserModel implements UserModelInterface {
     public void updateUser(EmployeeModelInterface impl) {
         if (this.impl != impl) {
             this.impl = impl;
-            notifyMenuObservers();
+            notifyObservers();
         }
     }
     
@@ -36,21 +36,21 @@ public class UserModel implements UserModelInterface {
     }
 
     @Override
-    public void registerObserver(UpdateFromUser menuObserver) {
+    public void registerObserver(LoginUpdateObserver menuObserver) {
         observers.add(menuObserver);
     }
 
     @Override
-    public void removeObserver(UpdateFromUser menuObserver) {
+    public void removeObserver(LoginUpdateObserver menuObserver) {
         int id = observers.indexOf(menuObserver);
         if (id >= 0) {
             observers.remove(menuObserver);
         }
     }
 
-    public void notifyMenuObservers() {
-        for (UpdateFromUser menuObserver: observers) {
-            menuObserver.updateState();
+    public void notifyObservers() {
+        for (LoginUpdateObserver observer: observers) {
+            observer.updateState();
         }
     }
 

@@ -3,29 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package view.login;
 
-import control.login.LoginControllerInterface;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import model.user.UserModelInterface;
+import view.MessageShowing;
+import control.app.AppControllerInterface;
 
 /**
  *
  * @author TRUONG MINH TAN
  */
-public class LoginFrame extends javax.swing.JFrame implements UpdateFromUser, MessageShowing {
+public class LoginFrame extends javax.swing.JFrame implements LoginUpdateObserver,
+        MessageShowing, ActionListener {
 
     private UserModelInterface model;
-    private LoginControllerInterface controller;
+    private AppControllerInterface controller;
 
     /**
      * Creates new form login
      */
-    public LoginFrame(UserModelInterface model, LoginControllerInterface controller) {
+    public LoginFrame(UserModelInterface model, AppControllerInterface controller) {
         initComponents();
 
         this.model = model;
         this.controller = controller;
+
+        btnSignIn.addActionListener(this);
     }
 
     /**
@@ -235,11 +241,6 @@ public class LoginFrame extends javax.swing.JFrame implements UpdateFromUser, Me
         btnSignIn.setContentAreaFilled(false);
         btnSignIn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSignIn.setFocusPainted(false);
-        btnSignIn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSignInActionPerformed(evt);
-            }
-        });
 
         btnForgotPassword.setBackground(new java.awt.Color(51, 102, 255));
         btnForgotPassword.setFont(new java.awt.Font("Segoe UI", 2, 15)); // NOI18N
@@ -249,11 +250,6 @@ public class LoginFrame extends javax.swing.JFrame implements UpdateFromUser, Me
         btnForgotPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnForgotPassword.setFocusPainted(false);
         btnForgotPassword.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        btnForgotPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnForgotPasswordActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panelLoginLayout = new javax.swing.GroupLayout(panelLogin);
         panelLogin.setLayout(panelLoginLayout);
@@ -342,26 +338,27 @@ public class LoginFrame extends javax.swing.JFrame implements UpdateFromUser, Me
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
-        String emailInput = textfEmail.getText().trim();
-        String passwordInput = String.valueOf(passfPassword.getPassword());
-        this.controller.requestLogin(emailInput, passwordInput);
-    }//GEN-LAST:event_btnSignInActionPerformed
-
     private void button_recoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_recoverActionPerformed
 
     }//GEN-LAST:event_button_recoverActionPerformed
-
-    private void btnForgotPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForgotPasswordActionPerformed
-        dialog_recoverPassword.setSize(401, 280);
-        dialog_recoverPassword.setLocationRelativeTo(this);
-        dialog_recoverPassword.setVisible(true);
-    }//GEN-LAST:event_btnForgotPasswordActionPerformed
 
     @Override
     public void updateState() {
         if (this.model != null) {
             dispose();
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        System.out.println("view.LoginFrame.actionPerformed()");
+        Object source = event.getSource();
+        
+        if (source == btnSignIn) {
+            String emailInput = textfEmail.getText().trim();
+            String passwordInput = String.valueOf(passfPassword.getPassword());
+            this.controller.requestLogin(emailInput, passwordInput);
+//        this.controller.requestLogin("baohtp@gmail.com", "Nvbh123@");
         }
     }
 
@@ -445,5 +442,4 @@ public class LoginFrame extends javax.swing.JFrame implements UpdateFromUser, Me
     private javax.swing.JTextField textField_recoEmpID;
     private javax.swing.JTextField textfEmail;
     // End of variables declaration//GEN-END:variables
-
 }

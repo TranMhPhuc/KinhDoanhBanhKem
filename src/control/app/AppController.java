@@ -1,4 +1,4 @@
-package control.login;
+package control.app;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,12 +12,12 @@ import model.user.UserModelInterface;
 import util.db.DataModelUpdateManager;
 import util.db.SQLServerConnection;
 import util.validator.EmailValidator;
-import view.LoginFrame;
+import view.login.LoginFrame;
 
-public class LoginController implements LoginControllerInterface {
+public class AppController implements AppControllerInterface {
 
     private static Connection dbConnection;
-    private volatile static LoginController uniqueInstance;
+    private volatile static AppController uniqueInstance;
 
     private UserModelInterface model;
     private LoginFrame loginView;
@@ -26,16 +26,17 @@ public class LoginController implements LoginControllerInterface {
         dbConnection = SQLServerConnection.getConnection();
     }
 
-    private LoginController(UserModelInterface model, LoginFrame loginView) {
+    private AppController(UserModelInterface model) {
         this.model = model;
         this.loginView = new LoginFrame(model, this);
+        this.loginView.setVisible(true);
     }
 
-    public static LoginController getInstance(UserModelInterface model, LoginFrame loginView) {
+    public static AppController getInstance(UserModelInterface model) {
         if (uniqueInstance == null) {
-            synchronized (LoginController.class) {
+            synchronized (AppController.class) {
                 if (uniqueInstance == null) {
-                    uniqueInstance = new LoginController(model, loginView);
+                    uniqueInstance = new AppController(model);
                 }
             }
         }
@@ -53,7 +54,7 @@ public class LoginController implements LoginControllerInterface {
             Statement statement = dbConnection.createStatement();
 
             String passwordFindingQuery = "SELECT * FROM " + EmployeeModel.TABLE_NAME
-                    + " WHERE " + EmployeeModel.EMAIL_HEADER + " = " + email;
+                    + " WHERE " + EmployeeModel.EMAIL_HEADER + " = '" + email + "'";
 
             ResultSet resultSet = statement.executeQuery(passwordFindingQuery);
 
@@ -67,7 +68,7 @@ public class LoginController implements LoginControllerInterface {
             this.model.updateUser(EmployeeDataStorage.getInstance().getEmployee(resultSet.getString(EmployeeModel.ID_HEADER)));
 
         } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AppController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
