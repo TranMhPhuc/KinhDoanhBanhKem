@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class EmployeePositionModel {
+public class EmployeePositionModel implements EmployeePositionModelInterface {
 
     public static final String TABLE_NAME = "ChucVu";
     public static final String ID_HEADER = "MaCV";
@@ -33,8 +33,14 @@ public class EmployeePositionModel {
         return ret;
     }
     
+    @Override
     public String getPositionIDText() {
         return String.valueOf(this.positionID);
+    }
+    
+    @Override
+    public String getPositionName() {
+        return this.positionName;
     }
 
     @Override

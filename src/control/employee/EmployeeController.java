@@ -4,7 +4,7 @@ package control.employee;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import view.UserInterface;
+import view.MessageShowing;
 
 
 public class EmployeeController {
@@ -23,7 +23,7 @@ public class EmployeeController {
 
     public static final Pattern EMAIL_PATTERN = Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
 
-    private UserInterface ui;
+    private MessageShowing ui;
 
     public void requestLogin(String email, String password) {
 

@@ -309,7 +309,7 @@
                                           <Component id="ckbShowPassword" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="passfPassword" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="textfUsername" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="textfEmail" alignment="1" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -343,7 +343,7 @@
                   <Component id="label_email" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="textfUsername" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textfEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="label_imgUser" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -412,7 +412,7 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textfUsername">
+        <Component class="javax.swing.JTextField" name="textfEmail">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="0"/>
@@ -464,9 +464,6 @@
             </Property>
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSignInActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnForgotPassword">
           <Properties>
@@ -487,9 +484,6 @@
             <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="horizontalAlignment" type="int" value="10"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnForgotPasswordActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -12,7 +12,7 @@ public class EmployeePositionDataStorage implements DatabaseUpdate {
     
     private static EmployeePositionDataStorage uniqueInstance;
     
-    private ArrayList<EmployeePositionModel> positions;
+    private ArrayList<EmployeePositionModelInterface> positions;
     
     static {
         uniqueInstance = new EmployeePositionDataStorage();
@@ -47,8 +47,8 @@ public class EmployeePositionDataStorage implements DatabaseUpdate {
         }
     }
     
-    public EmployeePositionModel getPosition(String positionIDText) {
-        for (EmployeePositionModel element: positions) {
+    public EmployeePositionModelInterface getPosition(String positionIDText) {
+        for (EmployeePositionModelInterface element: positions) {
             if (element.getPositionIDText().equals(positionIDText)) {
                 return element;
             }

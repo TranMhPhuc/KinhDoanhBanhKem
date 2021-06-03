@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
+import control.app.AppControllerInterface;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -19,25 +15,23 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import model.user.UserModelInterface;
 import util.swing.UIControl;
 import view.dialog.ConfirmSigningOutDialog;
 import view.dialog.PersonalProfileEditDialog;
 
-/**
- *
- * @author Minh Tu
- */
 enum ButtonMode {
     HOME, SELLING, STATISTICS, PRODUCT, EMPLOYEE
 }
 
-class imageButtonIcon {
+class ImageButtonIcon {
 
     public JButton iconButton, menuButton;
     public String unselectedIconImage, unselectedButtonImage;
     public String selectedIconImage, selectedButtonImage;
 
-    public imageButtonIcon(JButton iconButton, JButton menuButton, String unselectedIconImage, String unselectedButtonImage,
+    public ImageButtonIcon(JButton iconButton, JButton menuButton,
+            String unselectedIconImage, String unselectedButtonImage,
             String selectedIconImage, String selectedButtonImage) {
         this.iconButton = iconButton;
         this.menuButton = menuButton;
@@ -50,14 +44,17 @@ class imageButtonIcon {
 
 public class SideMenuPanel extends javax.swing.JPanel {
 
-    imageButtonIcon[] buttonList;
-    JLabel title;
-    JPanel functionPanel;
     public static final int SIDE_MENU_CLOSED_WIDTH = 72;
     public static final int SIDE_MENU_OPENED_WIDTH = 282;
+
+    private ImageButtonIcon[] buttonList;
+    private JLabel title;
+    private JPanel functionPanel;
     private PersonalProfileEditDialog profile = new PersonalProfileEditDialog(null, true);
     private ConfirmSigningOutDialog signOut = new ConfirmSigningOutDialog(null, true);
-    //   public static final int getHeight() = 959;
+
+    private UserModelInterface model;
+    private AppControllerInterface controller;
 
     /**
      * Creates new form SideMenu
@@ -72,6 +69,22 @@ public class SideMenuPanel extends javax.swing.JPanel {
         this.setPreferredSize(new Dimension(SIDE_MENU_CLOSED_WIDTH, getHeight()));
     }
 
+    public SideMenuPanel(UserModelInterface model, AppControllerInterface controller) {
+        this.model = model;
+        this.controller = controller;
+
+//        this.model.registerObserver(this);
+        initComponents();
+
+        this.setPreferredSize(new Dimension(SIDE_MENU_CLOSED_WIDTH, getHeight()));
+
+        customButtonInit();
+        setALForButtons();
+
+        this.addMouseListener(new CustomOpenCloseMenu());
+        this.setPreferredSize(new Dimension(SIDE_MENU_CLOSED_WIDTH, getHeight()));
+    }
+
     public SideMenuPanel(JLabel title, JPanel functionPanel) {
         initComponents();
         this.title = title;
@@ -79,6 +92,7 @@ public class SideMenuPanel extends javax.swing.JPanel {
 
         customButtonInit();
         setALForButtons();
+
         this.addMouseListener(new CustomOpenCloseMenu());
         this.setPreferredSize(new Dimension(SIDE_MENU_CLOSED_WIDTH, getHeight()));
 
@@ -97,17 +111,17 @@ public class SideMenuPanel extends javax.swing.JPanel {
         btnHome = new javax.swing.JButton();
         btnSelling = new javax.swing.JButton();
         btnStatistics = new javax.swing.JButton();
-        btnManagement = new javax.swing.JButton();
+        btnProductManagement = new javax.swing.JButton();
         btnEmployee = new javax.swing.JButton();
         panelIconButton = new javax.swing.JPanel();
         btnIconHome = new javax.swing.JButton();
         btnIconSelling = new javax.swing.JButton();
         btnIconStatistics = new javax.swing.JButton();
-        btnIconManagement = new javax.swing.JButton();
+        btnIconProductManagement = new javax.swing.JButton();
         btnIconEmployee = new javax.swing.JButton();
         btnSignOut = new javax.swing.JButton();
-        label_EmpName = new javax.swing.JLabel();
-        label_GreetingsAndPos = new javax.swing.JLabel();
+        labelUserName = new javax.swing.JLabel();
+        labelGreeting = new javax.swing.JLabel();
         label_Menu = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 204));
@@ -154,14 +168,14 @@ public class SideMenuPanel extends javax.swing.JPanel {
         btnStatistics.setName("STATISTICS_MENU"); // NOI18N
         panelLongButton.add(btnStatistics);
 
-        btnManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Unselected_Management.png"))); // NOI18N
-        btnManagement.setBorder(null);
-        btnManagement.setBorderPainted(false);
-        btnManagement.setContentAreaFilled(false);
-        btnManagement.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnManagement.setFocusPainted(false);
-        btnManagement.setName("PRODUCT_MENU"); // NOI18N
-        panelLongButton.add(btnManagement);
+        btnProductManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Unselected_Management.png"))); // NOI18N
+        btnProductManagement.setBorder(null);
+        btnProductManagement.setBorderPainted(false);
+        btnProductManagement.setContentAreaFilled(false);
+        btnProductManagement.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnProductManagement.setFocusPainted(false);
+        btnProductManagement.setName("PRODUCT_MENU"); // NOI18N
+        panelLongButton.add(btnProductManagement);
 
         btnEmployee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Unselected_Employee.png"))); // NOI18N
         btnEmployee.setBorder(null);
@@ -197,13 +211,13 @@ public class SideMenuPanel extends javax.swing.JPanel {
         btnIconStatistics.setName("STATISTICS_ICON"); // NOI18N
         panelIconButton.add(btnIconStatistics);
 
-        btnIconManagement.setBackground(new java.awt.Color(204, 204, 204));
-        btnIconManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/unselectedManagement_45px.png"))); // NOI18N
-        btnIconManagement.setContentAreaFilled(false);
-        btnIconManagement.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnIconManagement.setFocusPainted(false);
-        btnIconManagement.setName("PRODUCT_ICON"); // NOI18N
-        panelIconButton.add(btnIconManagement);
+        btnIconProductManagement.setBackground(new java.awt.Color(204, 204, 204));
+        btnIconProductManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/unselectedManagement_45px.png"))); // NOI18N
+        btnIconProductManagement.setContentAreaFilled(false);
+        btnIconProductManagement.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIconProductManagement.setFocusPainted(false);
+        btnIconProductManagement.setName("PRODUCT_ICON"); // NOI18N
+        panelIconButton.add(btnIconProductManagement);
 
         btnIconEmployee.setBackground(new java.awt.Color(204, 204, 204));
         btnIconEmployee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/unselectedEmployee_45px.png"))); // NOI18N
@@ -228,25 +242,25 @@ public class SideMenuPanel extends javax.swing.JPanel {
             }
         });
 
-        label_EmpName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        label_EmpName.setForeground(new java.awt.Color(0, 102, 255));
-        label_EmpName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_EmpName.setText("Nguyễn Ngọc Minh Tú");
-        label_EmpName.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Font font = label_EmpName.getFont();
+        labelUserName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelUserName.setForeground(new java.awt.Color(0, 102, 255));
+        labelUserName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelUserName.setText("Nguyễn Ngọc Minh Tú");
+        labelUserName.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Font font = labelUserName.getFont();
         Map attributes = font.getAttributes();
         attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-        label_EmpName.setFont(font.deriveFont(attributes));
-        label_EmpName.addMouseListener(new java.awt.event.MouseAdapter() {
+        labelUserName.setFont(font.deriveFont(attributes));
+        labelUserName.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                label_EmpNameMousePressed(evt);
+                labelUserNameMousePressed(evt);
             }
         });
 
-        label_GreetingsAndPos.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        label_GreetingsAndPos.setForeground(new java.awt.Color(102, 102, 102));
-        label_GreetingsAndPos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_GreetingsAndPos.setText("Hello, manager");
+        labelGreeting.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        labelGreeting.setForeground(new java.awt.Color(102, 102, 102));
+        labelGreeting.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelGreeting.setText("Hello, manager");
 
         label_Menu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/unselectedMenu_45px.png"))); // NOI18N
 
@@ -265,8 +279,8 @@ public class SideMenuPanel extends javax.swing.JPanel {
                         .addComponent(label_Menu)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(label_EmpName, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label_GreetingsAndPos, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(labelUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelGreeting, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -279,9 +293,9 @@ public class SideMenuPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(9, 9, 9)
-                        .addComponent(label_GreetingsAndPos)
+                        .addComponent(labelGreeting)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(label_EmpName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(labelUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(label_Menu)))
@@ -296,27 +310,86 @@ public class SideMenuPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void customButtonInit() {
-        imageButtonIcon set1 = new imageButtonIcon(btnIconHome, btnHome, "/img/unselectedHome_45px.png",
+        ImageButtonIcon set1 = new ImageButtonIcon(btnIconHome, btnHome, "/img/unselectedHome_45px.png",
                 "/img/Unselected_Home.png", "/img/selectedHome_45px.png", "/img/Selected_Home.png");
-        imageButtonIcon set2 = new imageButtonIcon(btnIconSelling, btnSelling, "/img/unselectedSelling_45px.png",
+        ImageButtonIcon set2 = new ImageButtonIcon(btnIconSelling, btnSelling, "/img/unselectedSelling_45px.png",
                 "/img/Unselected_Selling.png", "/img/selectedSelling_45px.png", "/img/Selected_Selling.png");
-        imageButtonIcon set3 = new imageButtonIcon(btnIconStatistics, btnStatistics, "/img/unselectedStatistics_45px.png",
+        ImageButtonIcon set3 = new ImageButtonIcon(btnIconStatistics, btnStatistics, "/img/unselectedStatistics_45px.png",
                 "/img/Unselected_Statistics.png", "/img/selectedStatistics_45px.png", "/img/Selected_Statistics.png");
-        imageButtonIcon set4 = new imageButtonIcon(btnIconManagement, btnManagement, "/img/unselectedManagement_45px.png",
+        ImageButtonIcon set4 = new ImageButtonIcon(btnIconProductManagement, btnProductManagement, "/img/unselectedManagement_45px.png",
                 "/img/Unselected_Management.png", "/img/selectedManagement_45px.png", "/img/Selected_Management.png");
-        imageButtonIcon set5 = new imageButtonIcon(btnIconEmployee, btnEmployee, "/img/unselectedEmployee_45px.png",
+        ImageButtonIcon set5 = new ImageButtonIcon(btnIconEmployee, btnEmployee, "/img/unselectedEmployee_45px.png",
                 "/img/Unselected_Employee.png", "/img/selectedEmployee_45px.png", "/img/Selected_Employee.png");
 
-        buttonList = new imageButtonIcon[]{set1, set2, set3, set4, set5};
+        buttonList = new ImageButtonIcon[]{set1, set2, set3, set4, set5};
+    }
+
+//    @Override
+    public void updateState() {
+        switch (this.model.getUserType()) {
+            case MANAGER_USER: {
+                setHomeFunctionState(true);
+                setProductManageFunctionState(true);
+                setEmployeeFunctionState(true);
+
+                labelGreeting.setText("Hello, manager");
+                labelUserName.setText(this.model.getUserName());
+
+                break;
+            }
+            case ACCOUNTANT_USER: {
+                setHomeFunctionState(true);
+                setStatisticFunctionState(true);
+
+                labelGreeting.setText("Hello, accountant");
+                labelUserName.setText(this.model.getUserName());
+
+                break;
+            }
+            case CASHIER_USER: {
+                setHomeFunctionState(true);
+                setSellFunctionState(true);
+
+                labelGreeting.setText("Hello, cashier");
+                labelUserName.setText(this.model.getUserName());
+
+                break;
+            }
+        }
+    }
+
+    private void setHomeFunctionState(boolean flag) {
+        btnHome.setEnabled(flag);
+        btnIconHome.setEnabled(flag);
+    }
+
+    private void setSellFunctionState(boolean flag) {
+        btnSelling.setEnabled(flag);
+        btnIconSelling.setEnabled(flag);
+    }
+
+    private void setStatisticFunctionState(boolean flag) {
+        btnStatistics.setEnabled(flag);
+        btnIconStatistics.setEnabled(flag);
+    }
+
+    private void setProductManageFunctionState(boolean flag) {
+        btnProductManagement.setEnabled(flag);
+        btnIconProductManagement.setEnabled(flag);
+    }
+
+    private void setEmployeeFunctionState(boolean flag) {
+        btnEmployee.setEnabled(flag);
+        btnIconEmployee.setEnabled(flag);
     }
 
     private class action_MenuButtonClicked implements ActionListener {
 
-        imageButtonIcon[] buttonList;
+        ImageButtonIcon[] buttonList;
         ButtonMode mode;
         boolean isIconButton;
 
-        public action_MenuButtonClicked(imageButtonIcon[] buttonList, ButtonMode selectedMode, boolean isIconButton) {
+        public action_MenuButtonClicked(ImageButtonIcon[] buttonList, ButtonMode selectedMode, boolean isIconButton) {
             this.mode = selectedMode;
             this.buttonList = buttonList;
             this.isIconButton = isIconButton;
@@ -325,7 +398,7 @@ public class SideMenuPanel extends javax.swing.JPanel {
         //new javax.swing.ImageIcon(getClass().getResource("/img/Unselected_Selling.png"))
         @Override
         public void actionPerformed(ActionEvent event) {
-            for (imageButtonIcon element : buttonList) {
+            for (ImageButtonIcon element : buttonList) {
                 if (element.iconButton.getName().substring(0, 3).equals(mode.name().substring(0, 3))) {
                     element.iconButton.setIcon(new ImageIcon(getClass().getResource(element.selectedIconImage)));
                     element.menuButton.setIcon(new ImageIcon(getClass().getResource(element.selectedButtonImage)));
@@ -357,8 +430,8 @@ public class SideMenuPanel extends javax.swing.JPanel {
         btnIconStatistics.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.STATISTICS, true));
         btnStatistics.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.STATISTICS, false));
 
-        btnIconManagement.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.PRODUCT, true));
-        btnManagement.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.PRODUCT, false));
+        btnIconProductManagement.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.PRODUCT, true));
+        btnProductManagement.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.PRODUCT, false));
 
         btnIconEmployee.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.EMPLOYEE, true));
         btnEmployee.addActionListener(new action_MenuButtonClicked(buttonList, ButtonMode.EMPLOYEE, false));
@@ -432,8 +505,8 @@ public class SideMenuPanel extends javax.swing.JPanel {
                 public void run() {
                     if (longEnough) {
                         if (!controlMenuIsOpened()) {
-                            OpenMenu openM = new OpenMenu();
-                            openM.start();
+                            OpenMenu openMenu = new OpenMenu();
+                            openMenu.start();
                         }
                     }
 
@@ -446,8 +519,8 @@ public class SideMenuPanel extends javax.swing.JPanel {
             longEnough = false;
             if (controlMenuIsOpened() && (evt.getX() > SIDE_MENU_OPENED_WIDTH - 1 || evt.getX() < 1)) {
 
-                CloseMenu closeM = new CloseMenu();
-                closeM.start();
+                CloseMenu closeMenu = new CloseMenu();
+                closeMenu.start();
             }
             setPreferredSize(new Dimension(SIDE_MENU_CLOSED_WIDTH, getHeight()));
         }
@@ -457,10 +530,10 @@ public class SideMenuPanel extends javax.swing.JPanel {
         signOut.setVisible(true);
     }//GEN-LAST:event_btnSignOutActionPerformed
 
-    private void label_EmpNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_EmpNameMousePressed
+    private void labelUserNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelUserNameMousePressed
         UIControl.setLocationCenterForDialog(profile);
         profile.setVisible(true);
-    }//GEN-LAST:event_label_EmpNameMousePressed
+    }//GEN-LAST:event_labelUserNameMousePressed
 
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
         // TODO add your handling code here:
@@ -476,15 +549,15 @@ public class SideMenuPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnHome;
     private javax.swing.JButton btnIconEmployee;
     private javax.swing.JButton btnIconHome;
-    private javax.swing.JButton btnIconManagement;
+    private javax.swing.JButton btnIconProductManagement;
     private javax.swing.JButton btnIconSelling;
     private javax.swing.JButton btnIconStatistics;
-    private javax.swing.JButton btnManagement;
+    private javax.swing.JButton btnProductManagement;
     private javax.swing.JButton btnSelling;
     private javax.swing.JButton btnSignOut;
     private javax.swing.JButton btnStatistics;
-    private javax.swing.JLabel label_EmpName;
-    private javax.swing.JLabel label_GreetingsAndPos;
+    private javax.swing.JLabel labelGreeting;
+    private javax.swing.JLabel labelUserName;
     private javax.swing.JLabel label_Menu;
     private javax.swing.JPanel panelIconButton;
     private javax.swing.JPanel panelLongButton;

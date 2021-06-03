@@ -10,8 +10,9 @@ import model.employee.shift.EmployeeShiftModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.employee.position.EmployeePositionDataStorage;
-import model.employee.position.EmployeePositionModel;
+import model.employee.position.EmployeePositionModelInterface;
 import model.employee.shift.EmployeeShiftDataStorage;
+import model.employee.shift.EmployeeShiftModelInterface;
 import util.db.SQLServerConnection;
 import view.function.EmployeeViewObserver;
 
@@ -45,10 +46,10 @@ public class EmployeeModel implements EmployeeModelInterface {
     private String password;
     private boolean isMale;
     private Date startDate;
-    private EmployeePositionModel position;
+    private EmployeePositionModelInterface position;
     private boolean isActive;
     private Date endDate;
-    private ArrayList<EmployeeShiftModel> shifts;
+    private ArrayList<EmployeeShiftModelInterface> shifts;
 
     static {
         dbConnection = SQLServerConnection.getConnection();
@@ -63,8 +64,8 @@ public class EmployeeModel implements EmployeeModelInterface {
 
     public EmployeeModel(int employeeID, String name, int phoneNum, Date birthday,
             String email, String personalID, String password, boolean isMale,
-            EmployeePositionModel position, boolean isActive, Date startDate,
-            Date endDate, ArrayList<EmployeeShiftModel> shift) {
+            EmployeePositionModelInterface position, boolean isActive, Date startDate,
+            Date endDate, ArrayList<EmployeeShiftModelInterface> shift) {
         this.employeeID = employeeID;
         this.name = name;
         this.phoneNum = phoneNum;
@@ -80,7 +81,7 @@ public class EmployeeModel implements EmployeeModelInterface {
         this.shifts = shift;
     }
 
-    public static EmployeeModel getInstance(ResultSet resultSet) {
+    public static EmployeeModelInterface getInstance(ResultSet resultSet) {
         EmployeeModel ret = new EmployeeModel();
 
         try {
@@ -143,6 +144,16 @@ public class EmployeeModel implements EmployeeModelInterface {
         return String.valueOf(this.employeeID);
     }
 
+    @Override
+    public String getEmployeePositionName() {
+        return this.position.getPositionName();
+    }
+
+    @Override
+    public String getEmployeeName() {
+        return this.name;
+    }
+    
     @Override
     public String toString() {
         String shiftText = "{";

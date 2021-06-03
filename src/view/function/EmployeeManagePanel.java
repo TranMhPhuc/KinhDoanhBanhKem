@@ -7,16 +7,16 @@ package view.function;
 
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
-import view.UserInterface;
 import javax.swing.JTable;
 import static util.swing.UIControl.setDefaultTableHeader;
 import util.swing.checkcombobox.CheckableItem;
+import view.MessageShowing;
 
 /**
  *
  * @author DELL
  */
-public class EmployeeManagePanel extends javax.swing.JPanel implements UserInterface {
+public class EmployeeManagePanel extends javax.swing.JPanel {
 
     /**
      * Creates new form ManageEmployeePanel
@@ -31,9 +31,9 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         initComponents();
 
         // Sample code for check combobox
-        combShift.setModel(new DefaultComboBoxModel<>(defaultCheckedModel));
+//        combShift.setModel(new DefaultComboBoxModel<>(defaultCheckedModel));
         buttonGroup_Gender.setSelected(rbtGenderMale.getModel(), true);
-
+//
         setEditableForAll(false);
         setDefaultTableHeader(tableInfo);
 
@@ -184,11 +184,6 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         btnExport.setText("Export");
         btnExport.setFocusPainted(false);
         btnExport.setPreferredSize(new java.awt.Dimension(115, 40));
-        btnExport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportActionPerformed(evt);
-            }
-        });
         panelOpBtn.add(btnExport);
 
         label_searchEmp.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -475,7 +470,7 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
         buttonGroup_Gender.setSelected(rbtGenderMale.getModel(), true);
         combPosition.setSelectedIndex(0);
         combStatus.setSelectedIndex(0);
-        combShift.setModel(new DefaultComboBoxModel<>(defaultCheckedModel));
+//        combShift.setModel(new DefaultComboBoxModel<>(defaultCheckedModel));
         dateChooserBirthday.setDate(null);
         dateChooserStartDate.setDate(new Date());
         dateChooser_EndDate.setDate(null);
@@ -490,25 +485,6 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements UserInter
     private void textfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfSearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textfSearchActionPerformed
-
-    private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnExportActionPerformed
-
-    @Override
-    public void showErrorMessage(String message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void showInformationMessage(String message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void showWarningMessage(String message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

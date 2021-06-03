@@ -19,27 +19,27 @@ import model.provider.ProviderDataStorage;
  */
 public class DataModelUpdateManager {
 
-    private static DataModelUpdateManager uniqueInstance;
+    private volatile static DataModelUpdateManager uniqueInstance;
 
     private static Connection connection;
 
-    private static EmployeeShiftDataStorage employeeShiftDataStorage;
-    private static EmployeePositionDataStorage employeePositionDataStorage;
-    private static EmployeeDataStorage employeeDataStorage;
-    private static BillDataStorage billDataStorage;
-    private static ProviderDataStorage providerDataStorage;
-    private static IngredientTypeDataStorage ingredientTypeDataStorage;
-    private static IngredientUnitDataStorage ingredientUnitDataStorage;
-    private static IngredientUnitConversionDataStorage ingredientUnitConversionDataStorage;
-    private static IngredientDataStorage ingredientDataStorage;
-    private static ProductDataStorage productDataStorage;
-    private static IngredientOfProductDataStorage ingredientOfProductDataStorage;
-    
+    private EmployeeShiftDataStorage employeeShiftDataStorage;
+    private EmployeePositionDataStorage employeePositionDataStorage;
+    private EmployeeDataStorage employeeDataStorage;
+    private BillDataStorage billDataStorage;
+    private ProviderDataStorage providerDataStorage;
+    private IngredientTypeDataStorage ingredientTypeDataStorage;
+    private IngredientUnitDataStorage ingredientUnitDataStorage;
+    private IngredientUnitConversionDataStorage ingredientUnitConversionDataStorage;
+    private IngredientDataStorage ingredientDataStorage;
+    private ProductDataStorage productDataStorage;
+    private IngredientOfProductDataStorage ingredientOfProductDataStorage;
+
     static {
-        uniqueInstance = new DataModelUpdateManager();
-
         connection = SQLServerConnection.getConnection();
+    }
 
+    private DataModelUpdateManager() {
         employeeShiftDataStorage = EmployeeShiftDataStorage.getInstance();
         employeePositionDataStorage = EmployeePositionDataStorage.getInstance();
         employeeDataStorage = EmployeeDataStorage.getInstance();
@@ -53,10 +53,14 @@ public class DataModelUpdateManager {
         ingredientOfProductDataStorage = IngredientOfProductDataStorage.getInstance();
     }
 
-    private DataModelUpdateManager() {
-    }
-
     public static DataModelUpdateManager getInstance() {
+        if (uniqueInstance == null) {
+            synchronized (DataModelUpdateManager.class) {
+                if (uniqueInstance == null) {
+                    uniqueInstance = new DataModelUpdateManager();
+                }
+            }
+        }
         return uniqueInstance;
     }
 
@@ -73,11 +77,4 @@ public class DataModelUpdateManager {
         productDataStorage.updateFromDB(connection);
         ingredientOfProductDataStorage.updateFromDB(connection);
     }
-
-    public static void main(String[] args) {
-        DataModelUpdateManager dataModelUpdateManager = new DataModelUpdateManager();
-        dataModelUpdateManager.updateFromDB();
-
-    }
-
 }
