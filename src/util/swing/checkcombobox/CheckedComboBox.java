@@ -86,7 +86,6 @@ public class CheckedComboBox<E extends CheckableItem> extends JComboBox<E> {
                 .mapToObj(model::getElementAt)
                 .filter(CheckableItem::isSelected)
                 .map(Objects::toString)
-//                .sorted()
                 .collect(Collectors.joining(", "));
     }
 

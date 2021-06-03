@@ -7,16 +7,16 @@ package view.function;
 
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
-import view.UserInterface;
 import javax.swing.JTable;
 import static util.swing.UIControl.setDefaultTableHeader;
 import util.swing.checkcombobox.CheckableItem;
+import view.MessageShowing;
 
 /**
  *
  * @author DELL
  */
-public class EmployeeManagePanel extends javax.swing.JPanel implements UserInterface {
+public class EmployeeManagePanel extends javax.swing.JPanel implements MessageShowing {
 
     /**
      * Creates new form ManageEmployeePanel

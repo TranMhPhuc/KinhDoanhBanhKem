@@ -16,14 +16,14 @@ public class SQLServerConnection {
 
     private static final String PASSWORD = "1234";
 
-    private static Connection connection;
+    private static Connection uniqueConnection;
 
     private volatile static SQLServerConnection connectInstance;
     
     static {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            uniqueConnection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -44,12 +44,12 @@ public class SQLServerConnection {
     }
     
     public static Connection getConnection() {
-        return connection;
+        return uniqueConnection;
     }
 
     public static void main(String[] args) {
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = uniqueConnection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT MaNV, TenNV FROM NHANVIEN");
             while (resultSet.next()) {
                 System.out.println(resultSet.getInt("MaNV") + " | " + resultSet.getString("TenNV"));

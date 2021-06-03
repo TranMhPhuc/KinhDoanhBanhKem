@@ -1,10 +1,10 @@
 package view;
 
-public interface UserInterface {
+public interface MessageShowing {
 
     void showErrorMessage(String message);
 
-    void showInformationMessage(String message);
+    void showInfoMessage(String message);
 
     void showWarningMessage(String message);
 

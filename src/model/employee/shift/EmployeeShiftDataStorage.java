@@ -12,7 +12,7 @@ public class EmployeeShiftDataStorage implements DatabaseUpdate {
 
     private static EmployeeShiftDataStorage uniqueInstance;
     
-    private ArrayList<EmployeeShiftModel> shifts;
+    private ArrayList<EmployeeShiftModelInterface> shifts;
 
     static {
         uniqueInstance = new EmployeeShiftDataStorage();
@@ -48,8 +48,8 @@ public class EmployeeShiftDataStorage implements DatabaseUpdate {
         }
     }
     
-    public EmployeeShiftModel getShift(String shiftIDText) {
-        for (EmployeeShiftModel element: shifts) {
+    public EmployeeShiftModelInterface getShift(String shiftIDText) {
+        for (EmployeeShiftModelInterface element: shifts) {
             if (element.getShiftIDText().equals(shiftIDText)) {
                 return element;
             }

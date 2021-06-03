@@ -6,7 +6,7 @@ import java.sql.Time;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class EmployeeShiftModel {
+public class EmployeeShiftModel implements EmployeeShiftModelInterface {
 
     public static final String TABLE_NAME = "CaLamViec";
     public static final String ID_HEADER = "MaCa";
@@ -29,7 +29,7 @@ public class EmployeeShiftModel {
         this.endTime = timeEnd;
     }
 
-    public static EmployeeShiftModel getInstance(ResultSet resultSet) {
+    public static EmployeeShiftModelInterface getInstance(ResultSet resultSet) {
         EmployeeShiftModel ret = new EmployeeShiftModel();
 
         try {
@@ -45,6 +45,7 @@ public class EmployeeShiftModel {
         return ret;
     }
 
+    @Override
     public String getShiftIDText() {
         return String.valueOf(this.shiftID);
     }

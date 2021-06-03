@@ -39,8 +39,8 @@
                       <Component id="label_Menu" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="label_EmpName" min="-2" pref="197" max="-2" attributes="0"/>
-                          <Component id="label_GreetingsAndPos" min="-2" pref="188" max="-2" attributes="0"/>
+                          <Component id="labelUserName" min="-2" pref="197" max="-2" attributes="0"/>
+                          <Component id="labelGreeting" min="-2" pref="188" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -59,9 +59,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                      <Component id="label_GreetingsAndPos" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelGreeting" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="label_EmpName" min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="labelUserName" min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
@@ -151,7 +151,7 @@
             <Property name="name" type="java.lang.String" value="STATISTICS_MENU" noResource="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnManagement">
+        <Component class="javax.swing.JButton" name="btnProductManagement">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/img/Unselected_Management.png"/>
@@ -242,7 +242,7 @@
             <Property name="name" type="java.lang.String" value="STATISTICS_ICON" noResource="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnIconManagement">
+        <Component class="javax.swing.JButton" name="btnIconProductManagement">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -306,7 +306,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSignOutActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="label_EmpName">
+    <Component class="javax.swing.JLabel" name="labelUserName">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>
@@ -321,13 +321,13 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="label_EmpNameMousePressed"/>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="labelUserNameMousePressed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Font font = label_EmpName.getFont();&#xa;Map attributes = font.getAttributes();&#xa;attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);&#xa;label_EmpName.setFont(font.deriveFont(attributes));"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="Font font = labelUserName.getFont();&#xa;Map attributes = font.getAttributes();&#xa;attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);&#xa;labelUserName.setFont(font.deriveFont(attributes));"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="label_GreetingsAndPos">
+    <Component class="javax.swing.JLabel" name="labelGreeting">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="2"/>

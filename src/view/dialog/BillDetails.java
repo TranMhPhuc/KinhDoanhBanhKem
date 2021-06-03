@@ -66,7 +66,7 @@ public class BillDetails extends javax.swing.JDialog {
 
         label_Title.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         label_Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_Title.setText("Bill details");
+        label_Title.setText("Bill Detail");
 
         labelBillID.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         labelBillID.setForeground(new java.awt.Color(255, 51, 51));
@@ -151,9 +151,9 @@ public class BillDetails extends javax.swing.JDialog {
                     .addComponent(label_BillDate)
                     .addComponent(billDate))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_TotalMoney)
-                    .addComponent(totalMoney))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(totalMoney)
+                    .addComponent(label_TotalMoney))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_GuestMoney)

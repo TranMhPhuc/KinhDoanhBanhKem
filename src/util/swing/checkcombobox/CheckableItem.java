@@ -1,7 +1,5 @@
 package util.swing.checkcombobox;
 
-import java.util.Comparator;
-
 public class CheckableItem {
 
     private final String text;
