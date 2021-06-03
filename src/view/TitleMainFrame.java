@@ -36,7 +36,7 @@ public class TitleMainFrame extends javax.swing.JPanel {
         label_logo = new javax.swing.JLabel();
         label_title = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(253, 250, 246));
+        setBackground(new java.awt.Color(225, 229, 234));
 
         label_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Logo_43px.png"))); // NOI18N
 
@@ -58,10 +58,10 @@ public class TitleMainFrame extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(label_title, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(label_logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(label_logo, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label_title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
