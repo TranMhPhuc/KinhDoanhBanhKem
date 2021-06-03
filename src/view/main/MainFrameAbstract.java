@@ -1,10 +1,10 @@
 package view.main;
 
-import view.login.LoginUpdateObserver;
 import javax.swing.ImageIcon;
 import model.user.UserModelInterface;
+import view.login.LoginObserver;
 
-public abstract class MainFrameAbstract extends javax.swing.JFrame implements LoginUpdateObserver {
+public abstract class MainFrameAbstract extends javax.swing.JFrame implements LoginObserver {
 
     private UserModelInterface model;
 

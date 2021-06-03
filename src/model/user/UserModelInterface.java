@@ -1,7 +1,7 @@
 package model.user;
 
 import model.employee.EmployeeModelInterface;
-import view.login.LoginUpdateObserver;
+import view.login.LoginObserver;
 
 public interface UserModelInterface {
 
@@ -18,8 +18,8 @@ public interface UserModelInterface {
     
     void updateUser(EmployeeModelInterface impl);
     
-    void registerObserver(LoginUpdateObserver menuObserver);
+    void registerObserver(LoginObserver menuObserver);
     
-    void removeObserver(LoginUpdateObserver menuObserver);
+    void removeObserver(LoginObserver menuObserver);
     
 }

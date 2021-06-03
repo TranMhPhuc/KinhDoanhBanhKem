@@ -10,22 +10,22 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import model.user.UserModelInterface;
 import view.MessageShowing;
-import control.app.AppControllerInterface;
+import control.login.LoginControllerInterface;
 
 /**
  *
  * @author TRUONG MINH TAN
  */
-public class LoginFrame extends javax.swing.JFrame implements LoginUpdateObserver,
+public class LoginFrame extends javax.swing.JFrame implements LoginObserver,
         MessageShowing, ActionListener {
 
     private UserModelInterface model;
-    private AppControllerInterface controller;
+    private LoginControllerInterface controller;
 
     /**
      * Creates new form login
      */
-    public LoginFrame(UserModelInterface model, AppControllerInterface controller) {
+    public LoginFrame(UserModelInterface model, LoginControllerInterface controller) {
         initComponents();
 
         this.model = model;

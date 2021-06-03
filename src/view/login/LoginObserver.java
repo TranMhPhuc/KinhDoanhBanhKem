@@ -1,6 +1,6 @@
 package view.login;
 
-public interface LoginUpdateObserver {
+public interface LoginObserver {
     
     void updateState();
     

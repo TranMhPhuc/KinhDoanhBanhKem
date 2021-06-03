@@ -1,6 +1,5 @@
 package view;
 
-import control.app.AppControllerInterface;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -19,6 +18,7 @@ import model.user.UserModelInterface;
 import util.swing.UIControl;
 import view.dialog.ConfirmSigningOutDialog;
 import view.dialog.PersonalProfileEditDialog;
+import control.login.LoginControllerInterface;
 
 enum ButtonMode {
     HOME, SELLING, STATISTICS, PRODUCT, EMPLOYEE
@@ -54,7 +54,7 @@ public class SideMenuPanel extends javax.swing.JPanel {
     private ConfirmSigningOutDialog signOut = new ConfirmSigningOutDialog(null, true);
 
     private UserModelInterface model;
-    private AppControllerInterface controller;
+    private LoginControllerInterface controller;
 
     /**
      * Creates new form SideMenu
@@ -69,7 +69,7 @@ public class SideMenuPanel extends javax.swing.JPanel {
         this.setPreferredSize(new Dimension(SIDE_MENU_CLOSED_WIDTH, getHeight()));
     }
 
-    public SideMenuPanel(UserModelInterface model, AppControllerInterface controller) {
+    public SideMenuPanel(UserModelInterface model, LoginControllerInterface controller) {
         this.model = model;
         this.controller = controller;
 

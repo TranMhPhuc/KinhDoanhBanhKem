@@ -1,4 +1,4 @@
-package control.app;
+package control.login;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,10 +14,10 @@ import util.db.SQLServerConnection;
 import util.validator.EmailValidator;
 import view.login.LoginFrame;
 
-public class AppController implements AppControllerInterface {
+public class LoginController implements LoginControllerInterface {
 
     private static Connection dbConnection;
-    private volatile static AppController uniqueInstance;
+    private volatile static LoginController uniqueInstance;
 
     private UserModelInterface model;
     private LoginFrame loginView;
@@ -26,17 +26,17 @@ public class AppController implements AppControllerInterface {
         dbConnection = SQLServerConnection.getConnection();
     }
 
-    private AppController(UserModelInterface model) {
+    private LoginController(UserModelInterface model) {
         this.model = model;
         this.loginView = new LoginFrame(model, this);
         this.loginView.setVisible(true);
     }
 
-    public static AppController getInstance(UserModelInterface model) {
+    public static LoginController getInstance(UserModelInterface model) {
         if (uniqueInstance == null) {
-            synchronized (AppController.class) {
+            synchronized (LoginController.class) {
                 if (uniqueInstance == null) {
-                    uniqueInstance = new AppController(model);
+                    uniqueInstance = new LoginController(model);
                 }
             }
         }
@@ -68,7 +68,7 @@ public class AppController implements AppControllerInterface {
             this.model.updateUser(EmployeeDataStorage.getInstance().getEmployee(resultSet.getString(EmployeeModel.ID_HEADER)));
 
         } catch (SQLException ex) {
-            Logger.getLogger(AppController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
