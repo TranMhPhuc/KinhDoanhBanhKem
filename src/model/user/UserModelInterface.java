@@ -1,7 +1,6 @@
 package model.user;
 
 import model.employee.EmployeeModelInterface;
-import view.login.LoginObserver;
 
 public interface UserModelInterface {
 
@@ -16,10 +15,8 @@ public interface UserModelInterface {
     
     String getUserName();
     
+    EmployeeModelInterface getImpl();
+    
     void updateUser(EmployeeModelInterface impl);
-    
-    void registerObserver(LoginObserver menuObserver);
-    
-    void removeObserver(LoginObserver menuObserver);
     
 }

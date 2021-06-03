@@ -4,9 +4,8 @@ import java.awt.Color;
 
 import javax.swing.ImageIcon;
 import model.user.UserModelInterface;
-import view.login.LoginObserver;
 
-public abstract class MainFrameAbstract extends javax.swing.JFrame implements LoginObserver {
+public abstract class MainFrameAbstract extends javax.swing.JFrame {
 
     private UserModelInterface model;
 
@@ -17,17 +16,9 @@ public abstract class MainFrameAbstract extends javax.swing.JFrame implements Lo
         initComponents();
 
         this.model = model;
-        this.model.registerObserver(this);
 
         panelSideMenu.showCardMenu("Home");
         this.getContentPane().setBackground(new Color(225, 229, 234));
-    }
-
-    @Override
-    public void updateState() {
-        if (this.model != null) {
-            this.setVisible(true);
-        }
     }
 
     public abstract void showMainFrame();

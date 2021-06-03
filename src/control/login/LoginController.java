@@ -13,6 +13,7 @@ import util.db.DataModelUpdateManager;
 import util.db.SQLServerConnection;
 import util.validator.EmailValidator;
 import view.login.LoginFrame;
+import view.login.passwordRecovery.PasswordRecoveryDialog;
 
 public class LoginController implements LoginControllerInterface {
 
@@ -21,6 +22,7 @@ public class LoginController implements LoginControllerInterface {
 
     private UserModelInterface model;
     private LoginFrame loginView;
+    private PasswordRecoveryDialog passwordRecoveryDialog;
 
     static {
         dbConnection = SQLServerConnection.getConnection();
@@ -49,7 +51,7 @@ public class LoginController implements LoginControllerInterface {
             this.loginView.showErrorMessage("Email must be required.");
             return;
         }
-        
+
         if (!EmailValidator.isEmailVallid(email)) {
             this.loginView.showErrorMessage("Email is invallid.");
             return;
@@ -74,9 +76,55 @@ public class LoginController implements LoginControllerInterface {
             this.model.updateUser(EmployeeDataStorage.getInstance().getEmployee(
                     resultSet.getString(EmployeeModel.ID_HEADER)));
 
+            this.loginView.dispose();
+            
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public void requestRecoverPassword() {
+        this.passwordRecoveryDialog = new PasswordRecoveryDialog(this.loginView, true, this);
+        this.passwordRecoveryDialog.setVisible(true);
+    }
+
+    @Override
+    public void sendPasswordToEmail(String email) {
+        if (EmailValidator.isEmailEmpty(email)) {
+            this.passwordRecoveryDialog.showErrorMessage("Email must be required.");
+            return;
+        }
+
+        if (!EmailValidator.isEmailVallid(email)) {
+            this.passwordRecoveryDialog.showErrorMessage("Email is invallid.");
+            return;
+        }
+
+        try {
+            Statement statement = dbConnection.createStatement();
+            String emailFindingQuery = "SELECT " + EmployeeModel.PASSWORD_HEADER
+                    + " FROM " + EmployeeModel.TABLE_NAME
+                    + " WHERE " + EmployeeModel.EMAIL_HEADER + " = '" + email + "'";
+            ResultSet resultSet = statement.executeQuery(emailFindingQuery);
+            if (resultSet.next()) {
+                String password = resultSet.getString(1);
+
+                // TASK: send this password to email using Mail API
+                // XXX
+                this.passwordRecoveryDialog.showInfoMessage("Your password is send to email successfullly!");
+                this.passwordRecoveryDialog.dispose();
+                this.loginView.setEmailText(email);
+            } else {
+                this.passwordRecoveryDialog.showErrorMessage("Email is not available.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void showPasswordText() {
     }
 
 }
