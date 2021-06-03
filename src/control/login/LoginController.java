@@ -1,5 +1,7 @@
 package control.login;
 
+import control.app.AppController;
+import control.app.AppControllerInterface;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +15,7 @@ import util.db.DataModelUpdateManager;
 import util.db.SQLServerConnection;
 import util.validator.EmailValidator;
 import view.login.LoginFrame;
-import view.login.passwordRecovery.PasswordRecoveryDialog;
+import view.dialog.PasswordRecoveryDialog;
 
 public class LoginController implements LoginControllerInterface {
 
@@ -77,6 +79,8 @@ public class LoginController implements LoginControllerInterface {
                     resultSet.getString(EmployeeModel.ID_HEADER)));
 
             this.loginView.dispose();
+            
+            AppControllerInterface appControllerInterface = AppController.getInstance(model);
             
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);

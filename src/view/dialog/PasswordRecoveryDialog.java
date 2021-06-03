@@ -1,4 +1,4 @@
-package view.login.passwordRecovery;
+package view.dialog;
 
 import control.login.LoginControllerInterface;
 import java.awt.event.ActionEvent;

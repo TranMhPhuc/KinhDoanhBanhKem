@@ -30,6 +30,8 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing, Ac
                 // XXX
             }
         });
+
+        setAppLookAndFeel();
     }
 
     @SuppressWarnings("unchecked")
@@ -192,6 +194,19 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing, Ac
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void setAppLookAndFeel() {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Windows".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     @Override
     public void actionPerformed(ActionEvent event) {

@@ -8,15 +8,17 @@ import model.employee.EmployeeModelInterface;
  */
 public class UserModel implements UserModelInterface {
 
-    private EmployeeModelInterface impl;
-
     private static UserModel uniqueInstance;
+
+    private EmployeeModelInterface impl;
+    private UserType userType;
 
     static {
         uniqueInstance = new UserModel();
     }
 
     private UserModel() {
+        userType = UserType.NO_PERMISSION;
     }
 
     @Override
@@ -25,6 +27,18 @@ public class UserModel implements UserModelInterface {
             throw new NullPointerException();
         }
         this.impl = impl;
+
+        String positionName = impl.getEmployeePositionName();
+
+        if (positionName.equals("Quản lý")) {
+            userType = UserType.MANAGER_USER;
+        } else if (positionName.equals("Bán hàng")) {
+            userType = UserType.CASHIER_USER;
+        } else if (positionName.equals("Kế toán")) {
+            userType = UserType.ACCOUNTANT_USER;
+        } else {
+            userType = UserType.NO_PERMISSION;
+        }
     }
 
     public static UserModel getInstance() {
@@ -33,19 +47,7 @@ public class UserModel implements UserModelInterface {
 
     @Override
     public UserType getUserType() {
-        if (impl != null) {
-            String positionName = impl.getEmployeePositionName();
-            if (positionName.equals("Quản lý")) {
-                return UserType.MANAGER_USER;
-            } else if (positionName.equals("Bán hàng")) {
-                return UserType.CASHIER_USER;
-            } else if (positionName.equals("Kế toán")) {
-                return UserType.ACCOUNTANT_USER;
-            } else {
-                return UserType.NO_PERMISSION;
-            }
-        }
-        return null;
+        return this.userType;
     }
 
     @Override

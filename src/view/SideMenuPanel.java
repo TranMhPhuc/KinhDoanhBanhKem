@@ -324,63 +324,37 @@ public class SideMenuPanel extends javax.swing.JPanel {
         buttonList = new ImageButtonIcon[]{set1, set2, set3, set4, set5};
     }
 
-//    @Override
-    public void updateState() {
-        switch (this.model.getUserType()) {
-            case MANAGER_USER: {
-                setHomeFunctionState(true);
-                setProductManageFunctionState(true);
-                setEmployeeFunctionState(true);
-
-                labelGreeting.setText("Hello, manager");
-                labelUserName.setText(this.model.getUserName());
-
-                break;
-            }
-            case ACCOUNTANT_USER: {
-                setHomeFunctionState(true);
-                setStatisticFunctionState(true);
-
-                labelGreeting.setText("Hello, accountant");
-                labelUserName.setText(this.model.getUserName());
-
-                break;
-            }
-            case CASHIER_USER: {
-                setHomeFunctionState(true);
-                setSellFunctionState(true);
-
-                labelGreeting.setText("Hello, cashier");
-                labelUserName.setText(this.model.getUserName());
-
-                break;
-            }
-        }
-    }
-
-    private void setHomeFunctionState(boolean flag) {
+    public void setHomeFunctionState(boolean flag) {
         btnHome.setEnabled(flag);
         btnIconHome.setEnabled(flag);
     }
 
-    private void setSellFunctionState(boolean flag) {
+    public void setSellButtonState(boolean flag) {
         btnSelling.setEnabled(flag);
         btnIconSelling.setEnabled(flag);
     }
 
-    private void setStatisticFunctionState(boolean flag) {
+    public void setStatisticButtonState(boolean flag) {
         btnStatistics.setEnabled(flag);
         btnIconStatistics.setEnabled(flag);
     }
 
-    private void setProductManageFunctionState(boolean flag) {
+    public void setProductManageButtonState(boolean flag) {
         btnProductManagement.setEnabled(flag);
         btnIconProductManagement.setEnabled(flag);
     }
 
-    private void setEmployeeFunctionState(boolean flag) {
+    public void setEmployeeButtonState(boolean flag) {
         btnEmployee.setEnabled(flag);
         btnIconEmployee.setEnabled(flag);
+    }
+    
+    public void setLabelGreetingText(String text) {
+        labelGreeting.setText(text);
+    }
+    
+    public void setLabelUserNameText(String userName) {
+        labelUserName.setText(userName);
     }
 
     private class action_MenuButtonClicked implements ActionListener {
