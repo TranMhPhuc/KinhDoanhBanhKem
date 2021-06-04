@@ -5,10 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import model.DatabaseUpdate;
 import util.AppLog;
 
-public class ProductDataStorage implements DatabaseUpdate {
+public class ProductDataStorage implements ProductDataStorageInterface {
 
     private static ProductDataStorage uniqueInstance;
 
@@ -38,7 +37,9 @@ public class ProductDataStorage implements DatabaseUpdate {
             products.clear();
 
             while (resultSet.next()) {
-                products.add(ProductModel.getInstance(resultSet));
+                ProductModelInterface product = new ProductModel();
+                product.setProperty(resultSet);
+                products.add(product);
             }
 
             AppLog.getLogger().info("Update product database: successfully, "
@@ -56,6 +57,18 @@ public class ProductDataStorage implements DatabaseUpdate {
             }
         }
         return null;
+    }
+
+    @Override
+    public ProductModelInterface createProduct() {
+        ProductModelInterface newProduct = new ProductModel();
+        this.products.add(newProduct);
+        return newProduct;
+    }
+
+    @Override
+    public int getSize() {
+        return this.products.size();
     }
 
 }

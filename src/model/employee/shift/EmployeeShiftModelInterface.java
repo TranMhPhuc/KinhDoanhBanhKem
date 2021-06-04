@@ -1,6 +1,8 @@
 package model.employee.shift;
 
-public interface EmployeeShiftModelInterface {
+import model.DatabaseModel;
+
+public interface EmployeeShiftModelInterface extends DatabaseModel {
 
     String getShiftIDText();
     

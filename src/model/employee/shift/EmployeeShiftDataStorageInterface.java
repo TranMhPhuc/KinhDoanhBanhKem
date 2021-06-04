@@ -9,5 +9,5 @@ public interface EmployeeShiftDataStorageInterface extends DatabaseUpdate {
     
     Iterator<EmployeeShiftModelInterface> createIterator();
     
-    int getStorageSize();
+    int getSize();
 }

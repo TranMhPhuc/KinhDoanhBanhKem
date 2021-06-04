@@ -65,7 +65,7 @@ public class EmployeeManagePanel extends javax.swing.JPanel implements ActionLis
 
         Iterator<EmployeeShiftModelInterface> iterator = employeeShiftDataStorage.createIterator();
 
-        int size = employeeShiftDataStorage.getStorageSize();
+        int size = employeeShiftDataStorage.getSize();
 
         defaultCheckedModel = new CheckableItem[size];
         int i = 0;

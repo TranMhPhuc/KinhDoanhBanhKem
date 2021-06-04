@@ -21,6 +21,13 @@ public class BillModel implements BillModelInterface {
     public static final String CHANGE_MONEY_HEADER = "TienThoi";
     public static final String EMPLOYEE_ID_HEADER = EmployeeModel.ID_HEADER;
 
+    private static final String INSERT_QUERY_PROTOTYPE
+            = "INSERT INTO " + TABLE_NAME + " ("
+            + ID_HEADER + ", " + DATE_HEADER + ", " + PAYMENT_HEADER + ", "
+            + GUEST_MONEY_HEADER + ", " + CHANGE_MONEY_HEADER + ", "
+            + EMPLOYEE_ID_HEADER + ")"
+            + " VALUES (?, ?, ?, ?, ?, ?)";
+
     private static final EmployeeDataStorageInterface employeeDataStorage;
 
     private int id;
@@ -59,25 +66,6 @@ public class BillModel implements BillModelInterface {
     }
 
     @Override
-    public void setInsertStatementArgs(PreparedStatement preparedStatement) {
-        try {
-            preparedStatement.setInt(1, this.id);
-            preparedStatement.setTimestamp(2, this.dateTimeExport);
-            preparedStatement.setInt(3, this.payment);
-            preparedStatement.setInt(4, this.guestMoney);
-            preparedStatement.setInt(5, this.changeMoney);
-            this.employee.setKeyArg(6, ID_HEADER, preparedStatement);
-        } catch (SQLException ex) {
-            Logger.getLogger(BillModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @Override
-    public void setDeleteStatementArgs(PreparedStatement preparedStatement) {
-        throw new UnsupportedOperationException("Bill can not be deleted.");
-    }
-
-    @Override
     public void setKeyArg(int index, String header, PreparedStatement preparedStatement) {
         try {
             if (header.equals(ID_HEADER)) {
@@ -101,9 +89,39 @@ public class BillModel implements BillModelInterface {
     }
 
     @Override
+    public void insertToDatabase() {
+        try {
+            PreparedStatement preparedStatement = dbConnection
+                    .prepareStatement(INSERT_QUERY_PROTOTYPE);
+            preparedStatement.setInt(1, this.id);
+            preparedStatement.setTimestamp(2, this.dateTimeExport);
+            preparedStatement.setInt(3, this.payment);
+            preparedStatement.setInt(4, this.guestMoney);
+            preparedStatement.setInt(5, this.changeMoney);
+            this.employee.setKeyArg(6, ID_HEADER, preparedStatement);
+            
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(BillModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void deleteInDatabase() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void updateInDatabase() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
     public String toString() {
         return "Bill{" + "billID=" + id + ", dateExport=" + dateTimeExport
                 + ", payment=" + payment + ", givenMoney=" + guestMoney + ", changeMoney="
                 + changeMoney + ", employee=" + employee + '}';
     }
+
 }

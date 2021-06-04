@@ -65,4 +65,11 @@ public class AppController implements AppControllerInterface {
     public void signOut() {
     }
 
+    @Override
+    public void closeProgram() {
+        // handle event user close window
+        // -> confirm exit.
+        // -> close database connection
+    }
+
 }

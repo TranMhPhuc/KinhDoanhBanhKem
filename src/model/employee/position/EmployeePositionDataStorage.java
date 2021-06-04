@@ -38,7 +38,9 @@ public class EmployeePositionDataStorage implements DatabaseUpdate {
             positions.clear();
 
             while (resultSet.next()) {
-                positions.add(EmployeePositionModel.getInstance(resultSet));
+                EmployeePositionModelInterface position = new EmployeePositionModel();
+                position.setProperty(resultSet);
+                positions.add(position);
             }
             
             AppLog.getLogger().info("Update employee position database: sucessfully, " + positions.size() + " rows inserted.");

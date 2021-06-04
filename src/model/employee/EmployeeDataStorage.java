@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import util.AppLog;
 
-public class EmployeeDataStorage implements EmployeeDataStorageInterface, EmployeeManageModelInterface {
+public class EmployeeDataStorage implements EmployeeDataStorageInterface {
 
     private static EmployeeDataStorage uniqueInstance;
 
@@ -50,6 +50,7 @@ public class EmployeeDataStorage implements EmployeeDataStorageInterface, Employ
         }
     }
 
+    @Override
     public EmployeeModelInterface getEmployee(String employeeIDText) {
         for (EmployeeModelInterface element : employees) {
             if (element.getEmployeeIDText().equals(employeeIDText)) {
@@ -57,5 +58,17 @@ public class EmployeeDataStorage implements EmployeeDataStorageInterface, Employ
             }
         }
         return null;
+    }
+
+    @Override
+    public int getSize() {
+        return this.employees.size();
+    }
+
+    @Override
+    public EmployeeModelInterface createEmployee() {
+        EmployeeModelInterface newEmployee = new EmployeeModel();
+        this.employees.add(newEmployee);
+        return newEmployee;
     }
 }

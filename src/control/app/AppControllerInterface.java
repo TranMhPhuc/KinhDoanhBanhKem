@@ -8,4 +8,6 @@ public interface AppControllerInterface {
     
     void signOut();
     
+    void closeProgram();
+    
 }

@@ -38,7 +38,9 @@ public class EmployeeShiftDataStorage implements EmployeeShiftDataStorageInterfa
             shifts.clear();
 
             while (resultSet.next()) {
-                shifts.add(EmployeeShiftModel.getInstance(resultSet));
+                EmployeeShiftModelInterface shift = new EmployeeShiftModel();
+                shift.setProperty(resultSet);
+                shifts.add(shift);
             }
             
             AppLog.getLogger().info("Update employee shift database: sucessfully, " + shifts.size() + " rows inserted.");
@@ -64,7 +66,7 @@ public class EmployeeShiftDataStorage implements EmployeeShiftDataStorageInterfa
     }
     
     @Override
-    public int getStorageSize() {
+    public int getSize() {
         return shifts.size();
     }
 }

@@ -1,10 +1,8 @@
 package model.ingredient;
 
-import model.ingredient.importDetail.IngredientImportDetail;
-import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +13,6 @@ import model.ingredient.ingredientUnit.IngredientUnitModelInterface;
 import model.ingredientOfProduct.IngredientOfProductDetailInterface;
 import model.provider.ProviderDataStorage;
 import model.provider.ProviderModelInterface;
-import util.db.SQLServerConnection;
 
 public class IngredientModel implements IngredientModelInterface {
 
@@ -28,7 +25,6 @@ public class IngredientModel implements IngredientModelInterface {
     public static final String PROVIDER_ID_HEADER = "MaNCC";
     public static final String UNIT_ID_HEADER = "MaDonVi";
 
-    private static Connection dbConnection;
     private static IngredientTypeDataStorage ingredientTypeDataStorage;
     private static ProviderDataStorage providerDataStorage;
     private static IngredientUnitDataStorage ingredientUnitDataStorage;
@@ -43,7 +39,6 @@ public class IngredientModel implements IngredientModelInterface {
     private ArrayList<IngredientOfProductDetailInterface> productDetails;
 
     static {
-        dbConnection = SQLServerConnection.getConnection();
         ingredientTypeDataStorage = IngredientTypeDataStorage.getInstance();
         providerDataStorage = ProviderDataStorage.getInstance();
         ingredientUnitDataStorage = IngredientUnitDataStorage.getInstance();
@@ -67,23 +62,6 @@ public class IngredientModel implements IngredientModelInterface {
         this.productDetails = productDetails;
     }
 
-    public static IngredientModelInterface getInstance(ResultSet resultSet) {
-        IngredientModel ret = new IngredientModel();
-        try {
-            ret.id = resultSet.getInt(ID_HEADER);
-            ret.name = resultSet.getString(NAME_HEADER);
-            ret.type = ingredientTypeDataStorage.getIngredientType(resultSet.getString(TYPE_HEADER));
-            ret.cost = resultSet.getInt(COST_HEADER);
-            ret.amount = resultSet.getInt(AMOUNT_HEADER);
-            ret.provider = providerDataStorage.getProvider(resultSet.getString(PROVIDER_ID_HEADER));
-            ret.unit = ingredientUnitDataStorage.getIngredientUnit(resultSet.getString(UNIT_ID_HEADER));
-
-        } catch (SQLException ex) {
-            Logger.getLogger(IngredientModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return ret;
-    }
-
     @Override
     public String getIngredientIDText() {
         return String.valueOf(this.id);
@@ -92,6 +70,41 @@ public class IngredientModel implements IngredientModelInterface {
     @Override
     public void addProductDetail(IngredientOfProductDetailInterface ingredientOfProductDetailInterface) {
         this.productDetails.add(ingredientOfProductDetailInterface);
+    }
+
+    @Override
+    public void setProperty(ResultSet resultSet) {
+        try {
+            this.id = resultSet.getInt(ID_HEADER);
+            this.name = resultSet.getString(NAME_HEADER);
+            this.type = ingredientTypeDataStorage.getIngredientType(resultSet.getString(TYPE_HEADER));
+            this.cost = resultSet.getInt(COST_HEADER);
+            this.amount = resultSet.getInt(AMOUNT_HEADER);
+            this.provider = providerDataStorage.getProvider(resultSet.getString(PROVIDER_ID_HEADER));
+            this.unit = ingredientUnitDataStorage.getIngredientUnit(resultSet.getString(UNIT_ID_HEADER));
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void insertToDatabase() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void deleteInDatabase() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void updateInDatabase() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setKeyArg(int index, String header, PreparedStatement preparedStatement) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

@@ -1,6 +1,5 @@
 package model.employee;
 
-import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +15,6 @@ import model.employee.position.EmployeePositionModelInterface;
 import model.employee.shift.EmployeeShiftDataStorage;
 import model.employee.shift.EmployeeShiftDataStorageInterface;
 import model.employee.shift.EmployeeShiftModelInterface;
-import util.db.SQLServerConnection;
 
 public class EmployeeModel implements EmployeeModelInterface {
 
@@ -35,7 +33,32 @@ public class EmployeeModel implements EmployeeModelInterface {
     public static final String STATUS_HEADER = "TrangThai";
     public static final String END_DATE_HEADER = "NgayNghiViec";
 
-    private static Connection dbConnection;
+    private static final String INSERT_QUERY_PROTOTYPE
+            = "INSERT INTO" + TABLE_NAME + " ("
+            + ID_HEADER + ", " + NAME_HEADER + ", " + PHONE_HEADER + ", "
+            + BIRTHDAY_HEADER + ", " + EMAIL_HEADER + ", " + PASSWORD_HEADER + ", "
+            + GENDER_HEADER + ", " + START_DATE_HEADER + ", " + POSITION_HEADER + ", "
+            + STATUS_HEADER + ", " + END_DATE_HEADER + ")"
+            + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    private static final String INSERT_EMPLOYEE_SHIFT_QUERY_PROTOTYPE
+            = "INSERT INTO " + TABLE_RELATE_SHIFT_NAME + " ("
+            + ID_HEADER + ", " + EmployeeShiftModel.ID_HEADER + ")"
+            + " VALUES (?, ?)";
+
+    private static final String UPDATE_QUERY_PROTOTYPE
+            = "UPDATE " + TABLE_NAME
+            + " SET " + NAME_HEADER + " = ?, " + ", " + PHONE_HEADER + " = ?, "
+            + BIRTHDAY_HEADER + " = ?, " + EMAIL_HEADER + " = ?, " + PASSWORD_HEADER + " = ?, "
+            + GENDER_HEADER + " = ?, " + START_DATE_HEADER + " = ?, " + POSITION_HEADER + " = ?, "
+            + STATUS_HEADER + " = ?, " + END_DATE_HEADER + " = ? "
+            + " WHERE " + ID_HEADER + " = ?";
+
+    private static final String UPDATE_EMPLOYEE_SHIFT_QUERY_PROTOTYPE
+            = "UPDATE " + TABLE_RELATE_SHIFT_NAME
+            + " SET " + EmployeeShiftModel.ID_HEADER
+            + " WHERE " + ID_HEADER + " = ?";
+
     private static EmployeePositionDataStorage employeePositionDataStorage;
     private static EmployeeShiftDataStorageInterface employeeShiftDataStorage;
 
@@ -54,33 +77,11 @@ public class EmployeeModel implements EmployeeModelInterface {
     private ArrayList<EmployeeShiftModelInterface> shifts;
 
     static {
-        dbConnection = SQLServerConnection.getConnection();
         employeePositionDataStorage = EmployeePositionDataStorage.getInstance();
         employeeShiftDataStorage = EmployeeShiftDataStorage.getInstance();
     }
 
     public EmployeeModel() {
-        isActive = true;
-        isMale = true;
-    }
-
-    public EmployeeModel(int employeeID, String name, int phoneNum, Date birthday,
-            String email, String personalID, String password, boolean isMale,
-            EmployeePositionModelInterface position, boolean isActive, Date startDate,
-            Date endDate, ArrayList<EmployeeShiftModelInterface> shift) {
-        this.employeeID = employeeID;
-        this.name = name;
-        this.phoneNum = phoneNum;
-        this.birthday = birthday;
-        this.email = email;
-        this.personalID = personalID;
-        this.password = password;
-        this.isMale = isMale;
-        this.position = position;
-        this.isActive = isActive;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.shifts = shift;
     }
 
     @Override
@@ -139,16 +140,6 @@ public class EmployeeModel implements EmployeeModelInterface {
     }
 
     @Override
-    public void setInsertStatementArgs(PreparedStatement preparedStatement) {
-
-    }
-
-    @Override
-    public void setDeleteStatementArgs(PreparedStatement preparedStatement) {
-        throw new UnsupportedOperationException("Employee can not be deleted.");
-    }
-
-    @Override
     public void setKeyArg(int index, String header, PreparedStatement preparedStatement) {
         try {
             if (header.equals(ID_HEADER)) {
@@ -182,6 +173,88 @@ public class EmployeeModel implements EmployeeModelInterface {
     }
 
     @Override
+    public void insertToDatabase() {
+        try {
+            PreparedStatement preparedStatement = dbConnection
+                    .prepareStatement(INSERT_QUERY_PROTOTYPE);
+
+            preparedStatement.setInt(1, this.employeeID);
+            preparedStatement.setString(2, this.name);
+            preparedStatement.setInt(3, this.phoneNum);
+            preparedStatement.setDate(4, this.birthday);
+            preparedStatement.setString(5, this.email);
+            preparedStatement.setString(6, this.personalID);
+            preparedStatement.setString(7, this.password);
+            preparedStatement.setBoolean(8, this.isMale);
+            preparedStatement.setDate(9, this.startDate);
+            this.position.setKeyArg(10, EmployeePositionModel.ID_HEADER, preparedStatement);
+            preparedStatement.setBoolean(11, this.isActive);
+            preparedStatement.setDate(12, this.endDate);
+
+            preparedStatement.execute();
+            preparedStatement.close();
+
+            preparedStatement = dbConnection
+                    .prepareStatement(INSERT_EMPLOYEE_SHIFT_QUERY_PROTOTYPE);
+
+            for (EmployeeShiftModelInterface shift : shifts) {
+                preparedStatement.clearParameters();
+                preparedStatement.setInt(1, this.employeeID);
+                shift.setKeyArg(2, EmployeeShiftModel.ID_HEADER, preparedStatement);
+                preparedStatement.execute();
+            }
+
+            preparedStatement.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void deleteInDatabase() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void updateInDatabase() {
+        try {
+            PreparedStatement preparedStatement = dbConnection.prepareStatement(UPDATE_QUERY_PROTOTYPE);
+
+            preparedStatement.setString(1, this.name);
+            preparedStatement.setInt(2, this.phoneNum);
+            preparedStatement.setDate(3, this.birthday);
+            preparedStatement.setString(4, this.email);
+            preparedStatement.setString(5, this.personalID);
+            preparedStatement.setString(6, this.password);
+            preparedStatement.setBoolean(7, this.isMale);
+            preparedStatement.setDate(8, this.startDate);
+            this.position.setKeyArg(9, EmployeePositionModel.ID_HEADER, preparedStatement);
+            preparedStatement.setBoolean(10, this.isActive);
+            preparedStatement.setDate(11, this.endDate);
+            preparedStatement.setInt(12, this.employeeID);
+
+            preparedStatement.execute();
+            preparedStatement.close();
+
+            preparedStatement = dbConnection
+                    .prepareStatement(UPDATE_EMPLOYEE_SHIFT_QUERY_PROTOTYPE);
+
+            for (EmployeeShiftModelInterface shift : shifts) {
+                preparedStatement.clearParameters();
+                shift.setKeyArg(1, EmployeeShiftModel.ID_HEADER, preparedStatement);
+                preparedStatement.setInt(2, this.employeeID);
+                preparedStatement.execute();
+            }
+            
+            preparedStatement.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
     public String toString() {
         String shiftText = "{";
         for (int i = 0; i < shifts.size() - 1; i++) {
@@ -196,4 +269,5 @@ public class EmployeeModel implements EmployeeModelInterface {
                 + position.getPositionIDText() + ", isActive=" + isActive + ", endDate=" + endDate
                 + ", shifts=" + shiftText + '}';
     }
+
 }

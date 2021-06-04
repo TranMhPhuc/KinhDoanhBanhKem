@@ -5,10 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import model.DatabaseUpdate;
 import util.AppLog;
 
-public class IngredientDataStorage implements DatabaseUpdate {
+public class IngredientDataStorage implements IngredientDataStorageInterface {
 
     private static IngredientDataStorage uniqueInstance;
 
@@ -38,7 +37,9 @@ public class IngredientDataStorage implements DatabaseUpdate {
             ingredients.clear();
 
             while (resultSet.next()) {
-                ingredients.add(IngredientModel.getInstance(resultSet));
+                IngredientModelInterface ingredient = new IngredientModel();
+                ingredient.setProperty(resultSet);
+                ingredients.add(ingredient);
             }
 
             AppLog.getLogger().info("Update ingredient database: successfully, "
@@ -57,4 +58,17 @@ public class IngredientDataStorage implements DatabaseUpdate {
         }
         return null;
     }
+
+    @Override
+    public IngredientModelInterface createIngredient() {
+        IngredientModelInterface newIngredient = new IngredientModel();
+        this.ingredients.add(newIngredient);
+        return newIngredient;
+    }
+
+    @Override
+    public int getSize() {
+        return this.ingredients.size();
+    }
+
 }

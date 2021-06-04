@@ -42,12 +42,17 @@ public class EmployeePositionModel implements EmployeePositionModelInterface {
     }
 
     @Override
-    public void setInsertStatementArgs(PreparedStatement preparedStatement) {
+    public void insertToDatabase() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void setDeleteStatementArgs(PreparedStatement preparedStatement) {
+    public void deleteInDatabase() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void updateInDatabase() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -71,5 +76,4 @@ public class EmployeePositionModel implements EmployeePositionModelInterface {
         return "EmployeePositionModel{" + "id=" + id
                 + ", name=" + name + ", salaryFactor=" + salaryFactor + '}';
     }
-
 }

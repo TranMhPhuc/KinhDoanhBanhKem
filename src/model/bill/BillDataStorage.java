@@ -1,17 +1,13 @@
 package model.bill;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import model.employee.EmployeeModel;
 import util.AppLog;
 
-public class BillDataStorage implements BillDataStorageInterface, BillCreateModelInterface {
+public class BillDataStorage implements BillDataStorageInterface {
 
     private volatile static BillDataStorage uniqueInstance;
 
@@ -67,20 +63,9 @@ public class BillDataStorage implements BillDataStorageInterface, BillCreateMode
     }
 
     @Override
-    public void addNewBill(BillModelInterface todayBill) {
-        bills.add(todayBill);
-
-        try {
-            String addBillQuery
-                    = "INSERT INTO " + BillModel.TABLE_NAME
-                    + "(" + BillModel.ID_HEADER + ", " + BillModel.DATE_HEADER + ", "
-                    + BillModel.PAYMENT_HEADER + ", " + BillModel.GUEST_MONEY_HEADER
-                    + ", " + BillModel.CHANGE_MONEY_HEADER + EmployeeModel.ID_HEADER 
-                    + ") VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement statement = dbConnection.prepareCall(addBillQuery);
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(BillDataStorage.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public BillModelInterface createBill() {
+        BillModelInterface newBill = new BillModel();
+        this.bills.add(newBill);
+        return newBill;
     }
 }
