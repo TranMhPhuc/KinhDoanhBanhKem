@@ -75,16 +75,6 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
           <SubComponents>
-            <Component class="view.function.EmployeeManagePanel" name="panelEmployeeManage">
-              <Properties>
-                <Property name="name" type="java.lang.String" value="Employee" noResource="true"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-                  <CardConstraints cardName="Employee"/>
-                </Constraint>
-              </Constraints>
-            </Component>
             <Component class="view.function.HomePanel" name="panelHome">
               <Properties>
                 <Property name="name" type="java.lang.String" value="Home" noResource="true"/>

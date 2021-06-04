@@ -2,6 +2,7 @@ package model.employee;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,11 +11,12 @@ import model.employee.shift.EmployeeShiftModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.employee.position.EmployeePositionDataStorage;
+import model.employee.position.EmployeePositionModel;
 import model.employee.position.EmployeePositionModelInterface;
 import model.employee.shift.EmployeeShiftDataStorage;
+import model.employee.shift.EmployeeShiftDataStorageInterface;
 import model.employee.shift.EmployeeShiftModelInterface;
 import util.db.SQLServerConnection;
-import view.function.EmployeeViewObserver;
 
 public class EmployeeModel implements EmployeeModelInterface {
 
@@ -35,7 +37,7 @@ public class EmployeeModel implements EmployeeModelInterface {
 
     private static Connection dbConnection;
     private static EmployeePositionDataStorage employeePositionDataStorage;
-    private static EmployeeShiftDataStorage employeeShiftDataStorage;
+    private static EmployeeShiftDataStorageInterface employeeShiftDataStorage;
 
     private int employeeID;
     private String name;
@@ -81,62 +83,44 @@ public class EmployeeModel implements EmployeeModelInterface {
         this.shifts = shift;
     }
 
-    public static EmployeeModelInterface getInstance(ResultSet resultSet) {
-        EmployeeModel ret = new EmployeeModel();
-
+    @Override
+    public void setProperty(ResultSet resultSet) {
         try {
-            ret.employeeID = resultSet.getInt(ID_HEADER);
-            ret.name = resultSet.getString(NAME_HEADER);
-            ret.phoneNum = resultSet.getInt(PHONE_HEADER);
-            ret.birthday = resultSet.getDate(BIRTHDAY_HEADER);
-            ret.email = resultSet.getString(EMAIL_HEADER);
-            ret.personalID = resultSet.getString(PERSONAL_ID_HEADER);
-            ret.password = resultSet.getString(PASSWORD_HEADER);
-            ret.isMale = resultSet.getBoolean(GENDER_HEADER);
+            this.employeeID = resultSet.getInt(ID_HEADER);
+            this.name = resultSet.getString(NAME_HEADER);
+            this.phoneNum = resultSet.getInt(PHONE_HEADER);
+            this.birthday = resultSet.getDate(BIRTHDAY_HEADER);
+            this.email = resultSet.getString(EMAIL_HEADER);
+            this.personalID = resultSet.getString(PERSONAL_ID_HEADER);
+            this.password = resultSet.getString(PASSWORD_HEADER);
+            this.isMale = resultSet.getBoolean(GENDER_HEADER);
 
-            ret.position = employeePositionDataStorage.getPosition(
+            this.position = employeePositionDataStorage.getPosition(
                     resultSet.getString(POSITION_HEADER));
 
-            ret.isActive = resultSet.getBoolean(STATUS_HEADER);
-            ret.startDate = resultSet.getDate(START_DATE_HEADER);
-            ret.endDate = resultSet.getDate(END_DATE_HEADER);
+            this.isActive = resultSet.getBoolean(STATUS_HEADER);
+            this.startDate = resultSet.getDate(START_DATE_HEADER);
+            this.endDate = resultSet.getDate(END_DATE_HEADER);
 
             Statement shiftFindStatement = dbConnection.createStatement();
 
-            ret.shifts = new ArrayList<>();
+            this.shifts = new ArrayList<>();
 
             String shiftFindQuery
                     = "SELECT " + EmployeeShiftModel.ID_HEADER
                     + " FROM " + TABLE_RELATE_SHIFT_NAME
-                    + " WHERE " + ID_HEADER + " = " + ret.employeeID;
+                    + " WHERE " + ID_HEADER + " = " + this.employeeID;
 
             ResultSet shiftFindResultSet = shiftFindStatement.executeQuery(shiftFindQuery);
 
             while (shiftFindResultSet.next()) {
                 String shiftIDText = shiftFindResultSet.getString(1);
-                ret.shifts.add(employeeShiftDataStorage.getShift(shiftIDText));
+                this.shifts.add(employeeShiftDataStorage.getShift(shiftIDText));
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return ret;
-    }
-
-    @Override
-    public void registerObserver(EmployeeViewObserver employeeViewObserver) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void removeObserver(EmployeeViewObserver employeeViewObserver) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void notifyObserver() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -153,7 +137,50 @@ public class EmployeeModel implements EmployeeModelInterface {
     public String getEmployeeName() {
         return this.name;
     }
-    
+
+    @Override
+    public void setInsertStatementArgs(PreparedStatement preparedStatement) {
+
+    }
+
+    @Override
+    public void setDeleteStatementArgs(PreparedStatement preparedStatement) {
+        throw new UnsupportedOperationException("Employee can not be deleted.");
+    }
+
+    @Override
+    public void setKeyArg(int index, String header, PreparedStatement preparedStatement) {
+        try {
+            if (header.equals(ID_HEADER)) {
+                preparedStatement.setInt(index, this.employeeID);
+            } else if (header.equals(NAME_HEADER)) {
+                preparedStatement.setString(index, this.name);
+            } else if (header.equals(PHONE_HEADER)) {
+                preparedStatement.setInt(index, this.phoneNum);
+            } else if (header.equals(BIRTHDAY_HEADER)) {
+                preparedStatement.setDate(index, this.birthday);
+            } else if (header.equals(EMAIL_HEADER)) {
+                preparedStatement.setString(index, this.email);
+            } else if (header.equals(PERSONAL_ID_HEADER)) {
+                preparedStatement.setString(index, this.personalID);
+            } else if (header.equals(PASSWORD_HEADER)) {
+                preparedStatement.setString(index, this.password);
+            } else if (header.equals(GENDER_HEADER)) {
+                preparedStatement.setBoolean(index, this.isMale);
+            } else if (header.equals(START_DATE_HEADER)) {
+                preparedStatement.setDate(index, this.startDate);
+            } else if (header.equals(POSITION_HEADER)) {
+                this.position.setKeyArg(index, EmployeePositionModel.ID_HEADER, preparedStatement);
+            } else if (header.equals(START_DATE_HEADER)) {
+                preparedStatement.setBoolean(index, this.isActive);
+            } else if (header.equals(END_DATE_HEADER)) {
+                preparedStatement.setDate(index, this.endDate);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     @Override
     public String toString() {
         String shiftText = "{";
@@ -169,5 +196,4 @@ public class EmployeeModel implements EmployeeModelInterface {
                 + position.getPositionIDText() + ", isActive=" + isActive + ", endDate=" + endDate
                 + ", shifts=" + shiftText + '}';
     }
-
 }

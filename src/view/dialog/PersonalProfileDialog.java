@@ -12,14 +12,14 @@ import util.swing.UIControl;
  *
  * @author Minh Tu
  */
-public class PersonalProfileEditDialog extends javax.swing.JDialog {
+public class PersonalProfileDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form personalProfileDialog
      */
     private PasswordChangeDialog changePW = new PasswordChangeDialog(null, true);
 
-    public PersonalProfileEditDialog(java.awt.Frame parent, boolean modal) {
+    public PersonalProfileDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setEditableForAll(false);
@@ -208,14 +208,18 @@ public class PersonalProfileEditDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PersonalProfileEditDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PersonalProfileDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PersonalProfileEditDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PersonalProfileDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PersonalProfileEditDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PersonalProfileDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PersonalProfileEditDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PersonalProfileDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -224,7 +228,7 @@ public class PersonalProfileEditDialog extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PersonalProfileEditDialog dialog = new PersonalProfileEditDialog(new javax.swing.JFrame(), true);
+                PersonalProfileDialog dialog = new PersonalProfileDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

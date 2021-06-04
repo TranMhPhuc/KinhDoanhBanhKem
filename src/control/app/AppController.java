@@ -17,7 +17,7 @@ public class AppController implements AppControllerInterface {
 
     private AppController(UserModelInterface model) {
         this.model = model;
-        this.mainFrame = new MainFrame(this, model);
+//        this.mainFrame = new MainFrame(this, model);
 
         getDisplayUIStrategy();
         this.customUIDisplay.customUIDisplay(this.mainFrame, this.model);

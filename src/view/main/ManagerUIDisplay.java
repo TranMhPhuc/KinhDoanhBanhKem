@@ -10,8 +10,8 @@ public class ManagerUIDisplay implements CustomUIDisplay {
         SideMenuPanel sideMenuPanel = mainFrame.getPanelSideMenu();
         
         sideMenuPanel.setHomeFunctionState(true);
-        sideMenuPanel.setSellButtonState(false);
-        sideMenuPanel.setStatisticButtonState(false);
+        sideMenuPanel.setSellButtonState(true);
+        sideMenuPanel.setStatisticButtonState(true);
         sideMenuPanel.setProductManageButtonState(true);
         sideMenuPanel.setEmployeeButtonState(true);
         

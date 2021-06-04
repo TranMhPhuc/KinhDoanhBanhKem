@@ -5,10 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import model.DatabaseUpdate;
 import util.AppLog;
 
-public class EmployeeDataStorage implements DatabaseUpdate {
+public class EmployeeDataStorage implements EmployeeDataStorageInterface, EmployeeManageModelInterface {
 
     private static EmployeeDataStorage uniqueInstance;
 
@@ -22,7 +21,7 @@ public class EmployeeDataStorage implements DatabaseUpdate {
         employees = new ArrayList<>();
     }
 
-    public static EmployeeDataStorage getInstance() {
+    public static EmployeeDataStorageInterface getInstance() {
         return uniqueInstance;
     }
 
@@ -38,11 +37,14 @@ public class EmployeeDataStorage implements DatabaseUpdate {
             employees.clear();
 
             while (resultSet.next()) {
-                employees.add(EmployeeModel.getInstance(resultSet));
+                EmployeeModelInterface employee = new EmployeeModel();
+                employee.setProperty(resultSet);
+                employees.add(employee);
             }
-            
-            AppLog.getLogger().info("Update employee database: sucessfully, " + employees.size() + " rows inserted.");
-            
+
+            AppLog.getLogger().info("Update employee database: sucessfully, "
+                    + employees.size() + " rows inserted.");
+
         } catch (SQLException ex) {
             AppLog.getLogger().fatal("Update employee database: error.");
         }

@@ -1,6 +1,5 @@
 package model.user;
 
-import java.util.ArrayList;
 import model.employee.EmployeeModelInterface;
 
 /**

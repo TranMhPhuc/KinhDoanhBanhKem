@@ -1,14 +1,17 @@
 package model.bill;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import model.DatabaseUpdate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.employee.EmployeeModel;
 import util.AppLog;
 
-public class BillDataStorage implements DatabaseUpdate {
+public class BillDataStorage implements BillDataStorageInterface, BillCreateModelInterface {
 
     private volatile static BillDataStorage uniqueInstance;
 
@@ -41,7 +44,9 @@ public class BillDataStorage implements DatabaseUpdate {
 
             while (resultSet.next()) {
                 if (resultSet.getDate(BillModel.DATE_HEADER).toString().equals(dateNow)) {
-                    bills.add(BillModel.getInstance(resultSet));
+                    BillModelInterface bill = new BillModel();
+                    bill.setProperty(resultSet);
+                    bills.add(bill);
                 }
             }
 
@@ -51,6 +56,7 @@ public class BillDataStorage implements DatabaseUpdate {
         }
     }
 
+    @Override
     public BillModelInterface getBill(String billIDText) {
         for (BillModelInterface element : bills) {
             if (element.getBillIDText().equals(billIDText)) {
@@ -58,5 +64,23 @@ public class BillDataStorage implements DatabaseUpdate {
             }
         }
         return null;
+    }
+
+    @Override
+    public void addNewBill(BillModelInterface todayBill) {
+        bills.add(todayBill);
+
+        try {
+            String addBillQuery
+                    = "INSERT INTO " + BillModel.TABLE_NAME
+                    + "(" + BillModel.ID_HEADER + ", " + BillModel.DATE_HEADER + ", "
+                    + BillModel.PAYMENT_HEADER + ", " + BillModel.GUEST_MONEY_HEADER
+                    + ", " + BillModel.CHANGE_MONEY_HEADER + EmployeeModel.ID_HEADER 
+                    + ") VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement statement = dbConnection.prepareCall(addBillQuery);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(BillDataStorage.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

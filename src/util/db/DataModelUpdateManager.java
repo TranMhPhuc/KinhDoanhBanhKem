@@ -3,8 +3,10 @@ package util.db;
 import java.sql.Connection;
 import model.bill.BillDataStorage;
 import model.employee.EmployeeDataStorage;
+import model.employee.EmployeeDataStorageInterface;
 import model.employee.position.EmployeePositionDataStorage;
 import model.employee.shift.EmployeeShiftDataStorage;
+import model.employee.shift.EmployeeShiftDataStorageInterface;
 import model.ingredient.IngredientDataStorage;
 import model.ingredient.ingredientType.IngredientTypeDataStorage;
 import model.ingredient.ingredientUnit.IngredientUnitDataStorage;
@@ -23,9 +25,9 @@ public class DataModelUpdateManager {
 
     private static Connection connection;
 
-    private EmployeeShiftDataStorage employeeShiftDataStorage;
+    private EmployeeShiftDataStorageInterface employeeShiftDataStorage;
     private EmployeePositionDataStorage employeePositionDataStorage;
-    private EmployeeDataStorage employeeDataStorage;
+    private EmployeeDataStorageInterface employeeDataStorage;
     private BillDataStorage billDataStorage;
     private ProviderDataStorage providerDataStorage;
     private IngredientTypeDataStorage ingredientTypeDataStorage;

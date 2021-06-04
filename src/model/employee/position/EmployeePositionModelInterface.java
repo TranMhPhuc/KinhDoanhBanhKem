@@ -1,6 +1,8 @@
 package model.employee.position;
 
-public interface EmployeePositionModelInterface {
+import model.DatabaseModel;
+
+public interface EmployeePositionModelInterface extends DatabaseModel {
     
     String getPositionName();
     

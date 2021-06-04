@@ -1,19 +1,9 @@
 package model.bill;
 
-import model.productOfBill.ProductOfBillDetailInterface;
-import view.function.product.ProductViewObserver;
+import model.DatabaseModel;
 
-public interface BillModelInterface {
+public interface BillModelInterface extends DatabaseModel {
 
     String getBillIDText();
-    
-    void notifyObserver();
 
-    /**
-     * Update product amount when new bill created.
-     * @param productViewObserver 
-     */
-    void registerObserver(ProductViewObserver productViewObserver);
-
-    void removeObserver(ProductViewObserver productViewObserver);
 }

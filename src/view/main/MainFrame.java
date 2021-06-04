@@ -1,6 +1,7 @@
 package view.main;
 
 import control.app.AppControllerInterface;
+import java.awt.CardLayout;
 import java.awt.Color;
 
 import javax.swing.ImageIcon;
@@ -15,20 +16,51 @@ import view.function.bill.BillManagePanel;
 import view.function.product.ProductManagePanel;
 
 public class MainFrame extends javax.swing.JFrame {
-
+    
+    private volatile static MainFrame uniqueInstance;
+    
     private UserModelInterface model;
     private AppControllerInterface controller;
 
-    public MainFrame(AppControllerInterface controller, UserModelInterface model) {
+    private MainFrame(AppControllerInterface controller, UserModelInterface model) {
         initComponents();
 
         this.model = model;
         this.controller = controller;
 
+        createView();
+    }
+    
+    public static MainFrame getInstance(AppControllerInterface controller, 
+            UserModelInterface model) {
+        if (uniqueInstance == null) {
+            synchronized (MainFrame.class) {
+                if (uniqueInstance == null) {
+                    uniqueInstance = new MainFrame(controller, model);
+                }
+            }
+        }
+        return uniqueInstance;
+    }
+
+    private void createView() {
         panelSideMenu.setLabelUserNameText(this.model.getUserName());
-        panelSideMenu.showCardMenu("Home");
-        
         this.getContentPane().setBackground(new Color(225, 229, 234));
+        showFirstCardEnable();
+    }
+
+    public void showFirstCardEnable() {
+        CardLayout cardLayout = (CardLayout) panelManage.getLayout();
+
+        JPanel[] panels = new JPanel[]{
+            panelHome, panelBill, panelProduct, panelStatistics, panelManage, panelEmployeeManage
+        };
+
+        for (int i = 0; i < panels.length; i++) {
+            if (panels[i].isEnabled()) {
+                cardLayout.show(panelManage, panels[i].getName());
+            }
+        }
     }
 
     public BillManagePanel getPanelBill() {
@@ -95,9 +127,9 @@ public class MainFrame extends javax.swing.JFrame {
         jLayeredPane1 = new javax.swing.JLayeredPane();
         panelTitle = new view.TitleMainFrame();
         panelManage = new javax.swing.JPanel();
-        panelEmployeeManage = new view.function.EmployeeManagePanel();
-        panelHome = new view.function.HomePanel(new ImageIcon(getClass().getResource("/img/homeBackground.png")).getImage());
-        panelStatistics = new view.function.StatisticsPanel();
+        panelEmployeeManage = view.function.EmployeeManagePanel.getInstance();
+        panelHome = view.function.HomePanel.getInstance(new ImageIcon(getClass().getResource("/img/homeBackground.png")).getImage());
+        panelStatistics = view.function.StatisticsPanel().getInstance();
         panelProduct = new view.function.product.ProductManagePanel();
         panelBill = new view.function.bill.BillManagePanel();
         panelSideMenu = new view.SideMenuPanel(panelTitle.getLabel_title(), panelManage);

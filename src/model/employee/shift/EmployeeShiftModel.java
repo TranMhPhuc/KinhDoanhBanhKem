@@ -49,6 +49,11 @@ public class EmployeeShiftModel implements EmployeeShiftModelInterface {
     public String getShiftIDText() {
         return String.valueOf(this.shiftID);
     }
+
+    @Override
+    public String getShiftName() {
+        return this.shiftName;
+    }
     
     @Override
     public String toString() {

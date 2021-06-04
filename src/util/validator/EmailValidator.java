@@ -1,6 +1,5 @@
 package util.validator;
 
-import static control.employee.EmployeeController.EMAIL_PATTERN;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +14,7 @@ import util.db.SQLServerConnection;
 public class EmailValidator {
 
     private static final Pattern EMAIL_VALID_PATTERN = Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
+    
     private static Connection dbConnection;
     
     static {
@@ -29,7 +29,7 @@ public class EmailValidator {
     }
 
     public static boolean isEmailVallid(String email) {
-        Matcher matcher = EMAIL_PATTERN.matcher(email);
+        Matcher matcher = EMAIL_VALID_PATTERN.matcher(email);
         return matcher.matches();
     }
 

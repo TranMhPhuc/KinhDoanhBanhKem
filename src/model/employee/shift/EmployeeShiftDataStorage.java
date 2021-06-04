@@ -5,10 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import model.DatabaseUpdate;
+import java.util.Iterator;
 import util.AppLog;
 
-public class EmployeeShiftDataStorage implements DatabaseUpdate {
+public class EmployeeShiftDataStorage implements EmployeeShiftDataStorageInterface {
 
     private static EmployeeShiftDataStorage uniqueInstance;
     
@@ -22,7 +22,7 @@ public class EmployeeShiftDataStorage implements DatabaseUpdate {
         shifts = new ArrayList<>();
     }
 
-    public static EmployeeShiftDataStorage getInstance() {
+    public static EmployeeShiftDataStorageInterface getInstance() {
         return uniqueInstance;
     }
     
@@ -48,6 +48,7 @@ public class EmployeeShiftDataStorage implements DatabaseUpdate {
         }
     }
     
+    @Override
     public EmployeeShiftModelInterface getShift(String shiftIDText) {
         for (EmployeeShiftModelInterface element: shifts) {
             if (element.getShiftIDText().equals(shiftIDText)) {
@@ -55,5 +56,15 @@ public class EmployeeShiftDataStorage implements DatabaseUpdate {
             }
         }
         return null;
+    }
+    
+    @Override
+    public Iterator<EmployeeShiftModelInterface> createIterator() {
+        return shifts.iterator();
+    }
+    
+    @Override
+    public int getStorageSize() {
+        return shifts.size();
     }
 }

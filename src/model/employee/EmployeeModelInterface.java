@@ -1,18 +1,12 @@
 package model.employee;
 
-import view.function.EmployeeViewObserver;
+import model.DatabaseModel;
 
-public interface EmployeeModelInterface {
+public interface EmployeeModelInterface extends DatabaseModel {
 
     String getEmployeeIDText();
     
     String getEmployeePositionName();
     
     String getEmployeeName();
-    
-    void registerObserver(EmployeeViewObserver employeeViewObserver);
-
-    void removeObserver(EmployeeViewObserver employeeViewObserver);
-
-    void notifyObserver();
 }

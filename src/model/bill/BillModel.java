@@ -1,14 +1,15 @@
 package model.bill;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.employee.EmployeeDataStorage;
+import model.employee.EmployeeDataStorageInterface;
 import model.employee.EmployeeModel;
 import model.employee.EmployeeModelInterface;
-import view.function.product.ProductViewObserver;
 
 public class BillModel implements BillModelInterface {
 
@@ -20,7 +21,7 @@ public class BillModel implements BillModelInterface {
     public static final String CHANGE_MONEY_HEADER = "TienThoi";
     public static final String EMPLOYEE_ID_HEADER = EmployeeModel.ID_HEADER;
 
-    private static EmployeeDataStorage employeeDataStorage;
+    private static final EmployeeDataStorageInterface employeeDataStorage;
 
     private int id;
     private Timestamp dateTimeExport;
@@ -36,23 +37,20 @@ public class BillModel implements BillModelInterface {
     public BillModel() {
     }
 
-    public static BillModel getInstance(ResultSet resultSet) {
-        BillModel ret = new BillModel();
-
+    @Override
+    public void setProperty(ResultSet resultSet) {
         try {
-            ret.id = resultSet.getInt("MaHD");
-            ret.dateTimeExport = resultSet.getTimestamp("NgayLap");
-            ret.payment = resultSet.getInt("TongTien");
-            ret.guestMoney = resultSet.getInt("TienKhachTra");
-            ret.changeMoney = resultSet.getInt("TienThoi");
+            this.id = resultSet.getInt("MaHD");
+            this.dateTimeExport = resultSet.getTimestamp("NgayLap");
+            this.payment = resultSet.getInt("TongTien");
+            this.guestMoney = resultSet.getInt("TienKhachTra");
+            this.changeMoney = resultSet.getInt("TienThoi");
 
-            ret.employee = employeeDataStorage
+            this.employee = employeeDataStorage
                     .getEmployee(resultSet.getString(EMPLOYEE_ID_HEADER));
         } catch (SQLException ex) {
             Logger.getLogger(BillModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return ret;
     }
 
     @Override
@@ -61,18 +59,45 @@ public class BillModel implements BillModelInterface {
     }
 
     @Override
-    public void notifyObserver() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setInsertStatementArgs(PreparedStatement preparedStatement) {
+        try {
+            preparedStatement.setInt(1, this.id);
+            preparedStatement.setTimestamp(2, this.dateTimeExport);
+            preparedStatement.setInt(3, this.payment);
+            preparedStatement.setInt(4, this.guestMoney);
+            preparedStatement.setInt(5, this.changeMoney);
+            this.employee.setKeyArg(6, ID_HEADER, preparedStatement);
+        } catch (SQLException ex) {
+            Logger.getLogger(BillModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
-    public void registerObserver(ProductViewObserver productViewObserver) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setDeleteStatementArgs(PreparedStatement preparedStatement) {
+        throw new UnsupportedOperationException("Bill can not be deleted.");
     }
 
     @Override
-    public void removeObserver(ProductViewObserver productViewObserver) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setKeyArg(int index, String header, PreparedStatement preparedStatement) {
+        try {
+            if (header.equals(ID_HEADER)) {
+                preparedStatement.setInt(index, this.id);
+            } else if (header.equals(ID_HEADER)) {
+                preparedStatement.setTimestamp(index, this.dateTimeExport);
+            } else if (header.equals(DATE_HEADER)) {
+                preparedStatement.setInt(index, this.payment);
+            } else if (header.equals(PAYMENT_HEADER)) {
+                preparedStatement.setInt(index, this.payment);
+            } else if (header.equals(GUEST_MONEY_HEADER)) {
+                preparedStatement.setInt(index, this.guestMoney);
+            } else if (header.equals(CHANGE_MONEY_HEADER)) {
+                preparedStatement.setInt(index, this.changeMoney);
+            } else if (header.equals(EMPLOYEE_ID_HEADER)) {
+                this.employee.setKeyArg(index, EmployeeModel.ID_HEADER, preparedStatement);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BillModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package model.employee.position;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -12,41 +13,63 @@ public class EmployeePositionModel implements EmployeePositionModelInterface {
     public static final String NAME_HEADER = "TenCV";
     public static final String SALARY_FACTOR_HEADER = "HeSoLuong";
 
-    private int positionID;
-    private String positionName;
-    private float salaryFactor = 1.0f;
+    private int id;
+    private String name;
+    private double salaryFactor = 1.0f;
 
     public EmployeePositionModel() {
     }
 
-    public static EmployeePositionModel getInstance(ResultSet resultSet) {
-        EmployeePositionModel ret = new EmployeePositionModel();
-
+    @Override
+    public void setProperty(ResultSet resultSet) {
         try {
-            ret.positionID = resultSet.getInt(ID_HEADER);
-            ret.positionName = resultSet.getString(NAME_HEADER);
-            ret.salaryFactor = resultSet.getInt(SALARY_FACTOR_HEADER);
+            this.id = resultSet.getInt(ID_HEADER);
+            this.name = resultSet.getString(NAME_HEADER);
+            this.salaryFactor = resultSet.getDouble(SALARY_FACTOR_HEADER);
         } catch (SQLException ex) {
             Logger.getLogger(EmployeePositionModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return ret;
     }
-    
+
     @Override
     public String getPositionIDText() {
-        return String.valueOf(this.positionID);
+        return String.valueOf(this.id);
     }
-    
+
     @Override
     public String getPositionName() {
-        return this.positionName;
+        return this.name;
+    }
+
+    @Override
+    public void setInsertStatementArgs(PreparedStatement preparedStatement) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setDeleteStatementArgs(PreparedStatement preparedStatement) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setKeyArg(int index, String header, PreparedStatement preparedStatement) {
+        try {
+            if (header.equals(ID_HEADER)) {
+                preparedStatement.setInt(index, this.id);
+            } else if (header.equals(NAME_HEADER)) {
+                preparedStatement.setString(index, this.name);
+            } else if (header.equals(SALARY_FACTOR_HEADER)) {
+                preparedStatement.setDouble(index, this.salaryFactor);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeePositionModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public String toString() {
-        return "EmployeePositionModel{" + "positionID=" + positionID + 
-                ", positionName=" + positionName + ", salaryFactor=" + salaryFactor + '}';
+        return "EmployeePositionModel{" + "id=" + id
+                + ", name=" + name + ", salaryFactor=" + salaryFactor + '}';
     }
-    
+
 }
