@@ -3,15 +3,15 @@ package model.ingredient;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.ingredient.ingredientType.IngredientTypeDataStorage;
-import model.ingredient.ingredientType.IngredientTypeModelInterface;
-import model.ingredient.ingredientUnit.IngredientUnitDataStorage;
-import model.ingredient.ingredientUnit.IngredientUnitModelInterface;
-import model.ingredientOfProduct.IngredientOfProductDetailInterface;
+import model.ingredient.type.IngredientTypeDataStorage;
+import model.ingredient.type.IngredientTypeModelInterface;
+import model.ingredient.unit.IngredientUnitDataStorage;
+import model.ingredient.unit.IngredientUnitModel;
+import model.ingredient.unit.IngredientUnitModelInterface;
 import model.provider.ProviderDataStorage;
+import model.provider.ProviderModel;
 import model.provider.ProviderModelInterface;
 
 public class IngredientModel implements IngredientModelInterface {
@@ -25,6 +25,24 @@ public class IngredientModel implements IngredientModelInterface {
     public static final String PROVIDER_ID_HEADER = "MaNCC";
     public static final String UNIT_ID_HEADER = "MaDonVi";
 
+    private static final String INSERT_QUERY_PROTOTYPE
+            = "INSERT INTO " + TABLE_NAME + " ("
+            + ID_HEADER + ", " + NAME_HEADER + ", " + TYPE_HEADER + ", "
+            + COST_HEADER + ", " + AMOUNT_HEADER + ", " + PROVIDER_ID_HEADER + ", "
+            + UNIT_ID_HEADER + ")"
+            + " VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    private static final String UPDATE_QUERY_PROTOTYPE
+            = "UPDATE " + TABLE_NAME
+            + " SET " + NAME_HEADER + " = ?, " + TYPE_HEADER + " = ?, "
+            + COST_HEADER + " = ?, " + AMOUNT_HEADER + " = ?, " + PROVIDER_ID_HEADER + " = ?, "
+            + UNIT_ID_HEADER + " = ?"
+            + " WHERE " + ID_HEADER + " = ?";
+
+    private static final String DELETE_QUERY_PROTOTYPE
+            = "DELETE FROM " + TABLE_NAME
+            + " WHERE " + ID_HEADER + " = ?";
+
     private static IngredientTypeDataStorage ingredientTypeDataStorage;
     private static ProviderDataStorage providerDataStorage;
     private static IngredientUnitDataStorage ingredientUnitDataStorage;
@@ -36,7 +54,6 @@ public class IngredientModel implements IngredientModelInterface {
     private float amount;
     private ProviderModelInterface provider;
     private IngredientUnitModelInterface unit;
-    private ArrayList<IngredientOfProductDetailInterface> productDetails;
 
     static {
         ingredientTypeDataStorage = IngredientTypeDataStorage.getInstance();
@@ -45,31 +62,11 @@ public class IngredientModel implements IngredientModelInterface {
     }
 
     public IngredientModel() {
-        productDetails = new ArrayList<>();
-    }
-
-    public IngredientModel(int id, String name, IngredientTypeModelInterface type,
-            int cost, float amount, ProviderModelInterface provider,
-            IngredientUnitModelInterface unit,
-            ArrayList<IngredientOfProductDetailInterface> productDetails) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.cost = cost;
-        this.amount = amount;
-        this.provider = provider;
-        this.unit = unit;
-        this.productDetails = productDetails;
     }
 
     @Override
     public String getIngredientIDText() {
         return String.valueOf(this.id);
-    }
-
-    @Override
-    public void addProductDetail(IngredientOfProductDetailInterface ingredientOfProductDetailInterface) {
-        this.productDetails.add(ingredientOfProductDetailInterface);
     }
 
     @Override
@@ -89,22 +86,82 @@ public class IngredientModel implements IngredientModelInterface {
 
     @Override
     public void insertToDatabase() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            PreparedStatement preparedStatement = dbConnection
+                    .prepareStatement(INSERT_QUERY_PROTOTYPE);
+
+            preparedStatement.setInt(1, this.id);
+            preparedStatement.setString(2, this.name);
+            this.type.setKeyArg(3, IngredientUnitModel.ID_HEADER, preparedStatement);
+            preparedStatement.setInt(4, this.cost);
+            preparedStatement.setFloat(5, this.amount);
+            this.provider.setKeyArg(6, ProviderModel.ID_HEADER, preparedStatement);
+            this.unit.setKeyArg(7, IngredientUnitModel.ID_HEADER, preparedStatement);
+
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void deleteInDatabase() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            PreparedStatement preparedStatement = dbConnection
+                    .prepareStatement(DELETE_QUERY_PROTOTYPE);
+            
+            preparedStatement.setInt(1, this.id);
+            
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void updateInDatabase() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            PreparedStatement preparedStatement = dbConnection
+                    .prepareStatement(UPDATE_QUERY_PROTOTYPE);
+
+            preparedStatement.setString(1, this.name);
+            this.type.setKeyArg(2, IngredientUnitModel.ID_HEADER, preparedStatement);
+            preparedStatement.setInt(3, this.cost);
+            preparedStatement.setFloat(4, this.amount);
+            this.provider.setKeyArg(5, ProviderModel.ID_HEADER, preparedStatement);
+            this.unit.setKeyArg(6, IngredientUnitModel.ID_HEADER, preparedStatement);
+            preparedStatement.setInt(7, this.id);
+
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void setKeyArg(int index, String header, PreparedStatement preparedStatement) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            if (header.equals(ID_HEADER)) {
+                preparedStatement.setInt(index, this.id);
+            } else if (header.equals(NAME_HEADER)) {
+                preparedStatement.setString(index, this.name);
+            } else if (header.equals(TYPE_HEADER)) {
+                this.type.setKeyArg(index, IngredientModel.ID_HEADER, preparedStatement);
+            } else if (header.equals(COST_HEADER)) {
+                preparedStatement.setInt(index, this.cost);
+            } else if (header.equals(AMOUNT_HEADER)) {
+                preparedStatement.setFloat(index, this.amount);
+            } else if (header.equals(PROVIDER_ID_HEADER)) {
+                preparedStatement.setString(index, this.name);
+            } else if (header.equals(UNIT_ID_HEADER)) {
+                preparedStatement.setString(index, this.name);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

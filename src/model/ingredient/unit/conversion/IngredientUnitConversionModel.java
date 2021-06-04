@@ -1,11 +1,12 @@
-package model.ingredient.ingredientUnit.conversion;
+package model.ingredient.unit.conversion;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.ingredient.ingredientUnit.IngredientUnitDataStorage;
-import model.ingredient.ingredientUnit.IngredientUnitModelInterface;
+import model.ingredient.unit.IngredientUnitDataStorage;
+import model.ingredient.unit.IngredientUnitModelInterface;
 
 public class IngredientUnitConversionModel implements IngredientUnitConversionModelInterface {
 
@@ -34,21 +35,39 @@ public class IngredientUnitConversionModel implements IngredientUnitConversionMo
         this.factor = factor;
     }
 
-    public static IngredientUnitConversionModelInterface getInstance(ResultSet resultSet) {
-        IngredientUnitConversionModel ret = new IngredientUnitConversionModel();
+    @Override
+    public void setProperty(ResultSet resultSet) {
         try {
-            ret.srcUnit = ingredientUnitDataStorage.getIngredientUnit(resultSet.getString(SRC_UNIT_HEADER));
-            ret.dstUnit = ingredientUnitDataStorage.getIngredientUnit(resultSet.getString(DST_UNIT_HEADER));
-            ret.factor = resultSet.getDouble(FACTOR_HEADER);
+            this.srcUnit = ingredientUnitDataStorage.getIngredientUnit(resultSet.getString(SRC_UNIT_HEADER));
+            this.dstUnit = ingredientUnitDataStorage.getIngredientUnit(resultSet.getString(DST_UNIT_HEADER));
+            this.factor = resultSet.getDouble(FACTOR_HEADER);
         } catch (SQLException ex) {
             Logger.getLogger(IngredientUnitConversionModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return ret;
+    }
+
+    @Override
+    public void insertToDatabase() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void deleteInDatabase() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void updateInDatabase() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setKeyArg(int index, String header, PreparedStatement preparedStatement) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public String toString() {
         return "IngredientUnitConversionModel{" + "srcUnit=" + srcUnit + ", dstUnit=" + dstUnit + ", factor=" + factor + '}';
     }
-
 }

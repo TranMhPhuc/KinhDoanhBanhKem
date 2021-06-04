@@ -5,14 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import model.DatabaseUpdate;
+import model.ingredient.IngredientModelInterface;
 import util.AppLog;
 
-public class IngredientOfProductDataStorage implements DatabaseUpdate {
+public class IngredientOfProductDataStorage implements IngredientOfProductDataStorageInterface {
     
     private static IngredientOfProductDataStorage uniqueInstance;
     
-    private ArrayList<IngredientOfProductDetailInterface> ingredientOfProductDetails;
+    private ArrayList<IngredientOfProductModelInterface> ingredientOfProductDetails;
     
     static {
         uniqueInstance = new IngredientOfProductDataStorage();
@@ -31,14 +31,16 @@ public class IngredientOfProductDataStorage implements DatabaseUpdate {
         try {
             Statement statement = connection.createStatement();
 
-            String query = "SELECT * FROM " + IngredientOfProductDetail.TABLE_NAME;
+            String query = "SELECT * FROM " + IngredientOfProductModel.TABLE_NAME;
 
             ResultSet resultSet = statement.executeQuery(query);
 
             ingredientOfProductDetails.clear();
 
             while (resultSet.next()) {
-                ingredientOfProductDetails.add(IngredientOfProductDetail.getInstance(resultSet));
+                IngredientOfProductModelInterface productIngredient = new IngredientOfProductModel();
+                productIngredient.setProperty(resultSet);
+                ingredientOfProductDetails.add(productIngredient);
             }
             
             AppLog.getLogger().info("Update ingredient of product database: successfully, " 
@@ -47,5 +49,11 @@ public class IngredientOfProductDataStorage implements DatabaseUpdate {
         } catch (SQLException ex) {
             AppLog.getLogger().fatal("Update ingredient of product database: error.");
         }
+    }
+
+    @Override
+    public ArrayList<IngredientModelInterface> getIngredientOfProduct(String productIDText) {
+        ArrayList<IngredientModelInterface> ret = null;
+        return ret;
     }
 }

@@ -1,13 +1,9 @@
 package model.provider;
 
-public interface ProviderModelInterface {
+import model.DatabaseModel;
+
+public interface ProviderModelInterface extends DatabaseModel {
     
     String getIDText();
-    
-    void notifyObserver();
-    
-    void registerObserver();
-    
-    void removeObserver();
     
 }

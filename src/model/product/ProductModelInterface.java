@@ -1,12 +1,12 @@
 package model.product;
 
 import model.DatabaseModel;
-import model.ingredientOfProduct.IngredientOfProductDetailInterface;
+import model.ingredientOfProduct.IngredientOfProductModelInterface;
 
 public interface ProductModelInterface extends DatabaseModel {
 
     String getProductIDText();
 
-    void addIngredientDetail(IngredientOfProductDetailInterface ingredientOfProductDetailInterface);
+    void addIngredientDetail(IngredientOfProductModelInterface ingredientOfProductDetailInterface);
 
 }

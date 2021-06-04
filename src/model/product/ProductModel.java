@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.ingredientOfProduct.IngredientOfProductDetailInterface;
+import model.ingredientOfProduct.IngredientOfProductModelInterface;
 
 public class ProductModel implements ProductModelInterface {
 
@@ -41,14 +41,14 @@ public class ProductModel implements ProductModelInterface {
     private int cost;
     private int amount;
     private int price;
-    private ArrayList<IngredientOfProductDetailInterface> ingredientDetails;
+    private ArrayList<IngredientOfProductModelInterface> ingredientDetails;
 
     public ProductModel() {
         ingredientDetails = new ArrayList<>();
     }
 
     public ProductModel(int id, String name, int cost, int price, int amount,
-            String size, ArrayList<IngredientOfProductDetailInterface> ingredients) {
+            String size, ArrayList<IngredientOfProductModelInterface> ingredients) {
         this.id = id;
         this.name = name;
         this.cost = cost;
@@ -64,7 +64,7 @@ public class ProductModel implements ProductModelInterface {
     }
 
     @Override
-    public void addIngredientDetail(IngredientOfProductDetailInterface ingredientOfProductDetailInterface) {
+    public void addIngredientDetail(IngredientOfProductModelInterface ingredientOfProductDetailInterface) {
         this.ingredientDetails.add(ingredientOfProductDetailInterface);
     }
 

@@ -1,14 +1,13 @@
-package model.ingredient.ingredientUnit.conversion;
+package model.ingredient.unit.conversion;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import model.DatabaseUpdate;
 import util.AppLog;
 
-public class IngredientUnitConversionDataStorage implements DatabaseUpdate {
+public class IngredientUnitConversionDataStorage implements IngredientUnitConversionDataStorageInterface {
 
     private static IngredientUnitConversionDataStorage uniqueInstance;
 
@@ -38,10 +37,12 @@ public class IngredientUnitConversionDataStorage implements DatabaseUpdate {
             unitConversions.clear();
 
             while (resultSet.next()) {
-                unitConversions.add(IngredientUnitConversionModel.getInstance(resultSet));
+                IngredientUnitConversionModelInterface ingredientUnitConversion = new IngredientUnitConversionModel();
+                ingredientUnitConversion.setProperty(resultSet);
+                unitConversions.add(ingredientUnitConversion);
             }
-            
-            AppLog.getLogger().info("Update ingredient unit conversion database: successfully, " 
+
+            AppLog.getLogger().info("Update ingredient unit conversion database: successfully, "
                     + unitConversions.size() + " rows inserted.");
 
         } catch (SQLException ex) {
@@ -49,5 +50,4 @@ public class IngredientUnitConversionDataStorage implements DatabaseUpdate {
         }
     }
 
-    
 }

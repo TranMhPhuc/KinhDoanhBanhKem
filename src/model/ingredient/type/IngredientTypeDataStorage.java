@@ -1,23 +1,22 @@
-package model.ingredient.ingredientType;
+package model.ingredient.type;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import model.DatabaseUpdate;
 import util.AppLog;
 
-public class IngredientTypeDataStorage implements DatabaseUpdate {
+public class IngredientTypeDataStorage implements IngredientTypeDataStorageInterface {
 
     private static IngredientTypeDataStorage uniqueInstance;
-    
+
     private ArrayList<IngredientTypeModelInterface> ingredientTypes;
-    
+
     static {
         uniqueInstance = new IngredientTypeDataStorage();
     }
-    
+
     private IngredientTypeDataStorage() {
         ingredientTypes = new ArrayList<>();
     }
@@ -25,7 +24,7 @@ public class IngredientTypeDataStorage implements DatabaseUpdate {
     public static IngredientTypeDataStorage getInstance() {
         return uniqueInstance;
     }
-    
+
     @Override
     public void updateFromDB(Connection connection) {
         try {
@@ -38,24 +37,33 @@ public class IngredientTypeDataStorage implements DatabaseUpdate {
             ingredientTypes.clear();
 
             while (resultSet.next()) {
-                ingredientTypes.add(IngredientTypeModel.getInstance(resultSet));
+                IngredientTypeModelInterface ingredientType = new IngredientTypeModel();
+                ingredientType.setProperty(resultSet);
+                ingredientTypes.add(ingredientType);
             }
-            
-            AppLog.getLogger().info("Update ingredient type database: successfully, " 
+
+            AppLog.getLogger().info("Update ingredient type database: successfully, "
                     + ingredientTypes.size() + " rows inserted.");
 
         } catch (SQLException ex) {
             AppLog.getLogger().fatal("Update ingredient type database: error");
         }
     }
-    
+
     public IngredientTypeModelInterface getIngredientType(String ingredientTypeIDText) {
-        for (IngredientTypeModelInterface element: ingredientTypes) {
+        for (IngredientTypeModelInterface element : ingredientTypes) {
             if (element.getIngredientTypeIDText().equals(ingredientTypeIDText)) {
                 return element;
             }
         }
         return null;
     }
-    
+
+    @Override
+    public IngredientTypeModelInterface createIngredientType() {
+        IngredientTypeModelInterface newIngredientType = new IngredientTypeModel();
+        this.ingredientTypes.add(newIngredientType);
+        return newIngredientType;
+    }
+
 }

@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.ingredient.ingredientUnit.IngredientUnitDataStorage;
-import model.ingredient.ingredientUnit.IngredientUnitModel;
-import model.ingredient.ingredientUnit.IngredientUnitModelInterface;
+import model.ingredient.unit.IngredientUnitDataStorage;
+import model.ingredient.unit.IngredientUnitModel;
+import model.ingredient.unit.IngredientUnitModelInterface;
 
 public class IngredientImportDetail {
     

@@ -1,14 +1,13 @@
-package model.ingredient.ingredientUnit;
+package model.ingredient.unit;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import model.DatabaseUpdate;
 import util.AppLog;
 
-public class IngredientUnitDataStorage implements DatabaseUpdate {
+public class IngredientUnitDataStorage implements IngredientUnitDataStorageInterface {
     
     private static IngredientUnitDataStorage uniqueInstance;
     
@@ -38,7 +37,9 @@ public class IngredientUnitDataStorage implements DatabaseUpdate {
             ingredientUnits.clear();
 
             while (resultSet.next()) {
-                ingredientUnits.add(IngredientUnitModel.getInstance(resultSet));
+                IngredientUnitModelInterface ingredientUnit = new IngredientUnitModel();
+                ingredientUnit.setProperty(resultSet);
+                ingredientUnits.add(ingredientUnit);
             }
             
             AppLog.getLogger().info("Update ingredient unit database: sucessfully, " 
@@ -49,6 +50,7 @@ public class IngredientUnitDataStorage implements DatabaseUpdate {
         }
     }
     
+    @Override
     public IngredientUnitModelInterface getIngredientUnit(String ingredientUnitIDText) {
         for (IngredientUnitModelInterface element: ingredientUnits) {
             if (element.getIngredientUnitIDText().equals(ingredientUnitIDText)) {
