@@ -6,12 +6,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import util.AppLog;
+import view.function.product.ProductUpdateObserver;
 
 public class ProductDataStorage implements ProductDataStorageInterface {
 
     private static ProductDataStorage uniqueInstance;
 
     private ArrayList<ProductModelInterface> products;
+    
+    private ArrayList<ProductUpdateObserver> observers;
 
     static {
         uniqueInstance = new ProductDataStorage();
@@ -19,6 +22,7 @@ public class ProductDataStorage implements ProductDataStorageInterface {
 
     private ProductDataStorage() {
         products = new ArrayList<>();
+        observers = new ArrayList<>();
     }
 
     public static ProductDataStorage getInstance() {
@@ -69,6 +73,25 @@ public class ProductDataStorage implements ProductDataStorageInterface {
     @Override
     public int getSize() {
         return this.products.size();
+    }
+
+    @Override
+    public void registerObserver(ProductUpdateObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(ProductUpdateObserver observer) {
+        int id = observers.indexOf(observer);
+        if (id >= 0) {
+            observers.remove(observer);
+        }
+    }
+    
+    private void notifyObserver() {
+        for (ProductUpdateObserver observer : observers) {
+            observer.updateProductNumber(this.products.size());
+        }
     }
 
 }

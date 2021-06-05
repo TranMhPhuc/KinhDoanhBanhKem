@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import model.bill.BillModelInterface;
 import util.swing.UIControl;
-import static util.swing.UIControl.setLocationCenterForDialog;
 
 public class BillCreatePanel extends javax.swing.JPanel implements ActionListener {
 

@@ -1,18 +1,40 @@
-package view.function;
+package view.function.home;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import model.bill.BillManageModel;
+import model.bill.BillManageModelInterface;
+import model.employee.EmployeeDataStorage;
+import model.employee.EmployeeDataStorageInterface;
+import model.product.ProductDataStorage;
+import model.product.ProductDataStorageInterface;
+import view.function.bill.BillUpdateObserver;
+import view.function.employee.EmployeeUpdateObserver;
+import view.function.product.ProductUpdateObserver;
 
-public class HomePanel extends javax.swing.JPanel {
+public class HomePanel extends javax.swing.JPanel implements EmployeeUpdateObserver,
+        BillUpdateObserver, ProductUpdateObserver {
 
     private volatile static HomePanel uniqueInstance;
 
     private Image img;
+    private static EmployeeDataStorageInterface employeeDataStorage;
+    private static BillManageModelInterface billManageModel;
+    private static ProductDataStorageInterface productDataStorage;
+
+    static {
+        employeeDataStorage = EmployeeDataStorage.getInstance();
+        billManageModel = new BillManageModel();
+        productDataStorage = ProductDataStorage.getInstance();
+    }
 
     private HomePanel(Image img) {
         initComponents();
         this.img = img;
+        employeeDataStorage.registerObserver(this);
+        billManageModel.registerObserver(this);
+        productDataStorage.registerObserver(this);
     }
 
     public static HomePanel getInstance(Image img) {
@@ -30,7 +52,7 @@ public class HomePanel extends javax.swing.JPanel {
         }
         return uniqueInstance;
     }
-    
+
     public static HomePanel getInstance() {
         if (uniqueInstance == null) {
             throw new NullPointerException();
@@ -44,8 +66,39 @@ public class HomePanel extends javax.swing.JPanel {
         g.drawImage(img, 0, 0, null);
     }
 
-    public void setLabelRevenue(String text) {
-        this.labelRevenue.setText(text);
+    public void setLabelRevenue(int revenue) {
+        this.labelRevenue.setText(String.valueOf(revenue) + "K");
+    }
+
+    public void setLabelBill(int billNumber) {
+        this.labelBillNumber.setText(String.valueOf(billNumber));
+    }
+
+    public void setLabelProfit(int profit) {
+        this.labelProfit.setText(String.valueOf(profit) + "K");
+    }
+
+    public void setLabelProduct(int productNumber) {
+        this.labelProductNumber.setText(String.valueOf(productNumber));
+    }
+
+    public void setLabelEmployee(int employeeNumber) {
+        this.labelEmployeeNumber.setText(String.valueOf(employeeNumber));
+    }
+
+    @Override
+    public void updateEmployeeNumber(int employeeNumber) {
+        setLabelEmployee(employeeNumber);
+    }
+
+    @Override
+    public void updateBillNumber(int billNumber) {
+        setLabelBill(billNumber);
+    }
+
+    @Override
+    public void updateProductNumber(int productNumber) {
+        setLabelProduct(productNumber);
     }
 
     @SuppressWarnings("unchecked")
@@ -63,17 +116,17 @@ public class HomePanel extends javax.swing.JPanel {
         background_Profit = new javax.swing.JLabel();
         panelBills = new javax.swing.JPanel();
         label_Title_Bills = new javax.swing.JLabel();
-        labelBills = new javax.swing.JLabel();
+        labelBillNumber = new javax.swing.JLabel();
         background_Bills = new javax.swing.JLabel();
         label_Seperator = new javax.swing.JLabel();
         label_Numbers = new javax.swing.JLabel();
         panelEmployee = new javax.swing.JPanel();
         label_Title_Employee = new javax.swing.JLabel();
-        labelEmployee = new javax.swing.JLabel();
+        labelEmployeeNumber = new javax.swing.JLabel();
         background_Employee = new javax.swing.JLabel();
         panelCakeType = new javax.swing.JPanel();
-        label_Title_CakeType = new javax.swing.JLabel();
-        labelCake = new javax.swing.JLabel();
+        labelTitleProduct = new javax.swing.JLabel();
+        labelProductNumber = new javax.swing.JLabel();
         background_CakeType = new javax.swing.JLabel();
 
         label_Today.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -144,12 +197,12 @@ public class HomePanel extends javax.swing.JPanel {
         panelBills.add(label_Title_Bills);
         label_Title_Bills.setBounds(50, 40, 230, 70);
 
-        labelBills.setFont(new java.awt.Font("Segoe Print", 3, 32)); // NOI18N
-        labelBills.setForeground(new java.awt.Color(253, 94, 83));
-        labelBills.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelBills.setText("23");
-        panelBills.add(labelBills);
-        labelBills.setBounds(30, 80, 260, 90);
+        labelBillNumber.setFont(new java.awt.Font("Segoe Print", 3, 32)); // NOI18N
+        labelBillNumber.setForeground(new java.awt.Color(253, 94, 83));
+        labelBillNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelBillNumber.setText("23");
+        panelBills.add(labelBillNumber);
+        labelBillNumber.setBounds(30, 80, 260, 90);
 
         background_Bills.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/blue_25.png"))); // NOI18N
         background_Bills.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -178,12 +231,12 @@ public class HomePanel extends javax.swing.JPanel {
         panelEmployee.add(label_Title_Employee);
         label_Title_Employee.setBounds(50, 40, 230, 70);
 
-        labelEmployee.setFont(new java.awt.Font("Segoe Print", 3, 32)); // NOI18N
-        labelEmployee.setForeground(new java.awt.Color(253, 94, 83));
-        labelEmployee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelEmployee.setText("9");
-        panelEmployee.add(labelEmployee);
-        labelEmployee.setBounds(30, 80, 260, 90);
+        labelEmployeeNumber.setFont(new java.awt.Font("Segoe Print", 3, 32)); // NOI18N
+        labelEmployeeNumber.setForeground(new java.awt.Color(253, 94, 83));
+        labelEmployeeNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelEmployeeNumber.setText("9");
+        panelEmployee.add(labelEmployeeNumber);
+        labelEmployeeNumber.setBounds(30, 80, 260, 90);
 
         background_Employee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/blue_25.png"))); // NOI18N
         background_Employee.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -200,18 +253,18 @@ public class HomePanel extends javax.swing.JPanel {
         panelCakeType.setOpaque(false);
         panelCakeType.setLayout(null);
 
-        label_Title_CakeType.setFont(new java.awt.Font("Segoe Print", 2, 28)); // NOI18N
-        label_Title_CakeType.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_Title_CakeType.setText("Cake type");
-        panelCakeType.add(label_Title_CakeType);
-        label_Title_CakeType.setBounds(50, 40, 230, 70);
+        labelTitleProduct.setFont(new java.awt.Font("Segoe Print", 2, 28)); // NOI18N
+        labelTitleProduct.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelTitleProduct.setText("Product");
+        panelCakeType.add(labelTitleProduct);
+        labelTitleProduct.setBounds(50, 40, 230, 70);
 
-        labelCake.setFont(new java.awt.Font("Segoe Print", 3, 32)); // NOI18N
-        labelCake.setForeground(new java.awt.Color(253, 94, 83));
-        labelCake.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelCake.setText("13");
-        panelCakeType.add(labelCake);
-        labelCake.setBounds(30, 80, 260, 90);
+        labelProductNumber.setFont(new java.awt.Font("Segoe Print", 3, 32)); // NOI18N
+        labelProductNumber.setForeground(new java.awt.Color(253, 94, 83));
+        labelProductNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelProductNumber.setText("13");
+        panelCakeType.add(labelProductNumber);
+        labelProductNumber.setBounds(30, 80, 260, 90);
 
         background_CakeType.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/blue_25.png"))); // NOI18N
         background_CakeType.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -305,40 +358,39 @@ public class HomePanel extends javax.swing.JPanel {
 
     private void background_BillsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_background_BillsMouseEntered
         background_Bills.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/red_25.png")));
-        labelBills.setForeground(new Color(186, 232, 232));
+        labelBillNumber.setForeground(new Color(186, 232, 232));
         label_Title_Bills.setForeground(Color.WHITE);
     }//GEN-LAST:event_background_BillsMouseEntered
 
     private void background_BillsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_background_BillsMouseExited
         background_Bills.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/blue_25.png")));
-        labelBills.setForeground(new Color(253, 94, 83));
+        labelBillNumber.setForeground(new Color(253, 94, 83));
         label_Title_Bills.setForeground(Color.BLACK);
     }//GEN-LAST:event_background_BillsMouseExited
 
     private void background_EmployeeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_background_EmployeeMouseEntered
         background_Employee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/red_25.png")));
-        labelEmployee.setForeground(new Color(186, 232, 232));
+        labelEmployeeNumber.setForeground(new Color(186, 232, 232));
         label_Title_Employee.setForeground(Color.WHITE);
     }//GEN-LAST:event_background_EmployeeMouseEntered
 
     private void background_EmployeeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_background_EmployeeMouseExited
         background_Employee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/blue_25.png")));
-        labelEmployee.setForeground(new Color(253, 94, 83));
+        labelEmployeeNumber.setForeground(new Color(253, 94, 83));
         label_Title_Employee.setForeground(Color.BLACK);
     }//GEN-LAST:event_background_EmployeeMouseExited
 
     private void background_CakeTypeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_background_CakeTypeMouseEntered
         background_CakeType.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/red_25.png")));
-        labelCake.setForeground(new Color(186, 232, 232));
-        label_Title_CakeType.setForeground(Color.WHITE);
+        labelProductNumber.setForeground(new Color(186, 232, 232));
+        labelTitleProduct.setForeground(Color.WHITE);
     }//GEN-LAST:event_background_CakeTypeMouseEntered
 
     private void background_CakeTypeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_background_CakeTypeMouseExited
         background_CakeType.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/blue_25.png")));
-        labelCake.setForeground(new Color(253, 94, 83));
-        label_Title_CakeType.setForeground(Color.BLACK);
+        labelProductNumber.setForeground(new Color(253, 94, 83));
+        labelTitleProduct.setForeground(Color.BLACK);
     }//GEN-LAST:event_background_CakeTypeMouseExited
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background_Bills;
@@ -346,15 +398,15 @@ public class HomePanel extends javax.swing.JPanel {
     private javax.swing.JLabel background_Employee;
     private javax.swing.JLabel background_Profit;
     private javax.swing.JLabel background_Rev;
-    private javax.swing.JLabel labelBills;
-    private javax.swing.JLabel labelCake;
-    private javax.swing.JLabel labelEmployee;
+    private javax.swing.JLabel labelBillNumber;
+    private javax.swing.JLabel labelEmployeeNumber;
+    private javax.swing.JLabel labelProductNumber;
     private javax.swing.JLabel labelProfit;
     private javax.swing.JLabel labelRevenue;
+    private javax.swing.JLabel labelTitleProduct;
     private javax.swing.JLabel label_Numbers;
     private javax.swing.JLabel label_Seperator;
     private javax.swing.JLabel label_Title_Bills;
-    private javax.swing.JLabel label_Title_CakeType;
     private javax.swing.JLabel label_Title_Employee;
     private javax.swing.JLabel label_Title_Profit;
     private javax.swing.JLabel label_Title_Rev;
@@ -365,4 +417,5 @@ public class HomePanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelProfit;
     private javax.swing.JPanel panelRevenue;
     // End of variables declaration//GEN-END:variables
+
 }

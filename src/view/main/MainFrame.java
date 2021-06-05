@@ -10,8 +10,8 @@ import model.user.UserModelInterface;
 import view.SideMenuPanel;
 import view.TitleMainFrame;
 import view.function.employee.EmployeeManagePanel;
-import view.function.HomePanel;
-import view.function.StatisticsPanel;
+import view.function.home.HomePanel;
+import view.function.statistics.StatisticsPanel;
 import view.function.bill.BillManagePanel;
 import view.function.product.ProductManagePanel;
 
@@ -150,8 +150,8 @@ public class MainFrame extends javax.swing.JFrame {
         panelTitle = new view.TitleMainFrame();
         panelManage = new javax.swing.JPanel();
         panelEmployeeManage = view.function.employee.EmployeeManagePanel.getInstance();
-        panelHome = view.function.HomePanel.getInstance(new ImageIcon(getClass().getResource("/img/homeBackground.png")).getImage());
-        panelStatistics = view.function.StatisticsPanel.getInstance();
+        panelHome = view.function.home.HomePanel.getInstance(new ImageIcon(getClass().getResource("/img/homeBackground.png")).getImage());
+        panelStatistics = view.function.statistics.StatisticsPanel.getInstance();
         panelProduct = new view.function.product.ProductManagePanel();
         panelBill = new view.function.bill.BillManagePanel();
         panelSideMenu = new view.SideMenuPanel(panelTitle.getLabel_title(), panelManage);
@@ -222,11 +222,11 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLayeredPane1;
     private view.function.bill.BillManagePanel panelBill;
     private view.function.employee.EmployeeManagePanel panelEmployeeManage;
-    private view.function.HomePanel panelHome;
+    private view.function.home.HomePanel panelHome;
     private javax.swing.JPanel panelManage;
     private view.function.product.ProductManagePanel panelProduct;
     private view.SideMenuPanel panelSideMenu;
-    private view.function.StatisticsPanel panelStatistics;
+    private view.function.statistics.StatisticsPanel panelStatistics;
     private view.TitleMainFrame panelTitle;
     // End of variables declaration//GEN-END:variables
 

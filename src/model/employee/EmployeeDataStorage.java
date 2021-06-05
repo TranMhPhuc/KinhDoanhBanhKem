@@ -7,12 +7,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import util.AppLog;
+import view.function.employee.EmployeeUpdateObserver;
 
 public class EmployeeDataStorage implements EmployeeDataStorageInterface {
 
     private static EmployeeDataStorage uniqueInstance;
 
     private ArrayList<EmployeeModelInterface> employees;
+    
+    private ArrayList<EmployeeUpdateObserver> observers;
 
     static {
         uniqueInstance = new EmployeeDataStorage();
@@ -20,6 +23,7 @@ public class EmployeeDataStorage implements EmployeeDataStorageInterface {
 
     private EmployeeDataStorage() {
         employees = new ArrayList<>();
+        observers = new ArrayList<>();
     }
 
     public static EmployeeDataStorageInterface getInstance() {
@@ -76,5 +80,24 @@ public class EmployeeDataStorage implements EmployeeDataStorageInterface {
     @Override
     public Iterator<EmployeeModelInterface> createIterator() {
         return this.employees.iterator();
+    }
+
+    @Override
+    public void registerObserver(EmployeeUpdateObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(EmployeeUpdateObserver observer) {
+        int id = observers.indexOf(observer);
+        if (id >= 0) {
+            observers.remove(observer);
+        }
+    }
+    
+    private void notifyObserver() {
+        for (EmployeeUpdateObserver observer : observers) {
+            observer.updateEmployeeNumber(employees.size());
+        }
     }
 }

@@ -1,6 +1,6 @@
 package control.statistics;
 
-import view.function.StatisticsPanel;
+import view.function.statistics.StatisticsPanel;
 
 public class StatisticsController implements StatisticsControllerInterface {
     

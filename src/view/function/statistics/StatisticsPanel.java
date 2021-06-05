@@ -1,4 +1,4 @@
-package view.function;
+package view.function.statistics;
 
 import control.statistics.StatisticsControllerInterface;
 import util.swing.UIControl;
@@ -108,7 +108,7 @@ public class StatisticsPanel extends javax.swing.JPanel {
                 .addComponent(dateChooserDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(button_Apply, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelStatisticsInfoLayout.setVerticalGroup(
             panelStatisticsInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
