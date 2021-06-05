@@ -24,6 +24,16 @@ public class IngredientTypeModel implements IngredientTypeModelInterface {
     }
 
     @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
     public String getIngredientTypeIDText() {
         return String.valueOf(this.id);
     }
@@ -43,7 +53,7 @@ public class IngredientTypeModel implements IngredientTypeModelInterface {
         try {
             PreparedStatement preparedStatement = dbConnection
                     .prepareStatement(INSERT_QUERY_PROTOTYPE);
-            
+
             preparedStatement.setInt(1, this.id);
             preparedStatement.setString(2, this.name);
             preparedStatement.execute();
@@ -74,6 +84,31 @@ public class IngredientTypeModel implements IngredientTypeModelInterface {
         } catch (SQLException ex) {
             Logger.getLogger(IngredientTypeModel.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final IngredientTypeModel other = (IngredientTypeModel) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
     }
 
     @Override

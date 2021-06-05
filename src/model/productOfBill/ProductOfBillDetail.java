@@ -3,6 +3,7 @@ package model.productOfBill;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.bill.BillModel;
@@ -55,12 +56,12 @@ public class ProductOfBillDetail implements ProductOfBillDetailInterface {
         try {
             PreparedStatement preparedStatement = dbConnection
                     .prepareStatement(INSERT_QUERY_PROTOTYPE);
-            
+
             this.bill.setKeyArg(1, BillModel.ID_HEADER, preparedStatement);
             this.product.setKeyArg(2, ProductModel.ID_HEADER, preparedStatement);
             preparedStatement.setInt(3, this.amount);
             preparedStatement.setInt(4, this.price);
-            
+
             preparedStatement.execute();
             preparedStatement.close();
         } catch (SQLException ex) {
@@ -99,4 +100,34 @@ public class ProductOfBillDetail implements ProductOfBillDetailInterface {
     public void setBill(BillModelInterface bill) {
         this.bill = bill;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.bill);
+        hash = 79 * hash + Objects.hashCode(this.product);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ProductOfBillDetail other = (ProductOfBillDetail) obj;
+        if (!Objects.equals(this.bill, other.bill)) {
+            return false;
+        }
+        if (!Objects.equals(this.product, other.product)) {
+            return false;
+        }
+        return true;
+    }
+
 }

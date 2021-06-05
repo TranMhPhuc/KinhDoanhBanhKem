@@ -3,6 +3,7 @@ package model.provider;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,6 +47,51 @@ public class ProviderModel implements ProviderModelInterface {
     }
 
     @Override
+    public void setProviderID(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Override
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public String getEmail() {
+        return this.email;
+    }
+
+    @Override
+    public String getAddress() {
+        return this.address;
+    }
+
+    @Override
+    public String getPhoneNum() {
+        return this.phoneNum;
+    }
+
+    @Override
     public void setProperty(ResultSet resultSet) {
         try {
             this.id = resultSet.getString(ID_HEADER);
@@ -82,9 +128,9 @@ public class ProviderModel implements ProviderModelInterface {
         try {
             PreparedStatement preparedStatement = dbConnection
                     .prepareStatement(DELETE_QUERY_PROTOTYPE);
-            
+
             preparedStatement.setString(1, this.id);
-            
+
             preparedStatement.execute();
             preparedStatement.close();
         } catch (SQLException ex) {
@@ -128,6 +174,31 @@ public class ProviderModel implements ProviderModelInterface {
         } catch (SQLException ex) {
             Logger.getLogger(ProviderModel.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 19 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ProviderModel other = (ProviderModel) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
 
     @Override

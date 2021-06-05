@@ -1,19 +1,26 @@
 package util.db;
 
 import java.sql.Connection;
-import model.bill.BillDataStorage;
 import model.employee.EmployeeDataStorage;
 import model.employee.EmployeeDataStorageInterface;
 import model.employee.position.EmployeePositionDataStorage;
+import model.employee.position.EmployeePositionDataStorageInterface;
 import model.employee.shift.EmployeeShiftDataStorage;
 import model.employee.shift.EmployeeShiftDataStorageInterface;
 import model.ingredient.IngredientDataStorage;
+import model.ingredient.IngredientDataStorageInterface;
 import model.ingredient.type.IngredientTypeDataStorage;
+import model.ingredient.type.IngredientTypeDataStorageInterface;
 import model.ingredient.unit.IngredientUnitDataStorage;
+import model.ingredient.unit.IngredientUnitDataStorageInterface;
 import model.ingredient.unit.conversion.IngredientUnitConversionDataStorage;
+import model.ingredient.unit.conversion.IngredientUnitConversionDataStorageInterface;
 import model.ingredientOfProduct.IngredientOfProductDataStorage;
+import model.ingredientOfProduct.IngredientOfProductDataStorageInterface;
 import model.product.ProductDataStorage;
+import model.product.ProductDataStorageInterface;
 import model.provider.ProviderDataStorage;
+import model.provider.ProviderDataStorageInterface;
 
 /**
  * Utility class to update data model from database.
@@ -26,16 +33,15 @@ public class DataModelUpdateManager {
     private static Connection connection;
 
     private EmployeeShiftDataStorageInterface employeeShiftDataStorage;
-    private EmployeePositionDataStorage employeePositionDataStorage;
+    private EmployeePositionDataStorageInterface employeePositionDataStorage;
     private EmployeeDataStorageInterface employeeDataStorage;
-    private BillDataStorage billDataStorage;
-    private ProviderDataStorage providerDataStorage;
-    private IngredientTypeDataStorage ingredientTypeDataStorage;
-    private IngredientUnitDataStorage ingredientUnitDataStorage;
-    private IngredientUnitConversionDataStorage ingredientUnitConversionDataStorage;
-    private IngredientDataStorage ingredientDataStorage;
-    private ProductDataStorage productDataStorage;
-    private IngredientOfProductDataStorage ingredientOfProductDataStorage;
+    private ProviderDataStorageInterface providerDataStorage;
+    private IngredientTypeDataStorageInterface ingredientTypeDataStorage;
+    private IngredientUnitDataStorageInterface ingredientUnitDataStorage;
+    private IngredientUnitConversionDataStorageInterface ingredientUnitConversionDataStorage;
+    private IngredientDataStorageInterface ingredientDataStorage;
+    private ProductDataStorageInterface productDataStorage;
+    private IngredientOfProductDataStorageInterface ingredientOfProductDataStorage;
 
     static {
         connection = SQLServerConnection.getConnection();
@@ -45,7 +51,6 @@ public class DataModelUpdateManager {
         employeeShiftDataStorage = EmployeeShiftDataStorage.getInstance();
         employeePositionDataStorage = EmployeePositionDataStorage.getInstance();
         employeeDataStorage = EmployeeDataStorage.getInstance();
-        billDataStorage = BillDataStorage.getInstance();
         providerDataStorage = ProviderDataStorage.getInstance();
         ingredientTypeDataStorage = IngredientTypeDataStorage.getInstance();
         ingredientUnitDataStorage = IngredientUnitDataStorage.getInstance();
@@ -70,7 +75,6 @@ public class DataModelUpdateManager {
         employeeShiftDataStorage.updateFromDB(connection);
         employeePositionDataStorage.updateFromDB(connection);
         employeeDataStorage.updateFromDB(connection);
-        billDataStorage.updateFromDB(connection);
         providerDataStorage.updateFromDB(connection);
         ingredientTypeDataStorage.updateFromDB(connection);
         ingredientUnitDataStorage.updateFromDB(connection);

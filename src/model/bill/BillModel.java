@@ -44,6 +44,15 @@ public class BillModel implements BillModelInterface {
     public BillModel() {
     }
 
+    public BillModel(BillModel other) {
+        this.id = other.id;
+        this.dateTimeExport = other.dateTimeExport;
+        this.payment = other.payment;
+        this.guestMoney = other.guestMoney;
+        this.changeMoney = other.changeMoney;
+        this.employee = other.employee;
+    }
+
     @Override
     public void setProperty(ResultSet resultSet) {
         try {
@@ -52,7 +61,6 @@ public class BillModel implements BillModelInterface {
             this.payment = resultSet.getInt("TongTien");
             this.guestMoney = resultSet.getInt("TienKhachTra");
             this.changeMoney = resultSet.getInt("TienThoi");
-
             this.employee = employeeDataStorage
                     .getEmployee(resultSet.getString(EMPLOYEE_ID_HEADER));
         } catch (SQLException ex) {
@@ -93,13 +101,14 @@ public class BillModel implements BillModelInterface {
         try {
             PreparedStatement preparedStatement = dbConnection
                     .prepareStatement(INSERT_QUERY_PROTOTYPE);
-            preparedStatement.setInt(1, this.id);
-            preparedStatement.setTimestamp(2, this.dateTimeExport);
-            preparedStatement.setInt(3, this.payment);
-            preparedStatement.setInt(4, this.guestMoney);
-            preparedStatement.setInt(5, this.changeMoney);
-            this.employee.setKeyArg(6, ID_HEADER, preparedStatement);
-            
+            // ID is indentity column
+
+            preparedStatement.setTimestamp(1, this.dateTimeExport);
+            preparedStatement.setInt(2, this.payment);
+            preparedStatement.setInt(3, this.guestMoney);
+            preparedStatement.setInt(4, this.changeMoney);
+            this.employee.setKeyArg(5, ID_HEADER, preparedStatement);
+
             preparedStatement.execute();
             preparedStatement.close();
         } catch (SQLException ex) {
@@ -118,10 +127,84 @@ public class BillModel implements BillModelInterface {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 53 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BillModel other = (BillModel) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void setDateTimeExport(Timestamp dateTimeExport) {
+        this.dateTimeExport = dateTimeExport;
+    }
+
+    @Override
+    public void setPayment(int payment) {
+        this.payment = payment;
+    }
+
+    @Override
+    public void setGuestMoney(int guestMoney) {
+        this.guestMoney = guestMoney;
+    }
+
+    @Override
+    public void setChangeMoney(int changeMoney) {
+        this.changeMoney = changeMoney;
+    }
+
+    @Override
+    public void setEmployee(EmployeeModelInterface employee) {
+        this.employee = employee;
+    }
+
+    @Override
+    public Timestamp getDateTimeExport() {
+        return this.dateTimeExport;
+    }
+
+    @Override
+    public int getPayment() {
+        return this.payment;
+    }
+
+    @Override
+    public int getGuestMoney() {
+        return this.guestMoney;
+    }
+
+    @Override
+    public int getChangeMoney() {
+        return this.changeMoney;
+    }
+
+    @Override
+    public EmployeeModelInterface getEmployee() {
+        return this.employee;
+    }
+
+    @Override
     public String toString() {
         return "Bill{" + "billID=" + id + ", dateExport=" + dateTimeExport
                 + ", payment=" + payment + ", givenMoney=" + guestMoney + ", changeMoney="
                 + changeMoney + ", employee=" + employee + '}';
     }
-
 }

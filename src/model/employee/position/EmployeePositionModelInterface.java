@@ -7,4 +7,5 @@ public interface EmployeePositionModelInterface extends DatabaseModel {
     String getPositionName();
     
     String getPositionIDText();
+    
 }

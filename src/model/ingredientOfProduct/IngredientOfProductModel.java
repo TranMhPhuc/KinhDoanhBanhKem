@@ -3,6 +3,7 @@ package model.ingredientOfProduct;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.ingredient.IngredientDataStorage;
@@ -128,6 +129,75 @@ public class IngredientOfProductModel implements IngredientOfProductModelInterfa
         } catch (SQLException ex) {
             Logger.getLogger(IngredientOfProductModel.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.product);
+        hash = 41 * hash + Objects.hashCode(this.ingredient);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final IngredientOfProductModel other = (IngredientOfProductModel) obj;
+        if (!Objects.equals(this.product, other.product)) {
+            return false;
+        }
+        if (!Objects.equals(this.ingredient, other.ingredient)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void setProduct(ProductModelInterface product) {
+        this.product = product;
+    }
+
+    @Override
+    public void setIngredient(IngredientModelInterface ingredient) {
+        this.ingredient = ingredient;
+    }
+
+    @Override
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    @Override
+    public void setIngredientUnit(IngredientUnitModelInterface unit) {
+        this.unit = unit;
+    }
+
+    @Override
+    public ProductModelInterface getProduct() {
+        return this.product;
+    }
+
+    @Override
+    public IngredientModelInterface getIngredient() {
+        return this.ingredient;
+    }
+
+    @Override
+    public int getAmount() {
+        return this.amount;
+    }
+
+    @Override
+    public IngredientUnitModelInterface getUnit() {
+        return this.unit;
     }
 
 }

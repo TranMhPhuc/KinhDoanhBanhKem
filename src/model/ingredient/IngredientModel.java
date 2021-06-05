@@ -70,6 +70,66 @@ public class IngredientModel implements IngredientModelInterface {
     }
 
     @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void setIngredientType(IngredientTypeModelInterface type) {
+        this.type = type;
+    }
+
+    @Override
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    @Override
+    public void setAmount(float amount) {
+        this.amount = amount;
+    }
+
+    @Override
+    public void setProvider(ProviderModelInterface provider) {
+        this.provider = provider;
+    }
+
+    @Override
+    public void setIngredientUnit(IngredientUnitModelInterface unit) {
+        this.unit = unit;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public IngredientTypeModelInterface getIngredientType() {
+        return this.type;
+    }
+
+    @Override
+    public int getCost() {
+        return this.cost;
+    }
+
+    @Override
+    public float getAmount() {
+        return this.amount;
+    }
+
+    @Override
+    public ProviderModelInterface getProvider() {
+        return this.provider;
+    }
+
+    @Override
+    public IngredientUnitModelInterface getIngredientUnit() {
+        return this.unit;
+    }
+
+    @Override
     public void setProperty(ResultSet resultSet) {
         try {
             this.id = resultSet.getInt(ID_HEADER);
@@ -110,9 +170,9 @@ public class IngredientModel implements IngredientModelInterface {
         try {
             PreparedStatement preparedStatement = dbConnection
                     .prepareStatement(DELETE_QUERY_PROTOTYPE);
-            
+
             preparedStatement.setInt(1, this.id);
-            
+
             preparedStatement.execute();
             preparedStatement.close();
         } catch (SQLException ex) {
@@ -162,6 +222,31 @@ public class IngredientModel implements IngredientModelInterface {
         } catch (SQLException ex) {
             Logger.getLogger(IngredientModel.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final IngredientModel other = (IngredientModel) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
     }
 
     @Override

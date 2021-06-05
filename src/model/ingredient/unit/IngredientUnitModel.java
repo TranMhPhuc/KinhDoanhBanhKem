@@ -19,6 +19,16 @@ public class IngredientUnitModel implements IngredientUnitModelInterface {
     }
 
     @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
     public String getIngredientUnitIDText() {
         return String.valueOf(this.id);
     }
@@ -59,6 +69,31 @@ public class IngredientUnitModel implements IngredientUnitModelInterface {
         } catch (SQLException ex) {
             Logger.getLogger(IngredientUnitModel.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final IngredientUnitModel other = (IngredientUnitModel) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
     }
 
     @Override

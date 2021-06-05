@@ -18,4 +18,5 @@ public interface DatabaseModel {
     void updateInDatabase();
 
     void setKeyArg(int index, String header, PreparedStatement preparedStatement);
+    
 }

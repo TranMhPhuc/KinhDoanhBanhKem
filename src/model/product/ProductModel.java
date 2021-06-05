@@ -47,25 +47,9 @@ public class ProductModel implements ProductModelInterface {
         ingredientDetails = new ArrayList<>();
     }
 
-    public ProductModel(int id, String name, int cost, int price, int amount,
-            String size, ArrayList<IngredientOfProductModelInterface> ingredients) {
-        this.id = id;
-        this.name = name;
-        this.cost = cost;
-        this.price = price;
-        this.amount = amount;
-        this.size = size;
-        this.ingredientDetails = ingredients;
-    }
-
     @Override
     public String getProductIDText() {
         return String.valueOf(this.id);
-    }
-
-    @Override
-    public void addIngredientDetail(IngredientOfProductModelInterface ingredientOfProductDetailInterface) {
-        this.ingredientDetails.add(ingredientOfProductDetailInterface);
     }
 
     @Override
@@ -121,7 +105,7 @@ public class ProductModel implements ProductModelInterface {
         try {
             PreparedStatement preparedStatement = dbConnection
                     .prepareStatement(UPDATE_QUERY_PROTOTYPE);
-            
+
             preparedStatement.setString(1, this.name);
             preparedStatement.setString(2, this.size);
             preparedStatement.setInt(3, this.cost);
@@ -155,6 +139,81 @@ public class ProductModel implements ProductModelInterface {
         } catch (SQLException ex) {
             Logger.getLogger(ProductModel.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 31 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ProductModel other = (ProductModel) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void setString(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    @Override
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    @Override
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    @Override
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public String getSize() {
+        return this.size;
+    }
+
+    @Override
+    public int getCost() {
+        return this.cost;
+    }
+
+    @Override
+    public int getAmount() {
+        return this.amount;
+    }
+
+    @Override
+    public int getPrice() {
+        return this.price;
     }
 
     @Override
