@@ -111,8 +111,8 @@ public class EmployeeModel implements EmployeeModelInterface {
             ResultSet shiftFindResultSet = statement.executeQuery(shiftFindQuery);
 
             while (shiftFindResultSet.next()) {
-                this.shifts.add(employeeShiftDataStorage.getShift(resultSet
-                        .getString(EmployeeShiftModel.ID_HEADER)));
+                this.shifts.add(employeeShiftDataStorage.getShift(shiftFindResultSet
+                        .getString(1)));
             }
 
         } catch (SQLException ex) {

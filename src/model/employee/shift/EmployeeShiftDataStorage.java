@@ -57,7 +57,7 @@ public class EmployeeShiftDataStorage implements EmployeeShiftDataStorageInterfa
                 return shift;
             }
         }
-        throw new IllegalArgumentException("Shift id is not existed.");
+        throw new IllegalArgumentException("Shift id '" + shiftIDText + "' is not existed.");
     }
 
     @Override
@@ -77,7 +77,7 @@ public class EmployeeShiftDataStorage implements EmployeeShiftDataStorageInterfa
                 return i;
             }
         }
-        throw new IllegalArgumentException("Shift id is not existed.");
+        throw new IllegalArgumentException("Shift id '" + shiftIDText + "' is not existed.");
     }
 
     @Override

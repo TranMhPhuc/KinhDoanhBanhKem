@@ -57,7 +57,7 @@ public class IngredientUnitDataStorage implements IngredientUnitDataStorageInter
                 return element;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Ingredient unit id '" + ingredientUnitIDText + "' is not existed.");
     }
     
 }

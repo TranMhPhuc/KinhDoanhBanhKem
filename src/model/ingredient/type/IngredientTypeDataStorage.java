@@ -56,7 +56,7 @@ public class IngredientTypeDataStorage implements IngredientTypeDataStorageInter
                 return element;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Ingredient id '" + ingredientTypeIDText + "' is not existed.");
     }
 
     @Override

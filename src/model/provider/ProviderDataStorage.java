@@ -57,7 +57,7 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
                 return element;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Provider id '" + providerIDText + "' is not existed");
     }
 
     @Override

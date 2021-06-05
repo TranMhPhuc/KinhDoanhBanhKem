@@ -55,7 +55,7 @@ public class EmployeePositionDataStorage implements EmployeePositionDataStorageI
                 return position;
             }
         }
-        throw new IllegalArgumentException("Position id is not existed.");
+        throw new IllegalArgumentException("Position id '" + positionIDText + "' is not existed.");
     }
 
     @Override
@@ -65,7 +65,7 @@ public class EmployeePositionDataStorage implements EmployeePositionDataStorageI
                 return position;
             }
         }
-        throw new IllegalArgumentException("Position name is not existed.");
+        throw new IllegalArgumentException("Position name '" + positionName + "' is not existed.");
     }
 
 }

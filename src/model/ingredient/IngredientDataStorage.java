@@ -57,7 +57,7 @@ public class IngredientDataStorage implements IngredientDataStorageInterface {
                 return element;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Ingredient id '" + ingredientIDText + "' is not existed.");
     }
 
     @Override

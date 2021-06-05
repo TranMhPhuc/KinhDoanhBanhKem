@@ -56,7 +56,7 @@ public class ProductDataStorage implements ProductDataStorageInterface {
                 return element;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Product id '" + productIDText +  "' is not existed.");
     }
 
     @Override

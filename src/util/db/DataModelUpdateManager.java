@@ -83,4 +83,9 @@ public class DataModelUpdateManager {
         productDataStorage.updateFromDB(connection);
         ingredientOfProductDataStorage.updateFromDB(connection);
     }
+    
+    public static void main(String[] args) {
+        DataModelUpdateManager dataModelUpdateManager = getInstance();
+        dataModelUpdateManager.updateFromDB();
+    }
 }

@@ -57,7 +57,7 @@ public class EmployeeDataStorage implements EmployeeDataStorageInterface {
                 return element;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Employee id '" + employeeIDText + "' is not existed.");
     }
 
     @Override
