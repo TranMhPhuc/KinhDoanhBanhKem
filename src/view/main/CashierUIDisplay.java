@@ -7,15 +7,13 @@ public class CashierUIDisplay implements CustomUIDisplay {
 
     @Override
     public void customUIDisplay(MainFrame mainFrame, UserModelInterface model) {
-        SideMenuPanel sideMenuPanel = mainFrame.getPanelSideMenu();
+        mainFrame.setHomeFunctionState(true);
+        mainFrame.setSellFunctionState(true);
+        mainFrame.setStatisticFunctionState(false);
+        mainFrame.setProductManageFunctionState(false);
+        mainFrame.setEmployeeFunctionState(false);
         
-        sideMenuPanel.setHomeFunctionState(true);
-        sideMenuPanel.setSellButtonState(true);
-        sideMenuPanel.setStatisticButtonState(false);
-        sideMenuPanel.setProductManageButtonState(false);
-        sideMenuPanel.setEmployeeButtonState(false);
-        
-        sideMenuPanel.setLabelGreetingText("Hello, cashier");
+        mainFrame.setLabelGreetingText("Hello, cashier");
     }
 
 }

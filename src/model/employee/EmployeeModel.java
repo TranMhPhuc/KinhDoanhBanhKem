@@ -79,7 +79,7 @@ public class EmployeeModel implements EmployeeModelInterface {
     public EmployeeModel() {
         this.shifts = new ArrayList<>();
     }
-    
+
     @Override
     public void setProperty(ResultSet resultSet) {
         try {
@@ -100,7 +100,7 @@ public class EmployeeModel implements EmployeeModelInterface {
             this.endDate = resultSet.getDate(END_DATE_HEADER);
 
             this.shifts.clear();
-            
+
             Statement statement = dbConnection.createStatement();
 
             String shiftFindQuery
@@ -118,6 +118,11 @@ public class EmployeeModel implements EmployeeModelInterface {
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeModel.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public void setEmployeeID(int id) {
+        this.employeeID = id;
     }
 
     @Override
@@ -173,6 +178,11 @@ public class EmployeeModel implements EmployeeModelInterface {
     @Override
     public void setShift(ArrayList<EmployeeShiftModelInterface> shifts) {
         this.shifts = shifts;
+    }
+
+    @Override
+    public int getEmployeeID() {
+        return this.employeeID;
     }
 
     @Override
@@ -294,7 +304,6 @@ public class EmployeeModel implements EmployeeModelInterface {
 //                shift.setKeyArg(2, EmployeeShiftModel.ID_HEADER, preparedStatement);
 //                preparedStatement.execute();
 //            }
-
             preparedStatement.close();
 
         } catch (SQLException ex) {
@@ -357,7 +366,7 @@ public class EmployeeModel implements EmployeeModelInterface {
         }
         return true;
     }
-    
+
     @Override
     public String toString() {
 //        String shiftText = "{";

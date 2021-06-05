@@ -8,29 +8,27 @@ public class StatisticsPanel extends javax.swing.JPanel {
     private volatile static StatisticsPanel uniqueInstance;
 
     private StatisticsControllerInterface controller;
-    
+
     private StatisticsPanel(StatisticsControllerInterface controller) {
+        if (controller == null) {
+            throw new NullPointerException("Controller object is null.");
+        }
         initComponents();
         createView();
         createControl();
     }
-    
+
     public static StatisticsPanel getInstance(StatisticsControllerInterface controller) {
-        if (controller == null) {
-            throw new NullPointerException("Statistic controller is null.");
-        }
         if (uniqueInstance == null) {
             synchronized (StatisticsPanel.class) {
                 if (uniqueInstance == null) {
                     uniqueInstance = new StatisticsPanel(controller);
                 }
             }
-        } else {
-            uniqueInstance.controller = controller;
         }
         return uniqueInstance;
     }
-    
+
     public static StatisticsPanel getInstance() {
         if (uniqueInstance == null) {
             throw new NullPointerException("Instance is null.");
@@ -41,9 +39,9 @@ public class StatisticsPanel extends javax.swing.JPanel {
     private void createView() {
         UIControl.setDefaultTableHeader(tableInfo);
     }
-    
+
     private void createControl() {
-        
+
     }
 
     @SuppressWarnings("unchecked")

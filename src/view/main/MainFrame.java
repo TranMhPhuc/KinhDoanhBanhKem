@@ -9,20 +9,27 @@ import javax.swing.JPanel;
 import model.user.UserModelInterface;
 import view.SideMenuPanel;
 import view.TitleMainFrame;
-import view.function.EmployeeManagePanel;
+import view.function.employee.EmployeeManagePanel;
 import view.function.HomePanel;
 import view.function.StatisticsPanel;
 import view.function.bill.BillManagePanel;
 import view.function.product.ProductManagePanel;
 
 public class MainFrame extends javax.swing.JFrame {
-    
+
     private volatile static MainFrame uniqueInstance;
-    
+
     private UserModelInterface model;
     private AppControllerInterface controller;
 
-    private MainFrame(AppControllerInterface controller, UserModelInterface model) {
+    private MainFrame(UserModelInterface model, AppControllerInterface controller) {
+        if (model == null) {
+            throw new IllegalArgumentException("Main frame model is null object.");
+        }
+        if (controller == null) {
+            throw new IllegalArgumentException("Main frame controller is null object.");
+        }
+
         initComponents();
 
         this.model = model;
@@ -30,15 +37,22 @@ public class MainFrame extends javax.swing.JFrame {
 
         createView();
     }
-    
-    public static MainFrame getInstance(AppControllerInterface controller, 
-            UserModelInterface model) {
+
+    public static MainFrame getInstance(UserModelInterface model,
+             AppControllerInterface controller) {
         if (uniqueInstance == null) {
             synchronized (MainFrame.class) {
                 if (uniqueInstance == null) {
-                    uniqueInstance = new MainFrame(controller, model);
+                    uniqueInstance = new MainFrame(model, controller);
                 }
             }
+        }
+        return uniqueInstance;
+    }
+
+    public static MainFrame getInstance() {
+        if (uniqueInstance == null) {
+            throw new NullPointerException();
         }
         return uniqueInstance;
     }
@@ -96,7 +110,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     public void setHomeFunctionState(boolean flag) {
-        this.panelSideMenu.setHomeFunctionState(flag);
+        this.panelSideMenu.setHomeButtonState(flag);
         this.panelHome.setEnabled(flag);
     }
 
@@ -120,6 +134,14 @@ public class MainFrame extends javax.swing.JFrame {
         this.panelEmployeeManage.setEnabled(flag);
     }
 
+    public void setLabelGreetingText(String text) {
+        this.panelSideMenu.setLabelGreetingText(text);
+    }
+
+    public void setLabelUserNameText(String userName) {
+        this.panelSideMenu.setLabelUserNameText(userName);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -127,9 +149,9 @@ public class MainFrame extends javax.swing.JFrame {
         jLayeredPane1 = new javax.swing.JLayeredPane();
         panelTitle = new view.TitleMainFrame();
         panelManage = new javax.swing.JPanel();
-        panelEmployeeManage = view.function.EmployeeManagePanel.getInstance();
+        panelEmployeeManage = view.function.employee.EmployeeManagePanel.getInstance();
         panelHome = view.function.HomePanel.getInstance(new ImageIcon(getClass().getResource("/img/homeBackground.png")).getImage());
-        panelStatistics = view.function.StatisticsPanel().getInstance();
+        panelStatistics = view.function.StatisticsPanel.getInstance();
         panelProduct = new view.function.product.ProductManagePanel();
         panelBill = new view.function.bill.BillManagePanel();
         panelSideMenu = new view.SideMenuPanel(panelTitle.getLabel_title(), panelManage);
@@ -199,7 +221,7 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane jLayeredPane1;
     private view.function.bill.BillManagePanel panelBill;
-    private view.function.EmployeeManagePanel panelEmployeeManage;
+    private view.function.employee.EmployeeManagePanel panelEmployeeManage;
     private view.function.HomePanel panelHome;
     private javax.swing.JPanel panelManage;
     private view.function.product.ProductManagePanel panelProduct;

@@ -9,6 +9,10 @@ public class CheckableItem {
         this.text = text;
         this.selected = selected;
     }
+    
+    public String getText() {
+        return this.text;
+    }
 
     public boolean isSelected() {
         return selected;

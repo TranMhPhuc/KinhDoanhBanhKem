@@ -11,6 +11,7 @@ import java.util.stream.IntStream;
 import javax.accessibility.Accessible;
 import javax.swing.AbstractAction;
 import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -23,7 +24,7 @@ public class CheckedComboBox<E extends CheckableItem> extends JComboBox<E> {
 
     private boolean keepOpen;
     private transient ActionListener listener;
-
+    
     public CheckedComboBox() {
         super();
     }
@@ -31,7 +32,11 @@ public class CheckedComboBox<E extends CheckableItem> extends JComboBox<E> {
     public CheckedComboBox(ComboBoxModel<E> model) {
         super(model);
     }
-
+    
+    public CheckedComboBox(E[] items) {
+        super(items);
+    }
+    
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(200, 20);

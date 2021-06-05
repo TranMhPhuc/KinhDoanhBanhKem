@@ -17,10 +17,13 @@ public class AppController implements AppControllerInterface {
 
     private AppController(UserModelInterface model) {
         this.model = model;
-//        this.mainFrame = new MainFrame(this, model);
-
+        
         getDisplayUIStrategy();
+        
+        this.mainFrame = MainFrame.getInstance(model, this);
+
         this.customUIDisplay.customUIDisplay(this.mainFrame, this.model);
+        
         this.mainFrame.setVisible(true);
     }
 

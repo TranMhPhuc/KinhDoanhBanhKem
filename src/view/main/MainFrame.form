@@ -74,51 +74,6 @@
         <Container class="javax.swing.JPanel" name="panelManage">
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
-          <SubComponents>
-            <Component class="view.function.HomePanel" name="panelHome">
-              <Properties>
-                <Property name="name" type="java.lang.String" value="Home" noResource="true"/>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new view.function.HomePanel(new ImageIcon(getClass().getResource(&quot;/img/homeBackground.png&quot;)).getImage())"/>
-              </AuxValues>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-                  <CardConstraints cardName="Home"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-            <Component class="view.function.StatisticsPanel" name="panelStatistics">
-              <Properties>
-                <Property name="name" type="java.lang.String" value="Statistics" noResource="true"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-                  <CardConstraints cardName="Statistics"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-            <Component class="view.function.product.ProductManagePanel" name="panelProduct">
-              <Properties>
-                <Property name="name" type="java.lang.String" value="Product" noResource="true"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-                  <CardConstraints cardName="Product"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-            <Component class="view.function.bill.BillManagePanel" name="panelBill">
-              <Properties>
-                <Property name="name" type="java.lang.String" value="Selling" noResource="true"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-                  <CardConstraints cardName="Selling"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-          </SubComponents>
         </Container>
         <Component class="view.SideMenuPanel" name="panelSideMenu">
           <AuxValues>

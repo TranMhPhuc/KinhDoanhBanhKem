@@ -16,6 +16,9 @@ public class HomePanel extends javax.swing.JPanel {
     }
 
     public static HomePanel getInstance(Image img) {
+        if (img == null) {
+            throw new IllegalArgumentException("Image object is null.");
+        }
         if (uniqueInstance == null) {
             synchronized (HomePanel.class) {
                 if (uniqueInstance == null) {

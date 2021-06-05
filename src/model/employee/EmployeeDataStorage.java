@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import util.AppLog;
 
 public class EmployeeDataStorage implements EmployeeDataStorageInterface {
@@ -70,5 +71,10 @@ public class EmployeeDataStorage implements EmployeeDataStorageInterface {
         EmployeeModelInterface newEmployee = new EmployeeModel();
         this.employees.add(newEmployee);
         return newEmployee;
+    }
+
+    @Override
+    public Iterator<EmployeeModelInterface> createIterator() {
+        return this.employees.iterator();
     }
 }

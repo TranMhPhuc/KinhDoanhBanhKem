@@ -303,7 +303,7 @@ public class SideMenuPanel extends javax.swing.JPanel {
         buttonList = new ImageButtonIcon[]{set1, set2, set3, set4, set5};
     }
 
-    public void setHomeFunctionState(boolean flag) {
+    public void setHomeButtonState(boolean flag) {
         btnHome.setEnabled(flag);
         btnIconHome.setEnabled(flag);
     }

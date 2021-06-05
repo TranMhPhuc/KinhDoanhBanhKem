@@ -7,15 +7,13 @@ public class AccountantUIDisplay implements CustomUIDisplay {
 
     @Override
     public void customUIDisplay(MainFrame mainFrame, UserModelInterface model) {
-        SideMenuPanel sideMenuPanel = mainFrame.getPanelSideMenu();
-
-        sideMenuPanel.setHomeFunctionState(true);
-        sideMenuPanel.setSellButtonState(false);
-        sideMenuPanel.setStatisticButtonState(true);
-        sideMenuPanel.setProductManageButtonState(false);
-        sideMenuPanel.setEmployeeButtonState(false);
-
-        sideMenuPanel.setLabelGreetingText("Hello, accountant");
+        mainFrame.setHomeFunctionState(true);
+        mainFrame.setSellFunctionState(false);
+        mainFrame.setStatisticFunctionState(true);
+        mainFrame.setProductManageFunctionState(false);
+        mainFrame.setEmployeeFunctionState(false);
+        
+        mainFrame.setLabelGreetingText("Hello, accountant");
     }
 
 }

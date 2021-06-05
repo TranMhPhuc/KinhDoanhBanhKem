@@ -7,6 +7,8 @@ import model.employee.shift.EmployeeShiftModelInterface;
 
 public interface EmployeeModelInterface extends DatabaseModel {
 
+    void setEmployeeID(int id);
+    
     void setName(String name);
     
     void setPhoneNum(int phoneNum);
@@ -28,6 +30,8 @@ public interface EmployeeModelInterface extends DatabaseModel {
     void setEndDate(Date endDate);
     
     void setShift(ArrayList<EmployeeShiftModelInterface> shifts);
+    
+    int getEmployeeID();
     
     String getEmployeeIDText();
     
