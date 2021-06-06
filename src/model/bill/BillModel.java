@@ -23,10 +23,10 @@ public class BillModel implements BillModelInterface {
 
     private static final String INSERT_QUERY_PROTOTYPE
             = "INSERT INTO " + TABLE_NAME + " ("
-            + ID_HEADER + ", " + DATE_HEADER + ", " + PAYMENT_HEADER + ", "
+            + DATE_HEADER + ", " + PAYMENT_HEADER + ", "
             + GUEST_MONEY_HEADER + ", " + CHANGE_MONEY_HEADER + ", "
             + EMPLOYEE_ID_HEADER + ")"
-            + " VALUES (?, ?, ?, ?, ?, ?)";
+            + " VALUES (?, ?, ?, ?, ?)";
 
     private static final EmployeeDataStorageInterface employeeDataStorage;
 
@@ -69,8 +69,18 @@ public class BillModel implements BillModelInterface {
     }
 
     @Override
+    public void setBillID(int id) {
+        this.id = id;
+    }
+
+    @Override
     public String getBillIDText() {
         return String.valueOf(this.id);
+    }
+
+    @Override
+    public int getBillID() {
+        return this.id;
     }
 
     @Override
@@ -107,7 +117,7 @@ public class BillModel implements BillModelInterface {
             preparedStatement.setInt(2, this.payment);
             preparedStatement.setInt(3, this.guestMoney);
             preparedStatement.setInt(4, this.changeMoney);
-            this.employee.setKeyArg(5, ID_HEADER, preparedStatement);
+            this.employee.setKeyArg(5, EmployeeModel.ID_HEADER, preparedStatement);
 
             preparedStatement.execute();
             preparedStatement.close();

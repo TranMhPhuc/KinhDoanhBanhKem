@@ -35,8 +35,10 @@ public abstract class QueryTracker {
         for (Pair<DatabaseModel, QueryType> query : queries) {
             if (query.getValue0().equals(model)) {
                 if (query.getValue1() == QueryType.DELETE) {
+                    updateModel(query.getValue0(), model);
                     query.setAt1(QueryType.INSERT);
                 } else {
+                    // if query is update or insert
                     updateModel(query.getValue0(), model);
                 }
                 return;

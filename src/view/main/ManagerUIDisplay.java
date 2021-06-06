@@ -12,8 +12,9 @@ import control.provider.ProviderController;
 import control.provider.ProviderControllerInterface;
 import control.statistics.StatisticsController;
 import control.statistics.StatisticsControllerInterface;
+import model.bill.BillManageModel;
 import model.bill.BillModel;
-import model.bill.BillModelInterface;
+import model.bill.BillManageModelInterface;
 import model.employee.EmployeeModel;
 import model.employee.EmployeeModelInterface;
 import model.ingredient.IngredientModel;
@@ -28,7 +29,7 @@ import view.SideMenuPanel;
 public class ManagerUIDisplay implements CustomUIDisplay {
 
     public ManagerUIDisplay() {
-        BillModelInterface billModel = new BillModel();
+        BillManageModelInterface billModel = new BillManageModel();
         BillControllerInterface billController = BillController.getInstance(billModel);
         
         StatisticsControllerInterface statisticsController = StatisticsController.getInstance();

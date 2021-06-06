@@ -221,4 +221,20 @@ public class ProductModel implements ProductModelInterface {
         return "ProductModel{" + "id=" + id + ", name=" + name + ", cost=" + cost
                 + ", price=" + price + ", amount=" + amount + ", size=" + size + '}';
     }
+
+    @Override
+    public String getCostText() {
+        return String.valueOf(this.cost);
+    }
+
+    @Override
+    public String getAmountText() {
+        return String.valueOf(this.amount);
+    }
+
+    @Override
+    public String getPriceText() {
+        return String.valueOf(this.price);
+    }
+
 }

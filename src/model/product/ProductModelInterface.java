@@ -26,4 +26,9 @@ public interface ProductModelInterface extends DatabaseModel {
     
     int getPrice();
     
+    String getCostText();
+    
+    String getAmountText();
+    
+    String getPriceText();
 }

@@ -5,8 +5,10 @@ import java.awt.CardLayout;
 import java.awt.Color;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.user.UserModelInterface;
+import view.MessageShowing;
 import view.SideMenuPanel;
 import view.TitleMainFrame;
 import view.function.employee.EmployeeManagePanel;
@@ -15,7 +17,7 @@ import view.function.statistics.StatisticsPanel;
 import view.function.bill.BillManagePanel;
 import view.function.product.ProductManagePanel;
 
-public class MainFrame extends javax.swing.JFrame {
+public class MainFrame extends javax.swing.JFrame implements MessageShowing {
 
     private volatile static MainFrame uniqueInstance;
 
@@ -39,7 +41,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     public static MainFrame getInstance(UserModelInterface model,
-             AppControllerInterface controller) {
+            AppControllerInterface controller) {
         if (uniqueInstance == null) {
             synchronized (MainFrame.class) {
                 if (uniqueInstance == null) {
@@ -75,6 +77,10 @@ public class MainFrame extends javax.swing.JFrame {
                 cardLayout.show(panelManage, panels[i].getName());
             }
         }
+    }
+    
+    public UserModelInterface getModel() {
+        return this.model;
     }
 
     public BillManagePanel getPanelBill() {
@@ -140,6 +146,21 @@ public class MainFrame extends javax.swing.JFrame {
 
     public void setLabelUserNameText(String userName) {
         this.panelSideMenu.setLabelUserNameText(userName);
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "", JOptionPane.ERROR_MESSAGE);
+    }
+
+    @Override
+    public void showInfoMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public void showWarningMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "", JOptionPane.WARNING_MESSAGE);
     }
 
     @SuppressWarnings("unchecked")
@@ -229,5 +250,4 @@ public class MainFrame extends javax.swing.JFrame {
     private view.function.statistics.StatisticsPanel panelStatistics;
     private view.TitleMainFrame panelTitle;
     // End of variables declaration//GEN-END:variables
-
 }

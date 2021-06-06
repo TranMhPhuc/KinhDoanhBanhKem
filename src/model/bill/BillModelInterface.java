@@ -6,6 +6,8 @@ import model.employee.EmployeeModelInterface;
 
 public interface BillModelInterface extends DatabaseModel {
     
+    void setBillID(int id);
+    
     void setDateTimeExport(Timestamp dateTimeExport);
     
     void setPayment(int payment);
@@ -15,6 +17,8 @@ public interface BillModelInterface extends DatabaseModel {
     void setChangeMoney(int changeMoney);
     
     void setEmployee(EmployeeModelInterface employee);
+    
+    int getBillID();
 
     String getBillIDText();
 
@@ -27,4 +31,5 @@ public interface BillModelInterface extends DatabaseModel {
     int getChangeMoney();
     
     EmployeeModelInterface getEmployee();
+    
 }

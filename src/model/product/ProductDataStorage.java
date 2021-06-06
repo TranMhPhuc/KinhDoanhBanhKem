@@ -5,6 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import me.xdrop.fuzzywuzzy.FuzzySearch;
+import me.xdrop.fuzzywuzzy.model.BoundExtractedResult;
 import util.AppLog;
 import view.function.product.ProductUpdateObserver;
 
@@ -15,7 +19,7 @@ public class ProductDataStorage implements ProductDataStorageInterface {
     private ArrayList<ProductModelInterface> products;
     
     private ArrayList<ProductUpdateObserver> observers;
-
+    
     static {
         uniqueInstance = new ProductDataStorage();
     }
@@ -92,6 +96,27 @@ public class ProductDataStorage implements ProductDataStorageInterface {
         for (ProductUpdateObserver observer : observers) {
             observer.updateProductNumber(this.products.size());
         }
+    }
+
+    @Override
+    public List<ProductModelInterface> searchProductByName(String searchText) {
+        List<ProductModelInterface> ret = new ArrayList<>();
+        List<BoundExtractedResult<ProductModelInterface>> matches = FuzzySearch
+                .extractSorted(searchText, this.products, product -> product.getName(), 50);
+        for (BoundExtractedResult<ProductModelInterface> element : matches) {
+            ret.add(element.getReferent());
+        }
+        return ret;
+    }
+
+    @Override
+    public List<ProductModelInterface> getAllProduct() {
+        return this.products;
+    }
+
+    @Override
+    public Iterator<ProductModelInterface> createIterator() {
+        return this.products.iterator();
     }
 
 }

@@ -3,17 +3,39 @@ package view.function.bill;
 import control.bill.BillControllerInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import model.bill.BillModelInterface;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
+import model.bill.BillManageModelInterface;
+import model.product.ProductModelInterface;
+import org.apache.commons.lang3.tuple.Pair;
 import util.swing.UIControl;
+import view.MessageShowing;
+import view.main.MainFrame;
 
-public class BillCreatePanel extends javax.swing.JPanel implements ActionListener {
+public class BillCreatePanel extends javax.swing.JPanel implements ActionListener,
+        MessageShowing {
+
+    public static final int PRODUCT_OFFER_ID_COLUMN_INDEX = 0;
+    public static final int PRODUCT_OFFER_LEFT_AMOUNT_COLUMN_INDEX = 4;
+
+    public static final int PRODUCT_SELECT_ID_COLUMN_INDEX = 0;
+    public static final int PRODUCT_SELECT_AMOUNT_COLUMN_INDEX = 3;
+    public static final int PRODUCT_SELECT_PRICE_COLUMN_INDEX = 4;
 
     private volatile static BillCreatePanel uniqueInstance;
 
-    private BillModelInterface model;
+    private BillManageModelInterface model;
     private BillControllerInterface controller;
 
-    private BillCreatePanel(BillModelInterface model, BillControllerInterface controller) {
+    private DefaultTableModel tableOfferModel;
+    private DefaultTableModel tableSelectModel;
+
+    private BillCreatePanel(BillManageModelInterface model, BillControllerInterface controller) {
         if (model == null) {
             throw new IllegalArgumentException("Bill model is null object.");
         }
@@ -26,11 +48,14 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         this.model = model;
         this.controller = controller;
 
+        tableOfferModel = (DefaultTableModel) tableOffer.getModel();
+        tableSelectModel = (DefaultTableModel) tableSelect.getModel();
+
         createView();
         createControl();
     }
 
-    public static BillCreatePanel getInstance(BillModelInterface model,
+    public static BillCreatePanel getInstance(BillManageModelInterface model,
             BillControllerInterface controller) {
         if (uniqueInstance == null) {
             synchronized (BillCreatePanel.class) {
@@ -50,8 +75,10 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
     }
 
     private void createView() {
-        UIControl.setDefaultTableHeader(tableProductOffered);
-        UIControl.setDefaultTableHeader(tableProductSelected);
+        UIControl.setDefaultTableHeader(tableOffer);
+        UIControl.setDefaultTableHeader(tableSelect);
+
+        resetAll();
     }
 
     private void createControl() {
@@ -60,16 +87,190 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         btnChoose.addActionListener(this);
         btnRemove.addActionListener(this);
         btnClear.addActionListener(this);
+
+        textfSearchProductName.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent event) {
+                String searchText = textfSearchProductName.getText().trim();
+                updateProductList(controller.getProductSearch(searchText));
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent event) {
+                String searchText = textfSearchProductName.getText().trim();
+                if (searchText.isEmpty()) {
+                    resetProductList();
+                } else {
+                    updateProductList(controller.getProductSearch(searchText));
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent event) {
+            }
+        });
     }
 
     @Override
     public void actionPerformed(ActionEvent event) {
+        Object source = event.getSource();
+
+        if (source == btnSearchClear) {
+            if (!textfSearchProductName.getText().isEmpty()) {
+                this.controller.requestClearSearch();
+            }
+        } else if (source == btnExportBill) {
+            if (tableSelectModel.getRowCount() == 0) {
+                showInfoMessage("Bill has no product!");
+            } else {
+                this.controller.requestExportBill();
+            }
+        } else if (source == btnChoose) {
+            int rowID = tableOffer.getSelectedRow();
+            if (rowID == -1) {
+                showInfoMessage("You should choose one product first.");
+            } else {
+                this.controller.requestChooseProduct(rowID);
+            }
+        } else if (source == btnRemove) {
+            int rowID = tableSelect.getSelectedRow();
+            if (rowID == -1) {
+                showInfoMessage("You should choose one product first.");
+            } else {
+                this.controller.requestRemoveSelectedProduct(rowID);
+            }
+        } else if (source == btnClear) {
+            this.controller.requestClearTableSelect();
+        }
+    }
+
+    public int getLeftAmountProductOffer(int rowID) {
+        int leftAmount = (int) tableOfferModel.getValueAt(rowID, PRODUCT_OFFER_LEFT_AMOUNT_COLUMN_INDEX);
+        return leftAmount;
+    }
+
+    public String getIDProductOffer(int rowID) {
+        String productID = (String) tableOffer.getValueAt(rowID, PRODUCT_OFFER_ID_COLUMN_INDEX);
+        return productID;
+    }
+
+    private void resetProductList() {
+        updateProductList(controller.getRemainProduct());
+    }
+
+    public void updateProductList(List<Pair<ProductModelInterface, Integer>> products) {
+        clearTableOffer();
+        for (Pair<ProductModelInterface, Integer> element : products) {
+            addRowTableOffer(element.getKey(), element.getValue());
+        }
+    }
+
+    public void resetAll() {
+        String newBillID = this.controller.getNewBillID();
+        textfBillID.setText(newBillID);
+
+        resetProductList();
+
+        textfTotalMoney.setText("0");
+        clearTableSelect();
     }
 
     public void clearAll() {
-        textfProductName.setText(null);
+        textfSearchProductName.setText(null);
         textfBillID.setText(null);
         textfTotalMoney.setText(null);
+    }
+
+    public void setBillID(String billIDText) {
+        this.textfBillID.setText(billIDText);
+    }
+
+    public void setSearchProductText(String text) {
+        this.textfSearchProductName.setText(text);
+    }
+
+    public void setTotalMoneyText(String text) {
+        this.textfTotalMoney.setText(text);
+    }
+
+    public void setTableOfferRecords(List<String[]> records) {
+        clearTableOffer();
+
+        for (String[] record : records) {
+            tableOfferModel.addRow(record);
+        }
+    }
+
+    public void updateLeftAmountProductOffer(int rowID, int amount) {
+        tableOfferModel.setValueAt(amount, rowID, PRODUCT_OFFER_LEFT_AMOUNT_COLUMN_INDEX);
+        tableOffer.repaint();
+    }
+
+    public void updateAmountProductSelect(int rowID, int amount) {
+        tableSelectModel.setValueAt(amount, rowID, PRODUCT_SELECT_AMOUNT_COLUMN_INDEX);
+    }
+
+    public void updatePriceProductSelect(int rowID, int price) {
+        tableSelectModel.setValueAt(price, rowID, PRODUCT_SELECT_PRICE_COLUMN_INDEX);
+    }
+
+    public void clearTableOffer() {
+        tableOfferModel.setRowCount(0);
+    }
+
+    public void clearTableSelect() {
+        tableSelectModel.setRowCount(0);
+    }
+
+    public void addRowTableOffer(ProductModelInterface product, int productAmount) {
+        Object[] record = new Object[]{
+            product.getProductIDText(),
+            product.getName(),
+            product.getSize(),
+            product.getPrice(),
+            productAmount
+        };
+        tableOfferModel.addRow(record);
+    }
+
+    public void addRowTableSelect(ProductModelInterface product) {
+        Object[] record = new Object[]{
+            product.getProductIDText(),
+            product.getName(),
+            product.getSize(),
+            1,
+            product.getPrice()
+        };
+        tableSelectModel.addRow(record);
+    }
+
+    public int getRowIndexTableOffer(String productIDText) {
+        for (int i = 0; i < tableOfferModel.getRowCount(); i++) {
+            if (((String) tableOfferModel.getValueAt(i, PRODUCT_OFFER_ID_COLUMN_INDEX))
+                    .equals(productIDText)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void removeRowTableSelect(int rowID) {
+        tableSelectModel.removeRow(rowID);
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+        MainFrame.getInstance().showErrorMessage(message);
+    }
+
+    @Override
+    public void showInfoMessage(String message) {
+        MainFrame.getInstance().showInfoMessage(message);
+    }
+
+    @Override
+    public void showWarningMessage(String message) {
+        MainFrame.getInstance().showWarningMessage(message);
     }
 
     @SuppressWarnings("unchecked")
@@ -78,15 +279,17 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
 
         label_prodChoose = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        tableProductSelected = new javax.swing.JTable();
+        tableSelect = new javax.swing.JTable();
         btnChoose = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
-        tableProductOffered = new javax.swing.JTable();
+        tableOffer = new javax.swing.JTable() {
+
+        };
         panelBtnProductSelect = new javax.swing.JPanel();
         btnRemove = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        textfProductName = new javax.swing.JTextField();
+        textfSearchProductName = new javax.swing.JTextField();
         label_prodName = new javax.swing.JLabel();
         btnSearchClear = new javax.swing.JButton();
         btnExportBill = new javax.swing.JButton();
@@ -101,30 +304,62 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         label_prodChoose.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         label_prodChoose.setText("Chosen products");
 
-        tableProductSelected.setModel(new javax.swing.table.DefaultTableModel(
+        tableSelect.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
                 "ID", "Name", "Size", "Amount", "Price"
             }
-        ));
-        jScrollPane8.setViewportView(tableProductSelected);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableSelect.getTableHeader().setReorderingAllowed(false);
+        jScrollPane8.setViewportView(tableSelect);
 
         btnChoose.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnChoose.setForeground(new java.awt.Color(51, 51, 51));
         btnChoose.setText("Choose");
         btnChoose.setFocusPainted(false);
 
-        tableProductOffered.setModel(new javax.swing.table.DefaultTableModel(
+        tableOffer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Name", "Size", "Unit Price"
+                "ID", "Name", "Size", "Unit price", "Left amount"
             }
-        ));
-        jScrollPane7.setViewportView(tableProductOffered);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableOffer.getTableHeader().setReorderingAllowed(false);
+        jScrollPane7.setViewportView(tableOffer);
 
         panelBtnProductSelect.setBackground(new java.awt.Color(255, 255, 255));
         panelBtnProductSelect.setLayout(new java.awt.GridLayout(1, 0, 35, 0));
@@ -144,8 +379,8 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        textfProductName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        textfProductName.setPreferredSize(new java.awt.Dimension(160, 30));
+        textfSearchProductName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        textfSearchProductName.setPreferredSize(new java.awt.Dimension(160, 30));
 
         label_prodName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_prodName.setText("Product Name");
@@ -201,7 +436,7 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(label_prodName)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(textfProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textfSearchProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnSearchClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(label_prodChoose2))
@@ -230,7 +465,7 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(textfProductName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textfSearchProductName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(label_prodName)
                         .addComponent(btnSearchClear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnExportBill, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -270,11 +505,10 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
     private javax.swing.JLabel label_prodName;
     private javax.swing.JLabel label_totalMoney;
     private javax.swing.JPanel panelBtnProductSelect;
-    private javax.swing.JTable tableProductOffered;
-    private javax.swing.JTable tableProductSelected;
+    private javax.swing.JTable tableOffer;
+    private javax.swing.JTable tableSelect;
     private javax.swing.JTextField textfBillID;
-    private javax.swing.JTextField textfProductName;
+    private javax.swing.JTextField textfSearchProductName;
     private javax.swing.JTextField textfTotalMoney;
     // End of variables declaration//GEN-END:variables
-
 }
