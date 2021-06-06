@@ -61,6 +61,8 @@ public class ProductOfBillDetail implements ProductOfBillDetailInterface {
             this.product.setKeyArg(2, ProductModel.ID_HEADER, preparedStatement);
             preparedStatement.setInt(3, this.amount);
             preparedStatement.setInt(4, this.price);
+            
+            System.out.println("Detail: bill: " + this.bill.getBillID() + ", product: " + this.product.getProductIDText() + ", amount: " + amount + ", price: " + price);
 
             preparedStatement.execute();
             preparedStatement.close();
@@ -97,7 +99,28 @@ public class ProductOfBillDetail implements ProductOfBillDetailInterface {
     }
 
     @Override
+    public void setProduct(ProductModelInterface product) {
+        if (product == null) {
+            throw new NullPointerException();
+        }
+        this.product = product;
+    }
+
+    @Override
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    @Override
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    @Override
     public void setBill(BillModelInterface bill) {
+        if (bill == null) {
+            throw new NullPointerException();
+        }
         this.bill = bill;
     }
 

@@ -1,4 +1,4 @@
-package control.bill;
+package control.bill.create;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -20,14 +20,13 @@ import view.function.bill.BillCreatePanel;
 import view.function.bill.BillHistoryPanel;
 import view.main.MainFrame;
 
-public class BillController implements BillControllerInterface {
+public class BillCreateController implements BillCreateControllerInterface {
 
-    private volatile static BillController uniqueInstance;
+    private volatile static BillCreateController uniqueInstance;
     private static ProductDataStorageInterface productDataStorage;
 
     private BillManageModelInterface model;
     private BillCreatePanel billCreatePanel;
-    private BillHistoryPanel billHistoryPanel;
 
     private List<Pair<ProductModelInterface, Integer>> selectedProducts;
 
@@ -42,7 +41,7 @@ public class BillController implements BillControllerInterface {
         productDataStorage = ProductDataStorage.getInstance();
     }
 
-    private BillController(BillManageModelInterface model) {
+    private BillCreateController(BillManageModelInterface model) {
         this.model = model;
         this.selectedProducts = new ArrayList<>();
         this.totalMoneyOfBill = 0;
@@ -56,21 +55,20 @@ public class BillController implements BillControllerInterface {
         }
 
         this.billCreatePanel = BillCreatePanel.getInstance(model, this);
-        this.billHistoryPanel = BillHistoryPanel.getInstance(this);
     }
 
-    public static BillControllerInterface getInstance(BillManageModelInterface model) {
+    public static BillCreateControllerInterface getInstance(BillManageModelInterface model) {
         if (uniqueInstance == null) {
-            synchronized (BillController.class) {
+            synchronized (BillCreateController.class) {
                 if (uniqueInstance == null) {
-                    uniqueInstance = new BillController(model);
+                    uniqueInstance = new BillCreateController(model);
                 }
             }
         }
         return uniqueInstance;
     }
 
-    public static BillController getInstance() {
+    public static BillCreateController getInstance() {
         if (uniqueInstance == null) {
             throw new NullPointerException();
         }
@@ -246,7 +244,7 @@ public class BillController implements BillControllerInterface {
         this.model.setBillChangeMoney(changeMoney);
         this.model.setBillEmployee(MainFrame.getInstance().getModel().getImpl());
         this.model.setBillDateTimeExport(Timestamp.valueOf(LocalDateTime.now()));
-        
+        this.model.setProductListOfBill(selectedProducts);
         System.out.println("Guest money: " + this.guestMoney + ", total: " + this.totalMoneyOfBill);
         
         this.model.exportBill();

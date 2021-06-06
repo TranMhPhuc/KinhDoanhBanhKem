@@ -1,7 +1,6 @@
 package view.main;
 
-import control.bill.BillController;
-import control.bill.BillControllerInterface;
+import control.bill.create.BillCreateController;
 import control.employee.EmployeeManageController;
 import control.employee.EmployeeManageControllerInterface;
 import control.ingredient.IngredientController;
@@ -13,7 +12,6 @@ import control.provider.ProviderControllerInterface;
 import control.statistics.StatisticsController;
 import control.statistics.StatisticsControllerInterface;
 import model.bill.BillManageModel;
-import model.bill.BillModel;
 import model.bill.BillManageModelInterface;
 import model.employee.EmployeeModel;
 import model.employee.EmployeeModelInterface;
@@ -24,13 +22,17 @@ import model.product.ProductModelInterface;
 import model.provider.ProviderModel;
 import model.provider.ProviderModelInterface;
 import model.user.UserModelInterface;
-import view.SideMenuPanel;
+import control.bill.create.BillCreateControllerInterface;
+import control.bill.history.BillHistoryController;
+import control.bill.history.BillHistoryControllerInterface;
 
 public class ManagerUIDisplay implements CustomUIDisplay {
 
     public ManagerUIDisplay() {
-        BillManageModelInterface billModel = new BillManageModel();
-        BillControllerInterface billController = BillController.getInstance(billModel);
+        BillManageModelInterface billModel = BillManageModel.getInstance();
+        BillCreateControllerInterface billCreateController = BillCreateController.getInstance(billModel);
+        
+        BillHistoryControllerInterface billHistoryController = BillHistoryController.getInstance();
         
         StatisticsControllerInterface statisticsController = StatisticsController.getInstance();
         

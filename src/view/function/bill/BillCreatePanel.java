@@ -1,6 +1,5 @@
 package view.function.bill;
 
-import control.bill.BillControllerInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -16,6 +15,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import util.swing.UIControl;
 import view.MessageShowing;
 import view.main.MainFrame;
+import control.bill.create.BillCreateControllerInterface;
 
 public class BillCreatePanel extends javax.swing.JPanel implements ActionListener,
         MessageShowing {
@@ -30,12 +30,12 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
     private volatile static BillCreatePanel uniqueInstance;
 
     private BillManageModelInterface model;
-    private BillControllerInterface controller;
+    private BillCreateControllerInterface controller;
 
     private DefaultTableModel tableOfferModel;
     private DefaultTableModel tableSelectModel;
 
-    private BillCreatePanel(BillManageModelInterface model, BillControllerInterface controller) {
+    private BillCreatePanel(BillManageModelInterface model, BillCreateControllerInterface controller) {
         if (model == null) {
             throw new IllegalArgumentException("Bill model is null object.");
         }
@@ -56,7 +56,7 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
     }
 
     public static BillCreatePanel getInstance(BillManageModelInterface model,
-            BillControllerInterface controller) {
+            BillCreateControllerInterface controller) {
         if (uniqueInstance == null) {
             synchronized (BillCreatePanel.class) {
                 if (uniqueInstance == null) {

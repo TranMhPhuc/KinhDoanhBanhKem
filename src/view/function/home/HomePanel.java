@@ -25,7 +25,7 @@ public class HomePanel extends javax.swing.JPanel implements EmployeeUpdateObser
 
     static {
         employeeDataStorage = EmployeeDataStorage.getInstance();
-        billManageModel = new BillManageModel();
+        billManageModel = BillManageModel.getInstance();
         productDataStorage = ProductDataStorage.getInstance();
     }
 
@@ -35,6 +35,17 @@ public class HomePanel extends javax.swing.JPanel implements EmployeeUpdateObser
         employeeDataStorage.registerObserver(this);
         billManageModel.registerObserver(this);
         productDataStorage.registerObserver(this);
+        
+        createView();
+    }
+    
+    private void createView() {
+        int billNumber = billManageModel.getBillNumber();
+        this.labelBillNumber.setText(String.valueOf(billNumber));
+        int employeeNumber = employeeDataStorage.getSize();
+        this.labelEmployeeNumber.setText(String.valueOf(employeeNumber));
+        int productNumber = productDataStorage.getSize();
+        this.labelProductNumber.setText(String.valueOf(productNumber));
     }
 
     public static HomePanel getInstance(Image img) {

@@ -1,10 +1,10 @@
-package control.bill;
+package control.bill.create;
 
 import java.util.List;
 import model.product.ProductModelInterface;
 import org.apache.commons.lang3.tuple.Pair;
 
-public interface BillControllerInterface {
+public interface BillCreateControllerInterface {
 
     // Show new bill id (not created yet)
     String getNewBillID();

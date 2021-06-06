@@ -1,18 +1,18 @@
 package view.dialog;
 
-import control.bill.BillControllerInterface;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import control.bill.create.BillCreateControllerInterface;
 
 public class BillExportDialog extends javax.swing.JDialog implements ActionListener {
 
-    private BillControllerInterface controller;
+    private BillCreateControllerInterface controller;
 
     public BillExportDialog(java.awt.Frame parent, boolean modal,
-            BillControllerInterface controller) {
+            BillCreateControllerInterface controller) {
         super(parent, modal);
         initComponents();
 
