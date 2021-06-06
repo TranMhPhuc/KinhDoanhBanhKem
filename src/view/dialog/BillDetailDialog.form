@@ -31,22 +31,22 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="label_Title" alignment="1" max="32767" attributes="0"/>
-                  <Component id="scrollPane_Info" alignment="0" pref="570" max="32767" attributes="0"/>
+                  <Component id="scrpane" alignment="0" pref="570" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="label_GuestMoney" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="label_Change" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="label_TotalMoney" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="label_BillDate" alignment="1" min="-2" pref="83" max="-2" attributes="0"/>
+                                  <Component id="labelTitleGuestMoney" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="labelTitleChangeMoney" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="labelTitlePayment" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelTitleBillDate" alignment="1" min="-2" pref="83" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="totalMoney" min="-2" max="-2" attributes="0"/>
-                                  <Component id="billDate" min="-2" max="-2" attributes="0"/>
-                                  <Component id="guestMoney" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="change" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelPayment" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelBillDate" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelGuestMoney" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelChangeMoney" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -74,28 +74,28 @@
                   <Component id="labelBillID" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="scrollPane_Info" min="-2" pref="131" max="-2" attributes="0"/>
+              <Component id="scrpane" min="-2" pref="131" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="label_BillDate" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="billDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelTitleBillDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelBillDate" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="totalMoney" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="label_TotalMoney" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelPayment" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelTitlePayment" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="label_GuestMoney" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="guestMoney" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelTitleGuestMoney" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelGuestMoney" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="label_Change" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="change" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelTitleChangeMoney" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelChangeMoney" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="21" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -109,14 +109,14 @@
         <Property name="text" type="java.lang.String" value="Bill ID: "/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="scrollPane_Info">
+    <Container class="javax.swing.JScrollPane" name="scrpane">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tableInfo">
+        <Component class="javax.swing.JTable" name="tableBillDetail">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="3" rowCount="0">
@@ -171,7 +171,7 @@
         <Property name="text" type="java.lang.String" value="1"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="label_BillDate">
+    <Component class="javax.swing.JLabel" name="labelTitleBillDate">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="15" style="2"/>
@@ -180,7 +180,7 @@
         <Property name="text" type="java.lang.String" value="Bill date:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="label_TotalMoney">
+    <Component class="javax.swing.JLabel" name="labelTitlePayment">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="15" style="2"/>
@@ -189,7 +189,7 @@
         <Property name="text" type="java.lang.String" value="Total money:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="label_GuestMoney">
+    <Component class="javax.swing.JLabel" name="labelTitleGuestMoney">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="15" style="2"/>
@@ -198,7 +198,7 @@
         <Property name="text" type="java.lang.String" value="Guest money:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="label_Change">
+    <Component class="javax.swing.JLabel" name="labelTitleChangeMoney">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="15" style="2"/>
@@ -207,7 +207,7 @@
         <Property name="text" type="java.lang.String" value="Change:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="billDate">
+    <Component class="javax.swing.JLabel" name="labelBillDate">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="99" green="99" red="99" type="rgb"/>
@@ -218,7 +218,7 @@
         <Property name="text" type="java.lang.String" value="6/9/1969"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="totalMoney">
+    <Component class="javax.swing.JLabel" name="labelPayment">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="99" green="99" red="99" type="rgb"/>
@@ -229,7 +229,7 @@
         <Property name="text" type="java.lang.String" value="499 000 VND"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="guestMoney">
+    <Component class="javax.swing.JLabel" name="labelGuestMoney">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="99" green="99" red="99" type="rgb"/>
@@ -240,7 +240,7 @@
         <Property name="text" type="java.lang.String" value="500 000 VND"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="change">
+    <Component class="javax.swing.JLabel" name="labelChangeMoney">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="99" green="99" red="99" type="rgb"/>

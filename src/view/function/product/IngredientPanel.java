@@ -5,15 +5,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import model.ingredient.IngredientModelInterface;
 import util.swing.UIControl;
+import view.MessageShowing;
+import view.main.MainFrame;
 
-public class IngredientPanel extends javax.swing.JPanel implements ActionListener {
+public class IngredientPanel extends javax.swing.JPanel implements ActionListener, MessageShowing {
 
     private volatile static IngredientPanel uniqueInstance;
-    
+
     private IngredientModelInterface model;
     private IngredientControllerInterface controller;
 
-    private IngredientPanel(IngredientModelInterface model, 
+    private IngredientPanel(IngredientModelInterface model,
             IngredientControllerInterface controller) {
         if (model == null) {
             throw new IllegalArgumentException("Ingredient model is null object.");
@@ -21,20 +23,20 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         if (controller == null) {
             throw new IllegalArgumentException("Ingredient controller is null object.");
         }
-        
+
         initComponents();
-        
+
         this.model = model;
         this.controller = controller;
-        
+
         createView();
         createControl();
     }
-    
-    public static IngredientPanel getInstance(IngredientModelInterface model, 
+
+    public static IngredientPanel getInstance(IngredientModelInterface model,
             IngredientControllerInterface controller) {
         if (uniqueInstance == null) {
-            synchronized(IngredientPanel.class) {
+            synchronized (IngredientPanel.class) {
                 if (uniqueInstance == null) {
                     uniqueInstance = new IngredientPanel(model, controller);
                 }
@@ -42,7 +44,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         }
         return uniqueInstance;
     }
-    
+
     public static IngredientPanel getInstance() {
         if (uniqueInstance == null) {
             throw new NullPointerException();
@@ -53,6 +55,8 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
     private void createView() {
         setEditableForAll(false);
         UIControl.setDefaultTableHeader(tableIngredient);
+        loadIngredientType();
+        resetIngredientList();
     }
 
     private void createControl() {
@@ -68,30 +72,38 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         mnExport.addActionListener(this);
     }
 
+    public void loadIngredientType() {
+        
+    }
+
+    public void resetIngredientList() {
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent event) {
         Object source = event.getSource();
-        
+
         if (source == btnCreateIngredientType) {
-            
+
         } else if (source == btnSearchClear) {
-            
+
         } else if (source == btnAdd) {
-            
+
         } else if (source == btnModify) {
-            
+
         } else if (source == btnRemove) {
-            
+
         } else if (source == btnMore) {
-            
+            this.popupBtnMore.show(btnMore, 0, btnMore.getY() + btnMore.getHeight());
         } else if (source == btnRequestImport) {
-            
+
         } else if (source == btnShowImportHistory) {
-            
+
         } else if (source == mnImport) {
-            
+
         } else if (source == mnExport) {
-            
+
         }
     }
 
@@ -101,7 +113,6 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         textfIngredientName.setEditable(editable);
         textfProviderName.setEditable(editable);
         combIngredientTypeName.setSelectedIndex(0);
-
     }
 
     public void clearAll() {
@@ -109,6 +120,21 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         textfIngredientID.setText(null);
         textfIngredientName.setText(null);
         textfProviderName.setText(null);
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+        MainFrame.getInstance().showErrorMessage(message);
+    }
+
+    @Override
+    public void showInfoMessage(String message) {
+        MainFrame.getInstance().showErrorMessage(message);
+    }
+
+    @Override
+    public void showWarningMessage(String message) {
+        MainFrame.getInstance().showErrorMessage(message);
     }
 
     @SuppressWarnings("unchecked")
@@ -224,7 +250,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
                                 .addComponent(label_ingreCost)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(textfIngredientCost, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
         panelIngredientInfoLayout.setVerticalGroup(
             panelIngredientInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,17 +284,25 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
 
             },
             new String [] {
-                "No", "ID", "Name", "Cost", "Type", "Total amount", "Unit", "Provider"
+                "ID", "Name", "Cost", "Type", "Amount", "Unit", "Provider"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tableIngredient.getTableHeader().setReorderingAllowed(false);
         scrpaneIngredient.setViewportView(tableIngredient);
 
         panelBtn.setBackground(new java.awt.Color(255, 255, 255));
@@ -332,8 +366,9 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
                         .addComponent(textfSearchName, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnSearchClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(385, 385, 385)
-                        .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8))
                     .addComponent(panelIngredientInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -348,13 +383,15 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelIngredientInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSearchClear, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(textfSearchName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(label_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(label_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSearchClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, 0)
+                        .addComponent(panelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(scrpaneIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -394,5 +431,4 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
     private javax.swing.JTextField textfProviderName;
     private javax.swing.JTextField textfSearchName;
     // End of variables declaration//GEN-END:variables
-
 }

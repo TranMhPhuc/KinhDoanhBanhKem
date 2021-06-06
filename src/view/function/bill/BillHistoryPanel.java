@@ -7,28 +7,32 @@ import java.awt.event.ActionListener;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import model.bill.BillModelInterface;
+import view.MessageShowing;
+import view.main.MainFrame;
 
-public class BillHistoryPanel extends javax.swing.JPanel implements ActionListener {
+public class BillHistoryPanel extends javax.swing.JPanel implements ActionListener, MessageShowing {
 
     private volatile static BillHistoryPanel uniqueInstance;
 
     private BillHistoryControllerInterface controller;
-    
+
     private DefaultTableModel tableBillModel;
 
     private BillHistoryPanel(BillHistoryControllerInterface controller) {
         if (controller == null) {
             throw new IllegalArgumentException("Bill history controller is null object.");
         }
-        
+
         this.controller = controller;
-        
+
         initComponents();
-        
+
         this.tableBillModel = (DefaultTableModel) this.tableBill.getModel();
-        
+
         createView();
         createControl();
     }
@@ -57,24 +61,57 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
         datechooserDateTo.setDate(Date.from(Instant.now()));
         showTodayBill();
     }
-    
+
     private void createControl() {
-        
+        btnSearchClear.addActionListener(this);
+        btnApply.addActionListener(this);
+        btnTodayBill.addActionListener(this);
+        btnExport.addActionListener(this);
+        btnDetail.addActionListener(this);
+
+        combSearchMode.addActionListener(this);
+
+        textfSearch.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent event) {
+                // XXX
+                
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent event) {
+                // XXX
+                
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent event) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        });
     }
-    
+
     public void setSearchText(String text) {
         this.textfSearch.setText(text);
     }
-    
-    private void showTodayBill() {
-        List<BillModelInterface> bills = this.controller.getTodayBillList();
+
+    public void showBills(List<BillModelInterface> bills) {
+        clearBillTable();
         for (BillModelInterface bill : bills) {
             addRowTableBill(bill);
         }
     }
-    
+
+    private void showTodayBill() {
+        List<BillModelInterface> bills = this.controller.getTodayBillList();
+        clearBillTable();
+        for (BillModelInterface bill : bills) {
+            addRowTableBill(bill);
+        }
+    }
+
     private void addRowTableBill(BillModelInterface bill) {
-        Object[] record = new Object[] {
+        Object[] record = new Object[]{
             bill.getBillID(),
             bill.getDateTimeExport(),
             bill.getPayment(),
@@ -82,13 +119,41 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
             bill.getChangeMoney(),
             bill.getEmployee().getEmployeeName()
         };
-        
+
         tableBillModel.addRow(record);
+    }
+
+    public void clearBillTable() {
+        this.tableBillModel.setRowCount(0);
     }
 
     @Override
     public void actionPerformed(ActionEvent event) {
+        Object source = event.getSource();
 
+        if (source == btnSearchClear) {
+            if (!textfSearch.getText().trim().isEmpty()) {
+                this.controller.requestClearSearch();
+            }
+        } else if (source == btnApply) {
+            showBills(this.controller.getBillList(datechooserDateFrom.getDate(),
+                    datechooserDateTo.getDate()));
+        } else if (source == btnTodayBill) {
+            showTodayBill();
+        } else if (source == btnExport) {
+            // XXX
+            
+        } else if (source == btnDetail) {
+            int id = tableBill.getSelectedRow();
+            if (id == -1) {
+                showErrorMessage("You should choose one bill first.");
+            } else {
+                this.controller.requestViewBillDetail(id);
+            }
+        } else if (source == combSearchMode) {
+            // XXX
+            
+        }
     }
 
     public void clearAll() {
@@ -96,6 +161,21 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
         datechooserDateTo.setDate(null);
         combSearchMode.setSelectedIndex(0);
         textfSearch.setText(null);
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+        MainFrame.getInstance().showErrorMessage(message);
+    }
+
+    @Override
+    public void showInfoMessage(String message) {
+        MainFrame.getInstance().showInfoMessage(message);
+    }
+
+    @Override
+    public void showWarningMessage(String message) {
+        MainFrame.getInstance().showWarningMessage(message);
     }
 
     @SuppressWarnings("unchecked")
@@ -113,7 +193,7 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
         textfSearch = new javax.swing.JTextField();
         combSearchMode = new javax.swing.JComboBox<>();
         btnDetail = new javax.swing.JButton();
-        btnReset = new javax.swing.JButton();
+        btnTodayBill = new javax.swing.JButton();
         btnSearchClear = new javax.swing.JButton();
         btnExport = new javax.swing.JButton();
 
@@ -209,11 +289,11 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
         btnDetail.setFocusPainted(false);
         btnDetail.setPreferredSize(new java.awt.Dimension(115, 40));
 
-        btnReset.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        btnReset.setForeground(new java.awt.Color(51, 51, 51));
-        btnReset.setText("Today bills");
-        btnReset.setBorderPainted(false);
-        btnReset.setPreferredSize(new java.awt.Dimension(115, 40));
+        btnTodayBill.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnTodayBill.setForeground(new java.awt.Color(51, 51, 51));
+        btnTodayBill.setText("Today bills");
+        btnTodayBill.setBorderPainted(false);
+        btnTodayBill.setPreferredSize(new java.awt.Dimension(115, 40));
 
         btnSearchClear.setFont(combSearchMode.getFont());
         btnSearchClear.setText("Clear");
@@ -240,7 +320,7 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
                         .addGap(18, 18, 18)
                         .addComponent(btnSearchClear)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTodayBill, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -257,7 +337,7 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(combSearchMode, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTodayBill, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearchClear)
                     .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 24, Short.MAX_VALUE)
@@ -271,8 +351,8 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
     private javax.swing.JButton btnApply;
     private javax.swing.JButton btnDetail;
     private javax.swing.JButton btnExport;
-    private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSearchClear;
+    private javax.swing.JButton btnTodayBill;
     private javax.swing.JComboBox<String> combSearchMode;
     private com.toedter.calendar.JDateChooser datechooserDateFrom;
     private com.toedter.calendar.JDateChooser datechooserDateTo;

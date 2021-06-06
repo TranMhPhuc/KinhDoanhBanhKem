@@ -1,15 +1,67 @@
 package view.dialog;
 
+import control.bill.history.BillHistoryControllerInterface;
 import java.awt.Color;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.bill.BillModelInterface;
+import model.product.ProductModelInterface;
+import model.productOfBill.ProductOfBillDetailInterface;
 import util.swing.UIControl;
 
 public class BillDetailDialog extends javax.swing.JDialog {
 
-    public BillDetailDialog(java.awt.Frame parent, boolean modal) {
+    private BillHistoryControllerInterface controller;
+    
+    private DefaultTableModel tableBillDetailModel;
+    
+    public BillDetailDialog(java.awt.Frame parent, boolean modal, 
+            BillHistoryControllerInterface controller) {
         super(parent, modal);
         initComponents();
-        UIControl.setDefaultTableHeader(tableInfo);
+        
+        this.controller = controller;
+        this.tableBillDetailModel = (DefaultTableModel) tableBillDetail.getModel();
+        
+        setLocationRelativeTo(parent);
+        createView();
+    }
+    
+    private void createView() {
+        UIControl.setDefaultTableHeader(tableBillDetail);
         this.getContentPane().setBackground(Color.WHITE);
+    }
+    
+    public void setLabelBillID(String text) {
+        this.labelBillID.setText(text);
+    }
+    
+    public void setTableBillDetail(List<ProductOfBillDetailInterface> productDetails) {
+        clearTableBillDetail();
+        for (ProductOfBillDetailInterface productDetail : productDetails) {
+            addRowTableBillDetail(productDetail);
+        }
+    }
+    
+    private void addRowTableBillDetail(ProductOfBillDetailInterface productDetail) {
+        Object[] object = new Object[] {
+            productDetail.getProduct().getName(),
+            productDetail.getAmount(),
+            productDetail.getPrice()
+        };
+        this.tableBillDetailModel.addRow(object);
+    }
+    
+    public void clearTableBillDetail() {
+        this.tableBillDetailModel.setRowCount(0);
+    }
+    
+    public void setBillInfo(BillModelInterface bill) {
+        setLabelBillID(bill.getBillIDText());
+        this.labelBillDate.setText(bill.getDateTimeExport().toString());
+        this.labelPayment.setText(String.valueOf(bill.getPayment()));
+        this.labelGuestMoney.setText(String.valueOf(bill.getGuestMoney()));
+        this.labelChangeMoney.setText(String.valueOf(bill.getChangeMoney()));
     }
 
     @SuppressWarnings("unchecked")
@@ -17,18 +69,18 @@ public class BillDetailDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         label_BillID = new javax.swing.JLabel();
-        scrollPane_Info = new javax.swing.JScrollPane();
-        tableInfo = new javax.swing.JTable();
+        scrpane = new javax.swing.JScrollPane();
+        tableBillDetail = new javax.swing.JTable();
         label_Title = new javax.swing.JLabel();
         labelBillID = new javax.swing.JLabel();
-        label_BillDate = new javax.swing.JLabel();
-        label_TotalMoney = new javax.swing.JLabel();
-        label_GuestMoney = new javax.swing.JLabel();
-        label_Change = new javax.swing.JLabel();
-        billDate = new javax.swing.JLabel();
-        totalMoney = new javax.swing.JLabel();
-        guestMoney = new javax.swing.JLabel();
-        change = new javax.swing.JLabel();
+        labelTitleBillDate = new javax.swing.JLabel();
+        labelTitlePayment = new javax.swing.JLabel();
+        labelTitleGuestMoney = new javax.swing.JLabel();
+        labelTitleChangeMoney = new javax.swing.JLabel();
+        labelBillDate = new javax.swing.JLabel();
+        labelPayment = new javax.swing.JLabel();
+        labelGuestMoney = new javax.swing.JLabel();
+        labelChangeMoney = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -37,7 +89,7 @@ public class BillDetailDialog extends javax.swing.JDialog {
         label_BillID.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         label_BillID.setText("Bill ID: ");
 
-        tableInfo.setModel(new javax.swing.table.DefaultTableModel(
+        tableBillDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -45,7 +97,7 @@ public class BillDetailDialog extends javax.swing.JDialog {
                 "Product name", "Amount", "Cost"
             }
         ));
-        scrollPane_Info.setViewportView(tableInfo);
+        scrpane.setViewportView(tableBillDetail);
 
         label_Title.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         label_Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -55,37 +107,37 @@ public class BillDetailDialog extends javax.swing.JDialog {
         labelBillID.setForeground(new java.awt.Color(255, 51, 51));
         labelBillID.setText("1");
 
-        label_BillDate.setFont(new java.awt.Font("Segoe UI", 2, 15)); // NOI18N
-        label_BillDate.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        label_BillDate.setText("Bill date:");
+        labelTitleBillDate.setFont(new java.awt.Font("Segoe UI", 2, 15)); // NOI18N
+        labelTitleBillDate.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelTitleBillDate.setText("Bill date:");
 
-        label_TotalMoney.setFont(new java.awt.Font("Segoe UI", 2, 15)); // NOI18N
-        label_TotalMoney.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        label_TotalMoney.setText("Total money:");
+        labelTitlePayment.setFont(new java.awt.Font("Segoe UI", 2, 15)); // NOI18N
+        labelTitlePayment.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelTitlePayment.setText("Total money:");
 
-        label_GuestMoney.setFont(new java.awt.Font("Segoe UI", 2, 15)); // NOI18N
-        label_GuestMoney.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        label_GuestMoney.setText("Guest money:");
+        labelTitleGuestMoney.setFont(new java.awt.Font("Segoe UI", 2, 15)); // NOI18N
+        labelTitleGuestMoney.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelTitleGuestMoney.setText("Guest money:");
 
-        label_Change.setFont(new java.awt.Font("Segoe UI", 2, 15)); // NOI18N
-        label_Change.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        label_Change.setText("Change:");
+        labelTitleChangeMoney.setFont(new java.awt.Font("Segoe UI", 2, 15)); // NOI18N
+        labelTitleChangeMoney.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelTitleChangeMoney.setText("Change:");
 
-        billDate.setBackground(new java.awt.Color(153, 153, 153));
-        billDate.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        billDate.setText("6/9/1969");
+        labelBillDate.setBackground(new java.awt.Color(153, 153, 153));
+        labelBillDate.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        labelBillDate.setText("6/9/1969");
 
-        totalMoney.setBackground(new java.awt.Color(153, 153, 153));
-        totalMoney.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        totalMoney.setText("499 000 VND");
+        labelPayment.setBackground(new java.awt.Color(153, 153, 153));
+        labelPayment.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        labelPayment.setText("499 000 VND");
 
-        guestMoney.setBackground(new java.awt.Color(153, 153, 153));
-        guestMoney.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        guestMoney.setText("500 000 VND");
+        labelGuestMoney.setBackground(new java.awt.Color(153, 153, 153));
+        labelGuestMoney.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        labelGuestMoney.setText("500 000 VND");
 
-        change.setBackground(new java.awt.Color(153, 153, 153));
-        change.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        change.setText("1000 VND");
+        labelChangeMoney.setBackground(new java.awt.Color(153, 153, 153));
+        labelChangeMoney.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        labelChangeMoney.setText("1000 VND");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,21 +147,21 @@ public class BillDetailDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(label_Title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scrollPane_Info, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+                    .addComponent(scrpane, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(label_GuestMoney, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(label_Change, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(label_TotalMoney, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(label_BillDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(labelTitleGuestMoney, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(labelTitleChangeMoney, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(labelTitlePayment, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(labelTitleBillDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(totalMoney)
-                                    .addComponent(billDate)
-                                    .addComponent(guestMoney)
-                                    .addComponent(change)))
+                                    .addComponent(labelPayment)
+                                    .addComponent(labelBillDate)
+                                    .addComponent(labelGuestMoney)
+                                    .addComponent(labelChangeMoney)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(39, 39, 39)
                                 .addComponent(label_BillID)
@@ -128,82 +180,42 @@ public class BillDetailDialog extends javax.swing.JDialog {
                     .addComponent(label_BillID)
                     .addComponent(labelBillID))
                 .addGap(18, 18, 18)
-                .addComponent(scrollPane_Info, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrpane, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_BillDate)
-                    .addComponent(billDate))
+                    .addComponent(labelTitleBillDate)
+                    .addComponent(labelBillDate))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(totalMoney)
-                    .addComponent(label_TotalMoney))
+                    .addComponent(labelPayment)
+                    .addComponent(labelTitlePayment))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_GuestMoney)
-                    .addComponent(guestMoney))
+                    .addComponent(labelTitleGuestMoney)
+                    .addComponent(labelGuestMoney))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_Change)
-                    .addComponent(change))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(labelTitleChangeMoney)
+                    .addComponent(labelChangeMoney))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BillDetailDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BillDetailDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BillDetailDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BillDetailDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                BillDetailDialog dialog = new BillDetailDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel billDate;
-    private javax.swing.JLabel change;
-    private javax.swing.JLabel guestMoney;
+    private javax.swing.JLabel labelBillDate;
     private javax.swing.JLabel labelBillID;
-    private javax.swing.JLabel label_BillDate;
+    private javax.swing.JLabel labelChangeMoney;
+    private javax.swing.JLabel labelGuestMoney;
+    private javax.swing.JLabel labelPayment;
+    private javax.swing.JLabel labelTitleBillDate;
+    private javax.swing.JLabel labelTitleChangeMoney;
+    private javax.swing.JLabel labelTitleGuestMoney;
+    private javax.swing.JLabel labelTitlePayment;
     private javax.swing.JLabel label_BillID;
-    private javax.swing.JLabel label_Change;
-    private javax.swing.JLabel label_GuestMoney;
     private javax.swing.JLabel label_Title;
-    private javax.swing.JLabel label_TotalMoney;
-    private javax.swing.JScrollPane scrollPane_Info;
-    private javax.swing.JTable tableInfo;
-    private javax.swing.JLabel totalMoney;
+    private javax.swing.JScrollPane scrpane;
+    private javax.swing.JTable tableBillDetail;
     // End of variables declaration//GEN-END:variables
 }

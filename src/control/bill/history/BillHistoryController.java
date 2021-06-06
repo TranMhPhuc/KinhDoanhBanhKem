@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,14 +15,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.bill.BillModel;
 import model.bill.BillModelInterface;
+import model.productOfBill.ProductOfBillDetail;
+import model.productOfBill.ProductOfBillDetailInterface;
 import util.db.SQLServerConnection;
+import view.dialog.BillDetailDialog;
 import view.function.bill.BillHistoryPanel;
+import view.main.MainFrame;
 
 public class BillHistoryController implements BillHistoryControllerInterface {
 
     private static final String CLONE_TODAY_BILL_QUERY_PROTOTYPE
             = "SELECT * FROM " + BillModel.TABLE_NAME
-            + " WHERE " + BillModel.DATE_HEADER + " = ?";
+            + " WHERE CONVERT(date, " + BillModel.DATE_HEADER + ") = ?";
+
+    private static final String CLONE_DAY_RANGE_BILL_QUERY_PROTOTYPE
+            = "SELECT * FROM " + BillModel.TABLE_NAME
+            + " WHERE ? <= CONVERT(date, " + BillModel.DATE_HEADER + ")"
+            + " AND CONVERT(date, " + BillModel.DATE_HEADER + ") <= ?";
+
+    private static final String FIND_PRODUCT_DETAIL_QUERY_PROTOTYPE
+            = "SELECT * FROM " + ProductOfBillDetail.TABLE_NAME
+            + " WHERE " + ProductOfBillDetail.BILL_ID_HEADER + " = ?";
 
     private volatile static BillHistoryController uniqueInstance;
 
@@ -28,6 +43,7 @@ public class BillHistoryController implements BillHistoryControllerInterface {
 
     private BillHistoryPanel billHistoryPanel;
     private List<BillModelInterface> billList;
+    private BillDetailDialog billDetailDialog;
 
     static {
         dbConnection = SQLServerConnection.getConnection();
@@ -35,7 +51,6 @@ public class BillHistoryController implements BillHistoryControllerInterface {
 
     private BillHistoryController() {
         billList = new ArrayList<>();
-        cloneTodayBill();
         this.billHistoryPanel = BillHistoryPanel.getInstance(this);
     }
 
@@ -65,7 +80,6 @@ public class BillHistoryController implements BillHistoryControllerInterface {
                 BillModelInterface bill = new BillModel();
                 bill.setProperty(resultSet);
                 billList.add(bill);
-                System.out.println("Clone " + billList.size() + " bills.");
             }
 
             resultSet.close();
@@ -78,12 +92,39 @@ public class BillHistoryController implements BillHistoryControllerInterface {
 
     @Override
     public List<BillModelInterface> getBillList(Date dateFrom, Date dateTo) {
+        if (dateTo.before(dateFrom)) {
+            this.billHistoryPanel.showErrorMessage("Date range is invallid.");
+        } else {
+            try {
+                PreparedStatement preparedStatement = dbConnection
+                        .prepareStatement(CLONE_DAY_RANGE_BILL_QUERY_PROTOTYPE);
+
+                preparedStatement.setDate(1, new java.sql.Date(dateFrom.getTime()));
+                preparedStatement.setDate(2, new java.sql.Date(dateTo.getTime()));
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                billList.clear();
+
+                while (resultSet.next()) {
+                    BillModelInterface bill = new BillModel();
+                    bill.setProperty(resultSet);
+                    billList.add(bill);
+                }
+
+                resultSet.close();
+                preparedStatement.close();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(BillHistoryController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return billList;
     }
 
     @Override
     public void exportBillList() {
-
+        // XXX
     }
 
     @Override
@@ -95,24 +136,55 @@ public class BillHistoryController implements BillHistoryControllerInterface {
 
     @Override
     public void requestClearSearch() {
-        
+        this.billHistoryPanel.setSearchText("");
+        this.billHistoryPanel.showBills(billList);
     }
 
     @Override
     public List<BillModelInterface> getBillSearchByEmployeeName(String employeeNameSearchText) {
-        return billList;
+        // XXX
 
+        return billList;
     }
 
     @Override
     public List<BillModelInterface> getBillSearchByBillID(String billIDSearchText) {
+        // XXX
+
         return billList;
 
     }
 
     @Override
     public void requestViewBillDetail(int rowID) {
+        BillModelInterface bill = billList.get(rowID);
 
+        List<ProductOfBillDetailInterface> productDetails = new ArrayList<>();
+
+        try {
+            PreparedStatement preparedStatement = dbConnection
+                    .prepareStatement(FIND_PRODUCT_DETAIL_QUERY_PROTOTYPE);
+            
+            bill.setKeyArg(1, BillModel.ID_HEADER, preparedStatement);
+            
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            while (resultSet.next()) {
+                ProductOfBillDetailInterface productDetail = new ProductOfBillDetail();
+                productDetail.setProperty(resultSet);
+                productDetails.add(productDetail);
+            }
+            
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(BillHistoryController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        billDetailDialog = new BillDetailDialog(MainFrame.getInstance(), true, this);
+        billDetailDialog.setTableBillDetail(productDetails);
+        billDetailDialog.setBillInfo(bill);
+        billDetailDialog.setVisible(true);
     }
 
 }

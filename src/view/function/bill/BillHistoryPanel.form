@@ -33,7 +33,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnSearchClear" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnReset" min="-2" pref="115" max="-2" attributes="0"/>
+                      <Component id="btnTodayBill" min="-2" pref="115" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnExport" min="-2" pref="137" max="-2" attributes="0"/>
                   </Group>
@@ -55,7 +55,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="textfSearch" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="combSearchMode" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="btnReset" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="btnTodayBill" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="btnSearchClear" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnExport" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
@@ -236,7 +236,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnReset">
+    <Component class="javax.swing.JButton" name="btnTodayBill">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="15" style="1"/>

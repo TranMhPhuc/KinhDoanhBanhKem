@@ -3,6 +3,7 @@ package model.productOfBill;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,6 +44,8 @@ public class ProductOfBillDetail implements ProductOfBillDetailInterface {
     @Override
     public void setProperty(ResultSet resultSet) {
         try {
+//            String billIDText = resultSet.getString(BillModel.ID_HEADER);
+//            this.bill = BillModel.getBill(billIDText);
             this.product = productDataStorage.getProduct(resultSet.getString(PRODUCT_ID_HEADER));
             this.amount = resultSet.getInt(AMOUNT_HEADER);
             this.price = resultSet.getInt(PRICE_HEADER);
@@ -151,6 +154,26 @@ public class ProductOfBillDetail implements ProductOfBillDetailInterface {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public BillModelInterface getBill() {
+        return this.bill;
+    }
+
+    @Override
+    public ProductModelInterface getProduct() {
+        return this.product;
+    }
+
+    @Override
+    public int getAmount() {
+        return this.amount;
+    }
+
+    @Override
+    public int getPrice() {
+        return this.price;
     }
 
 }

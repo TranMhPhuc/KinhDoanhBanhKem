@@ -3,6 +3,7 @@ package model.bill;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,6 +52,25 @@ public class BillModel implements BillModelInterface {
         this.guestMoney = other.guestMoney;
         this.changeMoney = other.changeMoney;
         this.employee = other.employee;
+    }
+    
+    public static BillModelInterface getBill(String billIDText) {
+        int billID = Integer.valueOf(billIDText);
+        BillModelInterface ret = new BillModel();
+        
+        try {
+            Statement statement = dbConnection.createStatement();
+            String query = "SELECT * FROM " + TABLE_NAME
+                    + " WHERE " + ID_HEADER + " = " + billID;
+            ResultSet resultSet = statement.executeQuery(query);
+            if (resultSet.next()) {
+                ret.setProperty(resultSet);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BillModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return ret;
     }
 
     @Override
