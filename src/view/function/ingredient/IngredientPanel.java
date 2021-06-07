@@ -4,8 +4,6 @@ import control.ingredient.IngredientControllerInterface;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
@@ -13,10 +11,8 @@ import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
-import org.junit.Assert;
 import model.ingredient.IngredientManageModelInterface;
 import model.ingredient.IngredientModelInterface;
-import model.ingredient.type.IngredientTypeDataStorageInterface;
 import model.ingredient.type.IngredientTypeModelInterface;
 import model.ingredient.unit.IngredientUnitModelInterface;
 import model.provider.ProviderModelInterface;
@@ -32,8 +28,6 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
     }
 
     private volatile static IngredientPanel uniqueInstance;
-
-    private static IngredientTypeDataStorageInterface ingredientTypeDataStorage;
 
     private IngredientManageModelInterface model;
     private IngredientControllerInterface controller;
@@ -110,10 +104,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         tableIngredient.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                int rowID = tableIngredient.getSelectedRow();
-                if (rowID != -1) {
-                    controller.selectRowTableIngredient(rowID);
-                }
+                controller.requestShowIngredientInfo();
             }
         });
 
@@ -121,7 +112,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
             @Override
             public void insertUpdate(DocumentEvent event) {
                 String searchText = textfSearchName.getText().trim();
-                showIngredientList(controller.getIngredientSearchByName(searchText));
+                showIngredientList(controller.getIngredientBySearchName(searchText));
             }
 
             @Override
@@ -130,7 +121,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
                 if (searchText.isEmpty()) {
                     resetIngredientList();
                 } else {
-                    showIngredientList(controller.getIngredientSearchByName(searchText));
+                    showIngredientList(controller.getIngredientBySearchName(searchText));
                 }
             }
 
@@ -142,7 +133,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
     }
 
     public void showIngredientInfo(IngredientModelInterface ingredient) {
-        if (editState != null) {
+        if (editState == EditState.ADD) {
             return;
         }
 
@@ -160,6 +151,13 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         for (int i = 0; i < this.combIngredientTypeName.getItemCount(); i++) {
             if (this.combIngredientTypeName.getItemAt(i).equals(ingredientTypeName)) {
                 this.combIngredientTypeName.setSelectedIndex(i);
+                break;
+            }
+        }
+        String ingredientUnitName = ingredient.getIngredientUnit().getName();
+        for (int i = 0; i < this.combIngredientUnitName.getItemCount(); i++) {
+            if (this.combIngredientUnitName.getItemAt(i).equals(ingredientUnitName)) {
+                this.combIngredientUnitName.setSelectedIndex(i);
                 break;
             }
         }
@@ -188,7 +186,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
             combProviderName.setSelectedIndex(0);
         }
     }
-    
+
     public void loadIngredientUnitInput() {
         Iterator<IngredientUnitModelInterface> iterator = this.model.getAllIngredientUnit();
         combIngredientUnitName.removeAllItems();
@@ -202,7 +200,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
     }
 
     public void resetIngredientList() {
-        Iterator<IngredientModelInterface> iterator = this.controller.getAllIngredient();
+        Iterator<IngredientModelInterface> iterator = this.controller.getAllIngredientData();
         showIngredientList(iterator);
     }
 
@@ -233,63 +231,13 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
     public void setTextfSearch(String text) {
         this.textfSearchName.setText(text);
     }
-    
+
     public String getTextSearch() {
-        return this.textfSearchName.getText();
+        return this.textfSearchName.getText().trim();
     }
 
-    private void addIngredientAction() {
-        resetIngredientInput();
-        setIngredientInputEditable(true);
-        showCardOption();
-
-        String nextIngredientIDText = this.model.getNextIngredientID();
-        this.textfIngredientID.setText(nextIngredientIDText);
-
-        this.editState = EditState.ADD;
-    }
-
-    private void modifyIngredientAction() {
-        String ingredientIDText = textfIngredientID.getText();
-        if (ingredientIDText.isEmpty()) {
-            showInfoMessage("You should choose one ingredient first.");
-        } else {
-            setIngredientInputEditable(true);
-            showCardOption();
-        }
-        this.editState = EditState.MODIFY;
-    }
-
-    private void removeIngredientAction() {
-        String ingredientIDText = textfIngredientID.getText();
-        if (ingredientIDText.isEmpty()) {
-            showInfoMessage("You should choose one ingredient first.");
-        } else {
-            int ret = JOptionPane.showConfirmDialog(MainFrame.getInstance(),
-                    "Remove ingredient?", "Confirmation", JOptionPane.YES_NO_OPTION,
-                    JOptionPane.WARNING_MESSAGE);
-            if (ret == JOptionPane.YES_OPTION) {
-                this.controller.requestRemoveIngreident();
-            }
-        }
-    }
-
-    private void requestImportAction() {
-        int rowID = tableIngredient.getSelectedRow();
-        if (rowID == -1) {
-            showInfoMessage("You should choose one ingredient first.");
-        } else {
-            this.controller.requestImportIngredient(rowID);
-        }
-    }
-
-    private void requestViewImportHistoryAction() {
-        int rowID = tableIngredient.getSelectedRow();
-        if (rowID == -1) {
-            showInfoMessage("You should choose one ingredient first.");
-        } else {
-            this.controller.viewIngredientImportHistory(rowID);
-        }
+    public int getSelectedRow() {
+        return this.tableIngredient.getSelectedRow();
     }
 
     @Override
@@ -305,23 +253,51 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
                 resetIngredientInput();
             }
         } else if (source == btnAdd) {
-            addIngredientAction();
+            resetIngredientInput();
+            setIngredientInputEditable(true);
+            btnOk.setText("Add");
+            showCardOption();
+            String nextIngredientIDText = this.model.getNextIngredientID();
+            this.textfIngredientID.setText(nextIngredientIDText);
+            this.editState = EditState.ADD;
         } else if (source == btnModify) {
-            modifyIngredientAction();
+            String ingredientIDText = textfIngredientID.getText();
+            if (ingredientIDText.isEmpty()) {
+                showInfoMessage("You should choose one ingredient first.");
+            } else {
+                setIngredientInputEditable(true);
+                btnOk.setText("Save");
+                showCardOption();
+                this.editState = EditState.MODIFY;
+            }
         } else if (source == btnRemove) {
-            removeIngredientAction();
+            String ingredientIDText = textfIngredientID.getText();
+            if (ingredientIDText.isEmpty()) {
+                showInfoMessage("You should choose one ingredient first.");
+            } else {
+                int ret = JOptionPane.showConfirmDialog(MainFrame.getInstance(),
+                        "Remove ingredient?", "Confirmation", JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE);
+                if (ret == JOptionPane.YES_OPTION) {
+                    this.controller.requestRemoveIngredient();
+                }
+            }
         } else if (source == btnMore) {
             this.popupBtnMore.show(btnMore, 0, btnMore.getY() + btnMore.getHeight());
         } else if (source == btnRequestImport) {
-            requestImportAction();
+            this.controller.requestImportIngredient();
         } else if (source == btnShowImportHistory) {
-            requestViewImportHistoryAction();
+            this.controller.requestViewImportHistory();
         } else if (source == mnImport) {
             // XXX
 
         } else if (source == mnExport) {
-            // XXX
+            if (this.tableIngredientModel.getRowCount() == 0) {
+                showErrorMessage("Table ingredient data is empty.");
+            } else {
+                // XXX
 
+            }
         } else if (source == btnOk) {
             switch (editState) {
                 case ADD: {
@@ -329,7 +305,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
                     break;
                 }
                 case MODIFY: {
-                    int rowID = tableIngredient.getSelectedRow();
+                    this.controller.requestUpdateIngredient();
                     break;
                 }
             }
@@ -338,10 +314,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
             this.editState = null;
             setIngredientInputEditable(false);
             showCardFunction();
-            int rowID = tableIngredient.getSelectedRow();
-            if (rowID != -1) {
-                controller.selectRowTableIngredient(rowID);
-            }
+            controller.requestShowIngredientInfo();
         } else if (source == btnReset) {
             resetIngredientInput();
         } else if (source == btnCreateIngredientType) {
@@ -356,19 +329,19 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
     public String getIngredientCostInput() {
         return textfIngredientCost.getText().trim();
     }
-    
-    public String getIngredientID() {
+
+    public String getIngredientIDText() {
         return textfIngredientID.getText();
     }
-    
+
     public int getProviderSelectIndex() {
         return combProviderName.getSelectedIndex();
     }
-    
+
     public int getIngredientTypeSelectIndex() {
         return combIngredientTypeName.getSelectedIndex();
     }
-    
+
     public int getIngredientUnitSelectIndex() {
         return combIngredientUnitName.getSelectedIndex();
     }
@@ -393,7 +366,6 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
 
     public void resetIngredientInput() {
         textfIngredientCost.setText("");
-        textfIngredientID.setText("");
         textfIngredientName.setText("");
         if (combProviderName.getItemCount() != 0) {
             combProviderName.setSelectedIndex(0);
@@ -413,12 +385,12 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
 
     @Override
     public void showInfoMessage(String message) {
-        MainFrame.getInstance().showErrorMessage(message);
+        MainFrame.getInstance().showInfoMessage(message);
     }
 
     @Override
     public void showWarningMessage(String message) {
-        MainFrame.getInstance().showErrorMessage(message);
+        MainFrame.getInstance().showWarningMessage(message);
     }
 
     @SuppressWarnings("unchecked")

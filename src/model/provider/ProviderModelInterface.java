@@ -14,7 +14,7 @@ public interface ProviderModelInterface extends DatabaseModel {
 
     void setPhoneNum(String phoneNum);
 
-    String getIDText();
+    String getProviderIDText();
 
     String getName();
 

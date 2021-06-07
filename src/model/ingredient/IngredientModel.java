@@ -138,7 +138,7 @@ public class IngredientModel implements IngredientModelInterface {
             this.type = ingredientTypeDataStorage.getIngredientType(resultSet.getString(TYPE_HEADER));
             this.cost = resultSet.getInt(COST_HEADER);
             this.amount = resultSet.getInt(AMOUNT_HEADER);
-            this.provider = providerDataStorage.getProvider(resultSet.getString(PROVIDER_ID_HEADER));
+            this.provider = providerDataStorage.getProviderByID(resultSet.getString(PROVIDER_ID_HEADER));
             this.unit = ingredientUnitDataStorage.getIngredientUnit(resultSet.getString(UNIT_ID_HEADER));
         } catch (SQLException ex) {
             Logger.getLogger(IngredientModel.class.getName()).log(Level.SEVERE, null, ex);

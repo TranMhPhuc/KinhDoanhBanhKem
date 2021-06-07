@@ -58,36 +58,50 @@ public class IngredientController implements IngredientControllerInterface {
     }
 
     @Override
-    public void viewIngredientImportHistory(int rowID) {
-
+    public void requestViewImportHistory() {
+        int rowID = this.view.getSelectedRow();
+        if (rowID == -1) {
+            this.view.showInfoMessage("You should choose one ingredient first.");
+        } else {
+            // XXX
+        }
     }
 
     @Override
-    public void requestImportIngredient(int rowID) {
-
+    public void requestImportIngredient() {
+        int rowID = this.view.getSelectedRow();
+        if (rowID == -1) {
+            this.view.showInfoMessage("You should choose one ingredient first.");
+        } else {
+            // XXX
+        }
     }
 
     @Override
-    public void selectRowTableIngredient(int rowID) {
+    public void requestShowIngredientInfo() {
+        int rowID = this.view.getSelectedRow();
+        if (rowID == -1) {
+            return;
+        }
         if (rowID >= searchList.size()) {
-            throw new IllegalArgumentException("RowID is not in search list.");
+            throw new IllegalArgumentException("Row index is not in bound.");
         }
         IngredientModelInterface ingredient = this.searchList.get(rowID);
         this.view.showIngredientInfo(ingredient);
     }
 
     @Override
-    public Iterator<IngredientModelInterface> getAllIngredient() {
+    public Iterator<IngredientModelInterface> getAllIngredientData() {
         Iterator<IngredientModelInterface> iterator = this.model.getAllIngredient();
-        searchList.clear();
+        this.searchList.clear();
         while (iterator.hasNext()) {
-            searchList.add(iterator.next());
+            this.searchList.add(iterator.next());
         }
         return this.searchList.iterator();
     }
 
     @Override
-    public Iterator<IngredientModelInterface> getIngredientSearchByName(String searchText) {
+    public Iterator<IngredientModelInterface> getIngredientBySearchName(String searchText) {
         Iterator<IngredientModelInterface> iterator = this.model.getIngredientSearchByName(searchText);
         this.searchList.clear();
         while (iterator.hasNext()) {
@@ -98,7 +112,7 @@ public class IngredientController implements IngredientControllerInterface {
 
     @Override
     public void requestCreateIngredient() {
-        String ingredientIDText = this.view.getIngredientID();
+        String ingredientIDText = this.view.getIngredientIDText();
 
         // Check name valid
         String ingredientName = this.view.getIngredientNameInput();
@@ -149,7 +163,7 @@ public class IngredientController implements IngredientControllerInterface {
     }
 
     @Override
-    public void requestRemoveIngreident() {
+    public void requestRemoveIngredient() {
 
     }
 
@@ -163,6 +177,16 @@ public class IngredientController implements IngredientControllerInterface {
             this.model.createNewIngredientType(ingredientTypeName);
             this.newIngredientTypeCreateDialog.dispose();
         }
+    }
+
+    @Override
+    public void requestImportExcel() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void requestExportExcel() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

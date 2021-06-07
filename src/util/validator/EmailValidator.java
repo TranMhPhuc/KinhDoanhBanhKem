@@ -1,25 +1,19 @@
 package util.validator;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import model.employee.EmployeeModel;
 import util.db.SQLServerConnection;
 
 public class EmailValidator {
 
-    private static final Pattern EMAIL_VALID_PATTERN = Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
-    
-    private static Connection dbConnection;
-    
-    static {
-        dbConnection = SQLServerConnection.getConnection();
+    public enum EmailValidateResult {
+        EMPTY,
+        INVALLID,
+        PASS,
     }
+
+    private static final Pattern EMAIL_VALID_PATTERN = Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
 
     private EmailValidator() {
     }
@@ -33,19 +27,19 @@ public class EmailValidator {
         return matcher.matches();
     }
 
-    public static boolean isAvailable(String email) {
-        try {
-            Statement statement = dbConnection.createStatement();
-            String emailFindingQuery = "SELECT * FROM " + EmployeeModel.TABLE_NAME + 
-                    " WHERE " + EmployeeModel.EMAIL_HEADER + " = '" + email + "'";
-            ResultSet resultSet = statement.executeQuery(emailFindingQuery);
-            if (resultSet.next()) {
-                return true;
+    public static EmailValidateResult validate(String email) {
+        String input = email.trim();
+
+        if (email.isEmpty()) {
+            return EmailValidateResult.EMPTY;
+        } else {
+            Matcher matcher = EMAIL_VALID_PATTERN.matcher(email);
+            if (!matcher.matches()) {
+                return EmailValidateResult.INVALLID;
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(EmailValidator.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return false;
+        return EmailValidateResult.PASS;
     }
+
 }

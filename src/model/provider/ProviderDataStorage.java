@@ -6,9 +6,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import me.xdrop.fuzzywuzzy.FuzzySearch;
+import me.xdrop.fuzzywuzzy.model.BoundExtractedResult;
 import util.AppLog;
 
 public class ProviderDataStorage implements ProviderDataStorageInterface {
+
+    public static final int FIND_NAME_SCORE_CUT_OFF = 60;
 
     private static ProviderDataStorage uniqueInstance;
 
@@ -52,9 +57,9 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
     }
 
     @Override
-    public ProviderModelInterface getProvider(String providerIDText) {
+    public ProviderModelInterface getProviderByID(String providerIDText) throws IllegalArgumentException {
         for (ProviderModelInterface element : providers) {
-            if (element.getIDText().equals(providerIDText)) {
+            if (element.getProviderIDText().equals(providerIDText)) {
                 return element;
             }
         }
@@ -62,7 +67,7 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
     }
 
     @Override
-    public ProviderModelInterface getProvider(int providerIndex) {
+    public ProviderModelInterface getProvider(int providerIndex) throws IndexOutOfBoundsException {
         if (providerIndex < 0 || providerIndex >= providers.size()) {
             throw new IndexOutOfBoundsException("Provider index is out of bound.");
         }
@@ -77,6 +82,113 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
     @Override
     public Iterator<ProviderModelInterface> createIterator() {
         return providers.iterator();
+    }
+
+    @Override
+    public boolean remove(ProviderModelInterface provider) {
+        if (provider == null) {
+            throw new NullPointerException("Provider instance is null.");
+        }
+        int index = providers.indexOf(provider);
+        if (index == -1) {
+            return false;
+        } else {
+            provider.deleteInDatabase();
+            this.providers.remove(index);
+            return true;
+        }
+    }
+
+    @Override
+    public void add(ProviderModelInterface provider) {
+        if (provider == null) {
+            throw new NullPointerException("Provider instance is null");
+        }
+        int index = providers.indexOf(provider);
+        if (index != -1) {
+            throw new IllegalArgumentException("Provdier instance is already existed.");
+        } else {
+            this.providers.add(provider);
+            provider.insertToDatabase();
+        }
+    }
+
+    @Override
+    public boolean update(ProviderModelInterface updatedProvider) {
+        if (updatedProvider == null) {
+            throw new NullPointerException("Provider instance is null object");
+        }
+        int index = providers.indexOf(updatedProvider);
+        if (index == -1) {
+            return false;
+        } else {
+//            this.providers.set(index, updatedProvider);
+            updatedProvider.updateInDatabase();
+            return true;
+        }
+    }
+
+    @Override
+    public boolean isProviderNameExisted(String providerName) {
+        if (providerName.isEmpty()) {
+            throw new IllegalArgumentException("Provider name is empty.");
+        }
+        for (ProviderModelInterface element : providers) {
+            if (element.getName().equals(providerName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isProviderEmailExisted(String providerEmail) {
+        if (providerEmail.isEmpty()) {
+            throw new IllegalArgumentException("Provider email is empty.");
+        }
+        for (ProviderModelInterface element : providers) {
+            if (element.getEmail().equals(providerEmail)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isProviderAddressExisted(String providerAddress) {
+        if (providerAddress.isEmpty()) {
+            throw new IllegalArgumentException("Provider name is empty.");
+        }
+        for (ProviderModelInterface element : providers) {
+            if (element.getAddress().equals(providerAddress)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isProviderPhoneNumExist(String providerPhoneNum) {
+        if (providerPhoneNum.isEmpty()) {
+            throw new IllegalArgumentException("Provider phone num is empty.");
+        }
+        for (ProviderModelInterface element : providers) {
+            if (element.getPhoneNum().equals(providerPhoneNum)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Iterator<ProviderModelInterface> getProviderSearchByName(String searchText) {
+        List<ProviderModelInterface> ret = new ArrayList<>();
+        List<BoundExtractedResult<ProviderModelInterface>> matches = FuzzySearch
+                .extractSorted(searchText, this.providers, provider -> provider.getName(), FIND_NAME_SCORE_CUT_OFF);
+        for (BoundExtractedResult<ProviderModelInterface> element : matches) {
+            ret.add(element.getReferent());
+        }
+        return ret.iterator();
     }
 
 }

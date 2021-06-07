@@ -9,19 +9,23 @@ public interface IngredientControllerInterface {
     
     void requestUpdateIngredient();
     
-    void requestRemoveIngreident();
+    void requestRemoveIngredient();
 
-    void viewIngredientImportHistory(int rowID);
+    void requestViewImportHistory();
 
-    void requestImportIngredient(int rowID);
+    void requestImportIngredient();
+    
+    void requestImportExcel();
+    
+    void requestExportExcel();
 
-    void selectRowTableIngredient(int rowID);
+    void requestShowIngredientInfo();
 
     void requestCreateNewIngredientType();
     
     void checkNewIngredientTypeInput();
     
-    Iterator<IngredientModelInterface> getAllIngredient();
+    Iterator<IngredientModelInterface> getAllIngredientData();
     
-    Iterator<IngredientModelInterface> getIngredientSearchByName(String searchText);
+    Iterator<IngredientModelInterface> getIngredientBySearchName(String searchText);
 }

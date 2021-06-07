@@ -17,14 +17,14 @@ import model.employee.EmployeeModel;
 import model.employee.EmployeeModelInterface;
 import model.product.ProductModel;
 import model.product.ProductModelInterface;
-import model.provider.ProviderModel;
-import model.provider.ProviderModelInterface;
 import model.user.UserModelInterface;
 import control.bill.create.BillCreateControllerInterface;
 import control.bill.history.BillHistoryController;
 import control.bill.history.BillHistoryControllerInterface;
 import model.ingredient.IngredientManageModel;
 import model.ingredient.IngredientManageModelInterface;
+import model.provider.ProviderManageModel;
+import model.provider.ProviderManageModelInterface;
 
 public class ManagerUIDisplay implements CustomUIDisplay {
 
@@ -42,7 +42,7 @@ public class ManagerUIDisplay implements CustomUIDisplay {
         IngredientManageModelInterface ingredientModel = IngredientManageModel.getInstance();
         IngredientControllerInterface ingredientController = IngredientController.getInstance(ingredientModel);
         
-        ProviderModelInterface providerModel = new ProviderModel();
+        ProviderManageModelInterface providerModel = ProviderManageModel.getInstance();
         ProviderControllerInterface providerController = ProviderController.getInstance(providerModel);
         
         EmployeeModelInterface employeeModel = new EmployeeModel();

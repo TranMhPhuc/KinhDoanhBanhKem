@@ -12,7 +12,7 @@ public class ProductManagePanel extends javax.swing.JPanel {
 
         TabbedPanel = new javax.swing.JTabbedPane();
         panelIngredient = view.function.ingredient.IngredientPanel.getInstance();
-        panelProvider = view.function.product.ProviderPanel.getInstance();
+        panelProvider = view.function.provider.ProviderPanel.getInstance();
         panelProduct = view.function.product.ProductPanel.getInstance();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -39,6 +39,6 @@ public class ProductManagePanel extends javax.swing.JPanel {
     private javax.swing.JTabbedPane TabbedPanel;
     private view.function.ingredient.IngredientPanel panelIngredient;
     private view.function.product.ProductPanel panelProduct;
-    private view.function.product.ProviderPanel panelProvider;
+    private view.function.provider.ProviderPanel panelProvider;
     // End of variables declaration//GEN-END:variables
 }

@@ -42,7 +42,7 @@ public class ProviderModel implements ProviderModelInterface {
     }
 
     @Override
-    public String getIDText() {
+    public String getProviderIDText() {
         return this.id;
     }
 

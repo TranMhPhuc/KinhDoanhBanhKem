@@ -86,7 +86,7 @@ public class IngredientDataStorage implements IngredientDataStorageInterface {
     public Iterator<IngredientModelInterface> getIngredientSearchByName(String searchText) {
         List<IngredientModelInterface> ret = new ArrayList<>();
         List<BoundExtractedResult<IngredientModelInterface>> matches = FuzzySearch
-                .extractSorted(searchText, this.ingredients, ingredient -> ingredient.getName(), 80);
+                .extractSorted(searchText, this.ingredients, ingredient -> ingredient.getName(), 60);
         for (BoundExtractedResult<IngredientModelInterface> element : matches) {
             ret.add(element.getReferent());
         }
