@@ -15,8 +15,6 @@ import model.bill.BillManageModel;
 import model.bill.BillManageModelInterface;
 import model.employee.EmployeeModel;
 import model.employee.EmployeeModelInterface;
-import model.ingredient.IngredientModel;
-import model.ingredient.IngredientModelInterface;
 import model.product.ProductModel;
 import model.product.ProductModelInterface;
 import model.provider.ProviderModel;
@@ -25,6 +23,8 @@ import model.user.UserModelInterface;
 import control.bill.create.BillCreateControllerInterface;
 import control.bill.history.BillHistoryController;
 import control.bill.history.BillHistoryControllerInterface;
+import model.ingredient.IngredientManageModel;
+import model.ingredient.IngredientManageModelInterface;
 
 public class ManagerUIDisplay implements CustomUIDisplay {
 
@@ -39,7 +39,7 @@ public class ManagerUIDisplay implements CustomUIDisplay {
         ProductModelInterface productModel = new ProductModel();
         ProductControllerInterface productControllerInterface = ProductController.getInstance(productModel);
         
-        IngredientModelInterface ingredientModel = new IngredientModel();
+        IngredientManageModelInterface ingredientModel = IngredientManageModel.getInstance();
         IngredientControllerInterface ingredientController = IngredientController.getInstance(ingredientModel);
         
         ProviderModelInterface providerModel = new ProviderModel();

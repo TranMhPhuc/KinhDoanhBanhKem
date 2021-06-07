@@ -24,6 +24,11 @@ public class IngredientTypeModel implements IngredientTypeModelInterface {
     }
 
     @Override
+    public void setIngredientTypeID(int id) {
+        this.id = id;
+    }
+
+    @Override
     public void setName(String name) {
         this.name = name;
     }

@@ -5,6 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import me.xdrop.fuzzywuzzy.FuzzySearch;
+import me.xdrop.fuzzywuzzy.model.BoundExtractedResult;
 import util.AppLog;
 
 public class IngredientDataStorage implements IngredientDataStorageInterface {
@@ -61,15 +65,32 @@ public class IngredientDataStorage implements IngredientDataStorageInterface {
     }
 
     @Override
-    public IngredientModelInterface createIngredient() {
-        IngredientModelInterface newIngredient = new IngredientModel();
-        this.ingredients.add(newIngredient);
-        return newIngredient;
+    public void addNewIngredient(IngredientModelInterface ingredient) {
+        if (ingredient == null) {
+            throw new NullPointerException();
+        }
+        this.ingredients.add(ingredient);
     }
 
     @Override
     public int getSize() {
         return this.ingredients.size();
+    }
+
+    @Override
+    public Iterator<IngredientModelInterface> createIterator() {
+        return this.ingredients.iterator();
+    }
+
+    @Override
+    public Iterator<IngredientModelInterface> getIngredientSearchByName(String searchText) {
+        List<IngredientModelInterface> ret = new ArrayList<>();
+        List<BoundExtractedResult<IngredientModelInterface>> matches = FuzzySearch
+                .extractSorted(searchText, this.ingredients, ingredient -> ingredient.getName(), 80);
+        for (BoundExtractedResult<IngredientModelInterface> element : matches) {
+            ret.add(element.getReferent());
+        }
+        return ret.iterator();
     }
 
 }

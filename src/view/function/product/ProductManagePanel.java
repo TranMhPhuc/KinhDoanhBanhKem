@@ -11,7 +11,7 @@ public class ProductManagePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         TabbedPanel = new javax.swing.JTabbedPane();
-        panelIngredient = view.function.product.IngredientPanel.getInstance();
+        panelIngredient = view.function.ingredient.IngredientPanel.getInstance();
         panelProvider = view.function.product.ProviderPanel.getInstance();
         panelProduct = view.function.product.ProductPanel.getInstance();
 
@@ -37,7 +37,7 @@ public class ProductManagePanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane TabbedPanel;
-    private view.function.product.IngredientPanel panelIngredient;
+    private view.function.ingredient.IngredientPanel panelIngredient;
     private view.function.product.ProductPanel panelProduct;
     private view.function.product.ProviderPanel panelProvider;
     // End of variables declaration//GEN-END:variables

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.ingredient.type.IngredientTypeDataStorage;
+import model.ingredient.type.IngredientTypeModel;
 import model.ingredient.type.IngredientTypeModelInterface;
 import model.ingredient.unit.IngredientUnitDataStorage;
 import model.ingredient.unit.IngredientUnitModel;
@@ -21,17 +22,17 @@ public class IngredientModel implements IngredientModelInterface {
     public static final String NAME_HEADER = "TenNguyenLieu";
     public static final String TYPE_HEADER = "MaLoai";
     public static final String COST_HEADER = "Gia";
-    public static final String AMOUNT_HEADER = "MaNguyenLieu";
+    public static final String AMOUNT_HEADER = "TongSoLuong";
     public static final String PROVIDER_ID_HEADER = "MaNCC";
     public static final String UNIT_ID_HEADER = "MaDonVi";
 
     private static final String INSERT_QUERY_PROTOTYPE
             = "INSERT INTO " + TABLE_NAME + " ("
-            + ID_HEADER + ", " + NAME_HEADER + ", " + TYPE_HEADER + ", "
+            + NAME_HEADER + ", " + TYPE_HEADER + ", "
             + COST_HEADER + ", " + AMOUNT_HEADER + ", " + PROVIDER_ID_HEADER + ", "
             + UNIT_ID_HEADER + ")"
-            + " VALUES (?, ?, ?, ?, ?, ?, ?)";
-
+            + " VALUES (?, ?, ?, ?, ?, ?)";
+    
     private static final String UPDATE_QUERY_PROTOTYPE
             = "UPDATE " + TABLE_NAME
             + " SET " + NAME_HEADER + " = ?, " + TYPE_HEADER + " = ?, "
@@ -150,13 +151,13 @@ public class IngredientModel implements IngredientModelInterface {
             PreparedStatement preparedStatement = dbConnection
                     .prepareStatement(INSERT_QUERY_PROTOTYPE);
 
-            preparedStatement.setInt(1, this.id);
-            preparedStatement.setString(2, this.name);
-            this.type.setKeyArg(3, IngredientUnitModel.ID_HEADER, preparedStatement);
-            preparedStatement.setInt(4, this.cost);
-            preparedStatement.setFloat(5, this.amount);
-            this.provider.setKeyArg(6, ProviderModel.ID_HEADER, preparedStatement);
-            this.unit.setKeyArg(7, IngredientUnitModel.ID_HEADER, preparedStatement);
+//            preparedStatement.setInt(1, this.id);
+            preparedStatement.setString(1, this.name);
+            this.type.setKeyArg(2, IngredientTypeModel.ID_HEADER, preparedStatement);
+            preparedStatement.setInt(3, this.cost);
+            preparedStatement.setFloat(4, this.amount);
+            this.provider.setKeyArg(5, ProviderModel.ID_HEADER, preparedStatement);
+            this.unit.setKeyArg(6, IngredientUnitModel.ID_HEADER, preparedStatement);
 
             preparedStatement.execute();
             preparedStatement.close();

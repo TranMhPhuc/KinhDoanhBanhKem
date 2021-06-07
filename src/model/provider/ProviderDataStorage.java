@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import util.AppLog;
 
 public class ProviderDataStorage implements ProviderDataStorageInterface {
@@ -41,8 +42,8 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
                 provider.setProperty(resultSet);
                 providers.add(provider);
             }
-            
-            AppLog.getLogger().info("Update provider database: successfully, " 
+
+            AppLog.getLogger().info("Update provider database: successfully, "
                     + providers.size() + " rows inserted.");
 
         } catch (SQLException ex) {
@@ -61,8 +62,21 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
     }
 
     @Override
+    public ProviderModelInterface getProvider(int providerIndex) {
+        if (providerIndex < 0 || providerIndex >= providers.size()) {
+            throw new IndexOutOfBoundsException("Provider index is out of bound.");
+        }
+        return this.providers.get(providerIndex);
+    }
+
+    @Override
     public int getSize() {
         return this.providers.size();
     }
-    
+
+    @Override
+    public Iterator<ProviderModelInterface> createIterator() {
+        return providers.iterator();
+    }
+
 }

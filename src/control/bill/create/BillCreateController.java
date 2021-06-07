@@ -85,7 +85,7 @@ public class BillCreateController implements BillCreateControllerInterface {
     public List<Pair<ProductModelInterface, Integer>> getProductSearch(String searchText) {
         List<Pair<ProductModelInterface, Integer>> results = new ArrayList<>();
         Iterator<ProductModelInterface> iterator = productDataStorage
-                .searchProductByName(searchText).iterator();
+                .getProductSearchByName(searchText).iterator();
         while (iterator.hasNext()) {
             ProductModelInterface product = iterator.next();
             results.add(new ImmutablePair<>(product, remainAmountOfProducts.get(product)));

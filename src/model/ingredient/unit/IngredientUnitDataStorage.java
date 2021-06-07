@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import util.AppLog;
 
 public class IngredientUnitDataStorage implements IngredientUnitDataStorageInterface {
@@ -58,6 +59,24 @@ public class IngredientUnitDataStorage implements IngredientUnitDataStorageInter
             }
         }
         throw new IllegalArgumentException("Ingredient unit id '" + ingredientUnitIDText + "' is not existed.");
+    }
+
+    @Override
+    public IngredientUnitModelInterface getIngredientUnit(int ingredientUnitSelectIndex) {
+        if (ingredientUnitSelectIndex < 0 || ingredientUnitSelectIndex >= this.ingredientUnits.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        return this.ingredientUnits.get(ingredientUnitSelectIndex);
+    }
+
+    @Override
+    public int getSize() {
+        return this.ingredientUnits.size();
+    }
+
+    @Override
+    public Iterator<IngredientUnitModelInterface> createIterator() {
+        return this.ingredientUnits.iterator();
     }
     
 }

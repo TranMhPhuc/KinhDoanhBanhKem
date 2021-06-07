@@ -99,10 +99,10 @@ public class ProductDataStorage implements ProductDataStorageInterface {
     }
 
     @Override
-    public List<ProductModelInterface> searchProductByName(String searchText) {
+    public List<ProductModelInterface> getProductSearchByName(String searchText) {
         List<ProductModelInterface> ret = new ArrayList<>();
         List<BoundExtractedResult<ProductModelInterface>> matches = FuzzySearch
-                .extractSorted(searchText, this.products, product -> product.getName(), 50);
+                .extractSorted(searchText, this.products, product -> product.getName(), 80);
         for (BoundExtractedResult<ProductModelInterface> element : matches) {
             ret.add(element.getReferent());
         }

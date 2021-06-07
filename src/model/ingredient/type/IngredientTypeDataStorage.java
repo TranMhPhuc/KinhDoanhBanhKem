@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import util.AppLog;
 
 public class IngredientTypeDataStorage implements IngredientTypeDataStorageInterface {
@@ -50,6 +51,7 @@ public class IngredientTypeDataStorage implements IngredientTypeDataStorageInter
         }
     }
 
+    @Override
     public IngredientTypeModelInterface getIngredientType(String ingredientTypeIDText) {
         for (IngredientTypeModelInterface element : ingredientTypes) {
             if (element.getIngredientTypeIDText().equals(ingredientTypeIDText)) {
@@ -60,10 +62,26 @@ public class IngredientTypeDataStorage implements IngredientTypeDataStorageInter
     }
 
     @Override
-    public IngredientTypeModelInterface createIngredientType() {
-        IngredientTypeModelInterface newIngredientType = new IngredientTypeModel();
-        this.ingredientTypes.add(newIngredientType);
-        return newIngredientType;
+    public void addIngredientType(IngredientTypeModelInterface ingredientType) {
+        this.ingredientTypes.add(ingredientType);
+    }
+
+    @Override
+    public Iterator<IngredientTypeModelInterface> createIterator() {
+        return this.ingredientTypes.iterator();
+    }
+
+    @Override
+    public int getSize() {
+        return this.ingredientTypes.size();
+    }
+
+    @Override
+    public IngredientTypeModelInterface getIngredientType(int ingredientTypeIndex) {
+        if (ingredientTypeIndex < 0 || ingredientTypeIndex >= ingredientTypes.size()) {
+            throw new IndexOutOfBoundsException("Ingredient type index is out of bound.");
+        }
+        return ingredientTypes.get(ingredientTypeIndex);
     }
 
 }

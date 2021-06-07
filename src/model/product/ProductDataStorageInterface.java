@@ -18,7 +18,7 @@ public interface ProductDataStorageInterface extends DatabaseUpdate {
     
     void removeObserver(ProductUpdateObserver observer);
     
-    List<ProductModelInterface> searchProductByName(String searchText);
+    List<ProductModelInterface> getProductSearchByName(String searchText);
     
     List<ProductModelInterface> getAllProduct();
     
