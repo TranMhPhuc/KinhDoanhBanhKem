@@ -1,8 +1,10 @@
 package model.ingredient;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLWarning;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,11 +18,16 @@ import model.ingredient.type.IngredientTypeModelInterface;
 import model.ingredient.unit.IngredientUnitDataStorage;
 import model.ingredient.unit.IngredientUnitDataStorageInterface;
 import model.ingredient.unit.IngredientUnitModelInterface;
+import model.ingredientOfProduct.IngredientOfProductModel;
 import model.provider.ProviderDataStorage;
 import model.provider.ProviderDataStorageInterface;
 import model.provider.ProviderModelInterface;
+import org.junit.Assert;
 import util.db.SQLServerConnection;
-import view.function.ingredient.IngredientUpdateObserver;
+import view.function.ingredient.InsertedIngredientObserver;
+import view.function.ingredient.InsertedIngredientTypeObserver;
+import view.function.ingredient.ModifiedIngredientObserver;
+import view.function.ingredient.RemovedIngredientObserver;
 
 public class IngredientManageModel implements IngredientManageModelInterface {
 
@@ -30,30 +37,47 @@ public class IngredientManageModel implements IngredientManageModelInterface {
     public static final String FIND_NEXT_IDENTITY_INGREDIENT_TYPE
             = "SELECT IDENT_CURRENT('" + IngredientTypeModel.TABLE_NAME + "') + 1";
 
+    public static final String CHECK_EXIST_INGREDIENT_OF_PRODUCT_QUERY_PROTOTYPE
+            = "IF EXISTS(SELECT * FROM " + IngredientOfProductModel.TABLE_NAME
+            + " WHERE " + IngredientModel.ID_HEADER + " = ?)\n"
+            + "begin\n"
+            + "	print 1\n"
+            + "end\n"
+            + "else\n"
+            + "begin \n"
+            + "	print 0\n"
+            + "end";
+
     private volatile static IngredientManageModel uniqueInstance;
 
     private static IngredientDataStorageInterface ingredientDataStorage;
     private static IngredientTypeDataStorageInterface ingredientTypeDataStorage;
-    private static ProviderDataStorageInterface providerDataStorage;
     private static IngredientUnitDataStorageInterface ingredientUnitDataStorage;
+    private static ProviderDataStorageInterface providerDataStorage;
+//    private static ProductDataStorageInterface productDataStorage;
 
     private static Connection dbConnection;
 
-    private IngredientModelInterface ingredient;
-
-    private List<IngredientUpdateObserver> observers;
+    private List<InsertedIngredientObserver> insertedIngredientObservers;
+    private List<ModifiedIngredientObserver> modifiedIngredientObservers;
+    private List<RemovedIngredientObserver> removedIngredientObservers;
+    private List<InsertedIngredientTypeObserver> insertedIngredientTypeObservers;
 
     static {
         dbConnection = SQLServerConnection.getConnection();
         ingredientDataStorage = IngredientDataStorage.getInstance();
         ingredientTypeDataStorage = IngredientTypeDataStorage.getInstance();
-        providerDataStorage = ProviderDataStorage.getInstance();
         ingredientUnitDataStorage = IngredientUnitDataStorage.getInstance();
+        providerDataStorage = ProviderDataStorage.getInstance();
+//        productDataStorage = ProductDataStorage.getInstance();
+
     }
 
     private IngredientManageModel() {
-        ingredient = null;
-        observers = new ArrayList<>();
+        insertedIngredientObservers = new ArrayList<>();
+        modifiedIngredientObservers = new ArrayList<>();
+        removedIngredientObservers = new ArrayList<>();
+        insertedIngredientTypeObservers = new ArrayList<>();
     }
 
     public static IngredientManageModelInterface getInstance() {
@@ -68,26 +92,83 @@ public class IngredientManageModel implements IngredientManageModelInterface {
     }
 
     @Override
-    public void registerObserver(IngredientUpdateObserver observer) {
-        observers.add(observer);
+    public void registerInsertedIngredientObserver(InsertedIngredientObserver observer) {
+        this.insertedIngredientObservers.add(observer);
     }
 
     @Override
-    public void removeObserver(IngredientUpdateObserver observer) {
-        int id = observers.indexOf(observer);
+    public void removeInsertedIngredientObserver(InsertedIngredientObserver observer) {
+        int id = insertedIngredientObservers.indexOf(observer);
         if (id >= 0) {
-            observers.remove(observer);
-        }
-    }
-
-    private void notifyObserver() {
-        for (IngredientUpdateObserver observer : observers) {
-            observer.updateIngredientState();
+            insertedIngredientObservers.remove(observer);
         }
     }
 
     @Override
-    public String getNextIngredientID() {
+    public void registerModifiedIngredientObserver(ModifiedIngredientObserver observer) {
+        this.modifiedIngredientObservers.add(observer);
+    }
+
+    @Override
+    public void removeModifiedIngredientObserver(ModifiedIngredientObserver observer) {
+        int id = this.modifiedIngredientObservers.indexOf(observer);
+        if (id >= 0) {
+            this.modifiedIngredientObservers.remove(id);
+        }
+    }
+
+    @Override
+    public void registerRemovedIngredientObserver(RemovedIngredientObserver observer) {
+        this.removedIngredientObservers.add(observer);
+    }
+
+    @Override
+    public void removeRemovedIngredientObserver(RemovedIngredientObserver observer) {
+        int id = this.removedIngredientObservers.indexOf(observer);
+        if (id >= 0) {
+            this.removedIngredientObservers.remove(id);
+        }
+    }
+
+    @Override
+    public void registerInsertedIngredientTypeObserver(InsertedIngredientTypeObserver observer) {
+        this.insertedIngredientTypeObservers.add(observer);
+    }
+
+    @Override
+    public void removeInsertedIngredientTypeObserver(InsertedIngredientTypeObserver observer) {
+        int id = this.insertedIngredientTypeObservers.indexOf(observer);
+        if (id >= 0) {
+            this.insertedIngredientTypeObservers.remove(id);
+        }
+    }
+
+    private void notifyInsertedIngredientObserver(IngredientModelInterface insertedIngredient) {
+        for (InsertedIngredientObserver observer : insertedIngredientObservers) {
+            observer.updateInsertedIngredient(insertedIngredient);
+        }
+    }
+
+    private void notifyModifiedIngredientObserver(IngredientModelInterface updatedIngredient) {
+        for (ModifiedIngredientObserver observer : modifiedIngredientObservers) {
+            observer.updateModifiedIngredient(updatedIngredient);
+        }
+    }
+
+    private void notifyRemovedIngredientObserver(IngredientModelInterface removedIngredient) {
+        for (RemovedIngredientObserver observer : removedIngredientObservers) {
+            observer.updateRemovedIngredient(removedIngredient);
+        }
+    }
+
+    private void notifyInsertedIngredientTypeObserver(IngredientTypeModelInterface insertedIngredientType) {
+        for (InsertedIngredientTypeObserver observer : insertedIngredientTypeObservers) {
+            observer.updateInsertedIngredientType(insertedIngredientType);
+        }
+    }
+
+    @Override
+    public String getNextIngredientIDText() {
         int nextIdentity = 0;
         try {
             Statement statement = dbConnection.createStatement();
@@ -95,6 +176,8 @@ public class IngredientManageModel implements IngredientManageModelInterface {
             if (resultSet.next()) {
                 nextIdentity = resultSet.getInt(1);
             }
+            resultSet.close();
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredientManageModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -102,7 +185,7 @@ public class IngredientManageModel implements IngredientManageModelInterface {
     }
 
     @Override
-    public String getNextIngredientTypeID() {
+    public String getNextIngredientTypeIDText() {
         int nextIdentity = 0;
         try {
             Statement statement = dbConnection.createStatement();
@@ -134,70 +217,77 @@ public class IngredientManageModel implements IngredientManageModelInterface {
     }
 
     @Override
-    public void setIngredientName(String name) {
-        this.ingredient.setName(name);
+    public void addNewIngredient(IngredientModelInterface newIngredient) {
+        ingredientDataStorage.add(newIngredient);
+        notifyInsertedIngredientObserver(newIngredient);
     }
 
     @Override
-    public void setIngredientCost(int cost) {
-        this.ingredient.setCost(cost);
+    public void updateIngredient(IngredientModelInterface updatedIngredient) {
+        ingredientDataStorage.update(updatedIngredient);
+        notifyModifiedIngredientObserver(updatedIngredient);
     }
 
     @Override
-    public void createNewIngredientType(String ingredientTypeName) {
-        IngredientTypeModelInterface ingredientType = new IngredientTypeModel();
-        ingredientType.setIngredientTypeID(ingredientTypeDataStorage.getSize() + 1);
-        ingredientType.setName(ingredientTypeName);
-        ingredientTypeDataStorage.addIngredientType(ingredientType);
+    public void removeIngredient(IngredientModelInterface removedIngredient) {
+        ingredientDataStorage.remove(removedIngredient);
+        notifyRemovedIngredientObserver(removedIngredient);
     }
 
     @Override
-    public void createIngredient() {
-        this.ingredient.insertToDatabase();
-        ingredientDataStorage.addNewIngredient(ingredient);
-        clearIngredientObject();
+    public IngredientModelInterface getIngredient(String ingredientIDText) {
+        return ingredientDataStorage.getIngredientByID(ingredientIDText);
     }
 
     @Override
-    public void updateIngredient(String ingredientIDText) {
+    public boolean isIngredientOfAnyProduct(IngredientModelInterface ingredient) {
+        if (ingredient == null) {
+            throw new NullPointerException("Ingredient instance is null.");
+        }
 
+        try {
+            PreparedStatement preparedStatement = dbConnection
+                    .prepareStatement(CHECK_EXIST_INGREDIENT_OF_PRODUCT_QUERY_PROTOTYPE);
+
+            ingredient.setKeyArg(1, IngredientModel.ID_HEADER, preparedStatement);
+
+            preparedStatement.execute();
+
+            SQLWarning warnings = preparedStatement.getWarnings();
+
+            preparedStatement.close();
+
+            Assert.assertNotNull(warnings);
+
+            if (warnings.getMessage().equals("1")) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientManageModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
     }
 
     @Override
-    public void removeIngredient(String ingredientIDText) {
-
+    public void addNewIngredientType(IngredientTypeModelInterface newIngredientType) {
+        ingredientTypeDataStorage.add(newIngredientType);
+        notifyInsertedIngredientTypeObserver(newIngredientType);
     }
 
     @Override
-    public Iterator<IngredientTypeModelInterface> getAllIngredientType() {
+    public Iterator<IngredientTypeModelInterface> getAllIngredientTypeData() {
         return ingredientTypeDataStorage.createIterator();
     }
 
     @Override
-    public Iterator<IngredientModelInterface> getAllIngredient() {
+    public Iterator<IngredientModelInterface> getAllIngredientData() {
         return ingredientDataStorage.createIterator();
     }
 
     @Override
     public Iterator<IngredientModelInterface> getIngredientSearchByName(String searchText) {
         return ingredientDataStorage.getIngredientSearchByName(searchText);
-    }
-
-    @Override
-    public Iterator<ProviderModelInterface> getAllProvider() {
-        return providerDataStorage.createIterator();
-    }
-
-    @Override
-    public boolean isIngredientTypeExist(String ingredientTypeName) {
-        Iterator<IngredientTypeModelInterface> iterator = ingredientTypeDataStorage.createIterator();
-        while (iterator.hasNext()) {
-            IngredientTypeModelInterface ingredientType = iterator.next();
-            if (ingredientType.getName().equals(ingredientTypeName)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override
@@ -213,36 +303,40 @@ public class IngredientManageModel implements IngredientManageModelInterface {
     }
 
     @Override
-    public void setIngredientProvider(int providerSelectIndex) {
-        ProviderModelInterface provider = providerDataStorage.getProvider(providerSelectIndex);
-        this.ingredient.setProvider(provider);
-    }
-
-    @Override
-    public void setIngredientType(int ingredientTypeSelectIndex) {
-        IngredientTypeModelInterface ingredientType = ingredientTypeDataStorage
-                .getIngredientType(ingredientTypeSelectIndex);
-        this.ingredient.setIngredientType(ingredientType);
-    }
-
-    @Override
-    public void prepareCreateIngredient() {
-        this.ingredient = new IngredientModel();
-    }
-
-    private void clearIngredientObject() {
-        this.ingredient = null;
-    }
-
-    @Override
-    public void setIngredientUnit(int ingredientUnitSelectIndex) {
-        IngredientUnitModelInterface ingredientUnit = ingredientUnitDataStorage.getIngredientUnit(ingredientUnitSelectIndex);
-        this.ingredient.setIngredientUnit(ingredientUnit);
-    }
-
-    @Override
     public Iterator<IngredientUnitModelInterface> getAllIngredientUnit() {
         return ingredientUnitDataStorage.createIterator();
+    }
+
+    @Override
+    public boolean isIngredientTypeNameExist(String ingredientTypeName) {
+        Iterator<IngredientTypeModelInterface> iterator = ingredientTypeDataStorage.createIterator();
+        while (iterator.hasNext()) {
+            IngredientTypeModelInterface ingredientType = iterator.next();
+            if (ingredientType.getName().equals(ingredientTypeName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Iterator<ProviderModelInterface> getAllProviderData() {
+        return providerDataStorage.createIterator();
+    }
+
+    @Override
+    public ProviderModelInterface getProviderByIndex(int providerIndex) {
+        return providerDataStorage.getProviderByIndex(providerIndex);
+    }
+
+    @Override
+    public IngredientTypeModelInterface getIngredientTypeByIndex(int ingredientTypeIndex) {
+        return ingredientTypeDataStorage.getIngredientType(ingredientTypeIndex);
+    }
+
+    @Override
+    public IngredientUnitModelInterface getIngredientUnitByIndex(int ingredientUnitIndex) {
+        return ingredientUnitDataStorage.getIngredientUnit(ingredientUnitIndex);
     }
 
 }

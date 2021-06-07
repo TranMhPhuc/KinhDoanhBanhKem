@@ -20,7 +20,11 @@ import util.swing.UIControl;
 import view.MessageShowing;
 import view.main.MainFrame;
 
-public class IngredientPanel extends javax.swing.JPanel implements ActionListener, MessageShowing {
+public class IngredientPanel extends javax.swing.JPanel implements ActionListener,
+        MessageShowing, InsertedIngredientObserver, ModifiedIngredientObserver,
+        RemovedIngredientObserver, InsertedIngredientTypeObserver {
+
+    public static final int INGREDIENT_ID_COLUMN_INDEX = 0;
 
     enum EditState {
         ADD,
@@ -48,7 +52,13 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         initComponents();
 
         this.model = model;
+        this.model.registerInsertedIngredientObserver(this);
+        this.model.registerModifiedIngredientObserver(this);
+        this.model.registerRemovedIngredientObserver(this);
+        this.model.registerInsertedIngredientTypeObserver(this);
+
         this.controller = controller;
+
         this.tableIngredientModel = (DefaultTableModel) tableIngredient.getModel();
         this.editState = null;
 
@@ -140,6 +150,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         this.textfIngredientID.setText(ingredient.getIngredientIDText());
         this.textfIngredientName.setText(ingredient.getName());
         this.textfIngredientCost.setText(String.valueOf(ingredient.getCost()));
+
         String providerName = ingredient.getProvider().getName();
         for (int i = 0; i < this.combProviderName.getItemCount(); i++) {
             if (this.combProviderName.getItemAt(i).equals(providerName)) {
@@ -164,7 +175,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
     }
 
     public void loadIngredientTypeInput() {
-        Iterator<IngredientTypeModelInterface> iterator = this.model.getAllIngredientType();
+        Iterator<IngredientTypeModelInterface> iterator = this.model.getAllIngredientTypeData();
         combIngredientTypeName.removeAllItems();
         while (iterator.hasNext()) {
             IngredientTypeModelInterface ingredientType = iterator.next();
@@ -176,7 +187,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
     }
 
     public void loadProviderInput() {
-        Iterator<ProviderModelInterface> iterator = this.model.getAllProvider();
+        Iterator<ProviderModelInterface> iterator = this.model.getAllProviderData();
         combProviderName.removeAllItems();
         while (iterator.hasNext()) {
             ProviderModelInterface provider = iterator.next();
@@ -215,7 +226,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         this.tableIngredientModel.setRowCount(0);
     }
 
-    public void addRowTableIngredient(IngredientModelInterface ingredient) {
+    private void addRowTableIngredient(IngredientModelInterface ingredient) {
         Object[] record = new Object[]{
             ingredient.getIngredientIDText(),
             ingredient.getName(),
@@ -226,6 +237,40 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
             ingredient.getProvider().getName()
         };
         this.tableIngredientModel.addRow(record);
+    }
+
+    private void updateRowTableIngredient(IngredientModelInterface ingredient) {
+        for (int i = 0; i < this.tableIngredientModel.getRowCount(); i++) {
+            String ingredientIDInTable = (String) this.tableIngredientModel.getValueAt(i, INGREDIENT_ID_COLUMN_INDEX);
+            if (ingredientIDInTable.equals(ingredient.getIngredientIDText())) {
+                Object[] record = new Object[]{
+                    ingredient.getIngredientIDText(),
+                    ingredient.getName(),
+                    ingredient.getCost(),
+                    ingredient.getIngredientType().getName(),
+                    ingredient.getAmount(),
+                    ingredient.getIngredientUnit().getName(),
+                    ingredient.getProvider().getName()
+                };
+                for (int j = 0; j < record.length; j++) {
+                    this.tableIngredientModel.setValueAt(record[j], i, j);
+                }
+                break;
+            }
+        }
+    }
+
+    private void removeRowTableIngredient(IngredientModelInterface ingredient) {
+        if (this.controller.deleteIngredientInSearchList(ingredient)) {
+            String ingredientIDText = ingredient.getIngredientIDText();
+            for (int i = 0; i < this.tableIngredientModel.getRowCount(); i++) {
+                String ingredientIDInTable = (String) this.tableIngredientModel.getValueAt(i, INGREDIENT_ID_COLUMN_INDEX);
+                if (ingredientIDInTable.equals(ingredientIDText)) {
+                    this.tableIngredientModel.removeRow(i);
+                    break;
+                }
+            }
+        }
     }
 
     public void setTextfSearch(String text) {
@@ -257,7 +302,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
             setIngredientInputEditable(true);
             btnOk.setText("Add");
             showCardOption();
-            String nextIngredientIDText = this.model.getNextIngredientID();
+            String nextIngredientIDText = this.model.getNextIngredientIDText();
             this.textfIngredientID.setText(nextIngredientIDText);
             this.editState = EditState.ADD;
         } else if (source == btnModify) {
@@ -311,15 +356,21 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
             }
 
         } else if (source == btnCancel) {
-            this.editState = null;
-            setIngredientInputEditable(false);
-            showCardFunction();
-            controller.requestShowIngredientInfo();
+            if (this.editState == EditState.ADD) {
+                this.textfIngredientID.setText("");
+                resetIngredientInput();
+            }
+            exitEditState();
         } else if (source == btnReset) {
             resetIngredientInput();
-        } else if (source == btnCreateIngredientType) {
-            this.controller.requestCreateNewIngredientType();
         }
+    }
+
+    public void exitEditState() {
+        this.editState = null;
+        setIngredientInputEditable(false);
+        showCardFunction();
+        controller.requestShowIngredientInfo();
     }
 
     public String getIngredientNameInput() {
@@ -340,6 +391,22 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
 
     public int getIngredientTypeSelectIndex() {
         return combIngredientTypeName.getSelectedIndex();
+    }
+
+    public void setIngredientTypeSelectIndex(String itemSelect) {
+        if (this.editState == null) {
+            return;
+        }
+        if (itemSelect.isEmpty()) {
+            throw new IllegalArgumentException("Item content is empty.");
+        }
+        for (int i = 0; i < this.combIngredientTypeName.getItemCount(); i++) {
+            String item = this.combIngredientTypeName.getItemAt(i);
+            if (item.equals(itemSelect)) {
+                this.combIngredientTypeName.setSelectedIndex(i);
+                break;
+            }
+        }
     }
 
     public int getIngredientUnitSelectIndex() {
@@ -391,6 +458,33 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
     @Override
     public void showWarningMessage(String message) {
         MainFrame.getInstance().showWarningMessage(message);
+    }
+
+    @Override
+    public void updateInsertedIngredient(IngredientModelInterface ingredient) {
+        String searchText = textfSearchName.getText().trim();
+        if (this.controller.insertToSearchListByMatchingName(searchText, ingredient)) {
+            addRowTableIngredient(ingredient);
+        }
+        this.tableIngredient.repaint();
+    }
+
+    @Override
+    public void updateModifiedIngredient(IngredientModelInterface ingredient) {
+        updateRowTableIngredient(ingredient);
+    }
+
+    @Override
+    public void updateRemovedIngredient(IngredientModelInterface ingredient) {
+        removeRowTableIngredient(ingredient);
+    }
+
+    @Override
+    public void updateInsertedIngredientType(IngredientTypeModelInterface insertedIngredientType) {
+        if (insertedIngredientType == null) {
+            throw new NullPointerException("Ingredient type instance is null.");
+        }
+        this.combIngredientTypeName.addItem(insertedIngredientType.getName());
     }
 
     @SuppressWarnings("unchecked")

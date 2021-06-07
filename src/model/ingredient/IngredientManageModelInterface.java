@@ -1,64 +1,84 @@
 package model.ingredient;
 
 import java.util.Iterator;
-import java.util.List;
 import model.ingredient.type.IngredientTypeModelInterface;
 import model.ingredient.unit.IngredientUnitModelInterface;
 import model.provider.ProviderModelInterface;
-import view.function.ingredient.IngredientUpdateObserver;
+import view.function.ingredient.InsertedIngredientObserver;
+import view.function.ingredient.InsertedIngredientTypeObserver;
+import view.function.ingredient.ModifiedIngredientObserver;
+import view.function.ingredient.RemovedIngredientObserver;
 
 public interface IngredientManageModelInterface {
 
-    void registerObserver(IngredientUpdateObserver observer);
+    void registerInsertedIngredientObserver(InsertedIngredientObserver observer);
 
-    void removeObserver(IngredientUpdateObserver observer);
+    void removeInsertedIngredientObserver(InsertedIngredientObserver observer);
 
-    String getNextIngredientID();
+    void registerModifiedIngredientObserver(ModifiedIngredientObserver observer);
 
-    String getNextIngredientTypeID();
+    void removeModifiedIngredientObserver(ModifiedIngredientObserver observer);
 
+    void registerRemovedIngredientObserver(RemovedIngredientObserver observer);
+
+    void removeRemovedIngredientObserver(RemovedIngredientObserver observer);
+
+    void registerInsertedIngredientTypeObserver(InsertedIngredientTypeObserver observer);
+    
+    void removeInsertedIngredientTypeObserver(InsertedIngredientTypeObserver observer);
+    
+    //=========================================================================
+    
+    String getNextIngredientIDText();
+
+    String getNextIngredientTypeIDText();
+
+    //=========================================================================
+    
     int getIngredientNumber();
 
     void exportIngredientData();
 
     void importIngredientData();
-    
+
     //=========================================================================
-    
-    void prepareCreateIngredient();
 
-    void setIngredientName(String name);
+    void addNewIngredient(IngredientModelInterface newIngredient);
 
-    void setIngredientCost(int cost);
+    void updateIngredient(IngredientModelInterface updatedIngredient);
 
-    void setIngredientProvider(int providerSelectIndex);
-
-    void setIngredientType(int ingredientTypeSelectIndex);
-    
-    void setIngredientUnit(int ingredientUnitSelectIndex);
-    
-    void createIngredient();
+    void removeIngredient(IngredientModelInterface removedIngredient);
 
     //=========================================================================
     
-    void createNewIngredientType(String ingredientTypeName);
-
-    void updateIngredient(String ingredientIDText);
-
-    void removeIngredient(String ingredientIDText);
-
-    Iterator<IngredientTypeModelInterface> getAllIngredientType();
-
-    Iterator<ProviderModelInterface> getAllProvider();
-
-    Iterator<IngredientModelInterface> getAllIngredient();
+    void addNewIngredientType(IngredientTypeModelInterface newIngredientType);
+    
+    Iterator<IngredientTypeModelInterface> getAllIngredientTypeData();
+    
+    boolean isIngredientTypeNameExist(String ingredientTypeName);
+    
+    IngredientTypeModelInterface getIngredientTypeByIndex(int ingredientTypeIndex);
+    
+    //=========================================================================
     
     Iterator<IngredientUnitModelInterface> getAllIngredientUnit();
+    
+    IngredientUnitModelInterface getIngredientUnitByIndex(int ingredientUnitIndex);
+    
+    //=========================================================================
+    
+    IngredientModelInterface getIngredient(String ingredientIDText);
+
+    Iterator<IngredientModelInterface> getAllIngredientData();
+    
+    Iterator<ProviderModelInterface> getAllProviderData();
+    
+    ProviderModelInterface getProviderByIndex(int providerIndex);
 
     Iterator<IngredientModelInterface> getIngredientSearchByName(String searchText);
 
-    boolean isIngredientTypeExist(String ingredientTypeName);
-
     boolean isIngredientNameExist(String ingredientName);
+    
+    boolean isIngredientOfAnyProduct(IngredientModelInterface ingredient);
 
 }

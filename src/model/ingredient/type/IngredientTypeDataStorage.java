@@ -62,8 +62,17 @@ public class IngredientTypeDataStorage implements IngredientTypeDataStorageInter
     }
 
     @Override
-    public void addIngredientType(IngredientTypeModelInterface ingredientType) {
-        this.ingredientTypes.add(ingredientType);
+    public void add(IngredientTypeModelInterface ingredientType) {
+        if (ingredientType == null) {
+            throw new NullPointerException("Ingredient type instance is null.");
+        }
+        int index = this.ingredientTypes.indexOf(ingredientType);
+        if (index != -1) {
+            throw new IllegalArgumentException("Ingredient type instance is existed.");
+        } else {
+            this.ingredientTypes.add(ingredientType);
+            ingredientType.insertToDatabase();
+        }
     }
 
     @Override

@@ -4,9 +4,13 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import model.ingredient.IngredientDataStorage;
+import model.ingredient.IngredientDataStorageInterface;
+import model.ingredient.IngredientModelInterface;
 import util.db.SQLServerConnection;
 import view.function.provider.InsertedProviderObserver;
 import view.function.provider.ModifiedProviderObserver;
+import view.function.provider.RemovedProviderObserver;
 
 public class ProviderManageModel implements ProviderManageModelInterface {
 
@@ -15,18 +19,22 @@ public class ProviderManageModel implements ProviderManageModelInterface {
     private static Connection dbConnection;
 
     private static ProviderDataStorageInterface providerDataStorage;
+    private static IngredientDataStorageInterface ingredientDataStorage;
 
     private List<InsertedProviderObserver> insertedProviderObservers;
     private List<ModifiedProviderObserver> modifiedProviderObservers;
+    private List<RemovedProviderObserver> removedProviderObservers;
 
     static {
         dbConnection = SQLServerConnection.getConnection();
         providerDataStorage = ProviderDataStorage.getInstance();
+        ingredientDataStorage = IngredientDataStorage.getInstance();
     }
 
     private ProviderManageModel() {
         insertedProviderObservers = new ArrayList<>();
         modifiedProviderObservers = new ArrayList<>();
+        removedProviderObservers = new ArrayList<>();
     }
 
     public static ProviderManageModelInterface getInstance() {
@@ -66,32 +74,54 @@ public class ProviderManageModel implements ProviderManageModelInterface {
         }
     }
 
+    @Override
+    public void registerRemovedProviderObserver(RemovedProviderObserver observer) {
+        this.removedProviderObservers.add(observer);
+    }
+
+    @Override
+    public void removeRemovedProviderObserver(RemovedProviderObserver observer) {
+        int id = this.removedProviderObservers.indexOf(observer);
+        if (id >= 0) {
+            this.removedProviderObservers.remove(id);
+        }
+    }
+
     private void notifyInsertedProviderObserver(ProviderModelInterface insertedProvider) {
         for (InsertedProviderObserver observer : insertedProviderObservers) {
             observer.updateInsertedProvider(insertedProvider);
         }
     }
 
-    /**
-     *
-     * @param rowID -- row index of search result in view
-     * @param updatedProvider
-     */
     private void notifyUpdatedProviderObserver(ProviderModelInterface updatedProvider) {
         for (ModifiedProviderObserver observer : modifiedProviderObservers) {
             observer.updateModifiedProvider(updatedProvider);
         }
     }
 
+    private void notifyRemovedProviderObserver(ProviderModelInterface removedProvider) {
+        for (RemovedProviderObserver observer : removedProviderObservers) {
+            observer.updateRemovedProvider(removedProvider);
+        }
+    }
+
     @Override
     public String getNextProviderIDText() {
-        int nextSize = providerDataStorage.getSize() + 1;
-        if (nextSize < 10) {
-            return "HD00" + nextSize;
-        } else if (nextSize < 100) {
-            return "HD0" + nextSize;
+        ProviderModelInterface provider = providerDataStorage
+                .getProviderByIndex(providerDataStorage.getSize() - 1);
+
+        String providerIDText = provider.getProviderIDText();
+
+        String IDPart = providerIDText.substring(2);
+        
+        int nextID = Integer.parseInt(IDPart) + 1;
+
+        if (nextID < 10) {
+            return "HD00" + nextID;
+        } else if (nextID < 100) {
+            return "HD0" + nextID;
         } else {
-            return "HD" + nextSize;
+            return "HD" + nextID;
         }
     }
 
@@ -108,7 +138,7 @@ public class ProviderManageModel implements ProviderManageModelInterface {
     }
 
     @Override
-    public Iterator<ProviderModelInterface> getAllProvider() {
+    public Iterator<ProviderModelInterface> getAllProviderData() {
         return providerDataStorage.createIterator();
     }
 
@@ -152,11 +182,27 @@ public class ProviderManageModel implements ProviderManageModelInterface {
     @Override
     public void removeProvider(ProviderModelInterface removedProvider) {
         providerDataStorage.remove(removedProvider);
+        notifyRemovedProviderObserver(removedProvider);
     }
 
     @Override
     public ProviderModelInterface getProvider(String providerIDText) {
         return providerDataStorage.getProviderByID(providerIDText);
+    }
+
+    @Override
+    public boolean isProviderHavingAnyIngredient(ProviderModelInterface provider) {
+        if (provider == null) {
+            throw new NullPointerException("Provider instance is null.");
+        }
+        Iterator<IngredientModelInterface> iterator = ingredientDataStorage.createIterator();
+        while (iterator.hasNext()) {
+            IngredientModelInterface ingredient = iterator.next();
+            if (ingredient.getProvider() == provider) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

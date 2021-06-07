@@ -4,7 +4,7 @@ import model.DatabaseModel;
 
 public interface IngredientTypeModelInterface extends DatabaseModel {
 
-    void setIngredientTypeID(int id);
+    void setIngredientTypeIDText(String id);
     
     void setName(String name);
     

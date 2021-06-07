@@ -63,7 +63,7 @@ public class IngredientOfProductModel implements IngredientOfProductModelInterfa
     public void setProperty(ResultSet resultSet) {
         try {
             this.product = productDataStorage.getProduct(resultSet.getString(PRODUCT_ID_HEADER));
-            this.ingredient = ingredientDataStorage.getIngredient(resultSet.getString(INGREDIENT_ID_HEADER));
+            this.ingredient = ingredientDataStorage.getIngredientByID(resultSet.getString(INGREDIENT_ID_HEADER));
             this.amount = resultSet.getInt(AMOUNT_HEADER);
             this.unit = ingredientUnitDataStorage.getIngredientUnit(resultSet.getString(UNIT_HEADER));
         } catch (SQLException ex) {

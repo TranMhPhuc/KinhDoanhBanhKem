@@ -3,6 +3,7 @@ package model.provider;
 import java.util.Iterator;
 import view.function.provider.InsertedProviderObserver;
 import view.function.provider.ModifiedProviderObserver;
+import view.function.provider.RemovedProviderObserver;
 
 public interface ProviderManageModelInterface {
 
@@ -13,10 +14,17 @@ public interface ProviderManageModelInterface {
     void registerModifiedProviderObserver(ModifiedProviderObserver observer);
 
     void removeModifiedProviderObserver(ModifiedProviderObserver observer);
+    
+    void registerRemovedProviderObserver(RemovedProviderObserver observer);
+
+    void removeRemovedProviderObserver(RemovedProviderObserver observer);
+    
+    //=========================================================================
 
     String getNextProviderIDText();
 
     //=========================================================================
+    
     void exportProviderData();
 
     void importProviderData();
@@ -25,14 +33,15 @@ public interface ProviderManageModelInterface {
 
     void addNewProvider(ProviderModelInterface newProvider);
     
-    ProviderModelInterface getProvider(String providerIDText);
-    
     void updateProvider(ProviderModelInterface updatedProvider);
     
     void removeProvider(ProviderModelInterface removedProvider);
+    
     //=========================================================================
+    
+    ProviderModelInterface getProvider(String providerIDText);
 
-    Iterator<ProviderModelInterface> getAllProvider();
+    Iterator<ProviderModelInterface> getAllProviderData();
     
     Iterator<ProviderModelInterface> getProviderSearchByName(String searchText);
     
@@ -43,4 +52,6 @@ public interface ProviderManageModelInterface {
     boolean isProviderEmailExist(String providerEmail);
     
     boolean isProviderAddressExist(String providerAddress);
+    
+    boolean isProviderHavingAnyIngredient(ProviderModelInterface provider);
 }

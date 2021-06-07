@@ -23,7 +23,11 @@ public interface IngredientControllerInterface {
 
     void requestCreateNewIngredientType();
     
-    void checkNewIngredientTypeInput();
+    void createNewIngredientType();
+    
+    boolean insertToSearchListByMatchingName(String searchText, IngredientModelInterface ingredient);
+    
+    boolean deleteIngredientInSearchList(IngredientModelInterface ingredient);
     
     Iterator<IngredientModelInterface> getAllIngredientData();
     

@@ -8,12 +8,14 @@ import model.provider.ProviderModelInterface;
 public interface IngredientModelInterface extends DatabaseModel {
 
     String getIngredientIDText();
+
+    void setIngredientID(String ingredientIDText);
     
     void setName(String name);
     
     void setIngredientType(IngredientTypeModelInterface type);
     
-    void setCost(int cost);
+    void setCost(long cost);
     
     void setAmount(float amount);
     
@@ -25,7 +27,7 @@ public interface IngredientModelInterface extends DatabaseModel {
     
     IngredientTypeModelInterface getIngredientType();
     
-    int getCost();
+    long getCost();
     
     float getAmount();
     

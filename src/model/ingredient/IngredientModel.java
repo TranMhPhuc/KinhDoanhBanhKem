@@ -32,7 +32,7 @@ public class IngredientModel implements IngredientModelInterface {
             + COST_HEADER + ", " + AMOUNT_HEADER + ", " + PROVIDER_ID_HEADER + ", "
             + UNIT_ID_HEADER + ")"
             + " VALUES (?, ?, ?, ?, ?, ?)";
-    
+
     private static final String UPDATE_QUERY_PROTOTYPE
             = "UPDATE " + TABLE_NAME
             + " SET " + NAME_HEADER + " = ?, " + TYPE_HEADER + " = ?, "
@@ -51,7 +51,7 @@ public class IngredientModel implements IngredientModelInterface {
     private int id;
     private String name;
     private IngredientTypeModelInterface type;
-    private int cost;
+    private long cost;
     private float amount;
     private ProviderModelInterface provider;
     private IngredientUnitModelInterface unit;
@@ -63,6 +63,11 @@ public class IngredientModel implements IngredientModelInterface {
     }
 
     public IngredientModel() {
+    }
+
+    @Override
+    public void setIngredientID(String ingredientIDText) {
+        this.id = Integer.parseInt(ingredientIDText);
     }
 
     @Override
@@ -81,7 +86,7 @@ public class IngredientModel implements IngredientModelInterface {
     }
 
     @Override
-    public void setCost(int cost) {
+    public void setCost(long cost) {
         this.cost = cost;
     }
 
@@ -111,7 +116,7 @@ public class IngredientModel implements IngredientModelInterface {
     }
 
     @Override
-    public int getCost() {
+    public long getCost() {
         return this.cost;
     }
 
@@ -151,10 +156,9 @@ public class IngredientModel implements IngredientModelInterface {
             PreparedStatement preparedStatement = dbConnection
                     .prepareStatement(INSERT_QUERY_PROTOTYPE);
 
-//            preparedStatement.setInt(1, this.id);
             preparedStatement.setString(1, this.name);
             this.type.setKeyArg(2, IngredientTypeModel.ID_HEADER, preparedStatement);
-            preparedStatement.setInt(3, this.cost);
+            preparedStatement.setLong(3, this.cost);
             preparedStatement.setFloat(4, this.amount);
             this.provider.setKeyArg(5, ProviderModel.ID_HEADER, preparedStatement);
             this.unit.setKeyArg(6, IngredientUnitModel.ID_HEADER, preparedStatement);
@@ -188,8 +192,8 @@ public class IngredientModel implements IngredientModelInterface {
                     .prepareStatement(UPDATE_QUERY_PROTOTYPE);
 
             preparedStatement.setString(1, this.name);
-            this.type.setKeyArg(2, IngredientUnitModel.ID_HEADER, preparedStatement);
-            preparedStatement.setInt(3, this.cost);
+            this.type.setKeyArg(2, IngredientTypeModel.ID_HEADER, preparedStatement);
+            preparedStatement.setLong(3, this.cost);
             preparedStatement.setFloat(4, this.amount);
             this.provider.setKeyArg(5, ProviderModel.ID_HEADER, preparedStatement);
             this.unit.setKeyArg(6, IngredientUnitModel.ID_HEADER, preparedStatement);
@@ -210,15 +214,15 @@ public class IngredientModel implements IngredientModelInterface {
             } else if (header.equals(NAME_HEADER)) {
                 preparedStatement.setString(index, this.name);
             } else if (header.equals(TYPE_HEADER)) {
-                this.type.setKeyArg(index, IngredientModel.ID_HEADER, preparedStatement);
+                this.type.setKeyArg(index, IngredientTypeModel.ID_HEADER, preparedStatement);
             } else if (header.equals(COST_HEADER)) {
-                preparedStatement.setInt(index, this.cost);
+                preparedStatement.setLong(index, this.cost);
             } else if (header.equals(AMOUNT_HEADER)) {
                 preparedStatement.setFloat(index, this.amount);
             } else if (header.equals(PROVIDER_ID_HEADER)) {
-                preparedStatement.setString(index, this.name);
+                this.provider.setKeyArg(index, ProviderModel.ID_HEADER, preparedStatement);
             } else if (header.equals(UNIT_ID_HEADER)) {
-                preparedStatement.setString(index, this.name);
+                this.unit.setKeyArg(index, IngredientUnitModel.ID_HEADER, preparedStatement);
             }
         } catch (SQLException ex) {
             Logger.getLogger(IngredientModel.class.getName()).log(Level.SEVERE, null, ex);

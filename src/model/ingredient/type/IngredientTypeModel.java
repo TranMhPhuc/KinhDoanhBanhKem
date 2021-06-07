@@ -14,8 +14,8 @@ public class IngredientTypeModel implements IngredientTypeModelInterface {
 
     private static final String INSERT_QUERY_PROTOTYPE
             = "INSERT INTO " + TABLE_NAME + " ("
-            + ID_HEADER + ", " + NAME_HEADER + ")"
-            + " VALUES (?, ?)";
+            + NAME_HEADER + ")"
+            + " VALUES (?)";
 
     private int id;
     private String name;
@@ -24,8 +24,8 @@ public class IngredientTypeModel implements IngredientTypeModelInterface {
     }
 
     @Override
-    public void setIngredientTypeID(int id) {
-        this.id = id;
+    public void setIngredientTypeIDText(String id) {
+        this.id = Integer.parseInt(id);
     }
 
     @Override
@@ -59,8 +59,8 @@ public class IngredientTypeModel implements IngredientTypeModelInterface {
             PreparedStatement preparedStatement = dbConnection
                     .prepareStatement(INSERT_QUERY_PROTOTYPE);
 
-            preparedStatement.setInt(1, this.id);
-            preparedStatement.setString(2, this.name);
+            preparedStatement.setString(1, this.name);
+            
             preparedStatement.execute();
             preparedStatement.close();
         } catch (SQLException ex) {

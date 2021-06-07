@@ -18,7 +18,9 @@ public interface ProviderControllerInterface {
     void requestShowProviderInfo();
     
     boolean insertToSearchListByMatchingName(String searchText, ProviderModelInterface provider);
-
+    
+    boolean deleteProviderInSearchList(ProviderModelInterface provider);
+    
     Iterator<ProviderModelInterface> getAllProviderData();
 
     Iterator<ProviderModelInterface> getProviderBySearchName(String searchText);

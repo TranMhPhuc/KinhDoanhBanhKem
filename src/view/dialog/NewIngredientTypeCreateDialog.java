@@ -4,6 +4,7 @@ import control.ingredient.IngredientControllerInterface;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import model.ingredient.IngredientManageModelInterface;
 import view.MessageShowing;
 import view.main.MainFrame;
@@ -45,10 +46,14 @@ public class NewIngredientTypeCreateDialog extends javax.swing.JDialog implement
         Object source = event.getSource();
 
         if (source == btnCreate) {
-            this.controller.checkNewIngredientTypeInput();
+            this.controller.createNewIngredientType();
         } else if (source == btnCancel) {
             dispose();
         }
+    }
+    
+    public String getIngredientTypeIDText() {
+        return this.textfTypeID.getText();
     }
 
     public String getIngredientTypeName() {
@@ -57,17 +62,17 @@ public class NewIngredientTypeCreateDialog extends javax.swing.JDialog implement
 
     @Override
     public void showErrorMessage(String message) {
-        MainFrame.getInstance().showErrorMessage(message);
+        JOptionPane.showMessageDialog(this, message, "Create new ingredient type", JOptionPane.ERROR_MESSAGE);
     }
 
     @Override
     public void showInfoMessage(String message) {
-        MainFrame.getInstance().showInfoMessage(message);
+        JOptionPane.showMessageDialog(this, message, "Create new ingredient type", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void showWarningMessage(String message) {
-        MainFrame.getInstance().showWarningMessage(message);
+        JOptionPane.showMessageDialog(this, message, "Create new ingredient type", JOptionPane.WARNING_MESSAGE);
     }
 
     @SuppressWarnings("unchecked")

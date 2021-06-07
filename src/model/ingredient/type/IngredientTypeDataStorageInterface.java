@@ -9,7 +9,7 @@ public interface IngredientTypeDataStorageInterface extends DatabaseUpdate{
     
     IngredientTypeModelInterface getIngredientType(int ingredientTypeIndex);
 
-    void addIngredientType(IngredientTypeModelInterface ingredientType);
+    void add(IngredientTypeModelInterface ingredientType);
     
     Iterator<IngredientTypeModelInterface> createIterator();
     

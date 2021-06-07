@@ -46,6 +46,9 @@ public class IngredientDataStorage implements IngredientDataStorageInterface {
                 ingredients.add(ingredient);
             }
 
+            resultSet.close();
+            statement.close();
+
             AppLog.getLogger().info("Update ingredient database: successfully, "
                     + ingredients.size() + " rows inserted.");
 
@@ -55,7 +58,7 @@ public class IngredientDataStorage implements IngredientDataStorageInterface {
     }
 
     @Override
-    public IngredientModelInterface getIngredient(String ingredientIDText) {
+    public IngredientModelInterface getIngredientByID(String ingredientIDText) {
         for (IngredientModelInterface element : ingredients) {
             if (element.getIngredientIDText().equals(ingredientIDText)) {
                 return element;
@@ -65,11 +68,17 @@ public class IngredientDataStorage implements IngredientDataStorageInterface {
     }
 
     @Override
-    public void addNewIngredient(IngredientModelInterface ingredient) {
+    public void add(IngredientModelInterface ingredient) {
         if (ingredient == null) {
             throw new NullPointerException();
         }
-        this.ingredients.add(ingredient);
+        int index = this.ingredients.indexOf(ingredient);
+        if (index != -1) {
+            throw new IllegalArgumentException("Ingredient instance is already existed.");
+        } else {
+            this.ingredients.add(ingredient);
+            ingredient.insertToDatabase();
+        }
     }
 
     @Override
@@ -91,6 +100,56 @@ public class IngredientDataStorage implements IngredientDataStorageInterface {
             ret.add(element.getReferent());
         }
         return ret.iterator();
+    }
+
+    @Override
+    public IngredientModelInterface getIngredientByIndex(int ingredientIndex) {
+        if (ingredientIndex < 0 || ingredientIndex >= ingredients.size()) {
+            throw new IndexOutOfBoundsException("Ingredient index is out of bound.");
+        }
+        return this.ingredients.get(ingredientIndex);
+    }
+
+    @Override
+    public boolean update(IngredientModelInterface ingredient) {
+        if (ingredient == null) {
+            throw new NullPointerException("Ingredient instance is null.");
+        }
+        int index = this.ingredients.indexOf(ingredient);
+        if (index == -1) {
+            return false;
+        } else {
+            ingredient.updateInDatabase();
+            return true;
+        }
+    }
+
+    @Override
+    public boolean remove(IngredientModelInterface ingredient) {
+        if (ingredient == null) {
+            throw new NullPointerException("Ingredient instance is null.");
+        }
+        int index = this.ingredients.indexOf(ingredient);
+        if (index == -1) {
+            return false;
+        } else {
+            ingredient.deleteInDatabase();
+            this.ingredients.remove(index);
+            return true;
+        }
+    }
+
+    @Override
+    public boolean isIngredientNameExisted(String ingredientName) {
+        if (ingredientName.isEmpty()) {
+            throw new IllegalArgumentException("Ingredient name is empty.");
+        }
+        for (IngredientModelInterface ingredient : ingredients) {
+            if (ingredient.getName().equals(ingredientName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

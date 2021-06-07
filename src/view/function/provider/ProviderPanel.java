@@ -18,10 +18,11 @@ import view.MessageShowing;
 import view.main.MainFrame;
 
 public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
-        MessageShowing, InsertedProviderObserver, ModifiedProviderObserver {
+        MessageShowing, InsertedProviderObserver, ModifiedProviderObserver,
+        RemovedProviderObserver {
 
     public static final int PROVIDER_ID_COLUMN_INDEX = 0;
-    
+
     enum EditState {
         ADD,
         MODIFY,
@@ -50,6 +51,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
         this.model = model;
         this.model.registerInsertedProviderObserver(this);
         this.model.registerModifiedProviderObserver(this);
+        this.model.registerRemovedProviderObserver(this);
 
         this.controller = controller;
 
@@ -153,19 +155,37 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
         };
         this.tableProviderModel.addRow(record);
     }
-    
-    private void replaceRowTableProvider(int rowID, ProviderModelInterface provider) {
-        Object[] record = new Object[]{
-            provider.getProviderIDText(),
-            provider.getName(),
-            provider.getEmail(),
-            provider.getPhoneNum(),
-            provider.getAddress()
-        };
-        for (int i = 0; i < record.length; i++) {
-            this.tableProviderModel.setValueAt(record[i], rowID, i);
+
+    private void updateRowTableProvider(ProviderModelInterface updatedProvider) {
+        for (int i = 0; i < this.tableProviderModel.getRowCount(); i++) {
+            String providerIDInTable = (String) this.tableProviderModel.getValueAt(i, PROVIDER_ID_COLUMN_INDEX);
+            if (providerIDInTable.equals(updatedProvider.getProviderIDText())) {
+                Object[] record = new Object[]{
+                    updatedProvider.getProviderIDText(),
+                    updatedProvider.getName(),
+                    updatedProvider.getEmail(),
+                    updatedProvider.getPhoneNum(),
+                    updatedProvider.getAddress()
+                };
+                for (int j = 0; j < record.length; j++) {
+                    this.tableProviderModel.setValueAt(record[j], i, j);
+                }
+                break;
+            }
         }
-        this.tableProvider.repaint();
+    }
+
+    private void removeRowTableProvider(ProviderModelInterface provider) {
+        if (this.controller.deleteProviderInSearchList(provider)) {
+            String providerIDText = provider.getProviderIDText();
+            for (int i = 0; i < this.tableProviderModel.getRowCount(); i++) {
+                String providerIDInTable = (String) this.tableProviderModel.getValueAt(i, PROVIDER_ID_COLUMN_INDEX);
+                if (providerIDInTable.equals(providerIDText)) {
+                    this.tableProviderModel.removeRow(i);
+                    break;
+                }
+            }
+        }
     }
 
     public void setTextfSearch(String text) {
@@ -305,6 +325,10 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
                 }
             }
         } else if (source == btnCancel) {
+            if (this.editState == EditState.ADD) {
+                this.textfProviderID.setText("");
+                resetProviderInput();
+            }
             exitEditState();
         } else if (source == btnReset) {
             resetProviderInput();
@@ -340,28 +364,22 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
     @Override
     public void updateInsertedProvider(ProviderModelInterface insertedProvider) {
         String searchText = textfSearchName.getText().trim();
-        if (searchText.isEmpty()) {
+        // Check match and insert one row, insert to search buffer in controller
+        if (this.controller.insertToSearchListByMatchingName(searchText, insertedProvider)) {
             addRowTableProvider(insertedProvider);
-        } else {
-            // Check match and insert one row, insert to search buffer in controller
-            if (this.controller.insertToSearchListByMatchingName(searchText, insertedProvider)) {
-                addRowTableProvider(insertedProvider);
-            }
         }
         this.tableProvider.repaint();
     }
-    
+
     @Override
     public void updateModifiedProvider(ProviderModelInterface updatedProvider) {
-        System.out.println("view.function.provider.ProviderPanel.updateModifiedProvider()");
         // Update record in table if exist
-        for (int i = 0; i < this.tableProviderModel.getRowCount(); i++) {
-            String providerIDInTable = (String) this.tableProviderModel.getValueAt(i, PROVIDER_ID_COLUMN_INDEX);
-            if (providerIDInTable.equals(updatedProvider.getProviderIDText())) {
-                replaceRowTableProvider(i, updatedProvider);
-                break;
-            }
-        }
+        updateRowTableProvider(updatedProvider);
+    }
+
+    @Override
+    public void updateRemovedProvider(ProviderModelInterface provider) {
+        removeRowTableProvider(provider);
     }
 
     @SuppressWarnings("unchecked")

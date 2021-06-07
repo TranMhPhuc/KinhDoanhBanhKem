@@ -1,10 +1,10 @@
-2021-06-07 20:36:21 [INFO ] AppLog:46 - Update employee shift database: sucessfully, 4 rows inserted.
-2021-06-07 20:36:21 [INFO ] AppLog:45 - Update employee position database: sucessfully, 4 rows inserted.
-2021-06-07 20:36:21 [INFO ] AppLog:50 - Update employee database: sucessfully, 13 rows inserted.
-2021-06-07 20:36:21 [INFO ] AppLog:51 - Update provider database: successfully, 14 rows inserted.
-2021-06-07 20:36:21 [INFO ] AppLog:46 - Update ingredient type database: successfully, 11 rows inserted.
-2021-06-07 20:36:21 [INFO ] AppLog:46 - Update ingredient unit database: sucessfully, 3 rows inserted.
-2021-06-07 20:36:21 [INFO ] AppLog:45 - Update ingredient unit conversion database: successfully, 0 rows inserted.
-2021-06-07 20:36:21 [INFO ] AppLog:49 - Update ingredient database: successfully, 31 rows inserted.
-2021-06-07 20:36:21 [INFO ] AppLog:53 - Update product database: successfully, 25 rows inserted.
-2021-06-07 20:36:21 [INFO ] AppLog:46 - Update ingredient of product database: successfully, 25 rows inserted.
+2021-06-08 05:22:32 [INFO ] AppLog:46 - Update employee shift database: sucessfully, 4 rows inserted.
+2021-06-08 05:22:32 [INFO ] AppLog:45 - Update employee position database: sucessfully, 4 rows inserted.
+2021-06-08 05:22:32 [INFO ] AppLog:50 - Update employee database: sucessfully, 13 rows inserted.
+2021-06-08 05:22:32 [INFO ] AppLog:54 - Update provider database: successfully, 10 rows inserted.
+2021-06-08 05:22:32 [INFO ] AppLog:46 - Update ingredient type database: successfully, 18 rows inserted.
+2021-06-08 05:22:32 [INFO ] AppLog:46 - Update ingredient unit database: sucessfully, 3 rows inserted.
+2021-06-08 05:22:32 [INFO ] AppLog:45 - Update ingredient unit conversion database: successfully, 0 rows inserted.
+2021-06-08 05:22:32 [INFO ] AppLog:52 - Update ingredient database: successfully, 23 rows inserted.
+2021-06-08 05:22:32 [INFO ] AppLog:53 - Update product database: successfully, 25 rows inserted.
+2021-06-08 05:22:32 [INFO ] AppLog:46 - Update ingredient of product database: successfully, 25 rows inserted.

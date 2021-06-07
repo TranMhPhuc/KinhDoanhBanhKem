@@ -9,6 +9,7 @@ import model.provider.ProviderManageModelInterface;
 import model.provider.ProviderModel;
 import model.provider.ProviderModelInterface;
 import org.junit.Assert;
+import util.constant.AppConstant;
 import util.validator.EmailValidator;
 import util.validator.PhoneValidator;
 import view.function.provider.ProviderPanel;
@@ -211,11 +212,26 @@ public class ProviderController implements ProviderControllerInterface {
         this.model.updateProvider(provider);
 
         this.view.exitEditState();
-        this.view.showInfoMessage("Update provider data successfullly!");
+        this.view.showInfoMessage("Update provider data successfully.");
     }
 
     @Override
     public void requestRemoveProvider() {
+        String providerIDText = this.view.getProviderIDtext();
+
+        ProviderModelInterface provider = this.model.getProvider(providerIDText);
+
+        Assert.assertNotNull(provider);
+
+        if (this.model.isProviderHavingAnyIngredient(provider)) {
+            this.view.showErrorMessage("Can not delete provider with existed it's ingredient.");
+            return;
+        }
+
+        this.model.removeProvider(provider);
+        this.searchList.remove(provider);
+
+        this.view.showInfoMessage("Delete provider successfully.");
     }
 
     @Override
@@ -230,7 +246,7 @@ public class ProviderController implements ProviderControllerInterface {
 
     @Override
     public Iterator<ProviderModelInterface> getAllProviderData() {
-        Iterator<ProviderModelInterface> iterator = this.model.getAllProvider();
+        Iterator<ProviderModelInterface> iterator = this.model.getAllProviderData();
         this.searchList.clear();
         while (iterator.hasNext()) {
             this.searchList.add(iterator.next());
@@ -262,23 +278,30 @@ public class ProviderController implements ProviderControllerInterface {
         this.view.showProviderInfo(provider);
     }
 
-    private boolean havingMatchedSearchName(String searchText, ProviderModelInterface provider) {
-        if (provider == null) {
-            throw new NullPointerException("Provider instance is null.");
-        }
-        return (FuzzySearch.ratio(searchText, provider.getName()) >= FIND_NAME_SCORE_CUT_OFF);
-    }
-
     @Override
     public boolean insertToSearchListByMatchingName(String searchText, ProviderModelInterface provider) {
         if (provider == null) {
             throw new NullPointerException("Provider instance is null.");
         }
-        boolean ret = (FuzzySearch.ratio(searchText, provider.getName()) >= FIND_NAME_SCORE_CUT_OFF);
+        boolean ret = searchText.isEmpty()
+                || (FuzzySearch.ratio(searchText, provider.getName()) >= AppConstant.SEARCH_SCORE_CUT_OFF);
         if (ret) {
             this.searchList.add(provider);
         }
         return ret;
+    }
+
+    @Override
+    public boolean deleteProviderInSearchList(ProviderModelInterface provider) {
+        if (provider == null) {
+            throw new NullPointerException("Provider instance is null.");
+        }
+        int id = this.searchList.indexOf(provider);
+        if (id >= 0) {
+            this.searchList.remove(id);
+            return true;
+        }
+        return false;
     }
 
 }

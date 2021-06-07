@@ -47,6 +47,9 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
                 provider.setProperty(resultSet);
                 providers.add(provider);
             }
+            
+            resultSet.close();
+            statement.close();
 
             AppLog.getLogger().info("Update provider database: successfully, "
                     + providers.size() + " rows inserted.");
@@ -67,7 +70,7 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
     }
 
     @Override
-    public ProviderModelInterface getProvider(int providerIndex) throws IndexOutOfBoundsException {
+    public ProviderModelInterface getProviderByIndex(int providerIndex) throws IndexOutOfBoundsException {
         if (providerIndex < 0 || providerIndex >= providers.size()) {
             throw new IndexOutOfBoundsException("Provider index is out of bound.");
         }
@@ -122,7 +125,6 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
         if (index == -1) {
             return false;
         } else {
-//            this.providers.set(index, updatedProvider);
             updatedProvider.updateInDatabase();
             return true;
         }
@@ -133,8 +135,8 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
         if (providerName.isEmpty()) {
             throw new IllegalArgumentException("Provider name is empty.");
         }
-        for (ProviderModelInterface element : providers) {
-            if (element.getName().equals(providerName)) {
+        for (ProviderModelInterface provider : providers) {
+            if (provider.getName().equals(providerName)) {
                 return true;
             }
         }

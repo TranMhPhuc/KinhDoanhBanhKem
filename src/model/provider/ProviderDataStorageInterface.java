@@ -7,7 +7,7 @@ public interface ProviderDataStorageInterface extends DatabaseUpdate {
 
     ProviderModelInterface getProviderByID(String providerIDText);
 
-    ProviderModelInterface getProvider(int providerIndex);
+    ProviderModelInterface getProviderByIndex(int providerIndex);
 
     int getSize();
 
@@ -15,11 +15,11 @@ public interface ProviderDataStorageInterface extends DatabaseUpdate {
     
     Iterator<ProviderModelInterface> getProviderSearchByName(String searchText);
 
-    boolean remove(ProviderModelInterface provider);
-
     void add(ProviderModelInterface provider);
 
     boolean update(ProviderModelInterface updatedProvider);
+    
+    boolean remove(ProviderModelInterface provider);
 
     boolean isProviderNameExisted(String providerName);
 
