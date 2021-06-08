@@ -15,16 +15,23 @@ import model.ingredient.IngredientManageModelInterface;
 import model.ingredient.IngredientModelInterface;
 import model.ingredient.type.IngredientTypeModelInterface;
 import model.ingredient.unit.IngredientUnitModelInterface;
+import model.provider.ProviderManageModel;
+import model.provider.ProviderManageModelInterface;
 import model.provider.ProviderModelInterface;
 import util.swing.UIControl;
 import view.MessageShowing;
+import view.function.provider.InsertedProviderObserver;
+import view.function.provider.ModifiedProviderObserver;
+import view.function.provider.RemovedProviderObserver;
 import view.main.MainFrame;
 
 public class IngredientPanel extends javax.swing.JPanel implements ActionListener,
         MessageShowing, InsertedIngredientObserver, ModifiedIngredientObserver,
-        RemovedIngredientObserver, InsertedIngredientTypeObserver {
+        RemovedIngredientObserver, InsertedIngredientTypeObserver, InsertedProviderObserver,
+        ModifiedProviderObserver, RemovedProviderObserver {
 
     public static final int INGREDIENT_ID_COLUMN_INDEX = 0;
+    public static final int INGREDIENT_PROVIDER_NAME_COLUMN_INDEX = 6;
 
     enum EditState {
         ADD,
@@ -57,6 +64,11 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         this.model.registerRemovedIngredientObserver(this);
         this.model.registerInsertedIngredientTypeObserver(this);
 
+        ProviderManageModelInterface providerManageModel = ProviderManageModel.getInstance();
+        providerManageModel.registerInsertedProviderObserver(this);
+        providerManageModel.registerModifiedProviderObserver(this);
+        providerManageModel.registerRemovedProviderObserver(this);
+        
         this.controller = controller;
 
         this.tableIngredientModel = (DefaultTableModel) tableIngredient.getModel();
@@ -91,7 +103,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         setIngredientInputEditable(false);
         UIControl.setDefaultTableHeader(tableIngredient);
         loadIngredientTypeInput();
-        loadProviderInput();
+        loadProviderNameInput();
         loadIngredientUnitInput();
         resetIngredientList();
     }
@@ -186,7 +198,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         }
     }
 
-    public void loadProviderInput() {
+    public void loadProviderNameInput() {
         Iterator<ProviderModelInterface> iterator = this.model.getAllProviderData();
         combProviderName.removeAllItems();
         while (iterator.hasNext()) {
@@ -461,7 +473,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
     }
 
     @Override
-    public void updateInsertedIngredient(IngredientModelInterface ingredient) {
+    public void updateInsertedIngredientObserver(IngredientModelInterface ingredient) {
         String searchText = textfSearchName.getText().trim();
         if (this.controller.insertToSearchListByMatchingName(searchText, ingredient)) {
             addRowTableIngredient(ingredient);
@@ -470,7 +482,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
     }
 
     @Override
-    public void updateModifiedIngredient(IngredientModelInterface ingredient) {
+    public void updateModifiedIngredientObserver(IngredientModelInterface ingredient) {
         updateRowTableIngredient(ingredient);
     }
 
@@ -485,6 +497,63 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
             throw new NullPointerException("Ingredient type instance is null.");
         }
         this.combIngredientTypeName.addItem(insertedIngredientType.getName());
+    }
+
+    @Override
+    public void updateInsertedProvider(ProviderModelInterface insertedProvider) {
+        // insert item in combobox provider
+        combProviderName.addItem(insertedProvider.getName());
+    }
+
+    @Override
+    public void updateModifiedProvider(ProviderModelInterface updatedProvider) {
+        // Get provider index
+        int providerIndex = this.model.getProviderIndex(updatedProvider);
+        if (providerIndex == -1) {
+            throw new IllegalArgumentException("Can not sync from updated provider instance.");
+        }
+
+        String oldProviderName = this.combProviderName.getItemAt(providerIndex);
+        String newProviderName = updatedProvider.getName();
+
+        int combProviderNameSelectIndex = this.combProviderName.getSelectedIndex();
+        
+        // Update combobox
+        this.combProviderName.removeItemAt(providerIndex);
+        this.combProviderName.insertItemAt(newProviderName, providerIndex);
+
+        if (combProviderNameSelectIndex == providerIndex) {
+            this.combProviderName.setSelectedIndex(providerIndex);
+        }
+        
+        // Update table
+        for (int i = 0; i < this.tableIngredientModel.getRowCount(); i++) {
+            String providerNameOfRecord = (String) this.tableIngredientModel.getValueAt(i, INGREDIENT_PROVIDER_NAME_COLUMN_INDEX);
+            if (providerNameOfRecord.equals(oldProviderName)) {
+                this.tableIngredientModel.setValueAt(newProviderName, i, INGREDIENT_PROVIDER_NAME_COLUMN_INDEX);
+            }
+        }
+    }
+
+    @Override
+    public void updateRemovedProvider(ProviderModelInterface provider) {
+        int providerIndex = this.model.getProviderIndex(provider);
+        if (providerIndex == -1) {
+            throw new IllegalArgumentException("Can not sync from updated provider instance.");
+        }
+
+        String oldProviderName = this.combProviderName.getItemAt(providerIndex);
+
+        // Remove item at combobox
+        this.combProviderName.removeItemAt(providerIndex);
+
+        // Remove row in table
+        for (int i = 0; i < this.tableIngredientModel.getRowCount(); i++) {
+            String providerNameOfRecord = (String) this.tableIngredientModel.getValueAt(i, INGREDIENT_PROVIDER_NAME_COLUMN_INDEX);
+            if (providerNameOfRecord.equals(oldProviderName)) {
+                this.tableIngredientModel.removeRow(i);
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")

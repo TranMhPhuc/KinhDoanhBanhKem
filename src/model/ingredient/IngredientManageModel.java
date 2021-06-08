@@ -18,7 +18,7 @@ import model.ingredient.type.IngredientTypeModelInterface;
 import model.ingredient.unit.IngredientUnitDataStorage;
 import model.ingredient.unit.IngredientUnitDataStorageInterface;
 import model.ingredient.unit.IngredientUnitModelInterface;
-import model.ingredientOfProduct.IngredientOfProductModel;
+import model.ingredientOfProduct.IngredientDetailOfProduct;
 import model.provider.ProviderDataStorage;
 import model.provider.ProviderDataStorageInterface;
 import model.provider.ProviderModelInterface;
@@ -31,22 +31,22 @@ import view.function.ingredient.RemovedIngredientObserver;
 
 public class IngredientManageModel implements IngredientManageModelInterface {
 
-    public static final String FIND_NEXT_IDENTITY_INGREDIENT
+    private static final String FIND_NEXT_IDENTITY_INGREDIENT
             = "SELECT IDENT_CURRENT('" + IngredientModel.TABLE_NAME + "') + 1";
 
-    public static final String FIND_NEXT_IDENTITY_INGREDIENT_TYPE
+    private static final String FIND_NEXT_IDENTITY_INGREDIENT_TYPE
             = "SELECT IDENT_CURRENT('" + IngredientTypeModel.TABLE_NAME + "') + 1";
 
-    public static final String CHECK_EXIST_INGREDIENT_OF_PRODUCT_QUERY_PROTOTYPE
-            = "IF EXISTS(SELECT * FROM " + IngredientOfProductModel.TABLE_NAME
+    private static final String CHECK_EXIST_INGREDIENT_OF_PRODUCT_QUERY_PROTOTYPE
+            = "IF EXISTS(SELECT * FROM " + IngredientDetailOfProduct.TABLE_NAME
             + " WHERE " + IngredientModel.ID_HEADER + " = ?)\n"
-            + "begin\n"
-            + "	print 1\n"
-            + "end\n"
-            + "else\n"
-            + "begin \n"
-            + "	print 0\n"
-            + "end";
+            + "BEGIN\n"
+            + "	PRINT 1\n"
+            + "END\n"
+            + "ELSE\n"
+            + "BEGIN\n"
+            + "	PRINT 0\n"
+            + "END";
 
     private volatile static IngredientManageModel uniqueInstance;
 
@@ -54,7 +54,6 @@ public class IngredientManageModel implements IngredientManageModelInterface {
     private static IngredientTypeDataStorageInterface ingredientTypeDataStorage;
     private static IngredientUnitDataStorageInterface ingredientUnitDataStorage;
     private static ProviderDataStorageInterface providerDataStorage;
-//    private static ProductDataStorageInterface productDataStorage;
 
     private static Connection dbConnection;
 
@@ -69,8 +68,6 @@ public class IngredientManageModel implements IngredientManageModelInterface {
         ingredientTypeDataStorage = IngredientTypeDataStorage.getInstance();
         ingredientUnitDataStorage = IngredientUnitDataStorage.getInstance();
         providerDataStorage = ProviderDataStorage.getInstance();
-//        productDataStorage = ProductDataStorage.getInstance();
-
     }
 
     private IngredientManageModel() {
@@ -145,13 +142,13 @@ public class IngredientManageModel implements IngredientManageModelInterface {
 
     private void notifyInsertedIngredientObserver(IngredientModelInterface insertedIngredient) {
         for (InsertedIngredientObserver observer : insertedIngredientObservers) {
-            observer.updateInsertedIngredient(insertedIngredient);
+            observer.updateInsertedIngredientObserver(insertedIngredient);
         }
     }
 
     private void notifyModifiedIngredientObserver(IngredientModelInterface updatedIngredient) {
         for (ModifiedIngredientObserver observer : modifiedIngredientObservers) {
-            observer.updateModifiedIngredient(updatedIngredient);
+            observer.updateModifiedIngredientObserver(updatedIngredient);
         }
     }
 
@@ -257,8 +254,6 @@ public class IngredientManageModel implements IngredientManageModelInterface {
 
             preparedStatement.close();
 
-            Assert.assertNotNull(warnings);
-
             if (warnings.getMessage().equals("1")) {
                 return true;
             }
@@ -337,6 +332,11 @@ public class IngredientManageModel implements IngredientManageModelInterface {
     @Override
     public IngredientUnitModelInterface getIngredientUnitByIndex(int ingredientUnitIndex) {
         return ingredientUnitDataStorage.getIngredientUnit(ingredientUnitIndex);
+    }
+
+    @Override
+    public int getProviderIndex(ProviderModelInterface provider) {
+        return this.providerDataStorage.getProviderIndex(provider);
     }
 
 }

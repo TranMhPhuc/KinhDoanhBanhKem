@@ -11,10 +11,9 @@ import model.product.ProductDataStorage;
 import model.product.ProductDataStorageInterface;
 import view.function.bill.BillUpdateObserver;
 import view.function.employee.EmployeeUpdateObserver;
-import view.function.product.ProductUpdateObserver;
 
 public class HomePanel extends javax.swing.JPanel implements EmployeeUpdateObserver,
-        BillUpdateObserver, ProductUpdateObserver {
+        BillUpdateObserver {
 
     private volatile static HomePanel uniqueInstance;
 
@@ -34,7 +33,6 @@ public class HomePanel extends javax.swing.JPanel implements EmployeeUpdateObser
         this.img = img;
         employeeDataStorage.registerObserver(this);
         billManageModel.registerObserver(this);
-        productDataStorage.registerObserver(this);
         
         createView();
     }
@@ -105,11 +103,6 @@ public class HomePanel extends javax.swing.JPanel implements EmployeeUpdateObser
     @Override
     public void updateBillNumber(int billNumber) {
         setLabelBill(billNumber);
-    }
-
-    @Override
-    public void updateProductNumber(int productNumber) {
-        setLabelProduct(productNumber);
     }
 
     @SuppressWarnings("unchecked")

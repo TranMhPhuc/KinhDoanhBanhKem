@@ -107,14 +107,22 @@ public class ProviderManageModel implements ProviderManageModelInterface {
 
     @Override
     public String getNextProviderIDText() {
-        ProviderModelInterface provider = providerDataStorage
-                .getProviderByIndex(providerDataStorage.getSize() - 1);
-
-        String providerIDText = provider.getProviderIDText();
-
-        String IDPart = providerIDText.substring(2);
+        int currSize = providerDataStorage.getSize();
         
-        int nextID = Integer.parseInt(IDPart) + 1;
+        int nextID;
+        
+        if (currSize == 0) {
+            nextID = 1;
+        } else {
+            ProviderModelInterface provider = providerDataStorage
+                    .getProviderByIndex(currSize - 1);
+
+            String providerIDText = provider.getProviderIDText();
+
+            String IDPart = providerIDText.substring(2);
+            
+            nextID = Integer.parseInt(IDPart) + 1;
+        }
 
         if (nextID < 10) {
             return "HD00" + nextID;

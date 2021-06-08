@@ -73,6 +73,8 @@ public interface IngredientManageModelInterface {
     
     Iterator<ProviderModelInterface> getAllProviderData();
     
+    int getProviderIndex(ProviderModelInterface provider);
+    
     ProviderModelInterface getProviderByIndex(int providerIndex);
 
     Iterator<IngredientModelInterface> getIngredientSearchByName(String searchText);

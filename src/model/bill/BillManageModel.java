@@ -2,7 +2,6 @@ package model.bill;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import model.product.ProductModelInterface;
 import model.productOfBill.ProductOfBillDetail;
 import model.productOfBill.ProductOfBillDetailInterface;
 import org.apache.commons.lang3.tuple.Pair;
-import org.junit.Assert;
 import util.db.SQLServerConnection;
 import view.function.bill.BillUpdateObserver;
 

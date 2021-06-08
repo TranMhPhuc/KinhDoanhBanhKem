@@ -12,36 +12,36 @@ import me.xdrop.fuzzywuzzy.model.BoundExtractedResult;
 import util.AppLog;
 
 public class ProviderDataStorage implements ProviderDataStorageInterface {
-
+    
     public static final int FIND_NAME_SCORE_CUT_OFF = 60;
-
+    
     private static ProviderDataStorage uniqueInstance;
-
+    
     private ArrayList<ProviderModelInterface> providers;
-
+    
     static {
         uniqueInstance = new ProviderDataStorage();
     }
-
+    
     private ProviderDataStorage() {
         providers = new ArrayList<>();
     }
-
+    
     public static ProviderDataStorage getInstance() {
         return uniqueInstance;
     }
-
+    
     @Override
     public void updateFromDB(Connection connection) {
         try {
             Statement statement = connection.createStatement();
-
+            
             String query = "SELECT * FROM " + ProviderModel.TABLE_NAME;
-
+            
             ResultSet resultSet = statement.executeQuery(query);
-
+            
             providers.clear();
-
+            
             while (resultSet.next()) {
                 ProviderModelInterface provider = new ProviderModel();
                 provider.setProperty(resultSet);
@@ -50,15 +50,15 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
             
             resultSet.close();
             statement.close();
-
+            
             AppLog.getLogger().info("Update provider database: successfully, "
                     + providers.size() + " rows inserted.");
-
+            
         } catch (SQLException ex) {
             AppLog.getLogger().fatal("Update provider database: error.");
         }
     }
-
+    
     @Override
     public ProviderModelInterface getProviderByID(String providerIDText) throws IllegalArgumentException {
         for (ProviderModelInterface element : providers) {
@@ -68,7 +68,7 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
         }
         throw new IllegalArgumentException("Provider id '" + providerIDText + "' is not existed");
     }
-
+    
     @Override
     public ProviderModelInterface getProviderByIndex(int providerIndex) throws IndexOutOfBoundsException {
         if (providerIndex < 0 || providerIndex >= providers.size()) {
@@ -76,17 +76,17 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
         }
         return this.providers.get(providerIndex);
     }
-
+    
     @Override
     public int getSize() {
         return this.providers.size();
     }
-
+    
     @Override
     public Iterator<ProviderModelInterface> createIterator() {
         return providers.iterator();
     }
-
+    
     @Override
     public boolean remove(ProviderModelInterface provider) {
         if (provider == null) {
@@ -101,7 +101,7 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
             return true;
         }
     }
-
+    
     @Override
     public void add(ProviderModelInterface provider) {
         if (provider == null) {
@@ -115,7 +115,7 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
             provider.insertToDatabase();
         }
     }
-
+    
     @Override
     public boolean update(ProviderModelInterface updatedProvider) {
         if (updatedProvider == null) {
@@ -129,7 +129,7 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
             return true;
         }
     }
-
+    
     @Override
     public boolean isProviderNameExisted(String providerName) {
         if (providerName.isEmpty()) {
@@ -142,7 +142,7 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
         }
         return false;
     }
-
+    
     @Override
     public boolean isProviderEmailExisted(String providerEmail) {
         if (providerEmail.isEmpty()) {
@@ -155,7 +155,7 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
         }
         return false;
     }
-
+    
     @Override
     public boolean isProviderAddressExisted(String providerAddress) {
         if (providerAddress.isEmpty()) {
@@ -168,7 +168,7 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
         }
         return false;
     }
-
+    
     @Override
     public boolean isProviderPhoneNumExist(String providerPhoneNum) {
         if (providerPhoneNum.isEmpty()) {
@@ -181,7 +181,7 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
         }
         return false;
     }
-
+    
     @Override
     public Iterator<ProviderModelInterface> getProviderSearchByName(String searchText) {
         List<ProviderModelInterface> ret = new ArrayList<>();
@@ -192,5 +192,10 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
         }
         return ret.iterator();
     }
-
+    
+    @Override
+    public int getProviderIndex(ProviderModelInterface provider) {
+        return this.providers.indexOf(provider);
+    }
+    
 }

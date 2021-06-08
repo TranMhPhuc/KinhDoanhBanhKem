@@ -95,7 +95,7 @@ public class IngredientController implements IngredientControllerInterface {
             return;
         }
         if (rowID >= searchList.size()) {
-            throw new IllegalArgumentException("Row index is not in bound.");
+            throw new IndexOutOfBoundsException("Row index is not in bound.");
         }
         IngredientModelInterface ingredient = this.searchList.get(rowID);
         this.view.showIngredientInfo(ingredient);
@@ -212,14 +212,14 @@ public class IngredientController implements IngredientControllerInterface {
 
         IngredientUnitModelInterface ingredientUnit = this.model.getIngredientUnitByIndex(ingredientUnitSelectIndex);
 
-        String ingredientName = this.view.getIngredientNameInput();
+        String ingredientNameInput = this.view.getIngredientNameInput();
 
-        if (!ingredient.getName().equals(ingredientName)) {
-            if (ingredientName.isEmpty()) {
+        if (!ingredient.getName().equals(ingredientNameInput)) {
+            if (ingredientNameInput.isEmpty()) {
                 this.view.showErrorMessage("Ingredient name is required.");
                 return;
             }
-            if (this.model.isIngredientNameExist(ingredientName)) {
+            if (this.model.isIngredientNameExist(ingredientNameInput)) {
                 this.view.showErrorMessage("Ingredient name is existed.");
                 return;
             }
@@ -238,7 +238,7 @@ public class IngredientController implements IngredientControllerInterface {
             return;
         }
 
-        ingredient.setName(ingredientName);
+        ingredient.setName(ingredientNameInput);
         ingredient.setCost(ingredientCost);
         ingredient.setProvider(provider);
         ingredient.setIngredientType(ingredientType);
@@ -326,7 +326,6 @@ public class IngredientController implements IngredientControllerInterface {
             throw new NullPointerException("Ingredient instance is null.");
         }
         int id = this.searchList.indexOf(ingredient);
-        System.out.println("Delete at " + id);
         if (id >= 0) {
             this.searchList.remove(id);
             return true;

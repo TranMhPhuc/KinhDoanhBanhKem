@@ -4,9 +4,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.ingredientOfProduct.IngredientOfProductModelInterface;
+import model.ingredientOfProduct.IngredientDetailOfProductInterface;
 
 public class ProductModel implements ProductModelInterface {
 
@@ -20,9 +21,9 @@ public class ProductModel implements ProductModelInterface {
 
     private static final String INSERT_QUERY_PROTOTYPE
             = "INSERT INTO " + TABLE_NAME + " ("
-            + ID_HEADER + ", " + NAME_HEADER + ", " + SIZE_HEADER + ", "
+            + NAME_HEADER + ", " + SIZE_HEADER + ", "
             + COST_HEADER + ", " + AMOUNT_HEADER + ", " + PRICE_HEADER + ")"
-            + " VALUES (?, ?, ?, ?, ?, ?)";
+            + " VALUES (?, ?, ?, ?, ?)";
 
     private static final String UPDATE_QUERY_PROTOTYPE
             = "UPDATE " + TABLE_NAME
@@ -38,10 +39,10 @@ public class ProductModel implements ProductModelInterface {
     private int id;
     private String name;
     private String size;
-    private int cost;
+    private long cost;
     private int amount;
-    private int price;
-    private ArrayList<IngredientOfProductModelInterface> ingredientDetails;
+    private long price;
+    private ArrayList<IngredientDetailOfProductInterface> ingredientDetails;
 
     public ProductModel() {
         ingredientDetails = new ArrayList<>();
@@ -58,9 +59,9 @@ public class ProductModel implements ProductModelInterface {
             this.id = resultSet.getInt(ID_HEADER);
             this.name = resultSet.getString(NAME_HEADER);
             this.size = resultSet.getString(SIZE_HEADER);
-            this.cost = resultSet.getInt(COST_HEADER);
+            this.cost = resultSet.getLong(COST_HEADER);
             this.amount = resultSet.getInt(AMOUNT_HEADER);
-            this.price = resultSet.getInt(PRICE_HEADER);
+            this.price = resultSet.getLong(PRICE_HEADER);
         } catch (SQLException ex) {
             Logger.getLogger(ProductModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -72,12 +73,11 @@ public class ProductModel implements ProductModelInterface {
             PreparedStatement preparedStatement = dbConnection
                     .prepareStatement(INSERT_QUERY_PROTOTYPE);
 
-            preparedStatement.setInt(1, this.id);
-            preparedStatement.setString(2, this.name);
-            preparedStatement.setString(3, this.size);
-            preparedStatement.setInt(4, this.cost);
-            preparedStatement.setInt(5, this.amount);
-            preparedStatement.setInt(6, this.price);
+            preparedStatement.setString(1, this.name);
+            preparedStatement.setString(2, this.size);
+            preparedStatement.setLong(3, this.cost);
+            preparedStatement.setInt(4, this.amount);
+            preparedStatement.setLong(5, this.price);
 
             preparedStatement.execute();
             preparedStatement.close();
@@ -91,7 +91,9 @@ public class ProductModel implements ProductModelInterface {
         try {
             PreparedStatement preparedStatement = dbConnection
                     .prepareStatement(DELETE_QUERY_PROTOTYPE);
+
             preparedStatement.setInt(1, this.id);
+
             preparedStatement.execute();
             preparedStatement.close();
         } catch (SQLException ex) {
@@ -108,9 +110,9 @@ public class ProductModel implements ProductModelInterface {
 
             preparedStatement.setString(1, this.name);
             preparedStatement.setString(2, this.size);
-            preparedStatement.setInt(3, this.cost);
+            preparedStatement.setLong(3, this.cost);
             preparedStatement.setInt(4, this.amount);
-            preparedStatement.setInt(5, this.price);
+            preparedStatement.setLong(5, this.price);
             preparedStatement.setInt(6, this.id);
 
             preparedStatement.execute();
@@ -130,11 +132,11 @@ public class ProductModel implements ProductModelInterface {
             } else if (header.equals(SIZE_HEADER)) {
                 preparedStatement.setString(index, this.size);
             } else if (header.equals(COST_HEADER)) {
-                preparedStatement.setInt(index, this.cost);
+                preparedStatement.setLong(index, this.cost);
             } else if (header.equals(AMOUNT_HEADER)) {
                 preparedStatement.setInt(index, this.amount);
             } else if (header.equals(PRICE_HEADER)) {
-                preparedStatement.setInt(index, this.price);
+                preparedStatement.setLong(index, this.price);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -167,7 +169,7 @@ public class ProductModel implements ProductModelInterface {
     }
 
     @Override
-    public void setString(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -177,7 +179,7 @@ public class ProductModel implements ProductModelInterface {
     }
 
     @Override
-    public void setCost(int cost) {
+    public void setCost(long cost) {
         this.cost = cost;
     }
 
@@ -187,7 +189,7 @@ public class ProductModel implements ProductModelInterface {
     }
 
     @Override
-    public void setPrice(int price) {
+    public void setPrice(long price) {
         this.price = price;
     }
 
@@ -202,7 +204,7 @@ public class ProductModel implements ProductModelInterface {
     }
 
     @Override
-    public int getCost() {
+    public long getCost() {
         return this.cost;
     }
 
@@ -212,29 +214,51 @@ public class ProductModel implements ProductModelInterface {
     }
 
     @Override
-    public int getPrice() {
+    public long getPrice() {
         return this.price;
+    }
+
+    @Override
+    public Iterator<IngredientDetailOfProductInterface> getAllIngredient() {
+        return ingredientDetails.iterator();
+    }
+
+    @Override
+    public void addIngredient(IngredientDetailOfProductInterface ingredientDetail) {
+        if (ingredientDetail == null) {
+            throw new NullPointerException("Ingredient detail instance is null.");
+        }
+        this.ingredientDetails.add(ingredientDetail);
+    }
+
+    @Override
+    public void removeIngredient(IngredientDetailOfProductInterface ingredientDetail) {
+        if (ingredientDetail == null) {
+            throw new NullPointerException("Ingredient detail instance is null.");
+        }
+        int id = this.ingredientDetails.indexOf(ingredientDetail);
+        if (id == -1) {
+            throw new IllegalArgumentException("Ingredient detail is not existed.");
+        }
+        this.ingredientDetails.remove(id);
+    }
+
+    @Override
+    public void updateIngredient(IngredientDetailOfProductInterface ingredientDetail) {
+        if (ingredientDetail == null) {
+            throw new NullPointerException("Ingredient detail instance is null.");
+        }
+        int id = this.ingredientDetails.indexOf(ingredientDetail);
+        if (id == -1) {
+            throw new IllegalArgumentException("Ingredient detail is not existed.");
+        }
+        this.ingredientDetails.set(id, ingredientDetail);
     }
 
     @Override
     public String toString() {
         return "ProductModel{" + "id=" + id + ", name=" + name + ", cost=" + cost
                 + ", price=" + price + ", amount=" + amount + ", size=" + size + '}';
-    }
-
-    @Override
-    public String getCostText() {
-        return String.valueOf(this.cost);
-    }
-
-    @Override
-    public String getAmountText() {
-        return String.valueOf(this.amount);
-    }
-
-    @Override
-    public String getPriceText() {
-        return String.valueOf(this.price);
     }
 
 }

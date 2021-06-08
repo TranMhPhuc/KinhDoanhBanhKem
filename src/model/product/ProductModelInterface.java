@@ -1,18 +1,20 @@
 package model.product;
 
+import java.util.Iterator;
 import model.DatabaseModel;
+import model.ingredientOfProduct.IngredientDetailOfProductInterface;
 
 public interface ProductModelInterface extends DatabaseModel {
 
-    void setString(String name);
+    void setName(String name);
     
     void setSize(String size);
     
-    void setCost(int cost);
+    void setCost(long cost);
     
     void setAmount(int amount);
     
-    void setPrice(int price);
+    void setPrice(long price);
     
     String getProductIDText();
 
@@ -20,15 +22,18 @@ public interface ProductModelInterface extends DatabaseModel {
     
     String getSize();
     
-    int getCost();
+    long getCost();
     
     int getAmount();
     
-    int getPrice();
+    long getPrice();
     
-    String getCostText();
+    Iterator<IngredientDetailOfProductInterface> getAllIngredient();
     
-    String getAmountText();
+    void addIngredient(IngredientDetailOfProductInterface ingredient);
     
-    String getPriceText();
+    void removeIngredient(IngredientDetailOfProductInterface ingredient);
+    
+    void updateIngredient(IngredientDetailOfProductInterface ingredient);
+    
 }

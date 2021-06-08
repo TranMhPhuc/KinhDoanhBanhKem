@@ -5,7 +5,7 @@ import model.ingredient.IngredientModelInterface;
 import model.ingredient.unit.IngredientUnitModelInterface;
 import model.product.ProductModelInterface;
 
-public interface IngredientOfProductModelInterface extends DatabaseModel {
+public interface IngredientDetailOfProductInterface extends DatabaseModel {
 
     void setProduct(ProductModelInterface product);
     

@@ -12,7 +12,7 @@ public interface ProductOfBillDetailInterface extends DatabaseModel {
 
     void setAmount(int amount);
 
-    void setPrice(int price);
+    void setPrice(long price);
 
     BillModelInterface getBill();
 
@@ -20,6 +20,6 @@ public interface ProductOfBillDetailInterface extends DatabaseModel {
 
     int getAmount();
 
-    int getPrice();
+    long getPrice();
 
 }

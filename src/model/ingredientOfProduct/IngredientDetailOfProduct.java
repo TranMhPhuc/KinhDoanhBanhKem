@@ -16,7 +16,7 @@ import model.product.ProductDataStorage;
 import model.product.ProductModel;
 import model.product.ProductModelInterface;
 
-public class IngredientOfProductModel implements IngredientOfProductModelInterface {
+public class IngredientDetailOfProduct implements IngredientDetailOfProductInterface {
 
     public static final String TABLE_NAME = "ThanhPhan";
     public static final String PRODUCT_ID_HEADER = ProductModel.ID_HEADER;
@@ -56,108 +56,7 @@ public class IngredientOfProductModel implements IngredientOfProductModelInterfa
         ingredientUnitDataStorage = IngredientUnitDataStorage.getInstance();
     }
 
-    public IngredientOfProductModel() {
-    }
-
-    @Override
-    public void setProperty(ResultSet resultSet) {
-        try {
-            this.product = productDataStorage.getProduct(resultSet.getString(PRODUCT_ID_HEADER));
-            this.ingredient = ingredientDataStorage.getIngredientByID(resultSet.getString(INGREDIENT_ID_HEADER));
-            this.amount = resultSet.getInt(AMOUNT_HEADER);
-            this.unit = ingredientUnitDataStorage.getIngredientUnit(resultSet.getString(UNIT_HEADER));
-        } catch (SQLException ex) {
-            Logger.getLogger(IngredientOfProductModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @Override
-    public void insertToDatabase() {
-        try {
-            PreparedStatement preparedStatement = dbConnection
-                    .prepareStatement(INSERT_QUERY_PROTOTYPE);
-
-            this.product.setKeyArg(1, ProductModel.ID_HEADER, preparedStatement);
-            this.ingredient.setKeyArg(2, IngredientModel.ID_HEADER, preparedStatement);
-            preparedStatement.setInt(3, this.amount);
-            this.unit.setKeyArg(4, IngredientUnitModel.ID_HEADER, preparedStatement);
-        } catch (SQLException ex) {
-            Logger.getLogger(IngredientOfProductModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @Override
-    public void deleteInDatabase() {
-        try {
-            PreparedStatement preparedStatement = dbConnection
-                    .prepareStatement(DELETE_QUERY_PROTOTYPE);
-
-            this.product.setKeyArg(1, ProductModel.ID_HEADER, preparedStatement);
-            this.ingredient.setKeyArg(2, IngredientModel.ID_HEADER, preparedStatement);
-        } catch (SQLException ex) {
-            Logger.getLogger(IngredientOfProductModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @Override
-    public void updateInDatabase() {
-        try {
-            PreparedStatement preparedStatement = dbConnection
-                    .prepareStatement(UPDATE_QUERY_PROTOTYPE);
-
-            preparedStatement.setInt(1, this.amount);
-            this.unit.setKeyArg(2, IngredientUnitModel.ID_HEADER, preparedStatement);
-            this.product.setKeyArg(3, ProductModel.ID_HEADER, preparedStatement);
-            this.ingredient.setKeyArg(4, IngredientModel.ID_HEADER, preparedStatement);
-        } catch (SQLException ex) {
-            Logger.getLogger(IngredientOfProductModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @Override
-    public void setKeyArg(int index, String header, PreparedStatement preparedStatement) {
-        try {
-            if (header.equals(PRODUCT_ID_HEADER)) {
-                this.product.setKeyArg(index, ProductModel.ID_HEADER, preparedStatement);
-            } else if (header.equals(INGREDIENT_ID_HEADER)) {
-                this.ingredient.setKeyArg(index, IngredientModel.ID_HEADER, preparedStatement);
-            } else if (header.equals(AMOUNT_HEADER)) {
-                preparedStatement.setInt(index, this.amount);
-            } else if (header.equals(UNIT_HEADER)) {
-                this.unit.setKeyArg(index, IngredientUnitModel.ID_HEADER, preparedStatement);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(IngredientOfProductModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 41 * hash + Objects.hashCode(this.product);
-        hash = 41 * hash + Objects.hashCode(this.ingredient);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final IngredientOfProductModel other = (IngredientOfProductModel) obj;
-        if (!Objects.equals(this.product, other.product)) {
-            return false;
-        }
-        if (!Objects.equals(this.ingredient, other.ingredient)) {
-            return false;
-        }
-        return true;
+    public IngredientDetailOfProduct() {
     }
 
     @Override
@@ -198,6 +97,125 @@ public class IngredientOfProductModel implements IngredientOfProductModelInterfa
     @Override
     public IngredientUnitModelInterface getUnit() {
         return this.unit;
+    }
+
+    @Override
+    public void setProperty(ResultSet resultSet) {
+        try {
+            this.ingredient = ingredientDataStorage.getIngredientByID(resultSet.getString(INGREDIENT_ID_HEADER));
+            this.amount = resultSet.getInt(AMOUNT_HEADER);
+            this.unit = ingredientUnitDataStorage.getIngredientUnit(resultSet.getString(UNIT_HEADER));
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientDetailOfProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void insertToDatabase() {
+        try {
+            PreparedStatement preparedStatement = dbConnection
+                    .prepareStatement(INSERT_QUERY_PROTOTYPE);
+
+            this.product.setKeyArg(1, ProductModel.ID_HEADER, preparedStatement);
+            this.ingredient.setKeyArg(2, IngredientModel.ID_HEADER, preparedStatement);
+            preparedStatement.setInt(3, this.amount);
+            this.unit.setKeyArg(4, IngredientUnitModel.ID_HEADER, preparedStatement);
+
+            preparedStatement.execute();
+            preparedStatement.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientDetailOfProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void deleteInDatabase() {
+        try {
+            PreparedStatement preparedStatement = dbConnection
+                    .prepareStatement(DELETE_QUERY_PROTOTYPE);
+
+            this.product.setKeyArg(1, ProductModel.ID_HEADER, preparedStatement);
+            this.ingredient.setKeyArg(2, IngredientModel.ID_HEADER, preparedStatement);
+
+            preparedStatement.execute();
+            preparedStatement.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientDetailOfProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void updateInDatabase() {
+        try {
+            PreparedStatement preparedStatement = dbConnection
+                    .prepareStatement(UPDATE_QUERY_PROTOTYPE);
+
+            preparedStatement.setInt(1, this.amount);
+            this.unit.setKeyArg(2, IngredientUnitModel.ID_HEADER, preparedStatement);
+            this.product.setKeyArg(3, ProductModel.ID_HEADER, preparedStatement);
+            this.ingredient.setKeyArg(4, IngredientModel.ID_HEADER, preparedStatement);
+
+            preparedStatement.execute();
+            preparedStatement.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientDetailOfProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void setKeyArg(int index, String header, PreparedStatement preparedStatement) {
+        try {
+            if (header.equals(PRODUCT_ID_HEADER)) {
+                this.product.setKeyArg(index, ProductModel.ID_HEADER, preparedStatement);
+            } else if (header.equals(INGREDIENT_ID_HEADER)) {
+                this.ingredient.setKeyArg(index, IngredientModel.ID_HEADER, preparedStatement);
+            } else if (header.equals(AMOUNT_HEADER)) {
+                preparedStatement.setInt(index, this.amount);
+            } else if (header.equals(UNIT_HEADER)) {
+                this.unit.setKeyArg(index, IngredientUnitModel.ID_HEADER, preparedStatement);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientDetailOfProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.product);
+        hash = 41 * hash + Objects.hashCode(this.ingredient);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final IngredientDetailOfProduct other = (IngredientDetailOfProduct) obj;
+        if (!Objects.equals(this.product, other.product)) {
+            return false;
+        }
+        if (!Objects.equals(this.ingredient, other.ingredient)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "IngredientOfProductModel{" + "productID=" + product.getProductIDText() 
+                + ", ingredientID=" + ingredient.getIngredientIDText() 
+                + ", amount=" + amount + ", unit=" + unit + '}';
     }
 
 }

@@ -17,7 +17,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Assert;
 import view.dialog.BillExportDialog;
 import view.function.bill.BillCreatePanel;
-import view.function.bill.BillHistoryPanel;
 import view.main.MainFrame;
 
 public class BillCreateController implements BillCreateControllerInterface {
@@ -85,7 +84,7 @@ public class BillCreateController implements BillCreateControllerInterface {
     public List<Pair<ProductModelInterface, Integer>> getProductSearch(String searchText) {
         List<Pair<ProductModelInterface, Integer>> results = new ArrayList<>();
         Iterator<ProductModelInterface> iterator = productDataStorage
-                .getProductSearchByName(searchText).iterator();
+                .getProductSearchByName(searchText);
         while (iterator.hasNext()) {
             ProductModelInterface product = iterator.next();
             results.add(new ImmutablePair<>(product, remainAmountOfProducts.get(product)));
@@ -123,11 +122,11 @@ public class BillCreateController implements BillCreateControllerInterface {
 
                 // Increase total price of product in table select
                 product = selectedProducts.get(index).getKey();
-                int price = product.getPrice() * amount;
+                long price = product.getPrice() * amount;
                 this.billCreatePanel.updatePriceProductSelect(index, price);
             } else {
                 // Add product in table select as a new row
-                product = productDataStorage.getProduct(productIDText);
+                product = productDataStorage.getProductByID(productIDText);
                 this.selectedProducts.add(new MutablePair<>(product, 1));
                 this.billCreatePanel.addRowTableSelect(product);
             }
@@ -169,9 +168,9 @@ public class BillCreateController implements BillCreateControllerInterface {
         }
 
         // Update total money
-        int productPrice = product.getPrice();
+        long productPrice = product.getPrice();
         int amount = this.selectedProducts.get(rowID).getValue();
-        int price = productPrice * amount;
+        long price = productPrice * amount;
         this.totalMoneyOfBill -= price;
         this.billCreatePanel.setTotalMoneyText(String.valueOf(this.totalMoneyOfBill));
 
@@ -246,7 +245,7 @@ public class BillCreateController implements BillCreateControllerInterface {
         this.model.setBillDateTimeExport(Timestamp.valueOf(LocalDateTime.now()));
         this.model.setProductListOfBill(selectedProducts);
         System.out.println("Guest money: " + this.guestMoney + ", total: " + this.totalMoneyOfBill);
-        
+
         this.model.exportBill();
 
         // If success, confirm to view in PDF format

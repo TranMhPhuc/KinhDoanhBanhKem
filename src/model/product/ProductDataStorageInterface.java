@@ -4,23 +4,21 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import model.DatabaseUpdate;
-import view.function.product.ProductUpdateObserver;
 
 public interface ProductDataStorageInterface extends DatabaseUpdate {
 
-    ProductModelInterface getProduct(String productIDText);
-    
-    ProductModelInterface createProduct();
+    ProductModelInterface getProductByID(String productIDText);
     
     int getSize();
     
-    void registerObserver(ProductUpdateObserver observer);
-    
-    void removeObserver(ProductUpdateObserver observer);
-    
-    List<ProductModelInterface> getProductSearchByName(String searchText);
-    
-    List<ProductModelInterface> getAllProduct();
-    
     Iterator<ProductModelInterface> createIterator();
+    
+    Iterator<ProductModelInterface> getProductSearchByName(String searchText);
+    
+    void add(ProductModelInterface product);
+    
+    boolean update(ProductModelInterface product);
+    
+    boolean remove(ProductModelInterface product);
+    
 }

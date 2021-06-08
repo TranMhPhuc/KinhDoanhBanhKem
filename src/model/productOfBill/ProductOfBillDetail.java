@@ -32,7 +32,7 @@ public class ProductOfBillDetail implements ProductOfBillDetailInterface {
     private BillModelInterface bill;
     private ProductModelInterface product;
     private int amount;
-    private int price;
+    private long price;
 
     static {
         productDataStorage = ProductDataStorage.getInstance();
@@ -46,7 +46,7 @@ public class ProductOfBillDetail implements ProductOfBillDetailInterface {
         try {
 //            String billIDText = resultSet.getString(BillModel.ID_HEADER);
 //            this.bill = BillModel.getBill(billIDText);
-            this.product = productDataStorage.getProduct(resultSet.getString(PRODUCT_ID_HEADER));
+            this.product = productDataStorage.getProductByID(resultSet.getString(PRODUCT_ID_HEADER));
             this.amount = resultSet.getInt(AMOUNT_HEADER);
             this.price = resultSet.getInt(PRICE_HEADER);
         } catch (SQLException ex) {
@@ -63,7 +63,7 @@ public class ProductOfBillDetail implements ProductOfBillDetailInterface {
             this.bill.setKeyArg(1, BillModel.ID_HEADER, preparedStatement);
             this.product.setKeyArg(2, ProductModel.ID_HEADER, preparedStatement);
             preparedStatement.setInt(3, this.amount);
-            preparedStatement.setInt(4, this.price);
+            preparedStatement.setLong(4, this.price);
             
             System.out.println("Detail: bill: " + this.bill.getBillID() + ", product: " + this.product.getProductIDText() + ", amount: " + amount + ", price: " + price);
 
@@ -115,7 +115,7 @@ public class ProductOfBillDetail implements ProductOfBillDetailInterface {
     }
 
     @Override
-    public void setPrice(int price) {
+    public void setPrice(long price) {
         this.price = price;
     }
 
@@ -172,7 +172,7 @@ public class ProductOfBillDetail implements ProductOfBillDetailInterface {
     }
 
     @Override
-    public int getPrice() {
+    public long getPrice() {
         return this.price;
     }
 

@@ -10,7 +10,6 @@ import java.util.List;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 import me.xdrop.fuzzywuzzy.model.BoundExtractedResult;
 import util.AppLog;
-import view.function.product.ProductUpdateObserver;
 
 public class ProductDataStorage implements ProductDataStorageInterface {
 
@@ -18,15 +17,12 @@ public class ProductDataStorage implements ProductDataStorageInterface {
 
     private ArrayList<ProductModelInterface> products;
     
-    private ArrayList<ProductUpdateObserver> observers;
-    
     static {
         uniqueInstance = new ProductDataStorage();
     }
 
     private ProductDataStorage() {
         products = new ArrayList<>();
-        observers = new ArrayList<>();
     }
 
     public static ProductDataStorage getInstance() {
@@ -49,6 +45,9 @@ public class ProductDataStorage implements ProductDataStorageInterface {
                 product.setProperty(resultSet);
                 products.add(product);
             }
+            
+            resultSet.close();
+            statement.close();
 
             AppLog.getLogger().info("Update product database: successfully, "
                     + products.size() + " rows inserted.");
@@ -58,20 +57,14 @@ public class ProductDataStorage implements ProductDataStorageInterface {
         }
     }
 
-    public ProductModelInterface getProduct(String productIDText) {
-        for (ProductModelInterface element : products) {
-            if (element.getProductIDText().equals(productIDText)) {
-                return element;
+    @Override
+    public ProductModelInterface getProductByID(String productIDText) {
+        for (ProductModelInterface product : products) {
+            if (product.getProductIDText().equals(productIDText)) {
+                return product;
             }
         }
         throw new IllegalArgumentException("Product id '" + productIDText +  "' is not existed.");
-    }
-
-    @Override
-    public ProductModelInterface createProduct() {
-        ProductModelInterface newProduct = new ProductModel();
-        this.products.add(newProduct);
-        return newProduct;
     }
 
     @Override
@@ -80,43 +73,62 @@ public class ProductDataStorage implements ProductDataStorageInterface {
     }
 
     @Override
-    public void registerObserver(ProductUpdateObserver observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void removeObserver(ProductUpdateObserver observer) {
-        int id = observers.indexOf(observer);
-        if (id >= 0) {
-            observers.remove(observer);
-        }
-    }
-    
-    private void notifyObserver() {
-        for (ProductUpdateObserver observer : observers) {
-            observer.updateProductNumber(this.products.size());
-        }
-    }
-
-    @Override
-    public List<ProductModelInterface> getProductSearchByName(String searchText) {
+    public Iterator<ProductModelInterface> getProductSearchByName(String searchText) {
         List<ProductModelInterface> ret = new ArrayList<>();
         List<BoundExtractedResult<ProductModelInterface>> matches = FuzzySearch
                 .extractSorted(searchText, this.products, product -> product.getName(), 80);
         for (BoundExtractedResult<ProductModelInterface> element : matches) {
             ret.add(element.getReferent());
         }
-        return ret;
-    }
-
-    @Override
-    public List<ProductModelInterface> getAllProduct() {
-        return this.products;
+        return ret.iterator();
     }
 
     @Override
     public Iterator<ProductModelInterface> createIterator() {
         return this.products.iterator();
+    }
+
+    @Override
+    public void add(ProductModelInterface product) {
+        if (product == null) {
+            throw new NullPointerException();
+        }
+        int index = this.products.indexOf(product);
+        if (index != -1) {
+            throw new IllegalArgumentException("Product instance is already existed.");
+        } else {
+            this.products.add(product);
+            product.insertToDatabase();
+        }
+    }
+
+    @Override
+    public boolean update(ProductModelInterface product) {
+        if (product == null) {
+            throw new NullPointerException();
+        }
+        int index = this.products.indexOf(product);
+        if (index == -1) {
+            return false;
+        } else {
+            product.updateInDatabase();
+            return true;
+        }
+    }
+
+    @Override
+    public boolean remove(ProductModelInterface product) {
+        if (product == null) {
+            throw new NullPointerException();
+        }
+        int index = this.products.indexOf(product);
+        if (index == -1) {
+            return false;
+        } else {
+            product.deleteInDatabase();
+            this.products.remove(product);
+            return true;
+        }
     }
 
 }

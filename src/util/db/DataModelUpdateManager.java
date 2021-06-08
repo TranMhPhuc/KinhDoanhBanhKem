@@ -15,8 +15,6 @@ import model.ingredient.unit.IngredientUnitDataStorage;
 import model.ingredient.unit.IngredientUnitDataStorageInterface;
 import model.ingredient.unit.conversion.IngredientUnitConversionDataStorage;
 import model.ingredient.unit.conversion.IngredientUnitConversionDataStorageInterface;
-import model.ingredientOfProduct.IngredientOfProductDataStorage;
-import model.ingredientOfProduct.IngredientOfProductDataStorageInterface;
 import model.product.ProductDataStorage;
 import model.product.ProductDataStorageInterface;
 import model.provider.ProviderDataStorage;
@@ -41,7 +39,6 @@ public class DataModelUpdateManager {
     private IngredientUnitConversionDataStorageInterface ingredientUnitConversionDataStorage;
     private IngredientDataStorageInterface ingredientDataStorage;
     private ProductDataStorageInterface productDataStorage;
-    private IngredientOfProductDataStorageInterface ingredientOfProductDataStorage;
 
     static {
         connection = SQLServerConnection.getConnection();
@@ -57,7 +54,6 @@ public class DataModelUpdateManager {
         ingredientUnitConversionDataStorage = IngredientUnitConversionDataStorage.getInstance();
         ingredientDataStorage = IngredientDataStorage.getInstance();
         productDataStorage = ProductDataStorage.getInstance();
-        ingredientOfProductDataStorage = IngredientOfProductDataStorage.getInstance();
     }
 
     public static DataModelUpdateManager getInstance() {
@@ -81,7 +77,6 @@ public class DataModelUpdateManager {
         ingredientUnitConversionDataStorage.updateFromDB(connection);
         ingredientDataStorage.updateFromDB(connection);
         productDataStorage.updateFromDB(connection);
-        ingredientOfProductDataStorage.updateFromDB(connection);
     }
     
     public static void main(String[] args) {

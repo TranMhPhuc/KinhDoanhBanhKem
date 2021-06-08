@@ -207,7 +207,7 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         tableSelectModel.setValueAt(amount, rowID, PRODUCT_SELECT_AMOUNT_COLUMN_INDEX);
     }
 
-    public void updatePriceProductSelect(int rowID, int price) {
+    public void updatePriceProductSelect(int rowID, long price) {
         tableSelectModel.setValueAt(price, rowID, PRODUCT_SELECT_PRICE_COLUMN_INDEX);
     }
 

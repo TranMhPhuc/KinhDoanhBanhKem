@@ -8,6 +8,8 @@ public interface ProviderDataStorageInterface extends DatabaseUpdate {
     ProviderModelInterface getProviderByID(String providerIDText);
 
     ProviderModelInterface getProviderByIndex(int providerIndex);
+    
+    int getProviderIndex(ProviderModelInterface provider);
 
     int getSize();
 

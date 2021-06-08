@@ -4,6 +4,6 @@ import model.ingredient.IngredientModelInterface;
 
 public interface ModifiedIngredientObserver {
 
-    void updateModifiedIngredient(IngredientModelInterface ingredient);
+    void updateModifiedIngredientObserver(IngredientModelInterface ingredient);
     
 }
