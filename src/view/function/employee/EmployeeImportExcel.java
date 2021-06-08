@@ -1,14 +1,10 @@
 package view.function.employee;
 
-import static java.awt.TrayIcon.MessageType.ERROR;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.sql.Date;
-import static java.sql.JDBCType.BOOLEAN;
-import static java.sql.JDBCType.NUMERIC;
 import java.util.ArrayList;
 import java.util.Iterator;
 import model.employee.EmployeeModel;
@@ -66,13 +62,13 @@ public class EmployeeImportExcel {
                 int columnIndex = cell.getColumnIndex();
                 switch (columnIndex) {
                     case 0:
-                        employee.setEmployeeID(((Double) getCellValue(cell)).intValue());
+                        employee.setEmployeeID((String) getCellValue(cell));
                         break;
                     case 1:
                         employee.setName((String) getCellValue(cell));
                         break;
                     case 2:
-                        employee.setPhoneNum(((Double) getCellValue(cell)).intValue());
+                        employee.setPhoneNum((String) getCellValue(cell));
                         break;
                     case 3:
                         employee.setBirthday(Date.valueOf((String) ((Double) getCellValue(cell)).toString()));
@@ -90,7 +86,7 @@ public class EmployeeImportExcel {
                         employee.setStartDate(Date.valueOf((String) getCellValue(cell)));
                         break;
                     case 8:
-                        employee.setPosition((String) getCellValue(cell));
+//                        employee.setPosition((String) getCellValue(cell));
                         break;
                     case 9:
                         employee.setStatus(Boolean.valueOf((String) getCellValue(cell)));

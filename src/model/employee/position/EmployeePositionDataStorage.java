@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import util.AppLog;
 
 public class EmployeePositionDataStorage implements EmployeePositionDataStorageInterface {
@@ -61,11 +62,24 @@ public class EmployeePositionDataStorage implements EmployeePositionDataStorageI
     @Override
     public EmployeePositionModelInterface getPositionByName(String positionName) {
         for (EmployeePositionModelInterface position : positions) {
-            if (position.getPositionName().equals(positionName)) {
+            if (position.getName().equals(positionName)) {
                 return position;
             }
         }
         throw new IllegalArgumentException("Position name '" + positionName + "' is not existed.");
+    }
+
+    @Override
+    public int getPositionIndex(EmployeePositionModelInterface position) {
+        if (position == null) {
+            throw new NullPointerException();
+        }
+        return this.positions.indexOf(position);
+    }
+
+    @Override
+    public Iterator<EmployeePositionModelInterface> createIterator() {
+        return this.positions.iterator();
     }
 
 }

@@ -1,8 +1,7 @@
 package view.main;
 
 import control.bill.create.BillCreateController;
-import control.employee.EmployeeManageController;
-import control.employee.EmployeeManageControllerInterface;
+import control.employee.EmployeeController;
 import control.ingredient.IngredientController;
 import control.ingredient.IngredientControllerInterface;
 import control.product.ProductController;
@@ -14,8 +13,6 @@ import control.statistics.StatisticsControllerInterface;
 import model.bill.BillManageModel;
 import model.bill.BillManageModelInterface;
 import model.employee.EmployeeModel;
-import model.employee.EmployeeModelInterface;
-import model.product.ProductModel;
 import model.product.ProductManageModelInterface;
 import model.user.UserModelInterface;
 import control.bill.create.BillCreateControllerInterface;
@@ -26,6 +23,9 @@ import model.ingredient.IngredientManageModelInterface;
 import model.product.ProductManageModel;
 import model.provider.ProviderManageModel;
 import model.provider.ProviderManageModelInterface;
+import control.employee.EmployeeControllerInterface;
+import model.employee.EmployeeManageModel;
+import model.employee.EmployeeManageModelInterface;
 
 public class ManagerUIDisplay implements CustomUIDisplay {
 
@@ -46,8 +46,8 @@ public class ManagerUIDisplay implements CustomUIDisplay {
         ProviderManageModelInterface providerModel = ProviderManageModel.getInstance();
         ProviderControllerInterface providerController = ProviderController.getInstance(providerModel);
         
-        EmployeeModelInterface employeeModel = new EmployeeModel();
-        EmployeeManageControllerInterface employeeController = EmployeeManageController.getInstance(employeeModel);
+        EmployeeManageModelInterface employeeModel = EmployeeManageModel.getInstance();
+        EmployeeControllerInterface employeeController = EmployeeController.getInstance(employeeModel);
     }
     
     @Override

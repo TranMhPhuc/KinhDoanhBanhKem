@@ -10,7 +10,7 @@ public class CheckableItem {
         this.selected = selected;
     }
     
-    public String getText() {
+    public String getValue() {
         return this.text;
     }
 

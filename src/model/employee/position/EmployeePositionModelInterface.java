@@ -4,7 +4,7 @@ import model.DatabaseModel;
 
 public interface EmployeePositionModelInterface extends DatabaseModel {
     
-    String getPositionName();
+    String getName();
     
     String getPositionIDText();
     

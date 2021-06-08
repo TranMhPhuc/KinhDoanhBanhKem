@@ -140,9 +140,9 @@ public class EmployeeExportExcel {
         int index = 0;
 
         cell = row.createCell(index++);
-        cell.setCellValue(employee.getEmployeeID());
+//        cell.setCellValue(employee.getEmployeeID());
         cell = row.createCell(index++);
-        cell.setCellValue(employee.getEmployeeName());
+        cell.setCellValue(employee.getName());
         cell = row.createCell(index++);
         cell.setCellValue(employee.getPhoneNum());
         cell = row.createCell(index++);

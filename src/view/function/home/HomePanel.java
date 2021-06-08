@@ -10,10 +10,8 @@ import model.employee.EmployeeDataStorageInterface;
 import model.product.ProductDataStorage;
 import model.product.ProductDataStorageInterface;
 import view.function.bill.BillUpdateObserver;
-import view.function.employee.EmployeeUpdateObserver;
 
-public class HomePanel extends javax.swing.JPanel implements EmployeeUpdateObserver,
-        BillUpdateObserver {
+public class HomePanel extends javax.swing.JPanel implements BillUpdateObserver {
 
     private volatile static HomePanel uniqueInstance;
 
@@ -31,7 +29,6 @@ public class HomePanel extends javax.swing.JPanel implements EmployeeUpdateObser
     private HomePanel(Image img) {
         initComponents();
         this.img = img;
-        employeeDataStorage.registerObserver(this);
         billManageModel.registerObserver(this);
         
         createView();
@@ -93,11 +90,6 @@ public class HomePanel extends javax.swing.JPanel implements EmployeeUpdateObser
 
     public void setLabelEmployee(int employeeNumber) {
         this.labelEmployeeNumber.setText(String.valueOf(employeeNumber));
-    }
-
-    @Override
-    public void updateEmployeeNumber(int employeeNumber) {
-        setLabelEmployee(employeeNumber);
     }
 
     @Override

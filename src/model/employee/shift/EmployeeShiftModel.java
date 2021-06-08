@@ -29,7 +29,7 @@ public class EmployeeShiftModel implements EmployeeShiftModelInterface {
     }
 
     @Override
-    public String getShiftName() {
+    public String getName() {
         return this.name;
     }
 

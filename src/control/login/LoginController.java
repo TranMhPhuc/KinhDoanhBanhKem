@@ -75,7 +75,7 @@ public class LoginController implements LoginControllerInterface {
             // Clone neccessary data from database to memory
             DataModelUpdateManager.getInstance().updateFromDB();
 
-            this.model.updateUser(EmployeeDataStorage.getInstance().getEmployee(
+            this.model.updateUser(EmployeeDataStorage.getInstance().getEmployeeByID(
                     resultSet.getString(EmployeeModel.ID_HEADER)));
 
             this.loginView.dispose();

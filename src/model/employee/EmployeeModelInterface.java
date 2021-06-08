@@ -1,17 +1,19 @@
 package model.employee;
 
 import java.sql.Date;
-import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import model.DatabaseModel;
+import model.employee.position.EmployeePositionModelInterface;
 import model.employee.shift.EmployeeShiftModelInterface;
 
 public interface EmployeeModelInterface extends DatabaseModel {
 
-    void setEmployeeID(int id);
+    void setEmployeeID(String employeeIDText);
     
     void setName(String name);
     
-    void setPhoneNum(int phoneNum);
+    void setPhoneNum(String phoneNum);
     
     void setBirthday(Date birthday);
     
@@ -23,23 +25,21 @@ public interface EmployeeModelInterface extends DatabaseModel {
     
     void setStartDate(Date startDate);
     
-    void setPosition(String positionName);
-    
     void setStatus(boolean isActive);
     
     void setEndDate(Date endDate);
     
-    void setShift(ArrayList<EmployeeShiftModelInterface> shifts);
+    void setPosition(EmployeePositionModelInterface position);
     
-    int getEmployeeID();
+    void setShift(List<EmployeeShiftModelInterface> shifts);
     
     String getEmployeeIDText();
     
     String getEmployeePositionName();
     
-    String getEmployeeName();
+    String getName();
     
-    int getPhoneNum();
+    String getPhoneNum();
     
     Date getBirthday();
     
@@ -54,5 +54,9 @@ public interface EmployeeModelInterface extends DatabaseModel {
     boolean getStatus();
     
     Date getEndDate();
+    
+    List<EmployeeShiftModelInterface> getShift();
+    
+    EmployeePositionModelInterface getPosition();
     
 }

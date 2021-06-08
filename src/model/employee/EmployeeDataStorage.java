@@ -6,16 +6,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import me.xdrop.fuzzywuzzy.FuzzySearch;
+import me.xdrop.fuzzywuzzy.model.BoundExtractedResult;
 import util.AppLog;
-import view.function.employee.EmployeeUpdateObserver;
+import util.constant.AppConstant;
 
 public class EmployeeDataStorage implements EmployeeDataStorageInterface {
 
     private static EmployeeDataStorage uniqueInstance;
 
     private ArrayList<EmployeeModelInterface> employees;
-    
-    private ArrayList<EmployeeUpdateObserver> observers;
 
     static {
         uniqueInstance = new EmployeeDataStorage();
@@ -23,7 +24,6 @@ public class EmployeeDataStorage implements EmployeeDataStorageInterface {
 
     private EmployeeDataStorage() {
         employees = new ArrayList<>();
-        observers = new ArrayList<>();
     }
 
     public static EmployeeDataStorageInterface getInstance() {
@@ -47,6 +47,9 @@ public class EmployeeDataStorage implements EmployeeDataStorageInterface {
                 employees.add(employee);
             }
 
+            resultSet.close();
+            statement.close();
+
             AppLog.getLogger().info("Update employee database: sucessfully, "
                     + employees.size() + " rows inserted.");
 
@@ -56,10 +59,10 @@ public class EmployeeDataStorage implements EmployeeDataStorageInterface {
     }
 
     @Override
-    public EmployeeModelInterface getEmployee(String employeeIDText) {
-        for (EmployeeModelInterface element : employees) {
-            if (element.getEmployeeIDText().equals(employeeIDText)) {
-                return element;
+    public EmployeeModelInterface getEmployeeByID(String employeeIDText) {
+        for (EmployeeModelInterface employee : employees) {
+            if (employee.getEmployeeIDText().equals(employeeIDText)) {
+                return employee;
             }
         }
         throw new IllegalArgumentException("Employee id '" + employeeIDText + "' is not existed.");
@@ -71,33 +74,67 @@ public class EmployeeDataStorage implements EmployeeDataStorageInterface {
     }
 
     @Override
-    public EmployeeModelInterface createEmployee() {
-        EmployeeModelInterface newEmployee = new EmployeeModel();
-        this.employees.add(newEmployee);
-        return newEmployee;
-    }
-
-    @Override
     public Iterator<EmployeeModelInterface> createIterator() {
         return this.employees.iterator();
     }
 
     @Override
-    public void registerObserver(EmployeeUpdateObserver observer) {
-        observers.add(observer);
+    public EmployeeModelInterface getEmployeeByIndex(int employeeIndex) {
+        if (employeeIndex < 0 || employeeIndex >= this.employees.size()) {
+            throw new IndexOutOfBoundsException("Employee index is out of bound.");
+        }
+        return this.employees.get(employeeIndex);
     }
 
     @Override
-    public void removeObserver(EmployeeUpdateObserver observer) {
-        int id = observers.indexOf(observer);
-        if (id >= 0) {
-            observers.remove(observer);
+    public Iterator<EmployeeModelInterface> getEmployeeSearchByName(String searchText) {
+        List<EmployeeModelInterface> ret = new ArrayList<>();
+        List<BoundExtractedResult<EmployeeModelInterface>> matches = FuzzySearch
+                .extractSorted(searchText, this.employees, employee -> employee.getName(), AppConstant.SEARCH_SCORE_CUT_OFF);
+        for (BoundExtractedResult<EmployeeModelInterface> element : matches) {
+            ret.add(element.getReferent());
         }
+        return ret.iterator();
     }
-    
-    private void notifyObserver() {
-        for (EmployeeUpdateObserver observer : observers) {
-            observer.updateEmployeeNumber(employees.size());
+
+    @Override
+    public void add(EmployeeModelInterface employee) {
+        if (employee == null) {
+            throw new NullPointerException("Employee instance is null.");
         }
+        int index = this.employees.indexOf(employee);
+        if (index != -1) {
+            throw new IllegalArgumentException("Employee instance is already existed.");
+        }
+        this.employees.add(employee);
+        employee.insertToDatabase();
     }
+
+    @Override
+    public boolean update(EmployeeModelInterface employee) {
+        if (employee == null) {
+            throw new NullPointerException("Employee instance is null.");
+        }
+        int index = this.employees.indexOf(employee);
+        if (index == -1) {
+            return false;
+        }
+        employee.updateInDatabase();
+        return true;
+    }
+
+    @Override
+    public boolean remove(EmployeeModelInterface employee) {
+        if (employee == null) {
+            throw new NullPointerException("Employee instance is null.");
+        }
+        int index = this.employees.indexOf(employee);
+        if (index == -1) {
+            return false;
+        }
+        this.employees.remove(index);
+        employee.deleteInDatabase();
+        return true;
+    }
+
 }

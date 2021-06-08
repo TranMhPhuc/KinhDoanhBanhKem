@@ -37,7 +37,7 @@ public class EmployeePositionModel implements EmployeePositionModelInterface {
     }
 
     @Override
-    public String getPositionName() {
+    public String getName() {
         return this.name;
     }
 

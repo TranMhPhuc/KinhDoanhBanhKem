@@ -30,13 +30,13 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         RemovedIngredientObserver, InsertedIngredientTypeObserver, InsertedProviderObserver,
         ModifiedProviderObserver, RemovedProviderObserver {
 
-    public static final int INGREDIENT_ID_COLUMN_INDEX = 0;
-    public static final int INGREDIENT_PROVIDER_NAME_COLUMN_INDEX = 6;
-
     enum EditState {
         ADD,
         MODIFY,
     }
+    
+    public static final int INGREDIENT_ID_COLUMN_INDEX = 0;
+    public static final int INGREDIENT_PROVIDER_NAME_COLUMN_INDEX = 6;
 
     private volatile static IngredientPanel uniqueInstance;
 
@@ -68,7 +68,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         providerManageModel.registerInsertedProviderObserver(this);
         providerManageModel.registerModifiedProviderObserver(this);
         providerManageModel.registerRemovedProviderObserver(this);
-        
+
         this.controller = controller;
 
         this.tableIngredientModel = (DefaultTableModel) tableIngredient.getModel();
@@ -517,7 +517,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         String newProviderName = updatedProvider.getName();
 
         int combProviderNameSelectIndex = this.combProviderName.getSelectedIndex();
-        
+
         // Update combobox
         this.combProviderName.removeItemAt(providerIndex);
         this.combProviderName.insertItemAt(newProviderName, providerIndex);
@@ -525,7 +525,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         if (combProviderNameSelectIndex == providerIndex) {
             this.combProviderName.setSelectedIndex(providerIndex);
         }
-        
+
         // Update table
         for (int i = 0; i < this.tableIngredientModel.getRowCount(); i++) {
             String providerNameOfRecord = (String) this.tableIngredientModel.getValueAt(i, INGREDIENT_PROVIDER_NAME_COLUMN_INDEX);

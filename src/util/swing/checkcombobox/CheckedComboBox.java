@@ -33,10 +33,6 @@ public class CheckedComboBox<E extends CheckableItem> extends JComboBox<E> {
         super(model);
     }
     
-    public CheckedComboBox(E[] items) {
-        super(items);
-    }
-    
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(200, 20);

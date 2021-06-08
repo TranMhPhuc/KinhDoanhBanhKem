@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import model.employee.shift.EmployeeShiftModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +21,7 @@ import model.employee.shift.EmployeeShiftModelInterface;
 public class EmployeeModel implements EmployeeModelInterface {
 
     public static final String TABLE_NAME = "NhanVien";
-    public static final String TABLE_RELATE_SHIFT_NAME = "PhanCong";
+    public static final String TABLE_EMPLOYEE_SHIFT_NAME = "PhanCong";
     public static final String ID_HEADER = "MaNV";
     public static final String NAME_HEADER = "TenNV";
     public static final String PHONE_HEADER = "SDT";
@@ -35,16 +37,11 @@ public class EmployeeModel implements EmployeeModelInterface {
 
     private static final String INSERT_QUERY_PROTOTYPE
             = "INSERT INTO" + TABLE_NAME + " ("
-            + ID_HEADER + ", " + NAME_HEADER + ", " + PHONE_HEADER + ", "
+            + NAME_HEADER + ", " + PHONE_HEADER + ", "
             + BIRTHDAY_HEADER + ", " + EMAIL_HEADER + ", " + PASSWORD_HEADER + ", "
             + GENDER_HEADER + ", " + START_DATE_HEADER + ", " + POSITION_HEADER + ", "
             + STATUS_HEADER + ", " + END_DATE_HEADER + ")"
-            + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-    private static final String INSERT_EMPLOYEE_SHIFT_QUERY_PROTOTYPE
-            = "INSERT INTO " + TABLE_RELATE_SHIFT_NAME + " ("
-            + ID_HEADER + ", " + EmployeeShiftModel.ID_HEADER + ")"
-            + " VALUES (?, ?)";
+            + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     private static final String UPDATE_QUERY_PROTOTYPE
             = "UPDATE " + TABLE_NAME
@@ -54,12 +51,21 @@ public class EmployeeModel implements EmployeeModelInterface {
             + STATUS_HEADER + " = ?, " + END_DATE_HEADER + " = ? "
             + " WHERE " + ID_HEADER + " = ?";
 
+    private static final String INSERT_EMPLOYEE_SHIFT_QUERY_PROTOTYPE
+            = "INSERT INTO " + TABLE_EMPLOYEE_SHIFT_NAME + " ("
+            + ID_HEADER + ", " + EmployeeShiftModel.ID_HEADER + ")"
+            + " VALUES (?, ?)";
+
+    private static final String DELETE_EMPLOYEE_SHIFT_QUERY_PROTOTYPE
+            = "DELETE FROM " + TABLE_EMPLOYEE_SHIFT_NAME
+            + " WHERE " + ID_HEADER + " = ?";
+
     private static EmployeePositionDataStorage employeePositionDataStorage;
     private static EmployeeShiftDataStorageInterface employeeShiftDataStorage;
 
     private int employeeID;
     private String name;
-    private int phoneNum;
+    private String phoneNum;
     private Date birthday;
     private String email;
     private String personalID;
@@ -85,7 +91,7 @@ public class EmployeeModel implements EmployeeModelInterface {
         try {
             this.employeeID = resultSet.getInt(ID_HEADER);
             this.name = resultSet.getString(NAME_HEADER);
-            this.phoneNum = resultSet.getInt(PHONE_HEADER);
+            this.phoneNum = resultSet.getString(PHONE_HEADER);
             this.birthday = resultSet.getDate(BIRTHDAY_HEADER);
             this.email = resultSet.getString(EMAIL_HEADER);
             this.personalID = resultSet.getString(PERSONAL_ID_HEADER);
@@ -105,24 +111,22 @@ public class EmployeeModel implements EmployeeModelInterface {
 
             String shiftFindQuery
                     = "SELECT " + EmployeeShiftModel.ID_HEADER
-                    + " FROM " + TABLE_RELATE_SHIFT_NAME
+                    + " FROM " + TABLE_EMPLOYEE_SHIFT_NAME
                     + " WHERE " + ID_HEADER + " = " + this.employeeID;
 
-            ResultSet shiftFindResultSet = statement.executeQuery(shiftFindQuery);
+            ResultSet findShiftResultSet = statement.executeQuery(shiftFindQuery);
 
-            while (shiftFindResultSet.next()) {
-                this.shifts.add(employeeShiftDataStorage.getShift(shiftFindResultSet
+            while (findShiftResultSet.next()) {
+                this.shifts.add(employeeShiftDataStorage.getShift(findShiftResultSet
                         .getString(1)));
             }
+
+            findShiftResultSet.close();
+            statement.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    @Override
-    public void setEmployeeID(int id) {
-        this.employeeID = id;
     }
 
     @Override
@@ -131,7 +135,7 @@ public class EmployeeModel implements EmployeeModelInterface {
     }
 
     @Override
-    public void setPhoneNum(int phoneNum) {
+    public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
 
@@ -161,11 +165,6 @@ public class EmployeeModel implements EmployeeModelInterface {
     }
 
     @Override
-    public void setPosition(String positionName) {
-        this.position = employeePositionDataStorage.getPositionByName(positionName);
-    }
-
-    @Override
     public void setStatus(boolean isActive) {
         this.isActive = isActive;
     }
@@ -176,13 +175,14 @@ public class EmployeeModel implements EmployeeModelInterface {
     }
 
     @Override
-    public void setShift(ArrayList<EmployeeShiftModelInterface> shifts) {
-        this.shifts = shifts;
-    }
-
-    @Override
-    public int getEmployeeID() {
-        return this.employeeID;
+    public void setShift(List<EmployeeShiftModelInterface> shifts) {
+        if (shifts == null) {
+            throw new NullPointerException();
+        }
+        this.shifts.clear();
+        for (EmployeeShiftModelInterface shift : shifts) {
+            this.shifts.add(shift);
+        }
     }
 
     @Override
@@ -192,16 +192,16 @@ public class EmployeeModel implements EmployeeModelInterface {
 
     @Override
     public String getEmployeePositionName() {
-        return this.position.getPositionName();
+        return this.position.getName();
     }
 
     @Override
-    public String getEmployeeName() {
+    public String getName() {
         return this.name;
     }
 
     @Override
-    public int getPhoneNum() {
+    public String getPhoneNum() {
         return this.phoneNum;
     }
 
@@ -248,7 +248,7 @@ public class EmployeeModel implements EmployeeModelInterface {
             } else if (header.equals(NAME_HEADER)) {
                 preparedStatement.setString(index, this.name);
             } else if (header.equals(PHONE_HEADER)) {
-                preparedStatement.setInt(index, this.phoneNum);
+                preparedStatement.setString(index, this.phoneNum);
             } else if (header.equals(BIRTHDAY_HEADER)) {
                 preparedStatement.setDate(index, this.birthday);
             } else if (header.equals(EMAIL_HEADER)) {
@@ -281,7 +281,7 @@ public class EmployeeModel implements EmployeeModelInterface {
 
             // ID is identity column
             preparedStatement.setString(1, this.name);
-            preparedStatement.setInt(2, this.phoneNum);
+            preparedStatement.setString(2, this.phoneNum);
             preparedStatement.setDate(3, this.birthday);
             preparedStatement.setString(4, this.email);
             preparedStatement.setString(5, this.personalID);
@@ -298,12 +298,12 @@ public class EmployeeModel implements EmployeeModelInterface {
             preparedStatement = dbConnection
                     .prepareStatement(INSERT_EMPLOYEE_SHIFT_QUERY_PROTOTYPE);
 
-//            for (EmployeeShiftModelInterface shift : shifts) {
-//                preparedStatement.clearParameters();
-//                preparedStatement.setInt(1, this.employeeID);
-//                shift.setKeyArg(2, EmployeeShiftModel.ID_HEADER, preparedStatement);
-//                preparedStatement.execute();
-//            }
+            for (EmployeeShiftModelInterface shift : shifts) {
+                preparedStatement.clearParameters();
+                preparedStatement.setInt(1, this.employeeID);
+                shift.setKeyArg(2, EmployeeShiftModel.ID_HEADER, preparedStatement);
+                preparedStatement.execute();
+            }
             preparedStatement.close();
 
         } catch (SQLException ex) {
@@ -322,7 +322,7 @@ public class EmployeeModel implements EmployeeModelInterface {
             PreparedStatement preparedStatement = dbConnection.prepareStatement(UPDATE_QUERY_PROTOTYPE);
 
             preparedStatement.setString(1, this.name);
-            preparedStatement.setInt(2, this.phoneNum);
+            preparedStatement.setString(2, this.phoneNum);
             preparedStatement.setDate(3, this.birthday);
             preparedStatement.setString(4, this.email);
             preparedStatement.setString(5, this.personalID);
@@ -335,6 +335,25 @@ public class EmployeeModel implements EmployeeModelInterface {
             preparedStatement.setInt(12, this.employeeID);
 
             preparedStatement.execute();
+            preparedStatement.close();
+
+            preparedStatement = dbConnection
+                    .prepareStatement(DELETE_EMPLOYEE_SHIFT_QUERY_PROTOTYPE);
+
+            preparedStatement.setInt(1, this.employeeID);
+            preparedStatement.execute();
+            preparedStatement.close();
+
+            preparedStatement = dbConnection
+                    .prepareStatement(INSERT_EMPLOYEE_SHIFT_QUERY_PROTOTYPE);
+
+            for (EmployeeShiftModelInterface shift : shifts) {
+                preparedStatement.clearParameters();
+                preparedStatement.setInt(1, this.employeeID);
+                shift.setKeyArg(2, EmployeeShiftModel.ID_HEADER, preparedStatement);
+                preparedStatement.execute();
+            }
+
             preparedStatement.close();
 
         } catch (SQLException ex) {
@@ -368,20 +387,36 @@ public class EmployeeModel implements EmployeeModelInterface {
     }
 
     @Override
-    public String toString() {
-//        String shiftText = "{";
-//        for (int i = 0; i < shifts.length - 1; i++) {
-//            shiftText += shifts[i] + ", ";
-//        }
-//        shiftText += shifts[shifts.length - 1] + "}";
+    public void setEmployeeID(String employeeIDText) {
+        this.employeeID = Integer.parseInt(employeeIDText);
+    }
 
+    @Override
+    public String toString() {
         return "EmployeeModel{" + "employeeID=" + employeeID + ", name=" + name + ", "
                 + "phoneNum=" + phoneNum + ", birthday=" + birthday + ", email="
                 + email + ", personalID=" + personalID + ", password=" + password + ", "
                 + "isMale=" + isMale + ", startDate=" + startDate + ", positionID="
                 + position.getPositionIDText() + ", isActive=" + isActive + ", endDate=" + endDate
                 + '}';
-//                + ", shifts=" + shiftText + '}';
+    }
+
+    @Override
+    public void setPosition(EmployeePositionModelInterface position) {
+        if (position == null) {
+            throw new NullPointerException("Position instance is null.");
+        }
+        this.position = position;
+    }
+
+    @Override
+    public EmployeePositionModelInterface getPosition() {
+        return this.position;
+    }
+
+    @Override
+    public List<EmployeeShiftModelInterface> getShift() {
+        return this.shifts;
     }
 
 }

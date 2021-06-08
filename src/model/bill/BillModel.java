@@ -82,7 +82,7 @@ public class BillModel implements BillModelInterface {
             this.guestMoney = resultSet.getInt("TienKhachTra");
             this.changeMoney = resultSet.getInt("TienThoi");
             this.employee = employeeDataStorage
-                    .getEmployee(resultSet.getString(EMPLOYEE_ID_HEADER));
+                    .getEmployeeByID(resultSet.getString(EMPLOYEE_ID_HEADER));
         } catch (SQLException ex) {
             Logger.getLogger(BillModel.class.getName()).log(Level.SEVERE, null, ex);
         }

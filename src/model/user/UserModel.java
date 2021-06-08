@@ -51,7 +51,7 @@ public class UserModel implements UserModelInterface {
 
     @Override
     public String getUserName() {
-        return impl.getEmployeeName();
+        return impl.getName();
     }
 
     @Override

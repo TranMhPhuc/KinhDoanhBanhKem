@@ -6,5 +6,5 @@ public interface EmployeeShiftModelInterface extends DatabaseModel {
 
     String getShiftIDText();
     
-    String getShiftName();
+    String getName();
 }

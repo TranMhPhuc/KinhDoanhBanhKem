@@ -10,10 +10,9 @@ import java.util.List;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 import me.xdrop.fuzzywuzzy.model.BoundExtractedResult;
 import util.AppLog;
+import util.constant.AppConstant;
 
 public class ProviderDataStorage implements ProviderDataStorageInterface {
-    
-    public static final int FIND_NAME_SCORE_CUT_OFF = 60;
     
     private static ProviderDataStorage uniqueInstance;
     
@@ -109,7 +108,7 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
         }
         int index = providers.indexOf(provider);
         if (index != -1) {
-            throw new IllegalArgumentException("Provdier instance is already existed.");
+            throw new IllegalArgumentException("Provider instance is already existed.");
         } else {
             this.providers.add(provider);
             provider.insertToDatabase();
@@ -186,7 +185,7 @@ public class ProviderDataStorage implements ProviderDataStorageInterface {
     public Iterator<ProviderModelInterface> getProviderSearchByName(String searchText) {
         List<ProviderModelInterface> ret = new ArrayList<>();
         List<BoundExtractedResult<ProviderModelInterface>> matches = FuzzySearch
-                .extractSorted(searchText, this.providers, provider -> provider.getName(), FIND_NAME_SCORE_CUT_OFF);
+                .extractSorted(searchText, this.providers, provider -> provider.getName(), AppConstant.SEARCH_SCORE_CUT_OFF);
         for (BoundExtractedResult<ProviderModelInterface> element : matches) {
             ret.add(element.getReferent());
         }

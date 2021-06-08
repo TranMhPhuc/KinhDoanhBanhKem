@@ -47,7 +47,7 @@ public class ShiftOfEmployeeModel implements ShiftOfEmployeeModelInterface {
     @Override
     public void setProperty(ResultSet resultSet) {
         try {
-            this.employee = employeeDataStorage.getEmployee(resultSet
+            this.employee = employeeDataStorage.getEmployeeByID(resultSet
                     .getString(EmployeeModel.ID_HEADER));
             this.shift = employeeShiftDataStorage.getShift(resultSet
                     .getString(EmployeeShiftModel.ID_HEADER));

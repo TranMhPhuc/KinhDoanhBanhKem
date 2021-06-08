@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
-import static model.provider.ProviderDataStorage.FIND_NAME_SCORE_CUT_OFF;
 import model.provider.ProviderManageModelInterface;
 import model.provider.ProviderModel;
 import model.provider.ProviderModelInterface;

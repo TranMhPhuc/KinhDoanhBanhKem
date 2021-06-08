@@ -117,7 +117,7 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
             bill.getPayment(),
             bill.getGuestMoney(),
             bill.getChangeMoney(),
-            bill.getEmployee().getEmployeeName()
+            bill.getEmployee().getName()
         };
 
         tableBillModel.addRow(record);
