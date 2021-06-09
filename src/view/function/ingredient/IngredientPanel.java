@@ -747,6 +747,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
                 return canEdit [columnIndex];
             }
         });
+        tableIngredient.setIntercellSpacing(new java.awt.Dimension(5, 5));
         tableIngredient.getTableHeader().setReorderingAllowed(false);
         scrpaneIngredient.setViewportView(tableIngredient);
 
