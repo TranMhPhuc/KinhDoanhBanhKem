@@ -1,17 +1,16 @@
-package view.main.cashier;
+package view.main.accountant;
 
-import view.main.accountant.*;
-import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import util.constant.AppConstant;
 
-public class MainFrame extends javax.swing.JFrame {
+public class AccountantMainFrame extends javax.swing.JFrame {
 
     private JLabel choosedLabel;
 
-    public MainFrame() {
+    public AccountantMainFrame() {
         initComponents();
         this.choosedLabel = null;
         createControl();
@@ -20,7 +19,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void createControl() {
         JLabel[] labels = new JLabel[]{
-            labelProfile, labelCreateBill, labelViewBill, labelSettings
+            labelProfile, labelRevenue, labelProduct, labelMaterial, labelSettings
         };
 
         for (JLabel label : labels) {
@@ -28,14 +27,14 @@ public class MainFrame extends javax.swing.JFrame {
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     if (label != choosedLabel) {
-                        label.setBackground(new Color(107, 162, 249));
+                        label.setBackground(AppConstant.COLOR_MENU_MOUSE_ENTER);
                     }
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
                     if (label != choosedLabel) {
-                        label.setBackground(new Color(113, 168, 255));
+                        label.setBackground(AppConstant.COLOR_MENU_MOUSE_EXIST);
                     }
                 }
 
@@ -43,14 +42,30 @@ public class MainFrame extends javax.swing.JFrame {
                 public void mousePressed(MouseEvent e) {
                     if (label != choosedLabel) {
                         if (choosedLabel != null) {
-                            choosedLabel.setBackground(new Color(113, 168, 255));
+                            choosedLabel.setBackground(AppConstant.COLOR_MENU_MOUSE_EXIST);
                         }
-                        label.setBackground(new Color(77, 128, 216));
+                        label.setBackground(AppConstant.COLOR_MENU_MOUSE_PRESS);
                         choosedLabel = label;
                     }
                 }
             });
         }
+        labelSignOut.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                labelSignOut.setBackground(AppConstant.COLOR_MENU_MOUSE_ENTER);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                labelSignOut.setBackground(AppConstant.COLOR_MENU_MOUSE_EXIST);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                
+            }
+        });
 
     }
 
@@ -73,19 +88,23 @@ public class MainFrame extends javax.swing.JFrame {
         labelProfile = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel6 = new javax.swing.JPanel();
-        labelCreateBill = new javax.swing.JLabel();
+        labelRevenue = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jPanel7 = new javax.swing.JPanel();
-        labelViewBill = new javax.swing.JLabel();
+        labelProduct = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
+        jPanel8 = new javax.swing.JPanel();
+        labelMaterial = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
         jPanel9 = new javax.swing.JPanel();
         labelSettings = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
-        jLabel6 = new javax.swing.JLabel();
+        labelSignOut = new javax.swing.JLabel();
         panelCenter = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 800));
+        setPreferredSize(new java.awt.Dimension(1194, 800));
 
         panelTitle.setBackground(new java.awt.Color(62, 120, 207));
         panelTitle.setPreferredSize(new java.awt.Dimension(1194, 100));
@@ -100,7 +119,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel2.setMinimumSize(new java.awt.Dimension(200, 60));
         jPanel2.setLayout(new java.awt.BorderLayout());
 
-        jLabel2.setFont(new java.awt.Font("Calibri", 1, 30)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Bakery Management System");
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -108,7 +127,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2.setPreferredSize(new java.awt.Dimension(355, 20));
         jPanel2.add(jLabel2, java.awt.BorderLayout.CENTER);
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("v1.0");
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -120,14 +139,14 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(62, 120, 207));
         jPanel3.setLayout(new java.awt.BorderLayout());
 
-        jLabel5.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(204, 204, 204));
         jLabel5.setText("Develop by Phuc Team");
         jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel5.setPreferredSize(new java.awt.Dimension(165, 30));
         jPanel3.add(jLabel5, java.awt.BorderLayout.SOUTH);
 
-        jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
         jLabel4.setText("Copyright © 2021 BMS System");
         jLabel4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -147,7 +166,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel5.setLayout(new java.awt.GridLayout(0, 1));
 
         labelProfile.setBackground(new java.awt.Color(113, 168, 255));
-        labelProfile.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        labelProfile.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelProfile.setForeground(new java.awt.Color(255, 255, 255));
         labelProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Profile_50px.png"))); // NOI18N
@@ -178,16 +197,16 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel5.add(jPanel4);
 
-        labelCreateBill.setBackground(new java.awt.Color(113, 168, 255));
-        labelCreateBill.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        labelCreateBill.setForeground(new java.awt.Color(255, 255, 255));
-        labelCreateBill.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelCreateBill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Bill_50px.png"))); // NOI18N
-        labelCreateBill.setText("Create Bill");
-        labelCreateBill.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        labelCreateBill.setIconTextGap(10);
-        labelCreateBill.setOpaque(true);
-        labelCreateBill.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        labelRevenue.setBackground(new java.awt.Color(113, 168, 255));
+        labelRevenue.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelRevenue.setForeground(new java.awt.Color(255, 255, 255));
+        labelRevenue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelRevenue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Revenue_50px.png"))); // NOI18N
+        labelRevenue.setText("Revenue");
+        labelRevenue.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        labelRevenue.setIconTextGap(10);
+        labelRevenue.setOpaque(true);
+        labelRevenue.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jSeparator2.setBackground(new java.awt.Color(235, 235, 235));
         jSeparator2.setPreferredSize(new java.awt.Dimension(10, 10));
@@ -196,13 +215,13 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelCreateBill, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(labelRevenue, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(labelCreateBill, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelRevenue, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
@@ -210,16 +229,16 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel5.add(jPanel6);
 
-        labelViewBill.setBackground(new java.awt.Color(113, 168, 255));
-        labelViewBill.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        labelViewBill.setForeground(new java.awt.Color(255, 255, 255));
-        labelViewBill.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelViewBill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/BillHistory_50px.png"))); // NOI18N
-        labelViewBill.setText("View Bill");
-        labelViewBill.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        labelViewBill.setIconTextGap(10);
-        labelViewBill.setOpaque(true);
-        labelViewBill.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        labelProduct.setBackground(new java.awt.Color(113, 168, 255));
+        labelProduct.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelProduct.setForeground(new java.awt.Color(255, 255, 255));
+        labelProduct.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/StatisticsProduct_50px.png"))); // NOI18N
+        labelProduct.setText("Product");
+        labelProduct.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        labelProduct.setIconTextGap(10);
+        labelProduct.setOpaque(true);
+        labelProduct.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jSeparator3.setBackground(new java.awt.Color(235, 235, 235));
         jSeparator3.setPreferredSize(new java.awt.Dimension(10, 10));
@@ -228,13 +247,13 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelViewBill, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(labelProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(labelViewBill, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
@@ -242,8 +261,40 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel5.add(jPanel7);
 
+        labelMaterial.setBackground(new java.awt.Color(113, 168, 255));
+        labelMaterial.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelMaterial.setForeground(new java.awt.Color(255, 255, 255));
+        labelMaterial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/StatisticMaterial_50px.png"))); // NOI18N
+        labelMaterial.setText("Material");
+        labelMaterial.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        labelMaterial.setIconTextGap(10);
+        labelMaterial.setOpaque(true);
+        labelMaterial.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        jSeparator4.setBackground(new java.awt.Color(235, 235, 235));
+        jSeparator4.setPreferredSize(new java.awt.Dimension(10, 10));
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(labelMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
+        );
+
+        jPanel5.add(jPanel8);
+
         labelSettings.setBackground(new java.awt.Color(113, 168, 255));
-        labelSettings.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        labelSettings.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelSettings.setForeground(new java.awt.Color(255, 255, 255));
         labelSettings.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/settings_50px.png"))); // NOI18N
@@ -276,15 +327,15 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelSide.add(jPanel5, java.awt.BorderLayout.NORTH);
 
-        jLabel6.setFont(new java.awt.Font("Calibri", 0, 15)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Exit_20px.png"))); // NOI18N
-        jLabel6.setText("Sign out");
-        jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        jLabel6.setIconTextGap(10);
-        jLabel6.setPreferredSize(new java.awt.Dimension(80, 50));
-        panelSide.add(jLabel6, java.awt.BorderLayout.SOUTH);
+        labelSignOut.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelSignOut.setForeground(new java.awt.Color(255, 255, 255));
+        labelSignOut.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelSignOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Exit_20px.png"))); // NOI18N
+        labelSignOut.setText("Sign out");
+        labelSignOut.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        labelSignOut.setIconTextGap(10);
+        labelSignOut.setPreferredSize(new java.awt.Dimension(80, 50));
+        panelSide.add(labelSignOut, java.awt.BorderLayout.SOUTH);
 
         jPanel1.add(panelSide, java.awt.BorderLayout.WEST);
 
@@ -312,13 +363,13 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AccountantMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AccountantMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AccountantMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AccountantMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -328,7 +379,7 @@ public class MainFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainFrame().setVisible(true);
+                new AccountantMainFrame().setVisible(true);
             }
         });
     }
@@ -339,7 +390,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -347,15 +397,19 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JLabel labelCreateBill;
+    private javax.swing.JLabel labelMaterial;
+    private javax.swing.JLabel labelProduct;
     private javax.swing.JLabel labelProfile;
+    private javax.swing.JLabel labelRevenue;
     private javax.swing.JLabel labelSettings;
-    private javax.swing.JLabel labelViewBill;
+    private javax.swing.JLabel labelSignOut;
     private javax.swing.JPanel panelCenter;
     private javax.swing.JPanel panelSide;
     private javax.swing.JPanel panelTitle;

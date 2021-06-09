@@ -1,7 +1,5 @@
 package view.main.manager;
 
-import view.main.accountant.*;
-import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
@@ -111,7 +109,7 @@ public class ManagerMainFrame extends javax.swing.JFrame {
         panelCenter = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(800, 800));
+        setMinimumSize(new java.awt.Dimension(800, 1000));
 
         panelTitle.setBackground(new java.awt.Color(62, 120, 207));
         panelTitle.setPreferredSize(new java.awt.Dimension(1194, 100));
@@ -399,7 +397,7 @@ public class ManagerMainFrame extends javax.swing.JFrame {
         panelSide.add(jPanel5, java.awt.BorderLayout.NORTH);
 
         labelSignOut.setBackground(new java.awt.Color(113, 168, 255));
-        labelSignOut.setFont(new java.awt.Font("Calibri", 0, 15)); // NOI18N
+        labelSignOut.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelSignOut.setForeground(new java.awt.Color(255, 255, 255));
         labelSignOut.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelSignOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Exit_20px.png"))); // NOI18N
