@@ -34,7 +34,7 @@ public class AccountantMainFrame extends javax.swing.JFrame {
                 @Override
                 public void mouseExited(MouseEvent e) {
                     if (label != choosedLabel) {
-                        label.setBackground(AppConstant.COLOR_MENU_MOUSE_EXIST);
+                        label.setBackground(AppConstant.COLOR_MENU_MOUSE_EXIT);
                     }
                 }
 
@@ -42,7 +42,7 @@ public class AccountantMainFrame extends javax.swing.JFrame {
                 public void mousePressed(MouseEvent e) {
                     if (label != choosedLabel) {
                         if (choosedLabel != null) {
-                            choosedLabel.setBackground(AppConstant.COLOR_MENU_MOUSE_EXIST);
+                            choosedLabel.setBackground(AppConstant.COLOR_MENU_MOUSE_EXIT);
                         }
                         label.setBackground(AppConstant.COLOR_MENU_MOUSE_PRESS);
                         choosedLabel = label;
@@ -58,7 +58,7 @@ public class AccountantMainFrame extends javax.swing.JFrame {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                labelSignOut.setBackground(AppConstant.COLOR_MENU_MOUSE_EXIST);
+                labelSignOut.setBackground(AppConstant.COLOR_MENU_MOUSE_EXIT);
             }
 
             @Override

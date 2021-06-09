@@ -34,7 +34,7 @@ public class ManagerMainFrame extends javax.swing.JFrame {
                 @Override
                 public void mouseExited(MouseEvent e) {
                     if (label != choosedLabel) {
-                        label.setBackground(AppConstant.COLOR_MENU_MOUSE_EXIST);
+                        label.setBackground(AppConstant.COLOR_MENU_MOUSE_EXIT);
                     }
                 }
 
@@ -42,7 +42,7 @@ public class ManagerMainFrame extends javax.swing.JFrame {
                 public void mousePressed(MouseEvent e) {
                     if (label != choosedLabel) {
                         if (choosedLabel != null) {
-                            choosedLabel.setBackground(AppConstant.COLOR_MENU_MOUSE_EXIST);
+                            choosedLabel.setBackground(AppConstant.COLOR_MENU_MOUSE_EXIT);
                         }
                         label.setBackground(AppConstant.COLOR_MENU_MOUSE_PRESS);
                         choosedLabel = label;
@@ -58,7 +58,7 @@ public class ManagerMainFrame extends javax.swing.JFrame {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                labelSignOut.setBackground(AppConstant.COLOR_MENU_MOUSE_EXIST);
+                labelSignOut.setBackground(AppConstant.COLOR_MENU_MOUSE_EXIT);
             }
 
             @Override
@@ -107,6 +107,7 @@ public class ManagerMainFrame extends javax.swing.JFrame {
         jSeparator7 = new javax.swing.JSeparator();
         labelSignOut = new javax.swing.JLabel();
         panelCenter = new javax.swing.JPanel();
+        profilePanel1 = new view.profile.ProfilePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 1000));
@@ -413,6 +414,8 @@ public class ManagerMainFrame extends javax.swing.JFrame {
         panelCenter.setBackground(new java.awt.Color(255, 255, 255));
         panelCenter.setPreferredSize(new java.awt.Dimension(100, 100));
         panelCenter.setLayout(new java.awt.CardLayout());
+        panelCenter.add(profilePanel1, "card2");
+
         jPanel1.add(panelCenter, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -494,5 +497,6 @@ public class ManagerMainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelCenter;
     private javax.swing.JPanel panelSide;
     private javax.swing.JPanel panelTitle;
+    private view.profile.ProfilePanel profilePanel1;
     // End of variables declaration//GEN-END:variables
 }
