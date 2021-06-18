@@ -22,12 +22,12 @@ public class PhoneValidator {
         }
         
         try {
-            Long phoneNum = Long.parseLong(input);
+            Long.parseLong(input);
         } catch (NumberFormatException ex) {
             return PhoneValidateResult.ERROR_FORMAT;
         }
         
-        if (input.length() != 10) {
+        if (input.length() != PHONE_NUM_VALID) {
             return PhoneValidateResult.INVALLID;
         }
         

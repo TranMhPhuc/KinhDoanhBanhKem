@@ -1,27 +1,54 @@
 package view.main.cashier;
 
-import view.main.accountant.*;
-import java.awt.Color;
+import control.app.MainFrameControllerInterface;
+import java.awt.CardLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import model.user.UserModelInterface;
 import util.constant.AppConstant;
+import view.MessageShowing;
 
-public class CashierMainFrame extends javax.swing.JFrame {
+public class CashierMainFrame extends javax.swing.JFrame implements MessageShowing {
+
+    private UserModelInterface userModel;
+    private MainFrameControllerInterface mainFrameController;
 
     private JLabel choosedLabel;
 
-    public CashierMainFrame() {
+    private CardLayout cardLayoutPanelCenter;
+
+    public CashierMainFrame(MainFrameControllerInterface mainFrameController,
+            UserModelInterface userModel) {
+        this.mainFrameController = mainFrameController;
+        this.userModel = userModel;
+        this.userModel.setMainFrame(this);
+
         initComponents();
-        this.choosedLabel = null;
-        createControl();
+        this.cardLayoutPanelCenter = (CardLayout) panelCenter.getLayout();
         setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        createView();
+        createControl();
+    }
+
+    private void createView() {
+        this.choosedLabel = labelBillCreate;
+        choosedLabel.setBackground(AppConstant.COLOR_MENU_MOUSE_PRESS);
+        cardLayoutPanelCenter.show(panelCenter, panelBillCreate.getName());
+
+        this.panelProfile.setUserModel(userModel);
+        this.panelProfile.setMainFrameController(mainFrameController);
+        mainFrameController.setProfilePanelView(panelProfile);
+        userModel.setProfilePanelView(panelProfile);
     }
 
     private void createControl() {
         JLabel[] labels = new JLabel[]{
-            labelProfile, labelCreateBill, labelViewBill, labelSettings
+            labelProfile, labelBillCreate, labelBillHistory, labelSettings
         };
 
         for (JLabel label : labels) {
@@ -48,6 +75,15 @@ public class CashierMainFrame extends javax.swing.JFrame {
                         }
                         label.setBackground(AppConstant.COLOR_MENU_MOUSE_PRESS);
                         choosedLabel = label;
+                        if (label == labelProfile) {
+                            cardLayoutPanelCenter.show(panelCenter, panelProfile.getName());
+                        } else if (label == labelBillCreate) {
+                            cardLayoutPanelCenter.show(panelCenter, panelBillCreate.getName());
+                        } else if (label == labelBillHistory) {
+                            cardLayoutPanelCenter.show(panelCenter, panelBillHistory.getName());
+                        } else if (label == labelSettings) {
+                            cardLayoutPanelCenter.show(panelCenter, panelSetting.getName());
+                        }
                     }
                 }
             });
@@ -65,11 +101,32 @@ public class CashierMainFrame extends javax.swing.JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                
+                mainFrameController.requestSignOut();
+            }
+        });
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                mainFrameController.requestCloseProgram();
             }
         });
     }
 
+    @Override
+    public void showErrorMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "Application message dialog", JOptionPane.ERROR_MESSAGE);
+    }
+
+    @Override
+    public void showInfoMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "Application message dialog", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public void showWarningMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "Application message dialog", JOptionPane.WARNING_MESSAGE);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -89,18 +146,22 @@ public class CashierMainFrame extends javax.swing.JFrame {
         labelProfile = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel6 = new javax.swing.JPanel();
-        labelCreateBill = new javax.swing.JLabel();
+        labelBillCreate = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jPanel7 = new javax.swing.JPanel();
-        labelViewBill = new javax.swing.JLabel();
+        labelBillHistory = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jPanel9 = new javax.swing.JPanel();
         labelSettings = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
         labelSignOut = new javax.swing.JLabel();
         panelCenter = new javax.swing.JPanel();
+        panelBillHistory = new view.bill.BillHistoryPanel();
+        panelBillCreate = new view.bill.BillCreatePanel();
+        panelProfile = new view.profile.ProfilePanel();
+        panelSetting = new view.main.cashier.CashierSettingsPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 800));
 
         panelTitle.setBackground(new java.awt.Color(62, 120, 207));
@@ -145,7 +206,7 @@ public class CashierMainFrame extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel4.setText("Copyright © 2021 BMS System");
+        jLabel4.setText("Copyright © 2021 BMS Program");
         jLabel4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabel4.setPreferredSize(new java.awt.Dimension(230, 23));
         jPanel3.add(jLabel4, java.awt.BorderLayout.CENTER);
@@ -194,16 +255,16 @@ public class CashierMainFrame extends javax.swing.JFrame {
 
         jPanel5.add(jPanel4);
 
-        labelCreateBill.setBackground(new java.awt.Color(113, 168, 255));
-        labelCreateBill.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        labelCreateBill.setForeground(new java.awt.Color(255, 255, 255));
-        labelCreateBill.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelCreateBill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Bill_50px.png"))); // NOI18N
-        labelCreateBill.setText("Create Bill");
-        labelCreateBill.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        labelCreateBill.setIconTextGap(10);
-        labelCreateBill.setOpaque(true);
-        labelCreateBill.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        labelBillCreate.setBackground(new java.awt.Color(113, 168, 255));
+        labelBillCreate.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelBillCreate.setForeground(new java.awt.Color(255, 255, 255));
+        labelBillCreate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelBillCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Bill_50px.png"))); // NOI18N
+        labelBillCreate.setText("Create Bill");
+        labelBillCreate.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        labelBillCreate.setIconTextGap(10);
+        labelBillCreate.setOpaque(true);
+        labelBillCreate.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jSeparator2.setBackground(new java.awt.Color(235, 235, 235));
         jSeparator2.setPreferredSize(new java.awt.Dimension(10, 10));
@@ -212,13 +273,13 @@ public class CashierMainFrame extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelCreateBill, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(labelBillCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(labelCreateBill, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelBillCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
@@ -226,16 +287,16 @@ public class CashierMainFrame extends javax.swing.JFrame {
 
         jPanel5.add(jPanel6);
 
-        labelViewBill.setBackground(new java.awt.Color(113, 168, 255));
-        labelViewBill.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        labelViewBill.setForeground(new java.awt.Color(255, 255, 255));
-        labelViewBill.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelViewBill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/BillHistory_50px.png"))); // NOI18N
-        labelViewBill.setText("View Bill");
-        labelViewBill.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        labelViewBill.setIconTextGap(10);
-        labelViewBill.setOpaque(true);
-        labelViewBill.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        labelBillHistory.setBackground(new java.awt.Color(113, 168, 255));
+        labelBillHistory.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelBillHistory.setForeground(new java.awt.Color(255, 255, 255));
+        labelBillHistory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelBillHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/BillHistory_50px.png"))); // NOI18N
+        labelBillHistory.setText("View Bill");
+        labelBillHistory.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        labelBillHistory.setIconTextGap(10);
+        labelBillHistory.setOpaque(true);
+        labelBillHistory.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jSeparator3.setBackground(new java.awt.Color(235, 235, 235));
         jSeparator3.setPreferredSize(new java.awt.Dimension(10, 10));
@@ -244,13 +305,13 @@ public class CashierMainFrame extends javax.swing.JFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelViewBill, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(labelBillHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(labelViewBill, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelBillHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
@@ -309,51 +370,19 @@ public class CashierMainFrame extends javax.swing.JFrame {
         panelCenter.setBackground(new java.awt.Color(255, 255, 255));
         panelCenter.setPreferredSize(new java.awt.Dimension(100, 100));
         panelCenter.setLayout(new java.awt.CardLayout());
+        panelCenter.add(panelBillHistory, "BillHistory");
+        panelCenter.add(panelBillCreate, "BillCreate");
+        panelCenter.add(panelProfile, "Profile");
+
+        panelSetting.setName("Setting"); // NOI18N
+        panelCenter.add(panelSetting, "Setting");
+
         jPanel1.add(panelCenter, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CashierMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CashierMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CashierMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CashierMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CashierMainFrame().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -373,12 +402,16 @@ public class CashierMainFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JLabel labelCreateBill;
+    private javax.swing.JLabel labelBillCreate;
+    private javax.swing.JLabel labelBillHistory;
     private javax.swing.JLabel labelProfile;
     private javax.swing.JLabel labelSettings;
     private javax.swing.JLabel labelSignOut;
-    private javax.swing.JLabel labelViewBill;
+    private view.bill.BillCreatePanel panelBillCreate;
+    private view.bill.BillHistoryPanel panelBillHistory;
     private javax.swing.JPanel panelCenter;
+    private view.profile.ProfilePanel panelProfile;
+    private view.main.cashier.CashierSettingsPanel panelSetting;
     private javax.swing.JPanel panelSide;
     private javax.swing.JPanel panelTitle;
     // End of variables declaration//GEN-END:variables

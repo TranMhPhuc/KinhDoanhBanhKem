@@ -32,8 +32,4 @@ public class AppLog {
         return logger;
     }
 
-    public static void main(String[] args) {
-        logger.debug("Debug log message");
-        logger.fatal("Fatal log message");
-    }
 }

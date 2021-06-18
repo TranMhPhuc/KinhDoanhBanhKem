@@ -1,11 +1,9 @@
 package model.employee;
 
 import java.sql.Date;
-import java.util.Iterator;
 import java.util.List;
 import model.DatabaseModel;
-import model.employee.position.EmployeePositionModelInterface;
-import model.employee.shift.EmployeeShiftModelInterface;
+import model.employee.shift.detail.ShiftDetailModelInterface;
 
 public interface EmployeeModelInterface extends DatabaseModel {
 
@@ -21,6 +19,8 @@ public interface EmployeeModelInterface extends DatabaseModel {
     
     void setPersonalID(String personalID);
     
+    void setPassword(String password);
+    
     void setGender(boolean isMale);
     
     void setStartDate(Date startDate);
@@ -29,15 +29,15 @@ public interface EmployeeModelInterface extends DatabaseModel {
     
     void setEndDate(Date endDate);
     
-    void setPosition(EmployeePositionModelInterface position);
-    
-    void setShift(List<EmployeeShiftModelInterface> shifts);
+    void setPositionName(String positionName);
     
     String getEmployeeIDText();
     
-    String getEmployeePositionName();
+    String getPositionName();
     
     String getName();
+    
+    String getPassword();
     
     String getPhoneNum();
     
@@ -55,8 +55,18 @@ public interface EmployeeModelInterface extends DatabaseModel {
     
     Date getEndDate();
     
-    List<EmployeeShiftModelInterface> getShift();
+    void randomPassword();
     
-    EmployeePositionModelInterface getPosition();
+    List<ShiftDetailModelInterface> getShiftDetails();
+    
+    void addShiftDetail(ShiftDetailModelInterface shiftDetail);
+    
+    void removeShiftDetail(ShiftDetailModelInterface shiftDetail);
+    
+    //==========================================================================
+    
+    void updateProfile(String updatedEmail, String updatedPhoneNum);
+    
+    void updatePassword(String updatedPassword);
     
 }

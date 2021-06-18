@@ -1,5 +1,6 @@
 package model.ingredient.type;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,20 +13,12 @@ public class IngredientTypeModel implements IngredientTypeModelInterface {
     public static final String ID_HEADER = "MaLoai";
     public static final String NAME_HEADER = "TenLoai";
 
-    private static final String INSERT_QUERY_PROTOTYPE
-            = "INSERT INTO " + TABLE_NAME + " ("
-            + NAME_HEADER + ")"
-            + " VALUES (?)";
+    private static final String SP_INSERT = "{call insert_LoaiNguyenLieu(?)}";
 
     private int id;
     private String name;
 
     public IngredientTypeModel() {
-    }
-
-    @Override
-    public void setIngredientTypeIDText(String id) {
-        this.id = Integer.parseInt(id);
     }
 
     @Override
@@ -56,13 +49,12 @@ public class IngredientTypeModel implements IngredientTypeModelInterface {
     @Override
     public void insertToDatabase() {
         try {
-            PreparedStatement preparedStatement = dbConnection
-                    .prepareStatement(INSERT_QUERY_PROTOTYPE);
+            CallableStatement callableStatement = dbConnection.prepareCall(SP_INSERT);
 
-            preparedStatement.setString(1, this.name);
+            callableStatement.setString(1, this.name);
             
-            preparedStatement.execute();
-            preparedStatement.close();
+            callableStatement.execute();
+            callableStatement.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredientTypeModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -70,12 +62,10 @@ public class IngredientTypeModel implements IngredientTypeModelInterface {
 
     @Override
     public void deleteInDatabase() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void updateInDatabase() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override

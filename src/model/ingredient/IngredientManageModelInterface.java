@@ -1,15 +1,17 @@
 package model.ingredient;
 
+import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
+import model.DatabaseUpdate;
+import model.ingredient.importDetail.IngredientImportDetailInterface;
 import model.ingredient.type.IngredientTypeModelInterface;
-import model.ingredient.unit.IngredientUnitModelInterface;
-import model.provider.ProviderModelInterface;
-import view.function.ingredient.InsertedIngredientObserver;
-import view.function.ingredient.InsertedIngredientTypeObserver;
-import view.function.ingredient.ModifiedIngredientObserver;
-import view.function.ingredient.RemovedIngredientObserver;
+import view.ingredient.InsertedIngredientObserver;
+import view.ingredient.InsertedIngredientTypeObserver;
+import view.ingredient.ModifiedIngredientObserver;
+import view.ingredient.RemovedIngredientObserver;
 
-public interface IngredientManageModelInterface {
+public interface IngredientManageModelInterface extends DatabaseUpdate {
 
     void registerInsertedIngredientObserver(InsertedIngredientObserver observer);
 
@@ -24,63 +26,52 @@ public interface IngredientManageModelInterface {
     void removeRemovedIngredientObserver(RemovedIngredientObserver observer);
 
     void registerInsertedIngredientTypeObserver(InsertedIngredientTypeObserver observer);
-    
+
     void removeInsertedIngredientTypeObserver(InsertedIngredientTypeObserver observer);
-    
+
     //=========================================================================
-    
     String getNextIngredientIDText();
 
     String getNextIngredientTypeIDText();
 
     //=========================================================================
-    
-    int getIngredientNumber();
-
     void exportIngredientData();
 
     void importIngredientData();
-
-    //=========================================================================
-
-    void addNewIngredient(IngredientModelInterface newIngredient);
-
-    void updateIngredient(IngredientModelInterface updatedIngredient);
-
-    void removeIngredient(IngredientModelInterface removedIngredient);
-
-    //=========================================================================
     
-    void addNewIngredientType(IngredientTypeModelInterface newIngredientType);
-    
-    Iterator<IngredientTypeModelInterface> getAllIngredientTypeData();
-    
-    boolean isIngredientTypeNameExist(String ingredientTypeName);
-    
-    IngredientTypeModelInterface getIngredientTypeByIndex(int ingredientTypeIndex);
-    
-    //=========================================================================
-    
-    Iterator<IngredientUnitModelInterface> getAllIngredientUnit();
-    
-    IngredientUnitModelInterface getIngredientUnitByIndex(int ingredientUnitIndex);
-    
-    //=========================================================================
-    
-    IngredientModelInterface getIngredient(String ingredientIDText);
+    int getIngredientTotalNumber();
 
     Iterator<IngredientModelInterface> getAllIngredientData();
-    
-    Iterator<ProviderModelInterface> getAllProviderData();
-    
-    int getProviderIndex(ProviderModelInterface provider);
-    
-    ProviderModelInterface getProviderByIndex(int providerIndex);
 
     Iterator<IngredientModelInterface> getIngredientSearchByName(String searchText);
 
-    boolean isIngredientNameExist(String ingredientName);
-    
-    boolean isIngredientOfAnyProduct(IngredientModelInterface ingredient);
+    IngredientModelInterface getIngredientByID(String ingredientIDText);
 
+    IngredientModelInterface getIngredientByIndex(int ingredientIndex);
+
+    IngredientModelInterface getIngredientByName(String ingredientName);
+
+    void addIngredient(IngredientModelInterface ingredient);
+
+    boolean updateIngredient(IngredientModelInterface ingredient);
+
+    boolean removeIngredient(IngredientModelInterface ingredient);
+
+    boolean isIngredientNameExisted(String ingredientName);
+
+    List<String> getAllIngredientTypeName();
+
+    List<String> getAllIngredientUnitName();
+
+    List<String> getAllProviderName();
+    
+    void importIngredient(IngredientModelInterface ingredient, Date importDate, 
+            int importAmount, String importUnitName);
+
+    List<IngredientImportDetailInterface> getImportHistoryFromDateRange(Date dateFrom, 
+            Date dateTo);
+    
+    void updateProviderNameOfIngredientData();
+    
+    void addIngredientType(IngredientTypeModelInterface ingredientType);
 }

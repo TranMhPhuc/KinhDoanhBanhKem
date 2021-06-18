@@ -1,15 +1,15 @@
 package control.statistics;
 
-import view.function.statistics.StatisticsPanel;
+import view.statistics.StatisticsRevenuePanel;
 
 public class StatisticsController implements StatisticsControllerInterface {
     
     private volatile static StatisticsController uniqueInstance;
     
-    private StatisticsPanel view;
+    private StatisticsRevenuePanel view;
     
     private StatisticsController() {
-        this.view = StatisticsPanel.getInstance(this);
+        this.view = StatisticsRevenuePanel.getInstance(this);
     }
     
     public static StatisticsControllerInterface getInstance() {

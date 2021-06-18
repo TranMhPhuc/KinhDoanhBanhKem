@@ -1,27 +1,21 @@
 package model.employee;
 
+import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import model.employee.shift.EmployeeShiftModel;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.employee.position.EmployeePositionDataStorage;
-import model.employee.position.EmployeePositionModel;
-import model.employee.position.EmployeePositionModelInterface;
-import model.employee.shift.EmployeeShiftDataStorage;
-import model.employee.shift.EmployeeShiftDataStorageInterface;
-import model.employee.shift.EmployeeShiftModelInterface;
+import model.employee.shift.detail.ShiftDetailModel;
+import model.employee.shift.detail.ShiftDetailModelInterface;
 
 public class EmployeeModel implements EmployeeModelInterface {
 
     public static final String TABLE_NAME = "NhanVien";
-    public static final String TABLE_EMPLOYEE_SHIFT_NAME = "PhanCong";
     public static final String ID_HEADER = "MaNV";
     public static final String NAME_HEADER = "TenNV";
     public static final String PHONE_HEADER = "SDT";
@@ -31,37 +25,29 @@ public class EmployeeModel implements EmployeeModelInterface {
     public static final String PASSWORD_HEADER = "MatKhau";
     public static final String GENDER_HEADER = "GioiTinh";
     public static final String START_DATE_HEADER = "NgayGiaNhap";
-    public static final String POSITION_HEADER = "MaCV";
+    public static final String POSITION_NAME_HEADER = "TenCV";
     public static final String STATUS_HEADER = "TrangThai";
     public static final String END_DATE_HEADER = "NgayNghiViec";
 
-    private static final String INSERT_QUERY_PROTOTYPE
-            = "INSERT INTO" + TABLE_NAME + " ("
-            + NAME_HEADER + ", " + PHONE_HEADER + ", "
-            + BIRTHDAY_HEADER + ", " + EMAIL_HEADER + ", " + PASSWORD_HEADER + ", "
-            + GENDER_HEADER + ", " + START_DATE_HEADER + ", " + POSITION_HEADER + ", "
-            + STATUS_HEADER + ", " + END_DATE_HEADER + ")"
-            + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final int MIN_RANDOM_PASSWORD_NUMBER = 100000;
+    private static final int MAX_RANDOM_PASSWORD_NUMBER = 999999;
+    
+    private static Random passwordGenerator;
 
-    private static final String UPDATE_QUERY_PROTOTYPE
-            = "UPDATE " + TABLE_NAME
-            + " SET " + NAME_HEADER + " = ?, " + ", " + PHONE_HEADER + " = ?, "
-            + BIRTHDAY_HEADER + " = ?, " + EMAIL_HEADER + " = ?, " + PASSWORD_HEADER + " = ?, "
-            + GENDER_HEADER + " = ?, " + START_DATE_HEADER + " = ?, " + POSITION_HEADER + " = ?, "
-            + STATUS_HEADER + " = ?, " + END_DATE_HEADER + " = ? "
-            + " WHERE " + ID_HEADER + " = ?";
+    private static final String SP_INSERT
+            = "{call insert_NhanVien(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
-    private static final String INSERT_EMPLOYEE_SHIFT_QUERY_PROTOTYPE
-            = "INSERT INTO " + TABLE_EMPLOYEE_SHIFT_NAME + " ("
-            + ID_HEADER + ", " + EmployeeShiftModel.ID_HEADER + ")"
-            + " VALUES (?, ?)";
+    private static final String SP_UPDATE
+            = "{call update_NhanVien(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
-    private static final String DELETE_EMPLOYEE_SHIFT_QUERY_PROTOTYPE
-            = "DELETE FROM " + TABLE_EMPLOYEE_SHIFT_NAME
-            + " WHERE " + ID_HEADER + " = ?";
+    private static final String SP_GET_SHIFT_DETAIL
+            = "{call get_employee_shift(?)}";
 
-    private static EmployeePositionDataStorage employeePositionDataStorage;
-    private static EmployeeShiftDataStorageInterface employeeShiftDataStorage;
+    private static final String SP_UPDATE_PROFILE
+            = "{call update_employee_profile(?, ?, ?)}";
+
+    private static final String SP_UPDATE_PASSWORD
+            = "{call update_employee_password(?, ?)}";
 
     private int employeeID;
     private String name;
@@ -72,18 +58,17 @@ public class EmployeeModel implements EmployeeModelInterface {
     private String password;
     private boolean isMale;
     private Date startDate;
-    private EmployeePositionModelInterface position;
+    private String positionName;
     private boolean isActive;
     private Date endDate;
-    private ArrayList<EmployeeShiftModelInterface> shifts;
+    private List<ShiftDetailModelInterface> shiftDetails;
 
     static {
-        employeePositionDataStorage = EmployeePositionDataStorage.getInstance();
-        employeeShiftDataStorage = EmployeeShiftDataStorage.getInstance();
+        passwordGenerator = new Random();
     }
 
     public EmployeeModel() {
-        this.shifts = new ArrayList<>();
+        shiftDetails = new ArrayList<>();
     }
 
     @Override
@@ -97,32 +82,29 @@ public class EmployeeModel implements EmployeeModelInterface {
             this.personalID = resultSet.getString(PERSONAL_ID_HEADER);
             this.password = resultSet.getString(PASSWORD_HEADER);
             this.isMale = resultSet.getBoolean(GENDER_HEADER);
-
-            this.position = employeePositionDataStorage.getPositionByID(
-                    resultSet.getString(POSITION_HEADER));
-
+            this.positionName = resultSet.getString(POSITION_NAME_HEADER);
             this.isActive = resultSet.getBoolean(STATUS_HEADER);
             this.startDate = resultSet.getDate(START_DATE_HEADER);
             this.endDate = resultSet.getDate(END_DATE_HEADER);
 
-            this.shifts.clear();
+            shiftDetails.clear();
 
-            Statement statement = dbConnection.createStatement();
+            CallableStatement callableStatement = dbConnection
+                    .prepareCall(SP_GET_SHIFT_DETAIL);
 
-            String shiftFindQuery
-                    = "SELECT " + EmployeeShiftModel.ID_HEADER
-                    + " FROM " + TABLE_EMPLOYEE_SHIFT_NAME
-                    + " WHERE " + ID_HEADER + " = " + this.employeeID;
+            callableStatement.setInt(1, this.employeeID);
 
-            ResultSet findShiftResultSet = statement.executeQuery(shiftFindQuery);
+            ResultSet getShiftResultSet = callableStatement.executeQuery();
 
-            while (findShiftResultSet.next()) {
-                this.shifts.add(employeeShiftDataStorage.getShift(findShiftResultSet
-                        .getString(1)));
+            while (getShiftResultSet.next()) {
+                ShiftDetailModelInterface shiftDetail = new ShiftDetailModel();
+                shiftDetail.setEmployee(this);
+                shiftDetail.setProperty(getShiftResultSet);
+                shiftDetails.add(shiftDetail);
             }
 
-            findShiftResultSet.close();
-            statement.close();
+            getShiftResultSet.close();
+            callableStatement.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -132,6 +114,11 @@ public class EmployeeModel implements EmployeeModelInterface {
     @Override
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -175,29 +162,18 @@ public class EmployeeModel implements EmployeeModelInterface {
     }
 
     @Override
-    public void setShift(List<EmployeeShiftModelInterface> shifts) {
-        if (shifts == null) {
-            throw new NullPointerException();
-        }
-        this.shifts.clear();
-        for (EmployeeShiftModelInterface shift : shifts) {
-            this.shifts.add(shift);
-        }
-    }
-
-    @Override
     public String getEmployeeIDText() {
         return String.valueOf(this.employeeID);
     }
 
     @Override
-    public String getEmployeePositionName() {
-        return this.position.getName();
+    public String getName() {
+        return this.name;
     }
 
     @Override
-    public String getName() {
-        return this.name;
+    public String getPassword() {
+        return this.password;
     }
 
     @Override
@@ -241,6 +217,13 @@ public class EmployeeModel implements EmployeeModelInterface {
     }
 
     @Override
+    public void randomPassword() {
+        int randomValue = passwordGenerator.nextInt(MAX_RANDOM_PASSWORD_NUMBER 
+                - MIN_RANDOM_PASSWORD_NUMBER + 1) + MIN_RANDOM_PASSWORD_NUMBER;
+        this.password = String.valueOf(randomValue);
+    }
+
+    @Override
     public void setKeyArg(int index, String header, PreparedStatement preparedStatement) {
         try {
             if (header.equals(ID_HEADER)) {
@@ -261,9 +244,7 @@ public class EmployeeModel implements EmployeeModelInterface {
                 preparedStatement.setBoolean(index, this.isMale);
             } else if (header.equals(START_DATE_HEADER)) {
                 preparedStatement.setDate(index, this.startDate);
-            } else if (header.equals(POSITION_HEADER)) {
-                this.position.setKeyArg(index, EmployeePositionModel.ID_HEADER, preparedStatement);
-            } else if (header.equals(START_DATE_HEADER)) {
+            } else if (header.equals(STATUS_HEADER)) {
                 preparedStatement.setBoolean(index, this.isActive);
             } else if (header.equals(END_DATE_HEADER)) {
                 preparedStatement.setDate(index, this.endDate);
@@ -276,36 +257,22 @@ public class EmployeeModel implements EmployeeModelInterface {
     @Override
     public void insertToDatabase() {
         try {
-            PreparedStatement preparedStatement = dbConnection
-                    .prepareStatement(INSERT_QUERY_PROTOTYPE);
+            CallableStatement callableStatement = dbConnection.prepareCall(SP_INSERT);
 
-            // ID is identity column
-            preparedStatement.setString(1, this.name);
-            preparedStatement.setString(2, this.phoneNum);
-            preparedStatement.setDate(3, this.birthday);
-            preparedStatement.setString(4, this.email);
-            preparedStatement.setString(5, this.personalID);
-            preparedStatement.setString(6, this.password);
-            preparedStatement.setBoolean(7, this.isMale);
-            preparedStatement.setDate(8, this.startDate);
-            this.position.setKeyArg(9, EmployeePositionModel.ID_HEADER, preparedStatement);
-            preparedStatement.setBoolean(10, this.isActive);
-            preparedStatement.setDate(11, this.endDate);
+            callableStatement.setString(1, this.name);
+            callableStatement.setString(2, this.phoneNum);
+            callableStatement.setDate(3, this.birthday);
+            callableStatement.setString(4, this.email);
+            callableStatement.setString(5, this.personalID);
+            callableStatement.setString(6, this.password);
+            callableStatement.setBoolean(7, this.isMale);
+            callableStatement.setDate(8, this.startDate);
+            callableStatement.setString(9, this.positionName);
+            callableStatement.setBoolean(10, this.isActive);
+            callableStatement.setDate(11, this.endDate);
 
-            preparedStatement.execute();
-            preparedStatement.close();
-
-            preparedStatement = dbConnection
-                    .prepareStatement(INSERT_EMPLOYEE_SHIFT_QUERY_PROTOTYPE);
-
-            for (EmployeeShiftModelInterface shift : shifts) {
-                preparedStatement.clearParameters();
-                preparedStatement.setInt(1, this.employeeID);
-                shift.setKeyArg(2, EmployeeShiftModel.ID_HEADER, preparedStatement);
-                preparedStatement.execute();
-            }
-            preparedStatement.close();
-
+            callableStatement.execute();
+            callableStatement.close();
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -313,52 +280,109 @@ public class EmployeeModel implements EmployeeModelInterface {
 
     @Override
     public void deleteInDatabase() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void updateInDatabase() {
         try {
-            PreparedStatement preparedStatement = dbConnection.prepareStatement(UPDATE_QUERY_PROTOTYPE);
+            CallableStatement callableStatement = dbConnection.prepareCall(SP_UPDATE);
 
-            preparedStatement.setString(1, this.name);
-            preparedStatement.setString(2, this.phoneNum);
-            preparedStatement.setDate(3, this.birthday);
-            preparedStatement.setString(4, this.email);
-            preparedStatement.setString(5, this.personalID);
-            preparedStatement.setString(6, this.password);
-            preparedStatement.setBoolean(7, this.isMale);
-            preparedStatement.setDate(8, this.startDate);
-            this.position.setKeyArg(9, EmployeePositionModel.ID_HEADER, preparedStatement);
-            preparedStatement.setBoolean(10, this.isActive);
-            preparedStatement.setDate(11, this.endDate);
-            preparedStatement.setInt(12, this.employeeID);
+            callableStatement.setInt(1, this.employeeID);
+            callableStatement.setString(2, this.name);
+            callableStatement.setString(3, this.phoneNum);
+            callableStatement.setDate(4, this.birthday);
+            callableStatement.setString(5, this.email);
+            callableStatement.setString(6, this.personalID);
+            callableStatement.setString(7, this.password);
+            callableStatement.setBoolean(8, this.isMale);
+            callableStatement.setDate(9, this.startDate);
+            callableStatement.setString(10, this.positionName);
+            callableStatement.setBoolean(11, this.isActive);
+            callableStatement.setDate(12, this.endDate);
 
-            preparedStatement.execute();
-            preparedStatement.close();
-
-            preparedStatement = dbConnection
-                    .prepareStatement(DELETE_EMPLOYEE_SHIFT_QUERY_PROTOTYPE);
-
-            preparedStatement.setInt(1, this.employeeID);
-            preparedStatement.execute();
-            preparedStatement.close();
-
-            preparedStatement = dbConnection
-                    .prepareStatement(INSERT_EMPLOYEE_SHIFT_QUERY_PROTOTYPE);
-
-            for (EmployeeShiftModelInterface shift : shifts) {
-                preparedStatement.clearParameters();
-                preparedStatement.setInt(1, this.employeeID);
-                shift.setKeyArg(2, EmployeeShiftModel.ID_HEADER, preparedStatement);
-                preparedStatement.execute();
-            }
-
-            preparedStatement.close();
+            callableStatement.execute();
+            callableStatement.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeModel.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public void setEmployeeID(String employeeIDText) {
+        this.employeeID = Integer.parseInt(employeeIDText);
+    }
+
+    @Override
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
+    }
+
+    @Override
+    public String getPositionName() {
+        return this.positionName;
+    }
+
+    @Override
+    public void updateProfile(String updatedEmail, String updatedPhoneNum) {
+        try {
+            CallableStatement callableStatement = dbConnection.prepareCall(SP_UPDATE_PROFILE);
+
+            callableStatement.setInt(1, this.employeeID);
+            callableStatement.setString(2, updatedEmail);
+            callableStatement.setString(3, updatedPhoneNum);
+
+            callableStatement.execute();
+            callableStatement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void updatePassword(String updatedPassword) {
+        try {
+            CallableStatement callableStatement = dbConnection.prepareCall(SP_UPDATE_PASSWORD);
+
+            callableStatement.setInt(1, this.employeeID);
+            callableStatement.setString(2, updatedPassword);
+
+            callableStatement.execute();
+            callableStatement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public List<ShiftDetailModelInterface> getShiftDetails() {
+        return this.shiftDetails;
+    }
+
+    @Override
+    public void addShiftDetail(ShiftDetailModelInterface shiftDetail) {
+        if (shiftDetail == null) {
+            throw new NullPointerException();
+        }
+        int id = this.shiftDetails.indexOf(shiftDetail);
+        if (id >= 0) {
+            throw new IllegalArgumentException("Shift detail instance is existed.");
+        }
+        this.shiftDetails.add(shiftDetail);
+        shiftDetail.insertToDatabase();
+    }
+
+    @Override
+    public void removeShiftDetail(ShiftDetailModelInterface shiftDetail) {
+        if (shiftDetail == null) {
+            throw new NullPointerException();
+        }
+        int id = this.shiftDetails.indexOf(shiftDetail);
+        if (id == -1) {
+            throw new IllegalArgumentException("Shift detail instance is not existed.");
+        }
+        this.shiftDetails.remove(shiftDetail);
+        shiftDetail.deleteInDatabase();
     }
 
     @Override
@@ -387,36 +411,13 @@ public class EmployeeModel implements EmployeeModelInterface {
     }
 
     @Override
-    public void setEmployeeID(String employeeIDText) {
-        this.employeeID = Integer.parseInt(employeeIDText);
-    }
-
-    @Override
     public String toString() {
         return "EmployeeModel{" + "employeeID=" + employeeID + ", name=" + name + ", "
                 + "phoneNum=" + phoneNum + ", birthday=" + birthday + ", email="
                 + email + ", personalID=" + personalID + ", password=" + password + ", "
-                + "isMale=" + isMale + ", startDate=" + startDate + ", positionID="
-                + position.getPositionIDText() + ", isActive=" + isActive + ", endDate=" + endDate
+                + "isMale=" + isMale + ", startDate=" + startDate + ", positionName="
+                + positionName + ", isActive=" + isActive + ", endDate=" + endDate
                 + '}';
     }
-
-    @Override
-    public void setPosition(EmployeePositionModelInterface position) {
-        if (position == null) {
-            throw new NullPointerException("Position instance is null.");
-        }
-        this.position = position;
-    }
-
-    @Override
-    public EmployeePositionModelInterface getPosition() {
-        return this.position;
-    }
-
-    @Override
-    public List<EmployeeShiftModelInterface> getShift() {
-        return this.shifts;
-    }
-
+    
 }

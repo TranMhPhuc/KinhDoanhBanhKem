@@ -2,8 +2,11 @@ package control.ingredient;
 
 import java.util.Iterator;
 import model.ingredient.IngredientModelInterface;
+import view.ingredient.IngredientPanel;
 
 public interface IngredientControllerInterface {
+    
+    void setIngredientPanelView(IngredientPanel ingredientPanel);
     
     void requestCreateIngredient();
     
@@ -18,6 +21,8 @@ public interface IngredientControllerInterface {
     void requestImportExcel();
     
     void requestExportExcel();
+    
+    void requestCreateTemplateExcel();
 
     void requestShowIngredientInfo();
 
@@ -25,11 +30,21 @@ public interface IngredientControllerInterface {
     
     void createNewIngredientType();
     
-    boolean insertToSearchListByMatchingName(String searchText, IngredientModelInterface ingredient);
+    boolean isSearchMatching(String searchText, IngredientModelInterface ingredient);
     
     boolean deleteIngredientInSearchList(IngredientModelInterface ingredient);
     
     Iterator<IngredientModelInterface> getAllIngredientData();
     
     Iterator<IngredientModelInterface> getIngredientBySearchName(String searchText);
+    
+    boolean isNewIngredientTypeNameVallid(String ingredientTypeName);
+    
+    void showTotalCostIngredientImport();
+    
+    void importIngredient();
+    
+    void viewImportHistory();
+    
+    boolean canCloseIngredientManagePanel();
 }

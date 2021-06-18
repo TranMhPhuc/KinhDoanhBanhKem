@@ -1,51 +1,39 @@
 package model.provider;
 
-import java.sql.Connection;
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import model.ingredient.IngredientDataStorage;
-import model.ingredient.IngredientDataStorageInterface;
-import model.ingredient.IngredientModelInterface;
-import util.db.SQLServerConnection;
-import view.function.provider.InsertedProviderObserver;
-import view.function.provider.ModifiedProviderObserver;
-import view.function.provider.RemovedProviderObserver;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import me.xdrop.fuzzywuzzy.FuzzySearch;
+import me.xdrop.fuzzywuzzy.model.BoundExtractedResult;
+import util.constant.AppConstant;
+import view.provider.InsertedProviderObserver;
+import view.provider.ModifiedProviderObserver;
+import view.provider.RemovedProviderObserver;
 
 public class ProviderManageModel implements ProviderManageModelInterface {
 
-    private volatile static ProviderManageModel uniqueInstance;
+    private static final String SP_GET_ALL_PROVIDER
+            = "{call get_all_providers}";
 
-    private static Connection dbConnection;
-
-    private static ProviderDataStorageInterface providerDataStorage;
-    private static IngredientDataStorageInterface ingredientDataStorage;
+    private ArrayList<ProviderModelInterface> providers;
 
     private List<InsertedProviderObserver> insertedProviderObservers;
     private List<ModifiedProviderObserver> modifiedProviderObservers;
     private List<RemovedProviderObserver> removedProviderObservers;
 
-    static {
-        dbConnection = SQLServerConnection.getConnection();
-        providerDataStorage = ProviderDataStorage.getInstance();
-        ingredientDataStorage = IngredientDataStorage.getInstance();
-    }
+    public ProviderManageModel() {
+        providers = new ArrayList<>();
 
-    private ProviderManageModel() {
         insertedProviderObservers = new ArrayList<>();
         modifiedProviderObservers = new ArrayList<>();
         removedProviderObservers = new ArrayList<>();
-    }
 
-    public static ProviderManageModelInterface getInstance() {
-        if (uniqueInstance == null) {
-            synchronized (ProviderManageModel.class) {
-                if (uniqueInstance == null) {
-                    uniqueInstance = new ProviderManageModel();
-                }
-            }
-        }
-        return uniqueInstance;
+        updateFromDB();
     }
 
     @Override
@@ -89,38 +77,37 @@ public class ProviderManageModel implements ProviderManageModelInterface {
 
     private void notifyInsertedProviderObserver(ProviderModelInterface insertedProvider) {
         for (InsertedProviderObserver observer : insertedProviderObservers) {
-            observer.updateInsertedProvider(insertedProvider);
+            observer.updateInsertedProviderObserver(insertedProvider);
         }
     }
 
     private void notifyUpdatedProviderObserver(ProviderModelInterface updatedProvider) {
         for (ModifiedProviderObserver observer : modifiedProviderObservers) {
-            observer.updateModifiedProvider(updatedProvider);
+            observer.updateModifiedProviderObserver(updatedProvider);
         }
     }
 
     private void notifyRemovedProviderObserver(ProviderModelInterface removedProvider) {
         for (RemovedProviderObserver observer : removedProviderObservers) {
-            observer.updateRemovedProvider(removedProvider);
+            observer.updateRemovedProviderObserver(removedProvider);
         }
     }
 
     @Override
     public String getNextProviderIDText() {
-        int currSize = providerDataStorage.getSize();
-        
+        int currSize = providers.size();
+
         int nextID;
-        
+
         if (currSize == 0) {
             nextID = 1;
         } else {
-            ProviderModelInterface provider = providerDataStorage
-                    .getProviderByIndex(currSize - 1);
+            ProviderModelInterface provider = providers.get(currSize - 1);
 
             String providerIDText = provider.getProviderIDText();
 
             String IDPart = providerIDText.substring(2);
-            
+
             nextID = Integer.parseInt(IDPart) + 1;
         }
 
@@ -147,70 +134,104 @@ public class ProviderManageModel implements ProviderManageModelInterface {
 
     @Override
     public Iterator<ProviderModelInterface> getAllProviderData() {
-        return providerDataStorage.createIterator();
+        return providers.iterator();
+    }
+
+    @Override
+    public void updateFromDB() {
+        try {
+            CallableStatement callableStatement = dbConnection
+                    .prepareCall(SP_GET_ALL_PROVIDER);
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                ProviderModelInterface provider = new ProviderModel();
+                provider.setProperty(resultSet);
+                this.providers.add(provider);
+            }
+            resultSet.close();
+            callableStatement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProviderManageModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void clearData() {
+        providers.clear();
+    }
+
+    @Override
+    public ProviderModelInterface getProviderByID(String providerIDText) {
+        for (ProviderModelInterface element : providers) {
+            if (element.getProviderIDText().equals(providerIDText)) {
+                return element;
+            }
+        }
+        throw new IllegalArgumentException("Provider id '" + providerIDText + "' is not existed");
+    }
+
+    @Override
+    public boolean removeProvider(ProviderModelInterface provider) {
+        if (provider == null) {
+            throw new NullPointerException("Provider instance is null.");
+        }
+        int index = providers.indexOf(provider);
+        if (index == -1) {
+            return false;
+        } else {
+            provider.deleteInDatabase();
+            this.providers.remove(index);
+            return true;
+        }
+    }
+
+    @Override
+    public void addProvider(ProviderModelInterface provider) {
+        if (provider == null) {
+            throw new NullPointerException("Provider instance is null");
+        }
+        int index = providers.indexOf(provider);
+        if (index != -1) {
+            throw new IllegalArgumentException("Provider instance is already existed.");
+        } else {
+            provider.insertToDatabase();
+            this.providers.add(provider);
+            notifyInsertedProviderObserver(provider);
+        }
+    }
+
+    @Override
+    public boolean updateProvider(ProviderModelInterface updatedProvider) {
+        if (updatedProvider == null) {
+            throw new NullPointerException("Provider instance is null object");
+        }
+        int index = providers.indexOf(updatedProvider);
+        if (index == -1) {
+            return false;
+        } else {
+            updatedProvider.updateInDatabase();
+            notifyUpdatedProviderObserver(updatedProvider);
+            return true;
+        }
     }
 
     @Override
     public Iterator<ProviderModelInterface> getProviderSearchByName(String searchText) {
-        return providerDataStorage.getProviderSearchByName(searchText);
+        List<ProviderModelInterface> ret = new ArrayList<>();
+        List<BoundExtractedResult<ProviderModelInterface>> matches = FuzzySearch
+                .extractSorted(searchText, this.providers, provider -> provider.getName(),
+                        AppConstant.SEARCH_SCORE_CUT_OFF);
+        for (BoundExtractedResult<ProviderModelInterface> element : matches) {
+            ret.add(element.getReferent());
+        }
+        return ret.iterator();
     }
 
-    @Override
-    public boolean isProviderNameExist(String providerName) {
-        return providerDataStorage.isProviderNameExisted(providerName);
-    }
-
-    @Override
-    public boolean isProviderPhoneNumExist(String providerPhoneNum) {
-        return providerDataStorage.isProviderPhoneNumExist(providerPhoneNum);
-    }
-
-    @Override
-    public boolean isProviderEmailExist(String providerEmail) {
-        return providerDataStorage.isProviderEmailExisted(providerEmail);
-    }
-
-    @Override
-    public boolean isProviderAddressExist(String providerAddress) {
-        return providerDataStorage.isProviderAddressExisted(providerAddress);
-    }
-
-    @Override
-    public void addNewProvider(ProviderModelInterface newProvider) {
-        providerDataStorage.add(newProvider);
-        notifyInsertedProviderObserver(newProvider);
-    }
-
-    @Override
-    public void updateProvider(ProviderModelInterface updatedProvider) {
-        providerDataStorage.update(updatedProvider);
-        notifyUpdatedProviderObserver(updatedProvider);
-    }
-
-    @Override
-    public void removeProvider(ProviderModelInterface removedProvider) {
-        providerDataStorage.remove(removedProvider);
-        notifyRemovedProviderObserver(removedProvider);
-    }
-
-    @Override
-    public ProviderModelInterface getProvider(String providerIDText) {
-        return providerDataStorage.getProviderByID(providerIDText);
-    }
-
-    @Override
-    public boolean isProviderHavingAnyIngredient(ProviderModelInterface provider) {
+    public int getProviderIndex(ProviderModelInterface provider) {
         if (provider == null) {
-            throw new NullPointerException("Provider instance is null.");
+            throw new NullPointerException();
         }
-        Iterator<IngredientModelInterface> iterator = ingredientDataStorage.createIterator();
-        while (iterator.hasNext()) {
-            IngredientModelInterface ingredient = iterator.next();
-            if (ingredient.getProvider() == provider) {
-                return true;
-            }
-        }
-        return false;
+        return this.providers.indexOf(provider);
     }
 
 }

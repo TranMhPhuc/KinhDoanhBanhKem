@@ -2,9 +2,12 @@ package control.provider;
 
 import java.util.Iterator;
 import model.provider.ProviderModelInterface;
+import view.provider.ProviderPanel;
 
 public interface ProviderControllerInterface {
 
+    void setProviderPanelView(ProviderPanel providerPanel);
+    
     void requestCreateProvider();
 
     void requestUpdateProvider();
@@ -15,9 +18,11 @@ public interface ProviderControllerInterface {
 
     void requestExportExcel();
     
+    void requestCreateTemplateExcel();
+    
     void requestShowProviderInfo();
     
-    boolean insertToSearchListByMatchingName(String searchText, ProviderModelInterface provider);
+    boolean isSearchMatching(String searchText, ProviderModelInterface provider);
     
     boolean deleteProviderInSearchList(ProviderModelInterface provider);
     
@@ -25,4 +30,5 @@ public interface ProviderControllerInterface {
 
     Iterator<ProviderModelInterface> getProviderBySearchName(String searchText);
     
+    boolean canCloseProviderManagePanel();
 }

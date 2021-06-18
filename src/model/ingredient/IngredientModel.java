@@ -1,68 +1,43 @@
 package model.ingredient;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.ingredient.type.IngredientTypeDataStorage;
 import model.ingredient.type.IngredientTypeModel;
-import model.ingredient.type.IngredientTypeModelInterface;
-import model.ingredient.unit.IngredientUnitDataStorage;
-import model.ingredient.unit.IngredientUnitModel;
-import model.ingredient.unit.IngredientUnitModelInterface;
-import model.provider.ProviderDataStorage;
 import model.provider.ProviderModel;
-import model.provider.ProviderModelInterface;
 
 public class IngredientModel implements IngredientModelInterface {
 
     public static final String TABLE_NAME = "NguyenLieu";
     public static final String ID_HEADER = "MaNguyenLieu";
     public static final String NAME_HEADER = "TenNguyenLieu";
-    public static final String TYPE_HEADER = "MaLoai";
+    public static final String TYPE_NAME_HEADER = IngredientTypeModel.NAME_HEADER;
     public static final String COST_HEADER = "Gia";
     public static final String AMOUNT_HEADER = "TongSoLuong";
-    public static final String PROVIDER_ID_HEADER = "MaNCC";
-    public static final String UNIT_ID_HEADER = "MaDonVi";
+    public static final String PROVIDER_NAME_HEADER = ProviderModel.NAME_HEADER;
+    public static final String UNIT_NAME_HEADER = "TenDonVi";
 
-    private static final String INSERT_QUERY_PROTOTYPE
-            = "INSERT INTO " + TABLE_NAME + " ("
-            + NAME_HEADER + ", " + TYPE_HEADER + ", "
-            + COST_HEADER + ", " + AMOUNT_HEADER + ", " + PROVIDER_ID_HEADER + ", "
-            + UNIT_ID_HEADER + ")"
-            + " VALUES (?, ?, ?, ?, ?, ?)";
+    public static final float DEFAULT_INIT_AMOUNT = 0f;
 
-    private static final String UPDATE_QUERY_PROTOTYPE
-            = "UPDATE " + TABLE_NAME
-            + " SET " + NAME_HEADER + " = ?, " + TYPE_HEADER + " = ?, "
-            + COST_HEADER + " = ?, " + AMOUNT_HEADER + " = ?, " + PROVIDER_ID_HEADER + " = ?, "
-            + UNIT_ID_HEADER + " = ?"
-            + " WHERE " + ID_HEADER + " = ?";
+    private static final String SP_INSERT = "{call insert_NguyenLieu(?, ?, ?, ?, ?)}";
 
-    private static final String DELETE_QUERY_PROTOTYPE
-            = "DELETE FROM " + TABLE_NAME
-            + " WHERE " + ID_HEADER + " = ?";
+    private static final String SP_UPDATE = "{call update_NguyenLieu(?, ?, ?, ?, ?, ?, ?)}";
 
-    private static IngredientTypeDataStorage ingredientTypeDataStorage;
-    private static ProviderDataStorage providerDataStorage;
-    private static IngredientUnitDataStorage ingredientUnitDataStorage;
+    private static final String SP_DELETE = "{call delete_NguyenLieu(?)}";
 
     private int id;
     private String name;
-    private IngredientTypeModelInterface type;
+    private String typeName;
     private long cost;
     private float amount;
-    private ProviderModelInterface provider;
-    private IngredientUnitModelInterface unit;
-
-    static {
-        ingredientTypeDataStorage = IngredientTypeDataStorage.getInstance();
-        providerDataStorage = ProviderDataStorage.getInstance();
-        ingredientUnitDataStorage = IngredientUnitDataStorage.getInstance();
-    }
+    private String providerName;
+    private String unitName;
 
     public IngredientModel() {
+        this.amount = DEFAULT_INIT_AMOUNT;
     }
 
     @Override
@@ -81,8 +56,8 @@ public class IngredientModel implements IngredientModelInterface {
     }
 
     @Override
-    public void setIngredientType(IngredientTypeModelInterface type) {
-        this.type = type;
+    public void setIngredientTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
     @Override
@@ -96,13 +71,13 @@ public class IngredientModel implements IngredientModelInterface {
     }
 
     @Override
-    public void setProvider(ProviderModelInterface provider) {
-        this.provider = provider;
+    public void setProviderName(String providerName) {
+        this.providerName = providerName;
     }
 
     @Override
-    public void setIngredientUnit(IngredientUnitModelInterface unit) {
-        this.unit = unit;
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
     }
 
     @Override
@@ -111,8 +86,8 @@ public class IngredientModel implements IngredientModelInterface {
     }
 
     @Override
-    public IngredientTypeModelInterface getIngredientType() {
-        return this.type;
+    public String getTypeName() {
+        return this.typeName;
     }
 
     @Override
@@ -126,13 +101,13 @@ public class IngredientModel implements IngredientModelInterface {
     }
 
     @Override
-    public ProviderModelInterface getProvider() {
-        return this.provider;
+    public String getProviderName() {
+        return this.providerName;
     }
 
     @Override
-    public IngredientUnitModelInterface getIngredientUnit() {
-        return this.unit;
+    public String getUnitName() {
+        return this.unitName;
     }
 
     @Override
@@ -140,11 +115,11 @@ public class IngredientModel implements IngredientModelInterface {
         try {
             this.id = resultSet.getInt(ID_HEADER);
             this.name = resultSet.getString(NAME_HEADER);
-            this.type = ingredientTypeDataStorage.getIngredientType(resultSet.getString(TYPE_HEADER));
+            this.typeName = resultSet.getString(TYPE_NAME_HEADER);
             this.cost = resultSet.getInt(COST_HEADER);
             this.amount = resultSet.getInt(AMOUNT_HEADER);
-            this.provider = providerDataStorage.getProviderByID(resultSet.getString(PROVIDER_ID_HEADER));
-            this.unit = ingredientUnitDataStorage.getIngredientUnit(resultSet.getString(UNIT_ID_HEADER));
+            this.providerName = resultSet.getString(PROVIDER_NAME_HEADER);
+            this.unitName = resultSet.getString(UNIT_NAME_HEADER);
         } catch (SQLException ex) {
             Logger.getLogger(IngredientModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -153,18 +128,16 @@ public class IngredientModel implements IngredientModelInterface {
     @Override
     public void insertToDatabase() {
         try {
-            PreparedStatement preparedStatement = dbConnection
-                    .prepareStatement(INSERT_QUERY_PROTOTYPE);
+            CallableStatement callableStatement = dbConnection.prepareCall(SP_INSERT);
 
-            preparedStatement.setString(1, this.name);
-            this.type.setKeyArg(2, IngredientTypeModel.ID_HEADER, preparedStatement);
-            preparedStatement.setLong(3, this.cost);
-            preparedStatement.setFloat(4, this.amount);
-            this.provider.setKeyArg(5, ProviderModel.ID_HEADER, preparedStatement);
-            this.unit.setKeyArg(6, IngredientUnitModel.ID_HEADER, preparedStatement);
+            callableStatement.setString(1, this.name);
+            callableStatement.setString(2, this.typeName);
+            callableStatement.setLong(3, this.cost);
+            callableStatement.setString(4, this.providerName);
+            callableStatement.setString(5, this.unitName);
 
-            preparedStatement.execute();
-            preparedStatement.close();
+            callableStatement.execute();
+            callableStatement.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredientModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -173,13 +146,12 @@ public class IngredientModel implements IngredientModelInterface {
     @Override
     public void deleteInDatabase() {
         try {
-            PreparedStatement preparedStatement = dbConnection
-                    .prepareStatement(DELETE_QUERY_PROTOTYPE);
+            CallableStatement callableStatement = dbConnection.prepareCall(SP_DELETE);
 
-            preparedStatement.setInt(1, this.id);
+            callableStatement.setInt(1, this.id);
 
-            preparedStatement.execute();
-            preparedStatement.close();
+            callableStatement.execute();
+            callableStatement.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredientModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -188,19 +160,18 @@ public class IngredientModel implements IngredientModelInterface {
     @Override
     public void updateInDatabase() {
         try {
-            PreparedStatement preparedStatement = dbConnection
-                    .prepareStatement(UPDATE_QUERY_PROTOTYPE);
+            CallableStatement callableStatement = dbConnection.prepareCall(SP_UPDATE);
 
-            preparedStatement.setString(1, this.name);
-            this.type.setKeyArg(2, IngredientTypeModel.ID_HEADER, preparedStatement);
-            preparedStatement.setLong(3, this.cost);
-            preparedStatement.setFloat(4, this.amount);
-            this.provider.setKeyArg(5, ProviderModel.ID_HEADER, preparedStatement);
-            this.unit.setKeyArg(6, IngredientUnitModel.ID_HEADER, preparedStatement);
-            preparedStatement.setInt(7, this.id);
+            callableStatement.setInt(1, this.id);
+            callableStatement.setString(2, this.name);
+            callableStatement.setString(3, this.typeName);
+            callableStatement.setLong(4, this.cost);
+            callableStatement.setFloat(5, this.amount);
+            callableStatement.setString(6, this.providerName);
+            callableStatement.setString(7, this.unitName);
 
-            preparedStatement.execute();
-            preparedStatement.close();
+            callableStatement.execute();
+            callableStatement.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredientModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -213,16 +184,10 @@ public class IngredientModel implements IngredientModelInterface {
                 preparedStatement.setInt(index, this.id);
             } else if (header.equals(NAME_HEADER)) {
                 preparedStatement.setString(index, this.name);
-            } else if (header.equals(TYPE_HEADER)) {
-                this.type.setKeyArg(index, IngredientTypeModel.ID_HEADER, preparedStatement);
             } else if (header.equals(COST_HEADER)) {
                 preparedStatement.setLong(index, this.cost);
             } else if (header.equals(AMOUNT_HEADER)) {
                 preparedStatement.setFloat(index, this.amount);
-            } else if (header.equals(PROVIDER_ID_HEADER)) {
-                this.provider.setKeyArg(index, ProviderModel.ID_HEADER, preparedStatement);
-            } else if (header.equals(UNIT_ID_HEADER)) {
-                this.unit.setKeyArg(index, IngredientUnitModel.ID_HEADER, preparedStatement);
             }
         } catch (SQLException ex) {
             Logger.getLogger(IngredientModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -257,8 +222,7 @@ public class IngredientModel implements IngredientModelInterface {
     @Override
     public String toString() {
         return "IngredientModel{" + "id=" + id + ", name=" + name + ", type="
-                + type + ", cost=" + cost + ", amount=" + amount + ", provider="
-                + provider + ", unit=" + unit + '}';
+                + typeName + ", cost=" + cost + ", amount=" + amount + ", provider="
+                + providerName + ", unit=" + unitName + '}';
     }
-
 }

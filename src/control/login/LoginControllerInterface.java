@@ -6,7 +6,6 @@ public interface LoginControllerInterface {
     
     void requestRecoverPassword();
     
-    void sendPasswordToEmail(String email);
+    void checkEmailToSendPassword();
     
-    void showPasswordText();
 }

@@ -1,7 +1,9 @@
 package model.bill;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -10,43 +12,35 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.employee.EmployeeModelInterface;
 import model.product.ProductModelInterface;
-import model.productOfBill.ProductOfBillDetail;
-import model.productOfBill.ProductOfBillDetailInterface;
+import model.bill.detail.ProductDetailModel;
 import org.apache.commons.lang3.tuple.Pair;
 import util.db.SQLServerConnection;
-import view.function.bill.BillUpdateObserver;
+import view.bill.BillUpdateObserver;
+import model.bill.detail.ProductDetailModelInterface;
+import model.ingredient.IngredientManageModel;
 
 public class BillManageModel implements BillManageModelInterface {
-    
+
     private volatile static BillManageModel uniqueInstance;
 
     private static Connection dbConnection;
-    private ArrayList<BillUpdateObserver> observers;
-    private BillModelInterface bill;
-    private ArrayList<ProductOfBillDetailInterface> productDetails;
+    
+    private ArrayList<ProductDetailModelInterface> productDetails;
 
-    private static int billCount;
+    private ArrayList<BillUpdateObserver> observers;
+
+    private static final String FIND_NEXT_IDENTITY_BILL
+            = "{call get_next_identity_id_bill}";
 
     static {
         dbConnection = SQLServerConnection.getConnection();
-        try {
-            Statement statement = dbConnection.createStatement();
-            String query
-                    = "SELECT COUNT(*) FROM " + BillModel.TABLE_NAME;
-            ResultSet resultSet = statement.executeQuery(query);
-            if (resultSet.next()) {
-                billCount = resultSet.getInt(1);
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(BillManageModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     private BillManageModel() {
         observers = new ArrayList<>();
         productDetails = new ArrayList<>();
     }
-    
+
     public static BillManageModel getInstance() {
         if (uniqueInstance == null) {
             synchronized (BillManageModel.class) {
@@ -56,6 +50,23 @@ public class BillManageModel implements BillManageModelInterface {
             }
         }
         return uniqueInstance;
+    }
+
+    @Override
+    public String getNextBillIDText() {
+        int nextIdentity = 0;
+        try {
+            CallableStatement callableStatement = dbConnection.prepareCall(FIND_NEXT_IDENTITY_BILL);
+            ResultSet resultSet = callableStatement.executeQuery(FIND_NEXT_IDENTITY_BILL);
+            if (resultSet.next()) {
+                nextIdentity = resultSet.getInt(1);
+            }
+            resultSet.close();
+            callableStatement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientManageModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return String.valueOf(nextIdentity);
     }
 
     @Override
@@ -71,104 +82,18 @@ public class BillManageModel implements BillManageModelInterface {
         }
     }
 
-    private void notifyObserver(int billNumber) {
-        System.out.println("Observer num: " + observers.size());
+    private void notifyObserver(BillModelInterface bill) {
         for (BillUpdateObserver observer : observers) {
-            observer.updateBillNumber(billNumber);
+            observer.updateObserver(bill);
         }
     }
 
     @Override
-    public String getNextBillID() {
-        return String.valueOf(billCount + 1);
-    }
-
-    @Override
-    public void exportBill() {
+    public void exportBill(BillModelInterface bill) {
         bill.insertToDatabase();
-        for (ProductOfBillDetailInterface productDetail : productDetails) {
+        for (ProductDetailModelInterface productDetail : productDetails) {
             productDetail.insertToDatabase();
         }
-        notifyObserver(bill.getBillID());
-        clearBill();
+        notifyObserver(bill);
     }
-
-    @Override
-    public void reviewInPDF() {
-        if (bill == null) {
-            throw new NullPointerException("No bill exist.");
-        }
-    }
-
-    @Override
-    public void setBillDateTimeExport(Timestamp dateTimeExport) {
-        if (bill == null) {
-            prepareBill();
-        }
-        bill.setDateTimeExport(dateTimeExport);
-    }
-
-    @Override
-    public void setBillPayment(int payment) {
-        if (bill == null) {
-            prepareBill();
-        }
-        bill.setPayment(payment);
-    }
-
-    @Override
-    public void setBillGuestMoney(int guestMoney) {
-        if (bill == null) {
-            prepareBill();
-        }
-        bill.setGuestMoney(guestMoney);
-    }
-
-    @Override
-    public void setBillChangeMoney(int changeMoney) {
-        if (bill == null) {
-            prepareBill();
-        }
-        bill.setChangeMoney(changeMoney);
-    }
-
-    @Override
-    public void setBillEmployee(EmployeeModelInterface employee) {
-        if (bill == null) {
-            prepareBill();
-        }
-        bill.setEmployee(employee);
-    }
-
-    @Override
-    public void prepareBill() {
-        billCount++;
-        bill = new BillModel();
-        bill.setBillID(billCount);
-    }
-
-    private void clearBill() {
-        bill = null;
-        productDetails.clear();
-    }
-
-    @Override
-    public void setProductListOfBill(List<Pair<ProductModelInterface, Integer>> products) {
-        for (Pair<ProductModelInterface, Integer> element : products) {
-            ProductModelInterface product = element.getKey();
-            int amount = element.getValue();
-            ProductOfBillDetailInterface productDetail = new ProductOfBillDetail();
-            productDetail.setBill(bill);
-            productDetail.setProduct(product);
-            productDetail.setAmount(amount);
-            productDetail.setPrice(amount * product.getPrice());
-            productDetails.add(productDetail);
-        }
-    }
-
-    @Override
-    public int getBillNumber() {
-        return billCount;
-    }
-
 }

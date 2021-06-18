@@ -7,6 +7,8 @@ public interface DatabaseUpdate {
     
     Connection dbConnection = SQLServerConnection.getConnection();
     
-    void updateFromDB(Connection connection);
+    void updateFromDB();
+    
+    void clearData();
     
 }

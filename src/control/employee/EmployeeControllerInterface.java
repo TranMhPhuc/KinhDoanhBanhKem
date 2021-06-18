@@ -2,9 +2,12 @@ package control.employee;
 
 import java.util.Iterator;
 import model.employee.EmployeeModelInterface;
+import view.employee.EmployeePanel;
 
 public interface EmployeeControllerInterface {
 
+    void setEmployeePanelView(EmployeePanel employeePanel);
+    
     void requestCreateEmployee();
 
     void requestUpdateEmployee();
@@ -12,10 +15,12 @@ public interface EmployeeControllerInterface {
     void requestImportExcel();
 
     void requestExportExcel();
+    
+    void requestCreateTemplateExcel();
 
     void requestShowEmployeeInfo();
 
-    boolean insertToSearchListByMatchingName(String searchText, EmployeeModelInterface employee);
+    boolean isSearchMatching(String searchText, EmployeeModelInterface employee);
 
     boolean deleteIngredientInSearchList(EmployeeModelInterface employee);
 
@@ -23,4 +28,6 @@ public interface EmployeeControllerInterface {
 
     Iterator<EmployeeModelInterface> getEmployeeBySearchName(String searchText);
 
+    boolean canCloseEmployeeManagePanel();
+    
 }

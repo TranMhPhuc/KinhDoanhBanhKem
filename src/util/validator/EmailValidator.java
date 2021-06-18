@@ -10,7 +10,7 @@ public class EmailValidator {
     public enum EmailValidateResult {
         EMPTY,
         INVALLID,
-        PASS,
+        NO_ERROR,
     }
 
     private static final Pattern EMAIL_VALID_PATTERN = Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
@@ -39,7 +39,7 @@ public class EmailValidator {
             }
         }
         
-        return EmailValidateResult.PASS;
+        return EmailValidateResult.NO_ERROR;
     }
 
 }

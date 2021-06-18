@@ -1,12 +1,14 @@
 package model.product;
 
 import java.util.Iterator;
-import view.function.product.InsertedProductObserver;
-import view.function.product.ModifiedProductObserver;
-import view.function.product.RemovedProductObserver;
-import model.ingredientOfProduct.IngredientDetailOfProductInterface;
+import java.util.List;
+import model.DatabaseUpdate;
+import model.product.ingredientDetail.IngredientDetailModelInterface;
+import view.product.InsertedProductObserver;
+import view.product.ModifiedProductObserver;
+import view.product.RemovedProductObserver;
 
-public interface ProductManageModelInterface {
+public interface ProductManageModelInterface extends DatabaseUpdate {
 
     void registerInsertedProductObserver(InsertedProductObserver observer);
 
@@ -19,7 +21,7 @@ public interface ProductManageModelInterface {
     void registerRemovedProductObserver(RemovedProductObserver observer);
 
     void removeRemovedProductObserver(RemovedProductObserver observer);
-
+    
     //=========================================================================
     
     String getNextProductIDText();
@@ -30,11 +32,11 @@ public interface ProductManageModelInterface {
     
     //=========================================================================
     
-    void addNewProduct(ProductModelInterface newProduct);
+    void addProduct(ProductModelInterface newProduct);
     
-    void updateProduct(ProductModelInterface updatedProduct);
+    boolean updateProduct(ProductModelInterface updatedProduct);
     
-    void removeProduct(ProductModelInterface removedProduct);
+    boolean removeProduct(ProductModelInterface removedProduct);
     
     //=========================================================================
     
@@ -44,6 +46,22 @@ public interface ProductManageModelInterface {
     
     Iterator<ProductModelInterface> getProductSearchByName(String searchText);
     
-    boolean isProductOfAnyBill(ProductModelInterface product);
+    Iterator<ProductModelInterface> getProductByName(String productName);
+    
+    ProductModelInterface getProductByNameAndSize(String productName, String productSize);
+    
+    List<String> getAllIngredientName();
+    
+    List<String> getUnitNamePossibleOfIngredient(String ingredientName);
+    
+    void setIngredientDetailBufferList(ProductModelInterface product);
+    
+    List<IngredientDetailModelInterface> getIngredientDetailBufferList();
+    
+    void setBufferListModifiedFlag(boolean modified);
+    
+    boolean getBufferListModifiedFlag();
+    
+    void produceProduct(ProductModelInterface product, int produceAmount);
     
 }

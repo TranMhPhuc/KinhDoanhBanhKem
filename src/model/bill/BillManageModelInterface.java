@@ -5,7 +5,7 @@ import java.util.List;
 import model.employee.EmployeeModelInterface;
 import model.product.ProductModelInterface;
 import org.apache.commons.lang3.tuple.Pair;
-import view.function.bill.BillUpdateObserver;
+import view.bill.BillUpdateObserver;
 
 public interface BillManageModelInterface {
 
@@ -13,26 +13,8 @@ public interface BillManageModelInterface {
 
     void removeObserver(BillUpdateObserver observer);
 
-    String getNextBillID();
-    
-    int getBillNumber();
+    String getNextBillIDText();
 
-    void exportBill();
-
-    void reviewInPDF();
-    
-    void prepareBill();
-
-    void setBillDateTimeExport(Timestamp dateTimeExport);
-
-    void setBillPayment(int payment);
-
-    void setBillGuestMoney(int guestMoney);
-
-    void setBillChangeMoney(int changeMoney);
-
-    void setBillEmployee(EmployeeModelInterface employee);
-    
-    void setProductListOfBill(List<Pair<ProductModelInterface, Integer>> products);
+    void exportBill(BillModelInterface bill);
 
 }

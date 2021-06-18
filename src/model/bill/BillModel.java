@@ -1,16 +1,15 @@
 package model.bill;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.employee.EmployeeDataStorage;
-import model.employee.EmployeeDataStorageInterface;
+import model.employee.EmployeeManageModel;
+import model.employee.EmployeeManageModelInterface;
 import model.employee.EmployeeModel;
-import model.employee.EmployeeModelInterface;
 
 public class BillModel implements BillModelInterface {
 
@@ -20,57 +19,24 @@ public class BillModel implements BillModelInterface {
     public static final String PAYMENT_HEADER = "TongTien";
     public static final String GUEST_MONEY_HEADER = "TienKhachTra";
     public static final String CHANGE_MONEY_HEADER = "TienThoi";
-    public static final String EMPLOYEE_ID_HEADER = EmployeeModel.ID_HEADER;
+    public static final String EMPLOYEE_NAME_HEADER = EmployeeModel.NAME_HEADER;
 
-    private static final String INSERT_QUERY_PROTOTYPE
-            = "INSERT INTO " + TABLE_NAME + " ("
-            + DATE_HEADER + ", " + PAYMENT_HEADER + ", "
-            + GUEST_MONEY_HEADER + ", " + CHANGE_MONEY_HEADER + ", "
-            + EMPLOYEE_ID_HEADER + ")"
-            + " VALUES (?, ?, ?, ?, ?)";
+    private static final String SP_INSERT
+            = "{call insert_HoaDon(?, ?, ?, ?)}";
 
-    private static final EmployeeDataStorageInterface employeeDataStorage;
+    private static EmployeeManageModelInterface employeeManageModel;
 
     private int id;
     private Timestamp dateTimeExport;
-    private int payment;
-    private int guestMoney;
-    private int changeMoney;
-    private EmployeeModelInterface employee;
+    private long payment;
+    private long guestMoney;
+    private long changeMoney;
+    private String employeeName;
 
     static {
-        employeeDataStorage = EmployeeDataStorage.getInstance();
     }
 
     public BillModel() {
-    }
-
-    public BillModel(BillModel other) {
-        this.id = other.id;
-        this.dateTimeExport = other.dateTimeExport;
-        this.payment = other.payment;
-        this.guestMoney = other.guestMoney;
-        this.changeMoney = other.changeMoney;
-        this.employee = other.employee;
-    }
-    
-    public static BillModelInterface getBill(String billIDText) {
-        int billID = Integer.valueOf(billIDText);
-        BillModelInterface ret = new BillModel();
-        
-        try {
-            Statement statement = dbConnection.createStatement();
-            String query = "SELECT * FROM " + TABLE_NAME
-                    + " WHERE " + ID_HEADER + " = " + billID;
-            ResultSet resultSet = statement.executeQuery(query);
-            if (resultSet.next()) {
-                ret.setProperty(resultSet);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(BillModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return ret;
     }
 
     @Override
@@ -81,8 +47,7 @@ public class BillModel implements BillModelInterface {
             this.payment = resultSet.getInt("TongTien");
             this.guestMoney = resultSet.getInt("TienKhachTra");
             this.changeMoney = resultSet.getInt("TienThoi");
-            this.employee = employeeDataStorage
-                    .getEmployeeByID(resultSet.getString(EMPLOYEE_ID_HEADER));
+            this.employeeName = resultSet.getString(EMPLOYEE_NAME_HEADER);
         } catch (SQLException ex) {
             Logger.getLogger(BillModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -108,18 +73,14 @@ public class BillModel implements BillModelInterface {
         try {
             if (header.equals(ID_HEADER)) {
                 preparedStatement.setInt(index, this.id);
-            } else if (header.equals(ID_HEADER)) {
-                preparedStatement.setTimestamp(index, this.dateTimeExport);
             } else if (header.equals(DATE_HEADER)) {
-                preparedStatement.setInt(index, this.payment);
+                preparedStatement.setTimestamp(index, this.dateTimeExport);
             } else if (header.equals(PAYMENT_HEADER)) {
-                preparedStatement.setInt(index, this.payment);
+                preparedStatement.setLong(index, this.payment);
             } else if (header.equals(GUEST_MONEY_HEADER)) {
-                preparedStatement.setInt(index, this.guestMoney);
+                preparedStatement.setLong(index, this.guestMoney);
             } else if (header.equals(CHANGE_MONEY_HEADER)) {
-                preparedStatement.setInt(index, this.changeMoney);
-            } else if (header.equals(EMPLOYEE_ID_HEADER)) {
-                this.employee.setKeyArg(index, EmployeeModel.ID_HEADER, preparedStatement);
+                preparedStatement.setLong(index, this.changeMoney);
             }
         } catch (SQLException ex) {
             Logger.getLogger(BillModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -129,18 +90,16 @@ public class BillModel implements BillModelInterface {
     @Override
     public void insertToDatabase() {
         try {
-            PreparedStatement preparedStatement = dbConnection
-                    .prepareStatement(INSERT_QUERY_PROTOTYPE);
-            // ID is indentity column
+            CallableStatement callableStatement = dbConnection
+                    .prepareCall(SP_INSERT);
 
-            preparedStatement.setTimestamp(1, this.dateTimeExport);
-            preparedStatement.setInt(2, this.payment);
-            preparedStatement.setInt(3, this.guestMoney);
-            preparedStatement.setInt(4, this.changeMoney);
-            this.employee.setKeyArg(5, EmployeeModel.ID_HEADER, preparedStatement);
+            callableStatement.setTimestamp(1, this.dateTimeExport);
+            callableStatement.setLong(2, this.payment);
+            callableStatement.setLong(3, this.guestMoney);
+            callableStatement.setString(4, this.employeeName);
 
-            preparedStatement.execute();
-            preparedStatement.close();
+            callableStatement.execute();
+            callableStatement.close();
         } catch (SQLException ex) {
             Logger.getLogger(BillModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -148,12 +107,60 @@ public class BillModel implements BillModelInterface {
 
     @Override
     public void deleteInDatabase() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void updateInDatabase() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void setDateTimeExport(Timestamp dateTimeExport) {
+        this.dateTimeExport = dateTimeExport;
+    }
+
+    @Override
+    public void setPayment(long payment) {
+        this.payment = payment;
+    }
+
+    @Override
+    public void setGuestMoney(long guestMoney) {
+        this.guestMoney = guestMoney;
+    }
+
+    @Override
+    public void setChangeMoney(long changeMoney) {
+        this.changeMoney = changeMoney;
+    }
+
+    @Override
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    @Override
+    public Timestamp getDateTimeExport() {
+        return this.dateTimeExport;
+    }
+
+    @Override
+    public long getPayment() {
+        return this.payment;
+    }
+
+    @Override
+    public long getGuestMoney() {
+        return this.guestMoney;
+    }
+
+    @Override
+    public long getChangeMoney() {
+        return this.changeMoney;
+    }
+
+    @Override
+    public String getEmployeeName() {
+        return this.employeeName;
     }
 
     @Override
@@ -182,59 +189,10 @@ public class BillModel implements BillModelInterface {
     }
 
     @Override
-    public void setDateTimeExport(Timestamp dateTimeExport) {
-        this.dateTimeExport = dateTimeExport;
-    }
-
-    @Override
-    public void setPayment(int payment) {
-        this.payment = payment;
-    }
-
-    @Override
-    public void setGuestMoney(int guestMoney) {
-        this.guestMoney = guestMoney;
-    }
-
-    @Override
-    public void setChangeMoney(int changeMoney) {
-        this.changeMoney = changeMoney;
-    }
-
-    @Override
-    public void setEmployee(EmployeeModelInterface employee) {
-        this.employee = employee;
-    }
-
-    @Override
-    public Timestamp getDateTimeExport() {
-        return this.dateTimeExport;
-    }
-
-    @Override
-    public int getPayment() {
-        return this.payment;
-    }
-
-    @Override
-    public int getGuestMoney() {
-        return this.guestMoney;
-    }
-
-    @Override
-    public int getChangeMoney() {
-        return this.changeMoney;
-    }
-
-    @Override
-    public EmployeeModelInterface getEmployee() {
-        return this.employee;
-    }
-
-    @Override
     public String toString() {
         return "Bill{" + "billID=" + id + ", dateExport=" + dateTimeExport
                 + ", payment=" + payment + ", givenMoney=" + guestMoney + ", changeMoney="
-                + changeMoney + ", employee=" + employee + '}';
+                + changeMoney + ", employeeName=" + employeeName + '}';
     }
+
 }

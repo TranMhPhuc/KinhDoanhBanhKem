@@ -4,9 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,13 +11,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.bill.BillModel;
-import model.bill.BillModelInterface;
-import model.productOfBill.ProductOfBillDetail;
-import model.productOfBill.ProductOfBillDetailInterface;
+import model.bill.detail.ProductDetailModel;
 import util.db.SQLServerConnection;
 import view.dialog.BillDetailDialog;
-import view.function.bill.BillHistoryPanel;
-import view.main.MainFrame;
+import view.bill.BillHistoryPanel;
+import model.bill.detail.ProductDetailModelInterface;
+import model.bill.BillModelInterface;
 
 public class BillHistoryController implements BillHistoryControllerInterface {
 
@@ -34,8 +30,8 @@ public class BillHistoryController implements BillHistoryControllerInterface {
             + " AND CONVERT(date, " + BillModel.DATE_HEADER + ") <= ?";
 
     private static final String FIND_PRODUCT_DETAIL_QUERY_PROTOTYPE
-            = "SELECT * FROM " + ProductOfBillDetail.TABLE_NAME
-            + " WHERE " + ProductOfBillDetail.BILL_ID_HEADER + " = ?";
+            = "SELECT * FROM " + ProductDetailModel.TABLE_NAME
+            + " WHERE " + ProductDetailModel.BILL_ID_HEADER + " = ?";
 
     private volatile static BillHistoryController uniqueInstance;
 
@@ -51,7 +47,7 @@ public class BillHistoryController implements BillHistoryControllerInterface {
 
     private BillHistoryController() {
         billList = new ArrayList<>();
-        this.billHistoryPanel = BillHistoryPanel.getInstance(this);
+//        this.billHistoryPanel = BillHistoryPanel.getInstance(this);
     }
 
     public static BillHistoryController getInstance() {
@@ -159,7 +155,7 @@ public class BillHistoryController implements BillHistoryControllerInterface {
     public void requestViewBillDetail(int rowID) {
         BillModelInterface bill = billList.get(rowID);
 
-        List<ProductOfBillDetailInterface> productDetails = new ArrayList<>();
+        List<ProductDetailModelInterface> productDetails = new ArrayList<>();
 
         try {
             PreparedStatement preparedStatement = dbConnection
@@ -170,7 +166,7 @@ public class BillHistoryController implements BillHistoryControllerInterface {
             ResultSet resultSet = preparedStatement.executeQuery();
             
             while (resultSet.next()) {
-                ProductOfBillDetailInterface productDetail = new ProductOfBillDetail();
+                ProductDetailModelInterface productDetail = new ProductDetailModel();
                 productDetail.setProperty(resultSet);
                 productDetails.add(productDetail);
             }
@@ -181,7 +177,7 @@ public class BillHistoryController implements BillHistoryControllerInterface {
             Logger.getLogger(BillHistoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        billDetailDialog = new BillDetailDialog(MainFrame.getInstance(), true, this);
+//        billDetailDialog = new BillDetailDialog(MainFrame.getInstance(), true, this);
         billDetailDialog.setTableBillDetail(productDetails);
         billDetailDialog.setBillInfo(bill);
         billDetailDialog.setVisible(true);

@@ -4,10 +4,10 @@ import control.bill.history.BillHistoryControllerInterface;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import model.bill.BillModelInterface;
 import model.product.ProductModelInterface;
-import model.productOfBill.ProductOfBillDetailInterface;
 import util.swing.UIControl;
+import model.bill.detail.ProductDetailModelInterface;
+import model.bill.BillModelInterface;
 
 public class BillDetailDialog extends javax.swing.JDialog {
 
@@ -36,14 +36,14 @@ public class BillDetailDialog extends javax.swing.JDialog {
         this.labelBillID.setText(text);
     }
     
-    public void setTableBillDetail(List<ProductOfBillDetailInterface> productDetails) {
+    public void setTableBillDetail(List<ProductDetailModelInterface> productDetails) {
         clearTableBillDetail();
-        for (ProductOfBillDetailInterface productDetail : productDetails) {
+        for (ProductDetailModelInterface productDetail : productDetails) {
             addRowTableBillDetail(productDetail);
         }
     }
     
-    private void addRowTableBillDetail(ProductOfBillDetailInterface productDetail) {
+    private void addRowTableBillDetail(ProductDetailModelInterface productDetail) {
         Object[] object = new Object[] {
             productDetail.getProduct().getName(),
             productDetail.getAmount(),

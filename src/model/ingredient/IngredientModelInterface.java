@@ -1,9 +1,6 @@
 package model.ingredient;
 
 import model.DatabaseModel;
-import model.ingredient.type.IngredientTypeModelInterface;
-import model.ingredient.unit.IngredientUnitModelInterface;
-import model.provider.ProviderModelInterface;
 
 public interface IngredientModelInterface extends DatabaseModel {
 
@@ -13,25 +10,25 @@ public interface IngredientModelInterface extends DatabaseModel {
     
     void setName(String name);
     
-    void setIngredientType(IngredientTypeModelInterface type);
+    void setIngredientTypeName(String typeName);
     
     void setCost(long cost);
     
     void setAmount(float amount);
     
-    void setProvider(ProviderModelInterface provider);
+    void setProviderName(String providerName);
     
-    void setIngredientUnit(IngredientUnitModelInterface unit);
+    void setUnitName(String unitName);
     
     String getName();
     
-    IngredientTypeModelInterface getIngredientType();
+    String getTypeName();
     
     long getCost();
     
     float getAmount();
     
-    ProviderModelInterface getProvider();
+    String getProviderName();
     
-    IngredientUnitModelInterface getIngredientUnit();
+    String getUnitName();
 }

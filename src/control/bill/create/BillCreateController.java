@@ -1,30 +1,19 @@
 package control.bill.create;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import model.bill.BillManageModelInterface;
-import model.product.ProductDataStorage;
-import model.product.ProductDataStorageInterface;
 import model.product.ProductModelInterface;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.junit.Assert;
 import view.dialog.BillExportDialog;
-import view.function.bill.BillCreatePanel;
-import view.main.MainFrame;
+import view.bill.BillCreatePanel;
 
 public class BillCreateController implements BillCreateControllerInterface {
 
-    private volatile static BillCreateController uniqueInstance;
-    private static ProductDataStorageInterface productDataStorage;
-
-    private BillManageModelInterface model;
+    private BillManageModelInterface billManageModel;
     private BillCreatePanel billCreatePanel;
 
     private List<Pair<ProductModelInterface, Integer>> selectedProducts;
@@ -34,26 +23,30 @@ public class BillCreateController implements BillCreateControllerInterface {
     private int totalMoneyOfBill;
     private int guestMoney;
 
-    private BillExportDialog billExportDialog;
+    private BillExportDialog dialogBillExport;
 
-    static {
-        productDataStorage = ProductDataStorage.getInstance();
-    }
-
-    private BillCreateController(BillManageModelInterface model) {
-        this.model = model;
+    public BillCreateController(BillManageModelInterface billManageModel) {
         this.selectedProducts = new ArrayList<>();
         this.totalMoneyOfBill = 0;
+        this.remainAmountOfProducts = new HashMap<>();
+        
+        this.billManageModel = billManageModel;
 
-        remainAmountOfProducts = new HashMap<>();
+//        Iterator<ProductModelInterface> iterator = productDataStorage.createIterator();
+//        while (iterator.hasNext()) {
+//            ProductModelInterface product = iterator.next();
+//            remainAmountOfProducts.put(product, product.getAmount());
+//        }
+//        this.billCreatePanel = BillCreatePanel.getInstance(model, this);
+    }
 
-        Iterator<ProductModelInterface> iterator = productDataStorage.createIterator();
-        while (iterator.hasNext()) {
-            ProductModelInterface product = iterator.next();
-            remainAmountOfProducts.put(product, product.getAmount());
+    public void setBillCreatePanel(BillCreatePanel billCreatePanel) {
+        if (billCreatePanel == null) {
+            throw new NullPointerException();
         }
-
-        this.billCreatePanel = BillCreatePanel.getInstance(model, this);
+        this.billCreatePanel = billCreatePanel;
+        billCreatePanel.setBillCreateController(this);
+        billCreatePanel.setBillManageModel(billManageModel);
     }
 
     public static BillCreateControllerInterface getInstance(BillManageModelInterface model) {
@@ -76,19 +69,19 @@ public class BillCreateController implements BillCreateControllerInterface {
 
     @Override
     public String getNewBillID() {
-        String newBillID = this.model.getNextBillID();
+        String newBillID = this.billManageModel.getNextBillIDText();
         return newBillID;
     }
 
     @Override
     public List<Pair<ProductModelInterface, Integer>> getProductSearch(String searchText) {
         List<Pair<ProductModelInterface, Integer>> results = new ArrayList<>();
-        Iterator<ProductModelInterface> iterator = productDataStorage
-                .getProductSearchByName(searchText);
-        while (iterator.hasNext()) {
-            ProductModelInterface product = iterator.next();
-            results.add(new ImmutablePair<>(product, remainAmountOfProducts.get(product)));
-        }
+//        Iterator<ProductModelInterface> iterator = productDataStorage
+//                .getProductSearchByName(searchText);
+//        while (iterator.hasNext()) {
+//            ProductModelInterface product = iterator.next();
+//            results.add(new ImmutablePair<>(product, remainAmountOfProducts.get(product)));
+//        }
         return results;
     }
 
@@ -126,7 +119,7 @@ public class BillCreateController implements BillCreateControllerInterface {
                 this.billCreatePanel.updatePriceProductSelect(index, price);
             } else {
                 // Add product in table select as a new row
-                product = productDataStorage.getProductByID(productIDText);
+//                product = productDataStorage.getProductByID(productIDText);
                 this.selectedProducts.add(new MutablePair<>(product, 1));
                 this.billCreatePanel.addRowTableSelect(product);
             }
@@ -189,34 +182,34 @@ public class BillCreateController implements BillCreateControllerInterface {
     @Override
     public void requestExportBill() {
         // Show dialog to enter guest money
-        this.billExportDialog = new BillExportDialog(MainFrame.getInstance(), true, this);
-        this.billExportDialog.setVisible(true);
+//        this.billExportDialog = new BillExportDialog(MainFrame.getInstance(), true, this);
+        this.dialogBillExport.setVisible(true);
     }
 
     @Override
     public void inputGuestMoney(String guestMoneyInput) {
-        this.billExportDialog.setLabelErrorText("");
+        this.dialogBillExport.setLabelErrorText("");
         if (guestMoneyInput.isEmpty()) {
-            this.billExportDialog.setBtnContinueEnable(false);
-            this.billExportDialog.setChangeMoneyText("");
+            this.dialogBillExport.setBtnContinueEnable(false);
+            this.dialogBillExport.setChangeMoneyText("");
         } else {
             int guestMoney = 0;
             try {
                 guestMoney = Integer.parseInt(guestMoneyInput);
             } catch (NumberFormatException ex) {
-                this.billExportDialog.setLabelErrorText("Please enter money in number!");
-                this.billExportDialog.setBtnContinueEnable(false);
+                this.dialogBillExport.setLabelErrorText("Please enter money in number!");
+                this.dialogBillExport.setBtnContinueEnable(false);
                 return;
             }
             int changeMoney = (guestMoney - this.totalMoneyOfBill);
             if (changeMoney < 0) {
-                this.billExportDialog.setLabelErrorText("Payment is not succint!");
-                this.billExportDialog.setChangeMoneyText("0");
-                this.billExportDialog.setBtnContinueEnable(false);
+                this.dialogBillExport.setLabelErrorText("Payment is not succint!");
+                this.dialogBillExport.setChangeMoneyText("0");
+                this.dialogBillExport.setBtnContinueEnable(false);
             } else {
-                this.billExportDialog.setChangeMoneyText(String.valueOf(changeMoney));
+                this.dialogBillExport.setChangeMoneyText(String.valueOf(changeMoney));
                 this.guestMoney = guestMoney;
-                this.billExportDialog.setBtnContinueEnable(true);
+                this.dialogBillExport.setBtnContinueEnable(true);
             }
         }
     }
@@ -224,12 +217,12 @@ public class BillCreateController implements BillCreateControllerInterface {
     @Override
     public List<Pair<ProductModelInterface, Integer>> getRemainProduct() {
         List<Pair<ProductModelInterface, Integer>> ret = new ArrayList<>();
-        Iterator<ProductModelInterface> iterator = productDataStorage.createIterator();
-        while (iterator.hasNext()) {
-            ProductModelInterface product = iterator.next();
-            Assert.assertNotNull(this.remainAmountOfProducts);
-            ret.add(new ImmutablePair<>(product, this.remainAmountOfProducts.get(product)));
-        }
+//        Iterator<ProductModelInterface> iterator = productDataStorage.createIterator();
+//        while (iterator.hasNext()) {
+//            ProductModelInterface product = iterator.next();
+//            Assert.assertNotNull(this.remainAmountOfProducts);
+//            ret.add(new ImmutablePair<>(product, this.remainAmountOfProducts.get(product)));
+//        }
         return ret;
     }
 
@@ -237,23 +230,23 @@ public class BillCreateController implements BillCreateControllerInterface {
     public void exportBill() {
         int changeMoney = this.guestMoney - this.totalMoneyOfBill;
         // Insert new bill to database
-        this.model.prepareBill();
-        this.model.setBillPayment(this.totalMoneyOfBill);
-        this.model.setBillGuestMoney(this.guestMoney);
-        this.model.setBillChangeMoney(changeMoney);
-        this.model.setBillEmployee(MainFrame.getInstance().getModel().getImpl());
-        this.model.setBillDateTimeExport(Timestamp.valueOf(LocalDateTime.now()));
-        this.model.setProductListOfBill(selectedProducts);
-        System.out.println("Guest money: " + this.guestMoney + ", total: " + this.totalMoneyOfBill);
-
-        this.model.exportBill();
+//        this.model.prepareBill();
+//        this.model.setBillPayment(this.totalMoneyOfBill);
+//        this.model.setBillGuestMoney(this.guestMoney);
+//        this.model.setBillChangeMoney(changeMoney);
+////        this.model.setBillEmployee(MainFrame.getInstance().getModel().getImpl());
+//        this.model.setBillDateTimeExport(Timestamp.valueOf(LocalDateTime.now()));
+//        this.model.setProductListOfBill(selectedProducts);
+//        System.out.println("Guest money: " + this.guestMoney + ", total: " + this.totalMoneyOfBill);
+//
+//        this.model.exportBill();
 
         // If success, confirm to view in PDF format
         // XXX
         // If sucess, update remain amount of product data
         for (Pair<ProductModelInterface, Integer> element : selectedProducts) {
             ProductModelInterface product = element.getKey();
-            product.setAmount(product.getAmount() - element.getValue());
+//            product.setAmount(product.getAmount() - element.getValue());
         }
 
         // Clear stored product

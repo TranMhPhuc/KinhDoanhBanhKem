@@ -1,12 +1,12 @@
 package model.employee;
 
 import java.util.Iterator;
-import model.employee.position.EmployeePositionModelInterface;
-import model.employee.shift.EmployeeShiftModelInterface;
-import view.function.employee.InsertedEmployeeObserver;
-import view.function.employee.ModifiedEmployeeObserver;
+import java.util.List;
+import model.DatabaseUpdate;
+import view.employee.InsertedEmployeeObserver;
+import view.employee.ModifiedEmployeeObserver;
 
-public interface EmployeeManageModelInterface {
+public interface EmployeeManageModelInterface extends DatabaseUpdate {
 
     void registerInsertedEmployeeObserver(InsertedEmployeeObserver observer);
 
@@ -28,29 +28,21 @@ public interface EmployeeManageModelInterface {
     
     //=========================================================================
     
-    void addNewEmployee(EmployeeModelInterface newEmployee);
+    void addEmployee(EmployeeModelInterface employee);
     
-    void updateEmployee(EmployeeModelInterface updatedEmployee);
-    
-    //=========================================================================
-    
-    int getEmployeePositionIndex(EmployeeModelInterface employee);
-    
-    Iterator<EmployeePositionModelInterface> getAllPositionData();
-    
-    //=========================================================================
-    
-    Iterator<EmployeeShiftModelInterface> getAllShiftData();
-    
-    int getShiftIndex(EmployeeShiftModelInterface shift);
+    boolean updateEmployee(EmployeeModelInterface employee);
     
     //=========================================================================
     
     EmployeeModelInterface getEmployeeByID(String employeeIDText);
     
+    EmployeeModelInterface getEmployeeByIndex(int employeeIndex);
+    
     Iterator<EmployeeModelInterface> getAllEmployeeData();
     
     Iterator<EmployeeModelInterface> getEmployeeSearchByName(String searchText);
     
+    List<String> getAllPositionName();
     
+    List<String> getAllShiftName();
 }

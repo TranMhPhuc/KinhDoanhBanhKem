@@ -1,15 +1,53 @@
 package view.profile;
 
+import control.app.MainFrameControllerInterface;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Date;
 import javax.swing.JLabel;
+import model.employee.EmployeeModelInterface;
+import model.setting.AppSetting;
+import model.setting.SettingUpdateObserver;
+import model.user.UserModelInterface;
 import util.constant.AppConstant;
 
-public class ProfilePanel extends javax.swing.JPanel {
+public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObserver {
+
+    private UserModelInterface userModel;
+    private MainFrameControllerInterface mainFrameController;
 
     public ProfilePanel() {
         initComponents();
+        createView();
         createControl();
+    }
+
+    public void setUserModel(UserModelInterface userModel) {
+        this.userModel = userModel;
+
+        EmployeeModelInterface impl = userModel.getImpl();
+
+        this.textfName.setText(impl.getName());
+        this.textfPosition.setText(impl.getPositionName());
+        this.textfEmail.setText(impl.getEmail());
+        this.dateChooserBirthday.setDate(impl.getBirthday());
+        this.textfPhoneNum.setText(impl.getPhoneNum());
+    }
+
+    public void setMainFrameController(MainFrameControllerInterface mainFrameController) {
+        this.mainFrameController = mainFrameController;
+    }
+
+    public boolean isProfileEditing() {
+        return textfEmail.isEnabled();
+    }
+
+    private void createView() {
+        this.textfName.setEnabled(false);
+        this.textfPosition.setEnabled(false);
+        this.textfEmail.setEnabled(false);
+        this.dateChooserBirthday.setEnabled(false);
+        this.textfPhoneNum.setEnabled(false);
     }
 
     private void createControl() {
@@ -20,7 +58,7 @@ public class ProfilePanel extends javax.swing.JPanel {
             label.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    label.setBackground(AppConstant.COLOR_MENU_MOUSE_ENTER);
+                    label.setBackground(AppConstant.COLOR_MENU_MOUSE_PRESS);
                 }
 
                 @Override
@@ -31,14 +69,88 @@ public class ProfilePanel extends javax.swing.JPanel {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     if (label == labelEditProfile) {
-
+                        if (textfEmail.isEnabled()) {
+                            mainFrameController.requestUpdateProfile();
+                        } else {
+                            setInputEnable(true);
+                        }
                     } else if (label == labelChangePassword) {
-
+                        mainFrameController.requestChangePassword();
                     }
                 }
-
             });
         }
+    }
+
+    public void resetProfileEditing() {
+        EmployeeModelInterface impl = userModel.getImpl();
+        this.textfEmail.setText(impl.getEmail());
+        this.textfPhoneNum.setText(impl.getPhoneNum());
+    }
+
+    public void setUserName(String name) {
+        this.textfName.setText(name);
+    }
+
+    public void setUserPosition(String positionName) {
+        this.textfPosition.setText(positionName);
+    }
+
+    public void setUserEmail(String email) {
+        this.textfEmail.setText(email);
+    }
+
+    public void setUserBirthday(Date date) {
+        this.dateChooserBirthday.setDate(date);
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.textfPhoneNum.setText(phoneNum);
+    }
+
+    public void setInputEnable(boolean enable) {
+        this.textfEmail.setEnabled(enable);
+        this.textfPhoneNum.setEnabled(enable);
+        if (enable) {
+            labelEditProfile.setText("Save");
+        } else {
+            labelEditProfile.setText("Edit profile");
+        }
+    }
+
+    public String getUserEmailInput() {
+        return this.textfEmail.getText().trim();
+    }
+
+    public String getUserPhoneNumInput() {
+        return this.textfPhoneNum.getText().trim();
+    }
+
+    @Override
+    public void updateSettingObserver() {
+        AppSetting.Language language = AppSetting.getInstance().getAppLanguage();
+
+        switch (language) {
+            case ENGLISH: {
+                labelName.setText("Name");
+                labelPosition.setText("Position");
+                labelBirthday.setText("Birthday");
+                labelPhoneNum.setText("Phone number");
+                labelEditProfile.setText("Edit profile");
+                labelChangePassword.setText("Change password");
+                break;
+            }
+            case VIETNAMESE: {
+                labelName.setText("Họ tên");
+                labelPosition.setText("Chức vụ");
+                labelBirthday.setText("Ngày sinh");
+                labelPhoneNum.setText("Số điện thoại");
+                labelEditProfile.setText("Chỉnh sửa");
+                labelChangePassword.setText("Đổi mật khẩu");
+                break;
+            }
+        }
+        repaint();
     }
 
     @SuppressWarnings("unchecked")
@@ -47,20 +159,21 @@ public class ProfilePanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        labelPosition = new javax.swing.JLabel();
+        labelEmail = new javax.swing.JLabel();
         dateChooserBirthday = new com.toedter.calendar.JDateChooser();
         textfEmail = new javax.swing.JTextField();
         textfName = new javax.swing.JTextField();
         textfPhoneNum = new javax.swing.JTextField();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        labelPhoneNum = new javax.swing.JLabel();
+        labelName = new javax.swing.JLabel();
         textfPosition = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
+        labelBirthday = new javax.swing.JLabel();
         labelEditProfile = new javax.swing.JLabel();
         labelChangePassword = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setName("Profile"); // NOI18N
         setLayout(new java.awt.BorderLayout());
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -70,44 +183,40 @@ public class ProfilePanel extends javax.swing.JPanel {
         add(jLabel1, java.awt.BorderLayout.NORTH);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setName("Profile"); // NOI18N
         jPanel1.setPreferredSize(new java.awt.Dimension(887, 400));
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel15.setText("Position:");
+        labelPosition.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelPosition.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelPosition.setText("Position:");
 
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel16.setText("Email:");
+        labelEmail.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelEmail.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelEmail.setText("Email:");
 
-        dateChooserBirthday.setEnabled(false);
         dateChooserBirthday.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        textfEmail.setEditable(false);
         textfEmail.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        textfName.setEditable(false);
         textfName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        textfPhoneNum.setEditable(false);
         textfPhoneNum.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel18.setText("Phone number:");
+        labelPhoneNum.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelPhoneNum.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelPhoneNum.setText("Phone number:");
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel14.setText("Name:");
+        labelName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelName.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelName.setText("Name:");
 
-        textfPosition.setEditable(false);
         textfPosition.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel17.setText("Birthday:");
+        labelBirthday.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelBirthday.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelBirthday.setText("Birthday:");
 
-        labelEditProfile.setBackground(new java.awt.Color(77, 128, 216));
+        labelEditProfile.setBackground(new java.awt.Color(113, 168, 255));
         labelEditProfile.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelEditProfile.setForeground(new java.awt.Color(255, 255, 255));
         labelEditProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -115,7 +224,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         labelEditProfile.setOpaque(true);
         labelEditProfile.setPreferredSize(new java.awt.Dimension(117, 21));
 
-        labelChangePassword.setBackground(new java.awt.Color(77, 128, 216));
+        labelChangePassword.setBackground(new java.awt.Color(113, 168, 255));
         labelChangePassword.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelChangePassword.setForeground(new java.awt.Color(255, 255, 255));
         labelChangePassword.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -127,20 +236,19 @@ public class ProfilePanel extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(192, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(labelEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(75, 75, 75)
+                        .addGap(58, 58, 58)
                         .addComponent(labelChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(192, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(labelPhoneNum, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelBirthday, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelPosition, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textfPhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -156,23 +264,23 @@ public class ProfilePanel extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textfName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textfPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dateChooserBirthday, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelBirthday, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textfPhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelPhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -186,14 +294,14 @@ public class ProfilePanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser dateChooserBirthday;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labelBirthday;
     private javax.swing.JLabel labelChangePassword;
     private javax.swing.JLabel labelEditProfile;
+    private javax.swing.JLabel labelEmail;
+    private javax.swing.JLabel labelName;
+    private javax.swing.JLabel labelPhoneNum;
+    private javax.swing.JLabel labelPosition;
     private javax.swing.JTextField textfEmail;
     private javax.swing.JTextField textfName;
     private javax.swing.JTextField textfPhoneNum;

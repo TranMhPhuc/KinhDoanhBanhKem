@@ -1,6 +1,6 @@
 package model.employee;
 
-import java.sql.Connection;
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,53 +9,97 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.employee.position.EmployeePositionDataStorage;
-import model.employee.position.EmployeePositionDataStorageInterface;
-import model.employee.position.EmployeePositionModelInterface;
-import model.employee.shift.EmployeeShiftDataStorage;
-import model.employee.shift.EmployeeShiftDataStorageInterface;
-import model.employee.shift.EmployeeShiftModelInterface;
-import util.db.SQLServerConnection;
-import view.function.employee.InsertedEmployeeObserver;
-import view.function.employee.ModifiedEmployeeObserver;
+import me.xdrop.fuzzywuzzy.FuzzySearch;
+import me.xdrop.fuzzywuzzy.model.BoundExtractedResult;
+import util.AppLog;
+import util.constant.AppConstant;
+import view.employee.InsertedEmployeeObserver;
+import view.employee.ModifiedEmployeeObserver;
 
 public class EmployeeManageModel implements EmployeeManageModelInterface {
 
-    private static final String FIND_NEXT_IDENTITY_EMPLOYEE
-            = "SELECT IDENT_CURRENT('" + EmployeeModel.TABLE_NAME + "') + 1";
+    private static final String SP_FIND_NEXT_IDENTITY_EMPLOYEE
+            = "{call get_next_identity_id_employee}";
 
-    private volatile static EmployeeManageModel uniqueInstance;
+    private static final String FIND_ALL_EMPLOYEE_QUERY
+            = "select * from ChiTietNhanVien";
 
-    private static EmployeeDataStorageInterface employeeDataStorage;
-    private static EmployeeShiftDataStorageInterface shiftDataStorage;
-    private static EmployeePositionDataStorageInterface positionDataStorage;
+    private static final String SP_FIND_ALL_POSITION_NAME
+            = "{call get_all_position_name}";
+    
+    private static final String SP_FIND_ALL_SHIFT_NAME
+            = "{call get_all_shift_name}";
 
-    private static Connection dbConnection;
-
-    static {
-        dbConnection = SQLServerConnection.getConnection();
-        employeeDataStorage = EmployeeDataStorage.getInstance();
-        shiftDataStorage = EmployeeShiftDataStorage.getInstance();
-        positionDataStorage = EmployeePositionDataStorage.getInstance();
-    }
+    private ArrayList<EmployeeModelInterface> employees;
 
     private List<InsertedEmployeeObserver> insertedEmployeeObservers;
     private List<ModifiedEmployeeObserver> modifiedEmployeeObservers;
 
-    private EmployeeManageModel() {
+    public EmployeeManageModel() {
+        employees = new ArrayList<>();
+        
         insertedEmployeeObservers = new ArrayList<>();
         modifiedEmployeeObservers = new ArrayList<>();
+        
+        updateFromDB();
     }
 
-    public static EmployeeManageModelInterface getInstance() {
-        if (uniqueInstance == null) {
-            synchronized (EmployeeManageModel.class) {
-                if (uniqueInstance == null) {
-                    uniqueInstance = new EmployeeManageModel();
-                }
+    @Override
+    public EmployeeModelInterface getEmployeeByIndex(int employeeIndex) {
+        if (employeeIndex < 0 || employeeIndex >= this.employees.size()) {
+            throw new IndexOutOfBoundsException("Employee index is out of bound.");
+        }
+        return this.employees.get(employeeIndex);
+    }
+
+    @Override
+    public Iterator<EmployeeModelInterface> getEmployeeSearchByName(String searchText) {
+        List<EmployeeModelInterface> ret = new ArrayList<>();
+        List<BoundExtractedResult<EmployeeModelInterface>> matches = FuzzySearch
+                .extractSorted(searchText, this.employees, employee -> employee.getName(),
+                        AppConstant.SEARCH_SCORE_CUT_OFF);
+        for (BoundExtractedResult<EmployeeModelInterface> element : matches) {
+            ret.add(element.getReferent());
+        }
+        return ret.iterator();
+    }
+
+    @Override
+    public void addEmployee(EmployeeModelInterface employee) {
+        if (employee == null) {
+            throw new NullPointerException("Employee instance is null.");
+        }
+        int index = this.employees.indexOf(employee);
+        if (index != -1) {
+            throw new IllegalArgumentException("Employee instance is already existed.");
+        }
+        this.employees.add(employee);
+        employee.insertToDatabase();
+        notifyInsertedEmployeeObserver(employee);
+    }
+
+    @Override
+    public boolean updateEmployee(EmployeeModelInterface employee) {
+        if (employee == null) {
+            throw new NullPointerException("Employee instance is null.");
+        }
+        int index = this.employees.indexOf(employee);
+        if (index == -1) {
+            return false;
+        }
+        employee.updateInDatabase();
+        notifyModifiedEmployeeObserver(employee);
+        return true;
+    }
+
+    @Override
+    public EmployeeModelInterface getEmployeeByID(String employeeIDText) {
+        for (EmployeeModelInterface employee : employees) {
+            if (employee.getEmployeeIDText().equals(employeeIDText)) {
+                return employee;
             }
         }
-        return uniqueInstance;
+        throw new IllegalArgumentException("Employee id '" + employeeIDText + "' is not existed.");
     }
 
     @Override
@@ -100,13 +144,13 @@ public class EmployeeManageModel implements EmployeeManageModelInterface {
     public String getNextEmployeeIDText() {
         int nextIdentity = 0;
         try {
-            Statement statement = dbConnection.createStatement();
-            ResultSet resultSet = statement.executeQuery(FIND_NEXT_IDENTITY_EMPLOYEE);
+            CallableStatement callableStatement = dbConnection.prepareCall(SP_FIND_NEXT_IDENTITY_EMPLOYEE);
+            ResultSet resultSet = callableStatement.executeQuery();
             if (resultSet.next()) {
                 nextIdentity = resultSet.getInt(1);
             }
             resultSet.close();
-            statement.close();
+            callableStatement.close();
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeManageModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -124,50 +168,69 @@ public class EmployeeManageModel implements EmployeeManageModelInterface {
     }
 
     @Override
-    public void addNewEmployee(EmployeeModelInterface newEmployee) {
-        employeeDataStorage.add(newEmployee);
-        notifyInsertedEmployeeObserver(newEmployee);
-    }
-
-    @Override
-    public void updateEmployee(EmployeeModelInterface updatedEmployee) {
-        employeeDataStorage.update(updatedEmployee);
-        notifyModifiedEmployeeObserver(updatedEmployee);
-    }
-
-    @Override
-    public EmployeeModelInterface getEmployeeByID(String employeeIDText) {
-        return employeeDataStorage.getEmployeeByID(employeeIDText);
-    }
-
-    @Override
     public Iterator<EmployeeModelInterface> getAllEmployeeData() {
-        return employeeDataStorage.createIterator();
+        return employees.iterator();
     }
 
     @Override
-    public Iterator<EmployeeModelInterface> getEmployeeSearchByName(String searchText) {
-        return employeeDataStorage.getEmployeeSearchByName(searchText);
+    public void updateFromDB() {
+        try {
+            Statement statement = dbConnection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(FIND_ALL_EMPLOYEE_QUERY);
+
+            employees.clear();
+
+            while (resultSet.next()) {
+                EmployeeModelInterface employee = new EmployeeModel();
+                employee.setProperty(resultSet);
+                employees.add(employee);
+            }
+
+            resultSet.close();
+            statement.close();
+
+            AppLog.getLogger().info("Update employee database: sucessfully, "
+                    + employees.size() + " rows inserted.");
+
+        } catch (SQLException ex) {
+            AppLog.getLogger().fatal("Update employee database: error.");
+        }
     }
 
     @Override
-    public int getEmployeePositionIndex(EmployeeModelInterface employee) {
-        return positionDataStorage.getPositionIndex(employee.getPosition());
+    public void clearData() {
+        employees.clear();
     }
 
     @Override
-    public Iterator<EmployeePositionModelInterface> getAllPositionData() {
-        return positionDataStorage.createIterator();
+    public List<String> getAllPositionName() {
+        List<String> ret = new ArrayList<>();
+        try {
+            CallableStatement callableStatement = dbConnection.prepareCall(SP_FIND_ALL_POSITION_NAME);
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                ret.add(resultSet.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeManageModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ret;
     }
 
     @Override
-    public Iterator<EmployeeShiftModelInterface> getAllShiftData() {
-        return shiftDataStorage.createIterator();
-    }
-
-    @Override
-    public int getShiftIndex(EmployeeShiftModelInterface shift) {
-        return shiftDataStorage.getShiftIndex(shift.getShiftIDText());
+    public List<String> getAllShiftName() {
+        List<String> ret = new ArrayList<>();
+        try {
+            CallableStatement callableStatement = dbConnection.prepareCall(SP_FIND_ALL_SHIFT_NAME);
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                ret.add(resultSet.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeManageModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ret;
     }
 
 }

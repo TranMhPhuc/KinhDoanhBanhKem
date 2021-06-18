@@ -1,11 +1,12 @@
 package model.provider;
 
 import java.util.Iterator;
-import view.function.provider.InsertedProviderObserver;
-import view.function.provider.ModifiedProviderObserver;
-import view.function.provider.RemovedProviderObserver;
+import model.DatabaseUpdate;
+import view.provider.InsertedProviderObserver;
+import view.provider.ModifiedProviderObserver;
+import view.provider.RemovedProviderObserver;
 
-public interface ProviderManageModelInterface {
+public interface ProviderManageModelInterface extends DatabaseUpdate {
 
     void registerInsertedProviderObserver(InsertedProviderObserver observer);
 
@@ -31,27 +32,18 @@ public interface ProviderManageModelInterface {
     
     //=========================================================================
 
-    void addNewProvider(ProviderModelInterface newProvider);
+    void addProvider(ProviderModelInterface newProvider);
     
-    void updateProvider(ProviderModelInterface updatedProvider);
+    boolean updateProvider(ProviderModelInterface updatedProvider);
     
-    void removeProvider(ProviderModelInterface removedProvider);
+    boolean removeProvider(ProviderModelInterface removedProvider);
     
     //=========================================================================
     
-    ProviderModelInterface getProvider(String providerIDText);
-
+    ProviderModelInterface getProviderByID(String providerIDText);
+    
     Iterator<ProviderModelInterface> getAllProviderData();
     
     Iterator<ProviderModelInterface> getProviderSearchByName(String searchText);
     
-    boolean isProviderNameExist(String providerName);
-    
-    boolean isProviderPhoneNumExist(String providerPhoneNum);
-    
-    boolean isProviderEmailExist(String providerEmail);
-    
-    boolean isProviderAddressExist(String providerAddress);
-    
-    boolean isProviderHavingAnyIngredient(ProviderModelInterface provider);
 }

@@ -1,96 +1,191 @@
 package control.ingredient;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 import model.ingredient.IngredientManageModelInterface;
 import model.ingredient.IngredientModel;
 import model.ingredient.IngredientModelInterface;
 import model.ingredient.type.IngredientTypeModel;
 import model.ingredient.type.IngredientTypeModelInterface;
-import model.ingredient.unit.IngredientUnitModelInterface;
-import model.provider.ProviderModelInterface;
 import org.junit.Assert;
 import util.constant.AppConstant;
-import view.dialog.ImportHistoryDialog;
-import view.dialog.IngredientImportDialog;
-import view.dialog.NewIngredientTypeCreateDialog;
-import view.function.ingredient.IngredientPanel;
-import view.main.MainFrame;
+import util.db.SQLServerConnection;
+import util.excel.ExcelTransfer;
+import view.ingredient.ImportHistoryDialog;
+import view.ingredient.IngredientImportDialog;
+import view.ingredient.NewIngredientTypeDialog;
+import view.ingredient.IngredientPanel;
 
 public class IngredientController implements IngredientControllerInterface {
 
-    private volatile static IngredientController uniqueInstance;
+    private static final String SP_CHECK_DELETE_CONDITION_INGREDIENT
+            = "{? = call check_if_ingredient_exists_in_any_product(?)}";
+
+    private static final String SP_CHECK_INGREDIENT_TYPE_NAME_EXISTED
+            = "{? = call check_if_ingredient_type_name_exist(?)}";
+
+    private static Connection dbConnection;
 
     private List<IngredientModelInterface> searchList;
 
-    private IngredientManageModelInterface model;
-    private IngredientPanel view;
+    private IngredientManageModelInterface ingredientManageModel;
+    private IngredientPanel ingredientPanel;
 
-    private NewIngredientTypeCreateDialog newIngredientTypeCreateDialog;
-    private IngredientImportDialog ingredientImportDialog;
-    private ImportHistoryDialog importHistoryDialog;
+    private NewIngredientTypeDialog dialogNewIngredientTypeCreate;
+    private IngredientImportDialog dialogIngredientImport;
+    private ImportHistoryDialog dialogImportHistory;
 
-    private IngredientController(IngredientManageModelInterface model) {
+    static {
+        dbConnection = SQLServerConnection.getConnection();
+    }
+
+    public IngredientController(IngredientManageModelInterface model) {
         this.searchList = new ArrayList<>();
-
-        this.model = model;
-        this.view = IngredientPanel.getInstance(model, this);
+        this.ingredientManageModel = model;
     }
 
-    public static IngredientController getInstance(IngredientManageModelInterface model) {
-        if (uniqueInstance == null) {
-            synchronized (IngredientController.class) {
-                if (uniqueInstance == null) {
-                    uniqueInstance = new IngredientController(model);
-                }
-            }
-        }
-        return uniqueInstance;
-    }
-
-    public static IngredientController getInstance() {
-        if (uniqueInstance == null) {
+    @Override
+    public void setIngredientPanelView(IngredientPanel ingredientPanel) {
+        if (ingredientPanel == null) {
             throw new NullPointerException();
         }
-        return uniqueInstance;
+        this.ingredientPanel = ingredientPanel;
+        ingredientPanel.setIngredientController(this);
+        ingredientPanel.setIngredientManageModel(ingredientManageModel);
     }
 
     @Override
     public void requestCreateNewIngredientType() {
-        if (this.newIngredientTypeCreateDialog == null) {
-            this.newIngredientTypeCreateDialog = new NewIngredientTypeCreateDialog(
-                    MainFrame.getInstance(), true, model, this);
+        if (this.dialogNewIngredientTypeCreate == null) {
+            this.dialogNewIngredientTypeCreate = new NewIngredientTypeDialog(
+                    ingredientPanel.getMainFrame(), true, ingredientManageModel, this);
         }
-        this.newIngredientTypeCreateDialog.setIngredientTypeID(String.valueOf(
-                this.model.getNextIngredientTypeIDText()));
-        this.newIngredientTypeCreateDialog.setVisible(true);
+        this.dialogNewIngredientTypeCreate.setVisible(true);
     }
 
     @Override
     public void requestViewImportHistory() {
-        int rowID = this.view.getSelectedRow();
-        if (rowID == -1) {
-            this.view.showInfoMessage("You should choose one ingredient first.");
-        } else {
-            // XXX
+        if (dialogIngredientImport == null) {
+            dialogImportHistory = new ImportHistoryDialog(ingredientPanel.getMainFrame(),
+                    true, this, ingredientManageModel);
         }
+
+        Date todayStart = Date.from(LocalDate.now()
+                .atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        dialogImportHistory.setDateFrom(todayStart);
+        dialogImportHistory.setDateTo(Date.from(Instant.now()));
+
+        dialogImportHistory.showImportHistoryFromDateRange();
+
+        dialogImportHistory.setVisible(true);
+    }
+
+    @Override
+    public void viewImportHistory() {
+        Date dateFrom = dialogImportHistory.getDateFromInput();
+
+        Date dateTo = dialogImportHistory.getDateToInput();
+
+        LocalDate dateFromLocal = dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        LocalDate dateToLocal = dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        if (dateFromLocal.isAfter(dateToLocal)) {
+            dialogImportHistory.showErrorMessage("Error: Date to is before date from.");
+            return;
+        }
+
+        dialogImportHistory.showImportHistoryFromDateRange();
     }
 
     @Override
     public void requestImportIngredient() {
-        int rowID = this.view.getSelectedRow();
-        if (rowID == -1) {
-            this.view.showInfoMessage("You should choose one ingredient first.");
-        } else {
-            // XXX
+        int ingredientTotalNumber = ingredientManageModel.getIngredientTotalNumber();
+
+        if (ingredientTotalNumber == 0) {
+            this.ingredientPanel.showErrorMessage("Ingredient data list is empty.");
+            return;
         }
+
+        int rowID = this.ingredientPanel.getSelectedRow();
+
+        if (rowID == -1) {
+            this.ingredientPanel.showInfoMessage("You should choose one ingredient first.");
+            return;
+        }
+
+        IngredientModelInterface ingredient = this.searchList.get(rowID);
+
+        if (dialogIngredientImport == null) {
+            dialogIngredientImport = new IngredientImportDialog(
+                    ingredientPanel.getMainFrame(), true, this);
+        }
+
+        dialogIngredientImport.setIngredientIDText(ingredient.getIngredientIDText());
+        dialogIngredientImport.setIngredientName(ingredient.getName());
+        dialogIngredientImport.setLabelIngredientUnit(ingredient.getUnitName());
+        dialogIngredientImport.setIngredientTotalCost(String.valueOf(ingredient.getCost()));
+        dialogIngredientImport.setImportDate(Date.from(Instant.now()));
+        dialogIngredientImport.setVisible(true);
+    }
+
+    @Override
+    public void showTotalCostIngredientImport() {
+        int importAmount = dialogIngredientImport.getImportAmountInput();
+
+        int rowID = this.ingredientPanel.getSelectedRow();
+
+        IngredientModelInterface ingredient = this.searchList.get(rowID);
+
+        long totalCost = ingredient.getCost() * importAmount;
+
+        dialogIngredientImport.setIngredientTotalCost(String.valueOf(totalCost));
+    }
+
+    @Override
+    public void importIngredient() {
+        int importAmount = dialogIngredientImport.getImportAmountInput();
+
+        int rowID = this.ingredientPanel.getSelectedRow();
+
+        IngredientModelInterface ingredient = this.searchList.get(rowID);
+
+        Date importDate = dialogIngredientImport.getImportDateInput();
+
+        LocalDate importDateLocal = importDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        if (importDateLocal.isBefore(LocalDate.now())) {
+            dialogIngredientImport.showErrorMessage("Please enter valid date import.");
+            return;
+        }
+
+        ingredientManageModel.importIngredient(ingredient, importDate, importAmount,
+                ingredient.getUnitName());
+
+        ingredientPanel.showInfoMessage("Request to import ingredient successfully.");
     }
 
     @Override
     public void requestShowIngredientInfo() {
-        int rowID = this.view.getSelectedRow();
+        if (ingredientPanel.getEditState() == IngredientPanel.EditState.ADD) {
+            return;
+        }
+
+        int rowID = this.ingredientPanel.getSelectedRow();
         if (rowID == -1) {
             return;
         }
@@ -98,12 +193,12 @@ public class IngredientController implements IngredientControllerInterface {
             throw new IndexOutOfBoundsException("Row index is not in bound.");
         }
         IngredientModelInterface ingredient = this.searchList.get(rowID);
-        this.view.showIngredientInfo(ingredient);
+        this.ingredientPanel.showIngredientInfo(ingredient);
     }
 
     @Override
     public Iterator<IngredientModelInterface> getAllIngredientData() {
-        Iterator<IngredientModelInterface> iterator = this.model.getAllIngredientData();
+        Iterator<IngredientModelInterface> iterator = this.ingredientManageModel.getAllIngredientData();
         this.searchList.clear();
         while (iterator.hasNext()) {
             this.searchList.add(iterator.next());
@@ -113,7 +208,7 @@ public class IngredientController implements IngredientControllerInterface {
 
     @Override
     public Iterator<IngredientModelInterface> getIngredientBySearchName(String searchText) {
-        Iterator<IngredientModelInterface> iterator = this.model.getIngredientSearchByName(searchText);
+        Iterator<IngredientModelInterface> iterator = this.ingredientManageModel.getIngredientSearchByName(searchText);
         this.searchList.clear();
         while (iterator.hasNext()) {
             this.searchList.add(iterator.next());
@@ -121,199 +216,284 @@ public class IngredientController implements IngredientControllerInterface {
         return this.searchList.iterator();
     }
 
+    private boolean isProviderNameVallid(String providerName) {
+        if (providerName == null) {
+            this.ingredientPanel.showErrorMessage("Please create a new provider first.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isIngredientTypeNameVallid(String ingredientTypeName) {
+        if (ingredientTypeName == null) {
+            this.ingredientPanel.showErrorMessage("Please create a new ingredient type first.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isIngredientUnitNameVallid(String ingredientUnitName) {
+        if (ingredientUnitName == null) {
+            this.ingredientPanel.showErrorMessage("System error: Can not load unit data.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isIngredientNameVallid(String ingredientName) {
+        if (ingredientName.isEmpty()) {
+            this.ingredientPanel.showErrorMessage("Ingredient name must not be empty.");
+            return false;
+        }
+
+        Iterator<IngredientModelInterface> iterator = ingredientManageModel.getAllIngredientData();
+
+        while (iterator.hasNext()) {
+            IngredientModelInterface ingredient = iterator.next();
+            if (ingredient.getName().equals(ingredientName)) {
+                this.ingredientPanel.showErrorMessage("Ingredient name is already existed.");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean isIngredientCostVallid(long ingredientCost) {
+        if (ingredientCost <= 0) {
+            this.ingredientPanel.showErrorMessage("Ingredient cost must be greater than 0.");
+            return false;
+        }
+
+        return true;
+    }
+
     @Override
     public void requestCreateIngredient() {
-        String ingredientIDText = this.view.getIngredientIDText();
+        String ingredientIDText = this.ingredientPanel.getIngredientIDText();
 
-        int providerSelectIndex = this.view.getProviderSelectIndex();
+        String ingredientName = this.ingredientPanel.getIngredientNameInput();
 
-        if (providerSelectIndex == -1) {
-            this.view.showErrorMessage("Please create a new provider first.");
+        if (!isIngredientNameVallid(ingredientName)) {
             return;
         }
 
-        ProviderModelInterface provider = this.model.getProviderByIndex(providerSelectIndex);
-
-        int ingredientTypeSelectIndex = this.view.getIngredientTypeSelectIndex();
-
-        if (ingredientTypeSelectIndex == -1) {
-            this.view.showErrorMessage("Please create a new ingredient type first.");
+        String providerName = this.ingredientPanel.getProviderNameSelected();
+        if (!isProviderNameVallid(providerName)) {
             return;
         }
 
-        IngredientTypeModelInterface ingredientType = this.model.getIngredientTypeByIndex(ingredientTypeSelectIndex);
+        String ingredientTypeName = this.ingredientPanel.getIngredientTypeNameSelected();
 
-        int ingredientUnitSelectIndex = this.view.getIngredientUnitSelectIndex();
-
-        if (ingredientUnitSelectIndex == -1) {
-            this.view.showErrorMessage("Please create a new ingredient unit first.");
+        if (!isIngredientTypeNameVallid(ingredientTypeName)) {
             return;
         }
 
-        IngredientUnitModelInterface ingredientUnit = this.model.getIngredientUnitByIndex(ingredientUnitSelectIndex);
+        String ingredientUnitName = this.ingredientPanel.getIngredientUnitNameSelected();
 
-        String ingredientName = this.view.getIngredientNameInput();
-
-        if (ingredientName.isEmpty()) {
-            this.view.showErrorMessage("Ingredient name is required.");
-            return;
-        }
-        if (this.model.isIngredientNameExist(ingredientName)) {
-            this.view.showErrorMessage("Ingredient name is existed.");
+        if (!isIngredientUnitNameVallid(ingredientUnitName)) {
             return;
         }
 
-        String ingredientCostText = this.view.getIngredientCostInput();
+        String ingredientCostInputText = this.ingredientPanel.getIngredientCostInput();
+
         long ingredientCost = 0;
+
         try {
-            ingredientCost = Long.parseLong(ingredientCostText);
+            ingredientCost = Long.parseLong(ingredientCostInputText);
         } catch (NumberFormatException ex) {
-            this.view.showErrorMessage("Please enter ingredient cost in number.");
-            return;
-        }
-        if (ingredientCost <= 0) {
-            this.view.showErrorMessage("Ingredient cost is invallid.");
+            this.ingredientPanel.showErrorMessage("Please enter ingredient cost in number.");
             return;
         }
 
-        // Update model
+        if (!isIngredientCostVallid(ingredientCost)) {
+            return;
+        }
+
         IngredientModelInterface ingredient = new IngredientModel();
         ingredient.setIngredientID(ingredientIDText);
         ingredient.setName(ingredientName);
         ingredient.setCost(ingredientCost);
-        ingredient.setProvider(provider);
-        ingredient.setIngredientType(ingredientType);
-        ingredient.setIngredientUnit(ingredientUnit);
+        ingredient.setProviderName(providerName);
+        ingredient.setIngredientTypeName(ingredientTypeName);
+        ingredient.setUnitName(ingredientUnitName);
 
-        this.model.addNewIngredient(ingredient);
+        this.ingredientManageModel.addIngredient(ingredient);
 
         // Update view
-        this.view.exitEditState();
-        this.view.showInfoMessage("Insert new ingredient successfully.");
+        this.ingredientPanel.exitEditState();
+
+        this.ingredientPanel.showInfoMessage("Insert new ingredient successfully.");
     }
 
     @Override
     public void requestUpdateIngredient() {
-        String ingredientIDText = this.view.getIngredientIDText();
+        String ingredientIDText = this.ingredientPanel.getIngredientIDText();
 
-        IngredientModelInterface ingredient = this.model.getIngredient(ingredientIDText);
+        IngredientModelInterface ingredient = ingredientManageModel.getIngredientByID(ingredientIDText);
 
-        Assert.assertNotNull(ingredient);
+        String ingredientName = this.ingredientPanel.getIngredientNameInput();
 
-        int providerSelectIndex = this.view.getProviderSelectIndex();
-
-        ProviderModelInterface provider = this.model.getProviderByIndex(providerSelectIndex);
-
-        int ingredientTypeSelectIndex = this.view.getIngredientTypeSelectIndex();
-
-        IngredientTypeModelInterface ingredientType = this.model.getIngredientTypeByIndex(ingredientTypeSelectIndex);
-
-        int ingredientUnitSelectIndex = this.view.getIngredientUnitSelectIndex();
-
-        IngredientUnitModelInterface ingredientUnit = this.model.getIngredientUnitByIndex(ingredientUnitSelectIndex);
-
-        String ingredientNameInput = this.view.getIngredientNameInput();
-
-        if (!ingredient.getName().equals(ingredientNameInput)) {
-            if (ingredientNameInput.isEmpty()) {
-                this.view.showErrorMessage("Ingredient name is required.");
-                return;
-            }
-            if (this.model.isIngredientNameExist(ingredientNameInput)) {
-                this.view.showErrorMessage("Ingredient name is existed.");
+        if (!ingredient.getName().equals(ingredientName)) {
+            if (!isIngredientNameVallid(ingredientName)) {
                 return;
             }
         }
 
-        String ingredientCostText = this.view.getIngredientCostInput();
+        String providerName = this.ingredientPanel.getProviderNameSelected();
+        if (!isProviderNameVallid(providerName)) {
+            return;
+        }
+
+        String ingredientTypeName = this.ingredientPanel.getIngredientTypeNameSelected();
+
+        if (!isIngredientTypeNameVallid(ingredientTypeName)) {
+            return;
+        }
+
+        String ingredientUnitName = this.ingredientPanel.getIngredientUnitNameSelected();
+
+        if (!isIngredientUnitNameVallid(ingredientUnitName)) {
+            return;
+        }
+
+        String ingredientCostInputText = this.ingredientPanel.getIngredientCostInput();
+
         long ingredientCost = 0;
+
         try {
-            ingredientCost = Long.parseLong(ingredientCostText);
+            ingredientCost = Long.parseLong(ingredientCostInputText);
         } catch (NumberFormatException ex) {
-            this.view.showErrorMessage("Please enter ingredient cost in number.");
-            return;
-        }
-        if (ingredientCost <= 0) {
-            this.view.showErrorMessage("Ingredient cost is invallid.");
+            this.ingredientPanel.showErrorMessage("Please enter ingredient cost in number.");
             return;
         }
 
-        ingredient.setName(ingredientNameInput);
+        if (!isIngredientCostVallid(ingredientCost)) {
+            return;
+        }
+
+        ingredient.setName(ingredientName);
         ingredient.setCost(ingredientCost);
-        ingredient.setProvider(provider);
-        ingredient.setIngredientType(ingredientType);
-        ingredient.setIngredientUnit(ingredientUnit);
+        ingredient.setProviderName(providerName);
+        ingredient.setIngredientTypeName(ingredientTypeName);
+        ingredient.setUnitName(ingredientUnitName);
 
-        this.model.updateIngredient(ingredient);
+        this.ingredientManageModel.updateIngredient(ingredient);
 
-        this.view.exitEditState();
-        this.view.showInfoMessage("Update ingredient data successfully.");
+        this.ingredientPanel.exitEditState();
+
+        this.ingredientPanel.showInfoMessage("Update ingredient data successfully.");
     }
 
     @Override
     public void requestRemoveIngredient() {
-        String ingredientIDText = this.view.getIngredientIDText();
+        String ingredientIDText = this.ingredientPanel.getIngredientIDText();
 
-        IngredientModelInterface ingredient = this.model.getIngredient(ingredientIDText);
-
+        IngredientModelInterface ingredient = ingredientManageModel
+                .getIngredientByID(ingredientIDText);
         Assert.assertNotNull(ingredient);
 
-        if (this.model.isIngredientOfAnyProduct(ingredient)) {
-            this.view.showErrorMessage("Can not delete ingredient with existed product including it.");
-            return;
+        try {
+            CallableStatement callableStatement = dbConnection
+                    .prepareCall(SP_CHECK_DELETE_CONDITION_INGREDIENT);
+            callableStatement.registerOutParameter(1, Types.BOOLEAN);
+            ingredient.setKeyArg(2, IngredientModel.ID_HEADER, callableStatement);
+            callableStatement.execute();
+
+            boolean isIncludedInProduct = callableStatement.getBoolean(1);
+
+            if (isIncludedInProduct) {
+                this.ingredientPanel.showErrorMessage("Can not delete ingredient included in product.");
+                return;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        this.model.removeIngredient(ingredient);
+        this.ingredientManageModel.removeIngredient(ingredient);
+
         this.searchList.remove(ingredient);
 
-        this.view.showInfoMessage("Delete ingredient successfully.");
+        this.ingredientPanel.showInfoMessage("Delete ingredient successfully.");
+    }
+
+    @Override
+    public boolean isNewIngredientTypeNameVallid(String ingredientTypeName) {
+        if (ingredientTypeName.isEmpty()) {
+            this.dialogNewIngredientTypeCreate.showErrorMessage("Ingredient type name must not be empty.");
+            return false;
+        }
+
+        try {
+            CallableStatement callableStatement = dbConnection
+                    .prepareCall(SP_CHECK_INGREDIENT_TYPE_NAME_EXISTED);
+            callableStatement.registerOutParameter(1, Types.BOOLEAN);
+            callableStatement.setString(2, ingredientTypeName);
+            callableStatement.execute();
+
+            boolean isTypeNameExisted = callableStatement.getBoolean(1);
+
+            if (isTypeNameExisted) {
+                this.dialogNewIngredientTypeCreate.showErrorMessage("Ingredient type name is already existed.");
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return true;
     }
 
     @Override
     public void createNewIngredientType() {
-        String ingredientTypeIDText = this.newIngredientTypeCreateDialog.getIngredientTypeIDText();
+        String ingredientTypeName = this.dialogNewIngredientTypeCreate.getIngredientTypeName();
 
-        String ingredientTypeName = this.newIngredientTypeCreateDialog.getIngredientTypeName();
-
-        if (ingredientTypeName.isEmpty()) {
-            this.newIngredientTypeCreateDialog.showErrorMessage("Ingredient type name is required.");
+        if (!isNewIngredientTypeNameVallid(ingredientTypeName)) {
             return;
         }
 
-        boolean isTypeNameExist = this.model.isIngredientTypeNameExist(ingredientTypeName);
-
-        if (isTypeNameExist) {
-            this.newIngredientTypeCreateDialog.showErrorMessage("Ingredient type with name is already existed.");
-            return;
-        }
         IngredientTypeModelInterface ingredientType = new IngredientTypeModel();
-        ingredientType.setIngredientTypeIDText(ingredientTypeIDText);
         ingredientType.setName(ingredientTypeName);
-        this.model.addNewIngredientType(ingredientType);
 
-        this.view.setIngredientTypeSelectIndex(ingredientType.getName());
-        this.view.showInfoMessage("Create new ingredient type successfully.");
+        ingredientManageModel.addIngredientType(ingredientType);
 
-        this.newIngredientTypeCreateDialog.dispose();
+        this.ingredientPanel.showInfoMessage("Create new ingredient type successfully.");
+
+        this.dialogNewIngredientTypeCreate.dispose();
     }
 
     @Override
     public void requestImportExcel() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ExcelTransfer.importExcelFileToTable(ingredientPanel.getTableIngredient());
     }
 
     @Override
     public void requestExportExcel() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (ingredientPanel.getTableIngredientRowCount() == 0) {
+            ingredientPanel.showErrorMessage("Table product data is empty.");
+        } else {
+            ExcelTransfer.exportTableToExcel(ingredientPanel.getTableIngredient());
+        }
     }
 
     @Override
-    public boolean insertToSearchListByMatchingName(String searchText, IngredientModelInterface ingredient) {
+    public void requestCreateTemplateExcel() {
+        ExcelTransfer.createExcelFileTemplate(ingredientPanel.getTableIngredient());
+    }
+
+    @Override
+    public boolean isSearchMatching(String searchText, IngredientModelInterface ingredient) {
         if (ingredient == null) {
             throw new NullPointerException("Ingredient instance is null.");
         }
         boolean ret = searchText.isEmpty()
-                || (FuzzySearch.ratio(searchText, ingredient.getName()) >= AppConstant.SEARCH_SCORE_CUT_OFF);
+                || (FuzzySearch.weightedRatio(searchText, ingredient.getName())
+                >= AppConstant.SEARCH_SCORE_CUT_OFF);
         if (ret) {
             this.searchList.add(ingredient);
         }
@@ -331,6 +511,24 @@ public class IngredientController implements IngredientControllerInterface {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean canCloseIngredientManagePanel() {
+        if (ingredientPanel.getEditState() == IngredientPanel.EditState.ADD
+                || ingredientPanel.getEditState() == IngredientPanel.EditState.MODIFY) {
+            int ret = JOptionPane.showConfirmDialog(ingredientPanel.getMainFrame(),
+                    "Cancel editing ingredient?",
+                    "Cancel editing ingredient confirm dialog",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (ret == JOptionPane.YES_OPTION) {
+                ingredientPanel.exitEditState();
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

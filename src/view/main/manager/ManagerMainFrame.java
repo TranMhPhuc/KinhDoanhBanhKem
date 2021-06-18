@@ -1,20 +1,152 @@
 package view.main.manager;
 
+import control.app.MainFrameControllerInterface;
+import control.employee.EmployeeController;
+import control.employee.EmployeeControllerInterface;
+import control.ingredient.IngredientController;
+import control.ingredient.IngredientControllerInterface;
+import control.product.ProductController;
+import control.product.ProductControllerInterface;
+import control.provider.ProviderController;
+import control.provider.ProviderControllerInterface;
+import control.setting.ManagerSettingController;
+import control.setting.SettingController;
+import java.awt.CardLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import model.employee.EmployeeManageModel;
+import model.employee.EmployeeManageModelInterface;
+import model.ingredient.IngredientManageModel;
+import model.ingredient.IngredientManageModelInterface;
+import model.product.ProductManageModel;
+import model.product.ProductManageModelInterface;
+import model.provider.ProviderManageModel;
+import model.provider.ProviderManageModelInterface;
+import model.setting.AppSetting;
+import model.setting.SettingUpdateObserver;
+import model.user.UserModelInterface;
 import util.constant.AppConstant;
+import view.MessageShowing;
 
-public class ManagerMainFrame extends javax.swing.JFrame {
+public class ManagerMainFrame extends javax.swing.JFrame implements MessageShowing,
+        SettingUpdateObserver {
+
+    private UserModelInterface userModel;
+    private MainFrameControllerInterface mainFrameController;
+
+    private ProductManageModelInterface productManageModel;
+    private ProductControllerInterface productController;
+
+    private IngredientManageModelInterface ingredientManageModel;
+    private IngredientControllerInterface ingredientController;
+
+    private ProviderManageModelInterface providerManageModel;
+    private ProviderControllerInterface providerController;
+
+    private EmployeeManageModelInterface employeeManageModel;
+    private EmployeeControllerInterface employeeController;
+
+    private AppSetting appSettingModel;
+    private ManagerSettingController managerSettingController;
 
     private JLabel choosedLabel;
+    private CardLayout cardLayoutPanelCenter;
 
-    public ManagerMainFrame() {
+    public ManagerMainFrame(MainFrameControllerInterface mainFrameController,
+            UserModelInterface userModel) {
+        this.mainFrameController = mainFrameController;
+        this.userModel = userModel;
+        this.userModel.setMainFrame(this);
+
         initComponents();
-        this.choosedLabel = null;
-        createControl();
+        this.cardLayoutPanelCenter = (CardLayout) panelCenter.getLayout();
         setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
+
+        panelProduct.setMainFrame(this);
+        panelIngredient.setMainFrame(this);
+        panelProvider.setMainFrame(this);
+        panelEmployee.setMainFrame(this);
+        panelSettings.setMainFrame(this);
+
+        createView();
+        createControl();
+    }
+
+    private void createView() {
+        this.choosedLabel = labelHome;
+        choosedLabel.setBackground(AppConstant.COLOR_MENU_MOUSE_PRESS);
+        cardLayoutPanelCenter.show(panelCenter, panelHome.getName());
+
+        mainFrameController.setProfilePanelView(panelProfile);
+        userModel.setProfilePanelView(panelProfile);
+
+        productManageModel = new ProductManageModel();
+        productManageModel.registerInsertedProductObserver(panelHome);
+        productManageModel.registerModifiedProductObserver(panelHome);
+        productManageModel.registerRemovedProductObserver(panelHome);
+
+        productController = new ProductController(productManageModel);
+        productController.setProductPanelView(panelProduct);
+
+        ingredientManageModel = new IngredientManageModel();
+        ingredientManageModel.registerInsertedIngredientObserver(productController);
+        ingredientManageModel.registerModifiedIngredientObserver(productController);
+
+        ingredientManageModel.registerInsertedIngredientObserver(panelHome);
+        ingredientManageModel.registerModifiedIngredientObserver(panelHome);
+        ingredientManageModel.registerRemovedIngredientObserver(panelHome);
+
+        ingredientController = new IngredientController(ingredientManageModel);
+        ingredientController.setIngredientPanelView(panelIngredient);
+
+        providerManageModel = new ProviderManageModel();
+        providerManageModel.registerInsertedProviderObserver(panelIngredient);
+        providerManageModel.registerModifiedProviderObserver(panelIngredient);
+        providerManageModel.registerRemovedProviderObserver(panelIngredient);
+
+        providerManageModel.registerInsertedProviderObserver(panelHome);
+        providerManageModel.registerModifiedProviderObserver(panelHome);
+        providerManageModel.registerRemovedProviderObserver(panelHome);
+
+        providerController = new ProviderController(providerManageModel);
+        providerController.setProviderPanelView(panelProvider);
+
+        employeeManageModel = new EmployeeManageModel();
+        employeeController = new EmployeeController(employeeManageModel);
+        employeeController.setEmployeePanelView(panelEmployee);
+
+        employeeManageModel.registerInsertedEmployeeObserver(panelHome);
+        employeeManageModel.registerModifiedEmployeeObserver(panelHome);
+
+        appSettingModel = AppSetting.getInstance();
+        managerSettingController = new ManagerSettingController(appSettingModel);
+        managerSettingController.setManagerSettingPanel(panelSettings);
+
+        appSettingModel.registerObserver(this);
+        updateSettingObserver();
+
+        appSettingModel.registerObserver(panelProfile);
+        panelProfile.updateSettingObserver();
+
+        appSettingModel.registerObserver(panelHome);
+        panelHome.updateSettingObserver();
+
+        appSettingModel.registerObserver(panelProduct);
+        panelProduct.updateSettingObserver();
+
+        appSettingModel.registerObserver(panelIngredient);
+        panelIngredient.updateSettingObserver();
+
+        appSettingModel.registerObserver(panelProvider);
+        panelProvider.updateSettingObserver();
+
+        appSettingModel.registerObserver(panelEmployee);
+        panelEmployee.updateSettingObserver();
     }
 
     private void createControl() {
@@ -41,11 +173,45 @@ public class ManagerMainFrame extends javax.swing.JFrame {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     if (label != choosedLabel) {
-                        if (choosedLabel != null) {
-                            choosedLabel.setBackground(AppConstant.COLOR_MENU_MOUSE_EXIT);
+                        if (choosedLabel == labelProfile) {
+                            if (!mainFrameController.canCloseProfilePanel()) {
+                                return;
+                            }
+                        } else if (choosedLabel == labelProduct) {
+                            if (!productController.canCloseProductManagePanel()) {
+                                return;
+                            }
+                        } else if (choosedLabel == labelIngredient) {
+                            if (!ingredientController.canCloseIngredientManagePanel()) {
+                                return;
+                            }
+                        } else if (choosedLabel == labelProvider) {
+                            if (!providerController.canCloseProviderManagePanel()) {
+                                return;
+                            }
+                        } else if (choosedLabel == labelEmployee) {
+                            if (!employeeController.canCloseEmployeeManagePanel()) {
+                                return;
+                            }
                         }
+                        choosedLabel.setBackground(AppConstant.COLOR_MENU_MOUSE_EXIT);
                         label.setBackground(AppConstant.COLOR_MENU_MOUSE_PRESS);
                         choosedLabel = label;
+                        if (label == labelProfile) {
+                            cardLayoutPanelCenter.show(panelCenter, panelProfile.getName());
+                        } else if (label == labelHome) {
+                            cardLayoutPanelCenter.show(panelCenter, panelHome.getName());
+                        } else if (label == labelProduct) {
+                            cardLayoutPanelCenter.show(panelCenter, panelProduct.getName());
+                        } else if (label == labelIngredient) {
+                            cardLayoutPanelCenter.show(panelCenter, panelIngredient.getName());
+                        } else if (label == labelProvider) {
+                            cardLayoutPanelCenter.show(panelCenter, panelProvider.getName());
+                        } else if (label == labelEmployee) {
+                            cardLayoutPanelCenter.show(panelCenter, panelEmployee.getName());
+                        } else if (label == labelSettings) {
+                            cardLayoutPanelCenter.show(panelCenter, panelSettings.getName());
+                        }
                     }
                 }
             });
@@ -63,10 +229,60 @@ public class ManagerMainFrame extends javax.swing.JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                
+                mainFrameController.requestSignOut();
             }
         });
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                mainFrameController.requestCloseProgram();
+            }
+        });
+    }
 
+    @Override
+    public void updateSettingObserver() {
+        AppSetting.Language language = AppSetting.getInstance().getAppLanguage();
+
+        switch (language) {
+            case ENGLISH: {
+                labelProfile.setText("Profile");
+                labelProduct.setText("Product");
+                labelIngredient.setText("Ingredient");
+                labelProvider.setText("Provider");
+                labelEmployee.setText("Employee");
+                labelSettings.setText("Settings");
+                labelSignOut.setText("Sign out");
+                break;
+            }
+            case VIETNAMESE: {
+                labelProfile.setText("Thông tin cá nhân");
+                labelProduct.setText("Sản phẩm");
+                labelIngredient.setText("Nguyên liệu");
+                labelProvider.setText("Nhà cung cấp");
+                labelEmployee.setText("Nhân viên");
+                labelSettings.setText("Thiết lập");
+                labelSignOut.setText("Thoát");
+                break;
+            }
+        }
+
+        panelSide.repaint();
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "Application message dialog", JOptionPane.ERROR_MESSAGE);
+    }
+
+    @Override
+    public void showInfoMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "Application message dialog", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public void showWarningMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "Application message dialog", JOptionPane.WARNING_MESSAGE);
     }
 
     @SuppressWarnings("unchecked")
@@ -107,9 +323,15 @@ public class ManagerMainFrame extends javax.swing.JFrame {
         jSeparator7 = new javax.swing.JSeparator();
         labelSignOut = new javax.swing.JLabel();
         panelCenter = new javax.swing.JPanel();
-        profilePanel1 = new view.profile.ProfilePanel();
+        panelProfile = new view.profile.ProfilePanel();
+        panelHome = new view.main.manager.HomePanel();
+        panelProduct = new view.product.ProductPanel();
+        panelIngredient = new view.ingredient.IngredientPanel();
+        panelProvider = new view.provider.ProviderPanel();
+        panelEmployee = new view.employee.EmployeePanel();
+        panelSettings = new view.main.manager.ManagerSettingsPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 1000));
 
         panelTitle.setBackground(new java.awt.Color(62, 120, 207));
@@ -154,7 +376,7 @@ public class ManagerMainFrame extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel4.setText("Copyright © 2021 BMS System");
+        jLabel4.setText("Copyright © 2021 BMS Program");
         jLabel4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabel4.setPreferredSize(new java.awt.Dimension(230, 23));
         jPanel3.add(jLabel4, java.awt.BorderLayout.CENTER);
@@ -414,7 +636,24 @@ public class ManagerMainFrame extends javax.swing.JFrame {
         panelCenter.setBackground(new java.awt.Color(255, 255, 255));
         panelCenter.setPreferredSize(new java.awt.Dimension(100, 100));
         panelCenter.setLayout(new java.awt.CardLayout());
-        panelCenter.add(profilePanel1, "card2");
+        panelCenter.add(panelProfile, "Profile");
+        panelProfile.getAccessibleContext().setAccessibleParent(this);
+
+        panelCenter.add(panelHome, "Home");
+        panelHome.getAccessibleContext().setAccessibleParent(this);
+
+        panelCenter.add(panelProduct, "Product");
+        panelCenter.add(panelIngredient, "Ingredient");
+        panelIngredient.getAccessibleContext().setAccessibleParent(this);
+
+        panelCenter.add(panelProvider, "Provider");
+        panelProvider.getAccessibleContext().setAccessibleParent(this);
+
+        panelCenter.add(panelEmployee, "Employee");
+        panelEmployee.getAccessibleContext().setAccessibleParent(this);
+
+        panelCenter.add(panelSettings, "Settings");
+        panelSettings.getAccessibleContext().setAccessibleParent(this);
 
         jPanel1.add(panelCenter, java.awt.BorderLayout.CENTER);
 
@@ -422,45 +661,6 @@ public class ManagerMainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManagerMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManagerMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManagerMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManagerMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ManagerMainFrame().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -495,8 +695,14 @@ public class ManagerMainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel labelSettings;
     private javax.swing.JLabel labelSignOut;
     private javax.swing.JPanel panelCenter;
+    private view.employee.EmployeePanel panelEmployee;
+    private view.main.manager.HomePanel panelHome;
+    private view.ingredient.IngredientPanel panelIngredient;
+    private view.product.ProductPanel panelProduct;
+    private view.profile.ProfilePanel panelProfile;
+    private view.provider.ProviderPanel panelProvider;
+    private view.main.manager.ManagerSettingsPanel panelSettings;
     private javax.swing.JPanel panelSide;
     private javax.swing.JPanel panelTitle;
-    private view.profile.ProfilePanel profilePanel1;
     // End of variables declaration//GEN-END:variables
 }

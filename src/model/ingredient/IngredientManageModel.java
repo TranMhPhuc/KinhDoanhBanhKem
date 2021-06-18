@@ -1,91 +1,75 @@
 package model.ingredient;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLWarning;
-import java.sql.Statement;
+import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.ingredient.type.IngredientTypeDataStorage;
-import model.ingredient.type.IngredientTypeDataStorageInterface;
-import model.ingredient.type.IngredientTypeModel;
+import me.xdrop.fuzzywuzzy.FuzzySearch;
+import me.xdrop.fuzzywuzzy.model.BoundExtractedResult;
+import model.ingredient.importDetail.IngredientImportDetail;
+import model.ingredient.importDetail.IngredientImportDetailInterface;
 import model.ingredient.type.IngredientTypeModelInterface;
-import model.ingredient.unit.IngredientUnitDataStorage;
-import model.ingredient.unit.IngredientUnitDataStorageInterface;
-import model.ingredient.unit.IngredientUnitModelInterface;
-import model.ingredientOfProduct.IngredientDetailOfProduct;
-import model.provider.ProviderDataStorage;
-import model.provider.ProviderDataStorageInterface;
-import model.provider.ProviderModelInterface;
-import org.junit.Assert;
-import util.db.SQLServerConnection;
-import view.function.ingredient.InsertedIngredientObserver;
-import view.function.ingredient.InsertedIngredientTypeObserver;
-import view.function.ingredient.ModifiedIngredientObserver;
-import view.function.ingredient.RemovedIngredientObserver;
+import util.AppLog;
+import view.ingredient.InsertedIngredientObserver;
+import view.ingredient.InsertedIngredientTypeObserver;
+import view.ingredient.ModifiedIngredientObserver;
+import view.ingredient.RemovedIngredientObserver;
 
 public class IngredientManageModel implements IngredientManageModelInterface {
 
-    private static final String FIND_NEXT_IDENTITY_INGREDIENT
-            = "SELECT IDENT_CURRENT('" + IngredientModel.TABLE_NAME + "') + 1";
+    private static final String SP_GET_ALL_INGREDIENT
+            = "{call get_all_ingredients}";
 
-    private static final String FIND_NEXT_IDENTITY_INGREDIENT_TYPE
-            = "SELECT IDENT_CURRENT('" + IngredientTypeModel.TABLE_NAME + "') + 1";
+    private static final String SP_GET_ALL_INGREDIENT_TYPE_NAME
+            = "{call get_all_ingredient_type_name}";
 
-    private static final String CHECK_EXIST_INGREDIENT_OF_PRODUCT_QUERY_PROTOTYPE
-            = "IF EXISTS(SELECT * FROM " + IngredientDetailOfProduct.TABLE_NAME
-            + " WHERE " + IngredientModel.ID_HEADER + " = ?)\n"
-            + "BEGIN\n"
-            + "	PRINT 1\n"
-            + "END\n"
-            + "ELSE\n"
-            + "BEGIN\n"
-            + "	PRINT 0\n"
-            + "END";
+    private static final String SP_GET_ALL_INGREDIENT_UNIT_NAME
+            = "{call get_all_unit_name}";
 
-    private volatile static IngredientManageModel uniqueInstance;
+    private static final String SP_GET_ALL_PROVIDER_NAME
+            = "{call get_all_provider_name}";
 
-    private static IngredientDataStorageInterface ingredientDataStorage;
-    private static IngredientTypeDataStorageInterface ingredientTypeDataStorage;
-    private static IngredientUnitDataStorageInterface ingredientUnitDataStorage;
-    private static ProviderDataStorageInterface providerDataStorage;
+    private static final String SP_FIND_NEXT_IDENTITY_INGREDIENT
+            = "{call get_next_identity_id_ingredient}";
 
-    private static Connection dbConnection;
+    private static final String SP_FIND_NEXT_IDENTITY_INGREDIENT_TYPE
+            = "{call get_next_identity_id_ingredient_type}";
+
+    private static final String SP_IMPORT_INGREDIENT
+            = "{call insert_ChiTietNhapNL(?, ?, ?, ?)}";
+
+    private static final String FT_GET_AMOUNT_OF_INGREDIENT
+            = "{? = call get_amount_of_ingredient(?)}";
+
+    private static final String SP_GET_ALL_IMPORT_HISTORY
+            = "{call get_ChiTietNhapNguyneLieu_from_date_range(?, ?)}";
+
+    private static final String SP_UPDATE_PROVIDER_NAME
+            = "{? = call get_provider_name_of_ingredient(?)}";
+
+    private ArrayList<IngredientModelInterface> ingredients;
 
     private List<InsertedIngredientObserver> insertedIngredientObservers;
     private List<ModifiedIngredientObserver> modifiedIngredientObservers;
     private List<RemovedIngredientObserver> removedIngredientObservers;
     private List<InsertedIngredientTypeObserver> insertedIngredientTypeObservers;
 
-    static {
-        dbConnection = SQLServerConnection.getConnection();
-        ingredientDataStorage = IngredientDataStorage.getInstance();
-        ingredientTypeDataStorage = IngredientTypeDataStorage.getInstance();
-        ingredientUnitDataStorage = IngredientUnitDataStorage.getInstance();
-        providerDataStorage = ProviderDataStorage.getInstance();
-    }
+    public IngredientManageModel() {
+        ingredients = new ArrayList<>();
 
-    private IngredientManageModel() {
         insertedIngredientObservers = new ArrayList<>();
         modifiedIngredientObservers = new ArrayList<>();
         removedIngredientObservers = new ArrayList<>();
         insertedIngredientTypeObservers = new ArrayList<>();
-    }
 
-    public static IngredientManageModelInterface getInstance() {
-        if (uniqueInstance == null) {
-            synchronized (IngredientManageModel.class) {
-                if (uniqueInstance == null) {
-                    uniqueInstance = new IngredientManageModel();
-                }
-            }
-        }
-        return uniqueInstance;
+        updateFromDB();
     }
 
     @Override
@@ -168,13 +152,17 @@ public class IngredientManageModel implements IngredientManageModelInterface {
     public String getNextIngredientIDText() {
         int nextIdentity = 0;
         try {
-            Statement statement = dbConnection.createStatement();
-            ResultSet resultSet = statement.executeQuery(FIND_NEXT_IDENTITY_INGREDIENT);
+            CallableStatement callableStatement = dbConnection
+                    .prepareCall(SP_FIND_NEXT_IDENTITY_INGREDIENT);
+
+            ResultSet resultSet = callableStatement.executeQuery();
+
             if (resultSet.next()) {
                 nextIdentity = resultSet.getInt(1);
             }
+
             resultSet.close();
-            statement.close();
+            callableStatement.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredientManageModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -185,20 +173,21 @@ public class IngredientManageModel implements IngredientManageModelInterface {
     public String getNextIngredientTypeIDText() {
         int nextIdentity = 0;
         try {
-            Statement statement = dbConnection.createStatement();
-            ResultSet resultSet = statement.executeQuery(FIND_NEXT_IDENTITY_INGREDIENT_TYPE);
+            CallableStatement callableStatement = dbConnection
+                    .prepareCall(SP_FIND_NEXT_IDENTITY_INGREDIENT_TYPE);
+
+            ResultSet resultSet = callableStatement.executeQuery();
+
             if (resultSet.next()) {
                 nextIdentity = resultSet.getInt(1);
             }
+
+            resultSet.close();
+            callableStatement.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredientManageModel.class.getName()).log(Level.SEVERE, null, ex);
         }
         return String.valueOf(nextIdentity);
-    }
-
-    @Override
-    public int getIngredientNumber() {
-        return ingredientDataStorage.getSize();
     }
 
     @Override
@@ -214,82 +203,91 @@ public class IngredientManageModel implements IngredientManageModelInterface {
     }
 
     @Override
-    public void addNewIngredient(IngredientModelInterface newIngredient) {
-        ingredientDataStorage.add(newIngredient);
-        notifyInsertedIngredientObserver(newIngredient);
+    public IngredientModelInterface getIngredientByID(String ingredientIDText) {
+        for (IngredientModelInterface element : ingredients) {
+            if (element.getIngredientIDText().equals(ingredientIDText)) {
+                return element;
+            }
+        }
+        throw new IllegalArgumentException("Ingredient id '" + ingredientIDText + "' is not existed.");
     }
 
     @Override
-    public void updateIngredient(IngredientModelInterface updatedIngredient) {
-        ingredientDataStorage.update(updatedIngredient);
-        notifyModifiedIngredientObserver(updatedIngredient);
+    public void addIngredient(IngredientModelInterface ingredient) {
+        if (ingredient == null) {
+            throw new NullPointerException();
+        }
+        int index = this.ingredients.indexOf(ingredient);
+        if (index != -1) {
+            throw new IllegalArgumentException("Ingredient instance is already existed.");
+        } else {
+            this.ingredients.add(ingredient);
+            ingredient.insertToDatabase();
+            notifyInsertedIngredientObserver(ingredient);
+        }
     }
 
     @Override
-    public void removeIngredient(IngredientModelInterface removedIngredient) {
-        ingredientDataStorage.remove(removedIngredient);
-        notifyRemovedIngredientObserver(removedIngredient);
-    }
-
-    @Override
-    public IngredientModelInterface getIngredient(String ingredientIDText) {
-        return ingredientDataStorage.getIngredientByID(ingredientIDText);
-    }
-
-    @Override
-    public boolean isIngredientOfAnyProduct(IngredientModelInterface ingredient) {
+    public boolean updateIngredient(IngredientModelInterface ingredient) {
         if (ingredient == null) {
             throw new NullPointerException("Ingredient instance is null.");
         }
-
-        try {
-            PreparedStatement preparedStatement = dbConnection
-                    .prepareStatement(CHECK_EXIST_INGREDIENT_OF_PRODUCT_QUERY_PROTOTYPE);
-
-            ingredient.setKeyArg(1, IngredientModel.ID_HEADER, preparedStatement);
-
-            preparedStatement.execute();
-
-            SQLWarning warnings = preparedStatement.getWarnings();
-
-            preparedStatement.close();
-
-            if (warnings.getMessage().equals("1")) {
-                return true;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(IngredientManageModel.class.getName()).log(Level.SEVERE, null, ex);
+        int index = this.ingredients.indexOf(ingredient);
+        if (index == -1) {
+            return false;
+        } else {
+            ingredient.updateInDatabase();
+            notifyModifiedIngredientObserver(ingredient);
+            return true;
         }
-
-        return false;
     }
 
     @Override
-    public void addNewIngredientType(IngredientTypeModelInterface newIngredientType) {
-        ingredientTypeDataStorage.add(newIngredientType);
-        notifyInsertedIngredientTypeObserver(newIngredientType);
-    }
-
-    @Override
-    public Iterator<IngredientTypeModelInterface> getAllIngredientTypeData() {
-        return ingredientTypeDataStorage.createIterator();
+    public boolean removeIngredient(IngredientModelInterface ingredient) {
+        if (ingredient == null) {
+            throw new NullPointerException("Ingredient instance is null.");
+        }
+        int index = this.ingredients.indexOf(ingredient);
+        if (index == -1) {
+            return false;
+        } else {
+            ingredient.deleteInDatabase();
+            this.ingredients.remove(index);
+            notifyRemovedIngredientObserver(ingredient);
+            return true;
+        }
     }
 
     @Override
     public Iterator<IngredientModelInterface> getAllIngredientData() {
-        return ingredientDataStorage.createIterator();
+        return ingredients.iterator();
     }
 
     @Override
     public Iterator<IngredientModelInterface> getIngredientSearchByName(String searchText) {
-        return ingredientDataStorage.getIngredientSearchByName(searchText);
+        List<IngredientModelInterface> ret = new ArrayList<>();
+        List<BoundExtractedResult<IngredientModelInterface>> matches = FuzzySearch
+                .extractSorted(searchText, this.ingredients, ingredient -> ingredient.getName(), 60);
+        for (BoundExtractedResult<IngredientModelInterface> element : matches) {
+            ret.add(element.getReferent());
+        }
+        return ret.iterator();
     }
 
     @Override
-    public boolean isIngredientNameExist(String ingredientName) {
-        Iterator<IngredientModelInterface> iterator = ingredientDataStorage.createIterator();
-        while (iterator.hasNext()) {
-            IngredientModelInterface ingredient = iterator.next();
+    public IngredientModelInterface getIngredientByIndex(int ingredientIndex) {
+        if (ingredientIndex < 0 || ingredientIndex >= ingredients.size()) {
+            throw new IndexOutOfBoundsException("Ingredient index is out of bound.");
+        }
+        return this.ingredients.get(ingredientIndex);
+    }
+
+    @Override
+    public boolean isIngredientNameExisted(String ingredientName) {
+        if (ingredientName.isEmpty()) {
+            throw new IllegalArgumentException("Ingredient name is empty.");
+        }
+        for (IngredientModelInterface ingredient : ingredients) {
             if (ingredient.getName().equals(ingredientName)) {
                 return true;
             }
@@ -298,45 +296,190 @@ public class IngredientManageModel implements IngredientManageModelInterface {
     }
 
     @Override
-    public Iterator<IngredientUnitModelInterface> getAllIngredientUnit() {
-        return ingredientUnitDataStorage.createIterator();
-    }
-
-    @Override
-    public boolean isIngredientTypeNameExist(String ingredientTypeName) {
-        Iterator<IngredientTypeModelInterface> iterator = ingredientTypeDataStorage.createIterator();
-        while (iterator.hasNext()) {
-            IngredientTypeModelInterface ingredientType = iterator.next();
-            if (ingredientType.getName().equals(ingredientTypeName)) {
-                return true;
+    public IngredientModelInterface getIngredientByName(String ingredientName) {
+        for (IngredientModelInterface ingredient : ingredients) {
+            if (ingredient.getName().equals(ingredientName)) {
+                return ingredient;
             }
         }
-        return false;
+        throw new IllegalArgumentException("Ingredient name is not existed.");
     }
 
     @Override
-    public Iterator<ProviderModelInterface> getAllProviderData() {
-        return providerDataStorage.createIterator();
+    public void updateFromDB() {
+        ingredients.clear();
+
+        try {
+            CallableStatement callableStatement = dbConnection.prepareCall(SP_GET_ALL_INGREDIENT);
+
+            ResultSet resultSet = callableStatement.executeQuery();
+
+            while (resultSet.next()) {
+                IngredientModelInterface ingredient = new IngredientModel();
+                ingredient.setProperty(resultSet);
+                ingredients.add(ingredient);
+            }
+
+            resultSet.close();
+            callableStatement.close();
+
+            AppLog.getLogger().info("Clone ingredient data from database: successfully, "
+                    + ingredients.size() + " rows inserted.");
+
+        } catch (SQLException ex) {
+            AppLog.getLogger().fatal("Clone ingredient data from database: error");
+        }
     }
 
     @Override
-    public ProviderModelInterface getProviderByIndex(int providerIndex) {
-        return providerDataStorage.getProviderByIndex(providerIndex);
+    public void clearData() {
+        ingredients.clear();
     }
 
     @Override
-    public IngredientTypeModelInterface getIngredientTypeByIndex(int ingredientTypeIndex) {
-        return ingredientTypeDataStorage.getIngredientType(ingredientTypeIndex);
+    public List<String> getAllIngredientTypeName() {
+        List<String> ret = new ArrayList<>();
+
+        try {
+            CallableStatement callableStatement = dbConnection.prepareCall(SP_GET_ALL_INGREDIENT_TYPE_NAME);
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                ret.add(resultSet.getString(1));
+            }
+            resultSet.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientManageModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return ret;
     }
 
     @Override
-    public IngredientUnitModelInterface getIngredientUnitByIndex(int ingredientUnitIndex) {
-        return ingredientUnitDataStorage.getIngredientUnit(ingredientUnitIndex);
+    public List<String> getAllIngredientUnitName() {
+        List<String> ret = new ArrayList<>();
+
+        try {
+            CallableStatement callableStatement = dbConnection.prepareCall(SP_GET_ALL_INGREDIENT_UNIT_NAME);
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                ret.add(resultSet.getString(1));
+            }
+            resultSet.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientManageModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return ret;
     }
 
     @Override
-    public int getProviderIndex(ProviderModelInterface provider) {
-        return this.providerDataStorage.getProviderIndex(provider);
+    public List<String> getAllProviderName() {
+        List<String> ret = new ArrayList<>();
+
+        try {
+            CallableStatement callableStatement = dbConnection.prepareCall(SP_GET_ALL_PROVIDER_NAME);
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                ret.add(resultSet.getString(1));
+            }
+            resultSet.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientManageModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return ret;
+    }
+
+    @Override
+    public int getIngredientTotalNumber() {
+        return ingredients.size();
+    }
+
+    @Override
+    public void importIngredient(IngredientModelInterface ingredient, Date importDate,
+            int importAmount, String importUnitName) {
+        try {
+            CallableStatement callableStatement = dbConnection
+                    .prepareCall(SP_IMPORT_INGREDIENT);
+            ingredient.setKeyArg(1, IngredientModel.ID_HEADER, callableStatement);
+            callableStatement.setTimestamp(2, Timestamp.from(importDate.toInstant()));
+            callableStatement.setInt(3, importAmount);
+            callableStatement.setString(4, importUnitName);
+
+            callableStatement.execute();
+
+            callableStatement = dbConnection.prepareCall(FT_GET_AMOUNT_OF_INGREDIENT);
+            callableStatement.registerOutParameter(1, Types.FLOAT);
+            ingredient.setKeyArg(2, IngredientModel.ID_HEADER, callableStatement);
+
+            callableStatement.execute();
+
+            float updatedIngredientAmount = callableStatement.getFloat(1);
+
+            ingredient.setAmount(updatedIngredientAmount);
+
+            callableStatement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientManageModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        notifyModifiedIngredientObserver(ingredient);
+    }
+
+    @Override
+    public List<IngredientImportDetailInterface> getImportHistoryFromDateRange(Date dateFrom,
+            Date dateTo) {
+        List<IngredientImportDetailInterface> ret = new ArrayList<>();
+
+        try {
+            CallableStatement callableStatement = dbConnection
+                    .prepareCall(SP_GET_ALL_IMPORT_HISTORY);
+
+            callableStatement.setTimestamp(1, Timestamp.from(dateFrom.toInstant()));
+            callableStatement.setTimestamp(2, Timestamp.from(dateTo.toInstant()));
+
+            ResultSet resultSet = callableStatement.executeQuery();
+
+            while (resultSet.next()) {
+                IngredientImportDetailInterface ingredientImportDetail = new IngredientImportDetail();
+                ingredientImportDetail.setProperty(resultSet);
+                ret.add(ingredientImportDetail);
+            }
+
+            resultSet.close();
+            callableStatement.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientManageModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return ret;
+    }
+
+    @Override
+    public void updateProviderNameOfIngredientData() {
+        try {
+            CallableStatement callableStatement = dbConnection
+                    .prepareCall(SP_UPDATE_PROVIDER_NAME);
+            callableStatement.registerOutParameter(1, Types.NVARCHAR);
+
+            for (IngredientModelInterface ingredient : ingredients) {
+                ingredient.setKeyArg(2, IngredientModel.ID_HEADER, callableStatement);
+                callableStatement.execute();
+                String updatedProviderName = callableStatement.getNString(1);
+                ingredient.setProviderName(updatedProviderName);
+            }
+
+            callableStatement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientManageModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void addIngredientType(IngredientTypeModelInterface ingredientType) {
+        ingredientType.insertToDatabase();
+        notifyInsertedIngredientTypeObserver(ingredientType);
     }
 
 }

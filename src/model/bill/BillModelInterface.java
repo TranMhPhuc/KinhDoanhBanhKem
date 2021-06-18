@@ -2,6 +2,7 @@ package model.bill;
 
 import java.sql.Timestamp;
 import model.DatabaseModel;
+import model.bill.detail.ProductDetailModelInterface;
 import model.employee.EmployeeModelInterface;
 
 public interface BillModelInterface extends DatabaseModel {
@@ -10,13 +11,13 @@ public interface BillModelInterface extends DatabaseModel {
     
     void setDateTimeExport(Timestamp dateTimeExport);
     
-    void setPayment(int payment);
+    void setPayment(long payment);
     
-    void setGuestMoney(int guestMoney);
+    void setGuestMoney(long guestMoney);
     
-    void setChangeMoney(int changeMoney);
+    void setChangeMoney(long changeMoney);
     
-    void setEmployee(EmployeeModelInterface employee);
+    void setEmployeeName(String employeeName);
     
     int getBillID();
 
@@ -24,12 +25,12 @@ public interface BillModelInterface extends DatabaseModel {
 
     Timestamp getDateTimeExport();
     
-    int getPayment();
+    long getPayment();
     
-    int getGuestMoney();
+    long getGuestMoney();
     
-    int getChangeMoney();
+    long getChangeMoney();
     
-    EmployeeModelInterface getEmployee();
+    String getEmployeeName();
     
 }
