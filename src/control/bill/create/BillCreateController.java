@@ -1,43 +1,33 @@
 package control.bill.create;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import model.bill.BillManageModelInterface;
+import javax.swing.JOptionPane;
+import model.bill.detail.ProductDetailModelInterface;
 import model.product.ProductModelInterface;
+import model.product.ProductSimpleModelInterface;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import view.dialog.BillExportDialog;
 import view.bill.BillCreatePanel;
+import view.dialog.AmountDialog;
+import model.bill.BillCreateModelInterface;
 
 public class BillCreateController implements BillCreateControllerInterface {
 
-    private BillManageModelInterface billManageModel;
+    private BillCreateModelInterface billManageModel;
     private BillCreatePanel billCreatePanel;
 
-    private List<Pair<ProductModelInterface, Integer>> selectedProducts;
-
-    private Map<ProductModelInterface, Integer> remainAmountOfProducts;
-
-    private int totalMoneyOfBill;
-    private int guestMoney;
+    List<ProductSimpleModelInterface> productSearchList;
 
     private BillExportDialog dialogBillExport;
+    private AmountDialog dialogAmount;
 
-    public BillCreateController(BillManageModelInterface billManageModel) {
-        this.selectedProducts = new ArrayList<>();
-        this.totalMoneyOfBill = 0;
-        this.remainAmountOfProducts = new HashMap<>();
-        
+    public BillCreateController(BillCreateModelInterface billManageModel) {
+        productSearchList = new ArrayList<>();
         this.billManageModel = billManageModel;
-
-//        Iterator<ProductModelInterface> iterator = productDataStorage.createIterator();
-//        while (iterator.hasNext()) {
-//            ProductModelInterface product = iterator.next();
-//            remainAmountOfProducts.put(product, product.getAmount());
-//        }
-//        this.billCreatePanel = BillCreatePanel.getInstance(model, this);
+        billManageModel.registerOfferedProductUpdateObserver(this);
     }
 
     public void setBillCreatePanel(BillCreatePanel billCreatePanel) {
@@ -49,211 +39,191 @@ public class BillCreateController implements BillCreateControllerInterface {
         billCreatePanel.setBillManageModel(billManageModel);
     }
 
-    public static BillCreateControllerInterface getInstance(BillManageModelInterface model) {
-        if (uniqueInstance == null) {
-            synchronized (BillCreateController.class) {
-                if (uniqueInstance == null) {
-                    uniqueInstance = new BillCreateController(model);
-                }
-            }
+    @Override
+    public Iterator<ProductSimpleModelInterface> getProductSearch(String searchText) {
+        productSearchList.clear();
+        Iterator<ProductSimpleModelInterface> iterator = billManageModel
+                .getSearchByProductName(searchText);
+        while (iterator.hasNext()) {
+            productSearchList.add(iterator.next());
         }
-        return uniqueInstance;
+        return productSearchList.iterator();
     }
 
-    public static BillCreateController getInstance() {
-        if (uniqueInstance == null) {
-            throw new NullPointerException();
+    @Override
+    public Iterator<ProductSimpleModelInterface> getAllProduct() {
+        productSearchList.clear();
+        Iterator<ProductSimpleModelInterface> iterator = billManageModel.getAllProduct();
+        while (iterator.hasNext()) {
+            productSearchList.add(iterator.next());
         }
-        return uniqueInstance;
+        return productSearchList.iterator();
     }
 
     @Override
-    public String getNewBillID() {
-        String newBillID = this.billManageModel.getNextBillIDText();
-        return newBillID;
-    }
-
-    @Override
-    public List<Pair<ProductModelInterface, Integer>> getProductSearch(String searchText) {
-        List<Pair<ProductModelInterface, Integer>> results = new ArrayList<>();
-//        Iterator<ProductModelInterface> iterator = productDataStorage
-//                .getProductSearchByName(searchText);
-//        while (iterator.hasNext()) {
-//            ProductModelInterface product = iterator.next();
-//            results.add(new ImmutablePair<>(product, remainAmountOfProducts.get(product)));
-//        }
-        return results;
-    }
-
-    @Override
-    public void requestClearSearch() {
+    public void requestClearProductSearch() {
         this.billCreatePanel.setSearchProductText("");
     }
 
     @Override
-    public void requestChooseProduct(int rowID) {
-        int leftAmount = this.billCreatePanel.getLeftAmountProductOffer(rowID);
-        if (leftAmount == 0) {
-            this.billCreatePanel.showErrorMessage("Product is out of stock.");
-        } else {
-
-            // get index of product in store
-            ProductModelInterface product = null;
-
-            // Check product already in select table or not
-            String productIDText = this.billCreatePanel.getIDProductOffer(rowID);
-            int index = getIndexOfStoredProduct(productIDText);
-
-            if (index != -1) {
-                // Get current amount of product
-                int amount = selectedProducts.get(index).getValue();
-
-                // Increase amount by 1
-                amount += 1;
-                selectedProducts.get(index).setValue(amount);
-                this.billCreatePanel.updateAmountProductSelect(index, amount);
-
-                // Increase total price of product in table select
-                product = selectedProducts.get(index).getKey();
-                long price = product.getPrice() * amount;
-                this.billCreatePanel.updatePriceProductSelect(index, price);
-            } else {
-                // Add product in table select as a new row
-//                product = productDataStorage.getProductByID(productIDText);
-                this.selectedProducts.add(new MutablePair<>(product, 1));
-                this.billCreatePanel.addRowTableSelect(product);
-            }
-
-            // Decrease amount by 1 in offer table
-            this.billCreatePanel.updateLeftAmountProductOffer(rowID, leftAmount - 1);
-
-            // Decreate amount by 1 in mapper remain amount of product
-            this.remainAmountOfProducts.replace(product, leftAmount - 1);
-
-            // Increase total money by product price
-            this.totalMoneyOfBill += product.getPrice();
-            this.billCreatePanel.setTotalMoneyText(String.valueOf(this.totalMoneyOfBill));
+    public void requestChooseOfferedProduct() {
+        int rowID = billCreatePanel.getOfferedProductTableSelectedRowIndex();
+        if (rowID == -1) {
+            billCreatePanel.showInfoMessage("You should choose one product first.");
+            return;
         }
-    }
-
-    private int getIndexOfStoredProduct(String productIDText) {
-        for (int i = 0; i < selectedProducts.size(); i++) {
-            if (selectedProducts.get(i).getKey().getProductIDText().equals(productIDText)) {
-                return i;
-            }
+        ProductSimpleModelInterface offeredProduct = productSearchList.get(rowID);
+        if (offeredProduct.getAmount() == 0) {
+            billCreatePanel.showErrorMessage("Product " + offeredProduct.getName() + " - "
+                    + offeredProduct.getSize().toString() + " is out of stock.");
+            return;
         }
-        return -1;
+        billManageModel.addOfferedProductToBill(productSearchList.get(rowID));
     }
 
     @Override
-    public void requestRemoveSelectedProduct(int rowID) {
-        // Remove product in table select
-        this.billCreatePanel.removeRowTableSelect(rowID);
-
-        // Update record in table offer if it appears (it doesn't appear if 
-        // user searches something).
-        ProductModelInterface product = this.selectedProducts.get(rowID).getKey();
-
-        int indexOfTableOffer = this.billCreatePanel.getRowIndexTableOffer(product.getProductIDText());
-        if (indexOfTableOffer != -1) {
-            int initAmount = product.getAmount();
-            this.billCreatePanel.updateLeftAmountProductOffer(indexOfTableOffer, initAmount);
+    public void requestRemoveSelectedProduct() {
+        int rowID = billCreatePanel.getSelectedProductTableSelectedRowIndex();
+        if (rowID == -1) {
+            billCreatePanel.showErrorMessage("You should choose one selected product first.");
+            return;
         }
-
-        // Update total money
-        long productPrice = product.getPrice();
-        int amount = this.selectedProducts.get(rowID).getValue();
-        long price = productPrice * amount;
-        this.totalMoneyOfBill -= price;
-        this.billCreatePanel.setTotalMoneyText(String.valueOf(this.totalMoneyOfBill));
-
-        // Update remain amount of product in mapper
-        this.remainAmountOfProducts.replace(product, product.getAmount());
-
-        // Remove product in store
-        this.selectedProducts.remove(rowID);
+        billManageModel.removeSeletedProductInBill(rowID);
     }
 
     @Override
-    public void requestClearTableSelect() {
-        // XXX
+    public void requestClearTableSelectedProduct() {
+        if (billManageModel.isBillHavingNoProduct()) {
+            billCreatePanel.showErrorMessage("Bill has no product.");
+            return;
+        }
+        billManageModel.clearSelectedProductData();
+    }
+
+    @Override
+    public void requestEditSelectedProductAmount() {
+        int rowID = billCreatePanel.getSelectedProductTableSelectedRowIndex();
+        if (rowID == -1) {
+            billCreatePanel.showErrorMessage("You should choose one selected product first.");
+            return;
+        }
+        if (dialogAmount == null) {
+            dialogAmount = new AmountDialog(billCreatePanel.getMaiFrame(), true, this);
+        }
+        
+        int selectedProductedAmount = billManageModel.getSelectedProductByIndex(rowID).getAmount();
+        
+        dialogAmount.setAmountInput(selectedProductedAmount);
+        
+        dialogAmount.setVisible(true);
+    }
+
+    @Override
+    public void validateAmountInputFromDialog() {
+        int newAmount = dialogAmount.getAmountInput();
+        
+        int rowID = billCreatePanel.getSelectedProductTableSelectedRowIndex();
+        
+        ProductDetailModelInterface selectedProduct = billManageModel.getSelectedProductByIndex(rowID);
+        
+        int originAmount = billManageModel.getOriginAmountOfProduct(selectedProduct);
+        
+        if (newAmount > originAmount) {
+            String messageFormat = "Product %s - %s has not enough amount";
+            ProductSimpleModelInterface offeredProduct = selectedProduct.getProduct();
+            JOptionPane.showMessageDialog(dialogAmount, 
+                    String.format(messageFormat, offeredProduct.getName(), offeredProduct.getSize().toString()), 
+                    null, JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        this.billManageModel.updateAmountOfSelectedProduct(rowID, newAmount);
+        
+        dialogAmount.dispose();
     }
 
     @Override
     public void requestExportBill() {
-        // Show dialog to enter guest money
-//        this.billExportDialog = new BillExportDialog(MainFrame.getInstance(), true, this);
-        this.dialogBillExport.setVisible(true);
-    }
-
-    @Override
-    public void inputGuestMoney(String guestMoneyInput) {
-        this.dialogBillExport.setLabelErrorText("");
-        if (guestMoneyInput.isEmpty()) {
-            this.dialogBillExport.setBtnContinueEnable(false);
-            this.dialogBillExport.setChangeMoneyText("");
-        } else {
-            int guestMoney = 0;
-            try {
-                guestMoney = Integer.parseInt(guestMoneyInput);
-            } catch (NumberFormatException ex) {
-                this.dialogBillExport.setLabelErrorText("Please enter money in number!");
-                this.dialogBillExport.setBtnContinueEnable(false);
-                return;
-            }
-            int changeMoney = (guestMoney - this.totalMoneyOfBill);
-            if (changeMoney < 0) {
-                this.dialogBillExport.setLabelErrorText("Payment is not succint!");
-                this.dialogBillExport.setChangeMoneyText("0");
-                this.dialogBillExport.setBtnContinueEnable(false);
-            } else {
-                this.dialogBillExport.setChangeMoneyText(String.valueOf(changeMoney));
-                this.guestMoney = guestMoney;
-                this.dialogBillExport.setBtnContinueEnable(true);
-            }
+        if (billManageModel.isBillHavingNoProduct()) {
+            billCreatePanel.showErrorMessage("Bill has no product!");
+            return;
         }
+
+        if (dialogBillExport == null) {
+            dialogBillExport = new BillExportDialog(billCreatePanel.getMaiFrame(),
+                    true, billManageModel, this);
+        }
+
+        dialogBillExport.setBillIDText(billManageModel.getNextBillIDText());
+        dialogBillExport.setBillTotalMoney(String.valueOf(billManageModel.getTotalMoney()));
+
+        resetGuestMoneyInputInDialog();
+
+        dialogBillExport.setVisible(true);
+    }
+
+    private void resetGuestMoneyInputInDialog() {
+        dialogBillExport.setGuestMoneyText("");
+        dialogBillExport.setChangeMoneyText("");
+        dialogBillExport.setLabelErrorText("");
     }
 
     @Override
-    public List<Pair<ProductModelInterface, Integer>> getRemainProduct() {
-        List<Pair<ProductModelInterface, Integer>> ret = new ArrayList<>();
-//        Iterator<ProductModelInterface> iterator = productDataStorage.createIterator();
-//        while (iterator.hasNext()) {
-//            ProductModelInterface product = iterator.next();
-//            Assert.assertNotNull(this.remainAmountOfProducts);
-//            ret.add(new ImmutablePair<>(product, this.remainAmountOfProducts.get(product)));
-//        }
-        return ret;
+    public void validateGuestMoney() {
+        String guestMoneyTextInput = dialogBillExport.getGuestMoneyInput();
+
+        if (guestMoneyTextInput.isEmpty()) {
+            dialogBillExport.setBtnContinueEnable(false);
+            dialogBillExport.setChangeMoneyText("");
+            dialogBillExport.setLabelErrorText("");
+            return;
+        }
+
+        long guestMoney;
+
+        try {
+            guestMoney = Long.parseLong(guestMoneyTextInput);
+        } catch (NumberFormatException ex) {
+            dialogBillExport.setBtnContinueEnable(false);
+            dialogBillExport.setChangeMoneyText("");
+            dialogBillExport.setLabelErrorText("Money input format error");
+            return;
+        }
+
+        long totalMoney = billManageModel.getTotalMoney();
+
+        if (guestMoney < totalMoney) {
+            dialogBillExport.setBtnContinueEnable(false);
+            dialogBillExport.setChangeMoneyText("");
+            dialogBillExport.setLabelErrorText("Guest money is insuccint");
+            return;
+        }
+
+        billManageModel.setGuestMoney(guestMoney);
+
+        dialogBillExport.setBtnContinueEnable(true);
+        billManageModel.setGuestMoney(guestMoney);
+        dialogBillExport.setLabelErrorText("");
     }
 
     @Override
     public void exportBill() {
-        int changeMoney = this.guestMoney - this.totalMoneyOfBill;
-        // Insert new bill to database
-//        this.model.prepareBill();
-//        this.model.setBillPayment(this.totalMoneyOfBill);
-//        this.model.setBillGuestMoney(this.guestMoney);
-//        this.model.setBillChangeMoney(changeMoney);
-////        this.model.setBillEmployee(MainFrame.getInstance().getModel().getImpl());
-//        this.model.setBillDateTimeExport(Timestamp.valueOf(LocalDateTime.now()));
-//        this.model.setProductListOfBill(selectedProducts);
-//        System.out.println("Guest money: " + this.guestMoney + ", total: " + this.totalMoneyOfBill);
-//
-//        this.model.exportBill();
+        this.billManageModel.createBill();
+        dialogBillExport.showInfoMessage("Create bill successfully.");
+        dialogBillExport.dispose();
+    }
 
-        // If success, confirm to view in PDF format
-        // XXX
-        // If sucess, update remain amount of product data
-        for (Pair<ProductModelInterface, Integer> element : selectedProducts) {
-            ProductModelInterface product = element.getKey();
-//            product.setAmount(product.getAmount() - element.getValue());
+    @Override
+    public void updateOfferedProductInfo(ProductSimpleModelInterface product) {
+        if (product == null) {
+            throw new NullPointerException();
         }
-
-        // Clear stored product
-        this.selectedProducts.clear();
-
-        // Reset view
-        this.billCreatePanel.resetAll();
+        int id = productSearchList.indexOf(product);
+        if (id == -1) {
+            // offer product not found in search list => no need to update
+            return;
+        }
+        billCreatePanel.updateOfferedProductInfo(id, product);
     }
 
 }

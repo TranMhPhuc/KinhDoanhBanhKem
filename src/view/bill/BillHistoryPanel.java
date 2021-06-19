@@ -5,41 +5,66 @@ import control.bill.history.BillHistoryControllerInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
-import java.util.List;
+import java.util.Iterator;
+import javax.swing.JFrame;
+import javax.swing.JTable;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import model.bill.BillHistoryModelInterface;
 import view.MessageShowing;
 import model.bill.BillModelInterface;
 
 public class BillHistoryPanel extends javax.swing.JPanel implements ActionListener, MessageShowing {
 
-    private BillHistoryControllerInterface controller;
+    private JFrame mainFrame;
 
-    private DefaultTableModel tableBillModel;
+    private BillHistoryModelInterface billHistoryModel;
+    private BillHistoryControllerInterface billHistoryController;
+
+    private DefaultTableModel tableBillInfoModel;
 
     public BillHistoryPanel() {
         initComponents();
+        this.tableBillInfoModel = (DefaultTableModel) this.tableBillInfo.getModel();
+        createView();
+        createControl();
+    }
 
-        this.tableBillModel = (DefaultTableModel) this.tableBill.getModel();
+    public void setMainFrame(JFrame mainFrame) {
+        this.mainFrame = mainFrame;
+    }
 
-//        createView();
-//        createControl();
+    public JFrame getMainFrame() {
+        return mainFrame;
     }
 
     public void setBillHistoryController(BillHistoryControllerInterface controller) {
         if (controller == null) {
             throw new NullPointerException("Bill history controller is null object.");
         }
-        this.controller = controller;
+        this.billHistoryController = controller;
+
+        // Show today bill
+        datechooserDateFrom.setDate(Date.from(Instant.now()));
+        datechooserDateTo.setDate(Date.from(Instant.now()));
+        Iterator<BillModelInterface> iterator = billHistoryController.getTodayBillData();
+        updateBillList(iterator);
+    }
+
+    public void setBillHistoryModel(BillHistoryModelInterface billHistoryModel) {
+        if (billHistoryModel == null) {
+            throw new NullPointerException();
+        }
+        this.billHistoryModel = billHistoryModel;
+        billHistoryModel.setBillHistoryPanel(this);
     }
 
     private void createView() {
-        UIControl.setDefaultTableHeader(tableBill);
-        datechooserDateFrom.setDate(Date.from(Instant.now()));
-        datechooserDateTo.setDate(Date.from(Instant.now()));
-        showTodayBill();
+        UIControl.setDefaultTableHeader(tableBillInfo);
     }
 
     private void createControl() {
@@ -52,14 +77,18 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
         textfSearchEmployeeName.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent event) {
-                // XXX
-
+                Iterator<BillModelInterface> searchResult = billHistoryController.getBillSearchByEmployeeName();
+                updateBillList(searchResult);
             }
 
             @Override
             public void removeUpdate(DocumentEvent event) {
-                // XXX
-
+                if (textfSearchEmployeeName.getText().trim().isEmpty()) {
+                    resetBillList();
+                } else {
+                    Iterator<BillModelInterface> searchResult = billHistoryController.getBillSearchByEmployeeName();
+                    updateBillList(searchResult);
+                }
             }
 
             @Override
@@ -73,36 +102,52 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
         this.textfSearchEmployeeName.setText(text);
     }
 
-    public void showBills(List<BillModelInterface> bills) {
+    public String getSearchText() {
+        return textfSearchEmployeeName.getText().trim();
+    }
+    
+    public void setDateFromInput(LocalDate dateFrom) {
+        datechooserDateFrom.setDate(Date.from(dateFrom.atStartOfDay(ZoneId
+                .systemDefault()).toInstant()));
+    }
+    
+    public void setDateToInput(LocalDate dateTo) {
+        datechooserDateTo.setDate(Date.from(dateTo.atStartOfDay(ZoneId
+                .systemDefault()).toInstant()));
+    }
+
+    public void updateBillList(Iterator<BillModelInterface> iterator) {
         clearBillTable();
-        for (BillModelInterface bill : bills) {
-            addRowTableBill(bill);
+        while (iterator.hasNext()) {
+            BillModelInterface bill = iterator.next();
+            addRecordTableBill(bill);
         }
     }
 
-    private void showTodayBill() {
-        List<BillModelInterface> bills = this.controller.getTodayBillList();
+    public void resetBillList() {
         clearBillTable();
-        for (BillModelInterface bill : bills) {
-            addRowTableBill(bill);
+        Iterator<BillModelInterface> iterator = billHistoryController.getBillDataFromDateRange();
+        while (iterator.hasNext()) {
+            BillModelInterface bill = iterator.next();
+            addRecordTableBill(bill);
         }
     }
 
-    private void addRowTableBill(BillModelInterface bill) {
+    private void addRecordTableBill(BillModelInterface bill) {
         Object[] record = new Object[]{
             bill.getBillID(),
             bill.getDateTimeExport(),
             bill.getPayment(),
             bill.getGuestMoney(),
             bill.getChangeMoney(),
-            bill.getEmployeeName()
+            bill.getEmployee().getEmployeeIDText(),
+            bill.getEmployee().getName()
         };
-
-        tableBillModel.addRow(record);
+        tableBillInfoModel.addRow(record);
     }
 
     public void clearBillTable() {
-        this.tableBillModel.setRowCount(0);
+        this.tableBillInfoModel.setRowCount(0);
     }
 
     @Override
@@ -111,45 +156,61 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
 
         if (source == btnSearchClear) {
             if (!textfSearchEmployeeName.getText().trim().isEmpty()) {
-                this.controller.requestClearSearch();
+                textfSearchEmployeeName.setText("");
+                resetBillList();
             }
         } else if (source == btnApply) {
-            showBills(this.controller.getBillList(datechooserDateFrom.getDate(),
-                    datechooserDateTo.getDate()));
+            billHistoryController.requestShowBillFromDateRange();
         } else if (source == btnTodayBill) {
-            showTodayBill();
+            billHistoryController.requestShowTodayBill();
         } else if (source == btnExport) {
-            // XXX
-
+            billHistoryController.exportBillToExcel();
         } else if (source == btnDetail) {
-            int id = tableBill.getSelectedRow();
-            if (id == -1) {
-                showErrorMessage("You should choose one bill first.");
-            } else {
-                this.controller.requestViewBillDetail(id);
-            }
+            billHistoryController.requestShowBillDetail();
         }
     }
 
-    public void clearAll() {
-        datechooserDateFrom.setDate(null);
-        datechooserDateTo.setDate(null);
-        textfSearchEmployeeName.setText(null);
+    public JTable getTableBillInfo() {
+        return tableBillInfo;
+    }
+
+    public LocalDate getDateFromInput() {
+        return datechooserDateFrom.getDate().toInstant().atZone(ZoneId
+                .systemDefault()).toLocalDate();
+    }
+
+    public LocalDate getDateToInput() {
+        return datechooserDateTo.getDate().toInstant().atZone(ZoneId
+                .systemDefault()).toLocalDate();
+    }
+    
+    public int getTableBillSelectedRowIndex() {
+        return tableBillInfo.getSelectedRow();
     }
 
     @Override
     public void showErrorMessage(String message) {
-        ((MessageShowing) getParent()).showErrorMessage(message);
+        ((MessageShowing) mainFrame).showErrorMessage(message);
     }
 
     @Override
     public void showInfoMessage(String message) {
-        ((MessageShowing) getParent()).showInfoMessage(message);
+        ((MessageShowing) mainFrame).showInfoMessage(message);
     }
 
     @Override
     public void showWarningMessage(String message) {
-        ((MessageShowing) getParent()).showWarningMessage(message);
+        ((MessageShowing) mainFrame).showWarningMessage(message);
+    }
+
+    public void updateBillHistoryObserver() {
+        System.out.println("view.bill.BillHistoryPanel.updateBillHistoryObserver()");
+        if (textfSearchEmployeeName.getText().trim().isEmpty()) {
+            resetBillList();
+        } else {
+            Iterator<BillModelInterface> searchResult = billHistoryController.getBillSearchByEmployeeName();
+            updateBillList(searchResult);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -157,13 +218,13 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
     private void initComponents() {
 
         panelBillDateInfo = new javax.swing.JPanel();
-        label_dayCreBillFrom = new javax.swing.JLabel();
-        label_dayCreBillTo = new javax.swing.JLabel();
+        labelDateFrom = new javax.swing.JLabel();
+        labelDateTo = new javax.swing.JLabel();
         datechooserDateFrom = new com.toedter.calendar.JDateChooser();
         datechooserDateTo = new com.toedter.calendar.JDateChooser();
         btnApply = new javax.swing.JButton();
         scrollPane_BillTable = new javax.swing.JScrollPane();
-        tableBill = new javax.swing.JTable();
+        tableBillInfo = new javax.swing.JTable();
         btnDetail = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         label_searchProduct = new javax.swing.JLabel();
@@ -179,12 +240,12 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
         panelBillDateInfo.setBackground(new java.awt.Color(255, 255, 255));
         panelBillDateInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Date Filter", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(153, 153, 153))); // NOI18N
 
-        label_dayCreBillFrom.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_dayCreBillFrom.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        label_dayCreBillFrom.setText("From");
+        labelDateFrom.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelDateFrom.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelDateFrom.setText("From");
 
-        label_dayCreBillTo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_dayCreBillTo.setText("To");
+        labelDateTo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelDateTo.setText("To");
 
         datechooserDateFrom.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
@@ -201,11 +262,11 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
             panelBillDateInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBillDateInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(label_dayCreBillFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(datechooserDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(label_dayCreBillTo, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(datechooserDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
@@ -220,26 +281,26 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
                     .addComponent(btnApply, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelBillDateInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(panelBillDateInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label_dayCreBillTo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label_dayCreBillFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(labelDateTo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(datechooserDateTo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(datechooserDateFrom, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        tableBill.setModel(new javax.swing.table.DefaultTableModel(
+        tableBillInfo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Bill ID", "Day Created", "Bill Money", "Customer Payment", "Change Money", "Employee Name"
+                "Bill ID", "Day Created", "Bill Money", "Customer Payment", "Change Money", "Employee ID", "Employee Name"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -250,8 +311,8 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
                 return canEdit [columnIndex];
             }
         });
-        tableBill.getTableHeader().setReorderingAllowed(false);
-        scrollPane_BillTable.setViewportView(tableBill);
+        tableBillInfo.getTableHeader().setReorderingAllowed(false);
+        scrollPane_BillTable.setViewportView(tableBillInfo);
 
         btnDetail.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         btnDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_bill-details.png"))); // NOI18N
@@ -310,8 +371,7 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -340,12 +400,12 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
     private com.toedter.calendar.JDateChooser datechooserDateTo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JLabel label_dayCreBillFrom;
-    private javax.swing.JLabel label_dayCreBillTo;
+    private javax.swing.JLabel labelDateFrom;
+    private javax.swing.JLabel labelDateTo;
     private javax.swing.JLabel label_searchProduct;
     private javax.swing.JPanel panelBillDateInfo;
     private javax.swing.JScrollPane scrollPane_BillTable;
-    private javax.swing.JTable tableBill;
+    private javax.swing.JTable tableBillInfo;
     private javax.swing.JTextField textfSearchEmployeeName;
     // End of variables declaration//GEN-END:variables
 }

@@ -78,11 +78,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="label_dayCreBillFrom" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="labelDateFrom" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="datechooserDateFrom" min="-2" pref="177" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="label_dayCreBillTo" min="-2" pref="17" max="-2" attributes="0"/>
+                  <Component id="labelDateTo" min="-2" pref="17" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="datechooserDateTo" min="-2" pref="166" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
@@ -99,20 +99,20 @@
                       <Component id="btnApply" min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="label_dayCreBillTo" alignment="1" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="label_dayCreBillFrom" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="labelDateTo" alignment="1" min="-2" pref="34" max="-2" attributes="0"/>
+                              <Component id="labelDateFrom" min="-2" pref="33" max="-2" attributes="0"/>
                           </Group>
                           <Component id="datechooserDateTo" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="datechooserDateFrom" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="label_dayCreBillFrom">
+        <Component class="javax.swing.JLabel" name="labelDateFrom">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="0"/>
@@ -121,7 +121,7 @@
             <Property name="text" type="java.lang.String" value="From"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="label_dayCreBillTo">
+        <Component class="javax.swing.JLabel" name="labelDateTo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="0"/>
@@ -164,15 +164,16 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tableBill">
+        <Component class="javax.swing.JTable" name="tableBillInfo">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="0">
+              <Table columnCount="7" rowCount="0">
                 <Column editable="false" title="Bill ID" type="java.lang.Integer"/>
                 <Column editable="false" title="Day Created" type="java.lang.String"/>
                 <Column editable="false" title="Bill Money" type="java.lang.Long"/>
                 <Column editable="false" title="Customer Payment" type="java.lang.Long"/>
                 <Column editable="false" title="Change Money" type="java.lang.Long"/>
+                <Column editable="false" title="Employee ID" type="java.lang.Integer"/>
                 <Column editable="false" title="Employee Name" type="java.lang.String"/>
               </Table>
             </Property>

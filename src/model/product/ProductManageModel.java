@@ -342,7 +342,7 @@ public class ProductManageModel implements ProductManageModelInterface {
             CallableStatement callableStatement = dbConnection
                     .prepareCall(SP_PRODUCE_PRODUCT);
 
-            product.setKeyArg(1, ProductModel.ID_HEADER, callableStatement);
+            product.setKeyArg(1, ProductSimpleModel.ID_HEADER, callableStatement);
             callableStatement.setInt(2, produceAmount);
 
             callableStatement.execute();

@@ -4,46 +4,37 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.bill.BillModel;
-import model.product.ProductModel;
 import model.product.ProductModelInterface;
 import model.bill.BillModelInterface;
-import model.product.ProductManageModel;
 import model.product.ProductManageModelInterface;
+import model.product.ProductSimpleModel;
+import model.product.ProductSimpleModelInterface;
 
 public class ProductDetailModel implements ProductDetailModelInterface {
 
     public static final String TABLE_NAME = "ChiTietHoaDon";
     public static final String BILL_ID_HEADER = BillModel.ID_HEADER;
-    public static final String PRODUCT_ID_HEADER = ProductModel.ID_HEADER;
+    public static final String PRODUCT_ID_HEADER = ProductSimpleModel.ID_HEADER;
     public static final String AMOUNT_HEADER = "SoLuong";
-    public static final String PRICE_HEADER = "ThanhTien";
 
-    private static final String SP_INSERT = "{call insert_ChiTietHoaDon(?, ?, ?, ?)}";
-
-    private static ProductManageModelInterface productManageModel;
+    private static final int INIT_DETAIL_AMOUNT = 1;
     
+    private static final String SP_INSERT = "{call insert_ChiTietHoaDon(?, ?, ?)}";
+
     private BillModelInterface bill;
-    private ProductModelInterface product;
+    private ProductSimpleModelInterface product;
     private int amount;
-    private long price;
 
     public ProductDetailModel() {
+        this.amount = INIT_DETAIL_AMOUNT;
     }
 
     @Override
     public void setProperty(ResultSet resultSet) {
-        try {
-            this.product = productManageModel.getProductByID(resultSet.getString(PRODUCT_ID_HEADER));
-            this.amount = resultSet.getInt(AMOUNT_HEADER);
-            this.price = resultSet.getInt(PRICE_HEADER);
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductDetailModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     @Override
@@ -52,9 +43,8 @@ public class ProductDetailModel implements ProductDetailModelInterface {
             CallableStatement callableStatement = dbConnection.prepareCall(SP_INSERT);
 
             this.bill.setKeyArg(1, BillModel.ID_HEADER, callableStatement);
-            this.product.setKeyArg(2, ProductModel.ID_HEADER, callableStatement);
+            this.product.setKeyArg(2, ProductSimpleModel.ID_HEADER, callableStatement);
             callableStatement.setInt(3, this.amount);
-            callableStatement.setLong(4, this.price);
 
             callableStatement.execute();
             callableStatement.close();
@@ -76,8 +66,6 @@ public class ProductDetailModel implements ProductDetailModelInterface {
         try {
             if (header.equals(AMOUNT_HEADER)) {
                 preparedStatement.setInt(index, this.amount);
-            } else if (header.equals(PRICE_HEADER)) {
-                preparedStatement.setLong(index, this.price);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductDetailModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -85,7 +73,7 @@ public class ProductDetailModel implements ProductDetailModelInterface {
     }
 
     @Override
-    public void setProduct(ProductModelInterface product) {
+    public void setProduct(ProductSimpleModelInterface product) {
         if (product == null) {
             throw new NullPointerException();
         }
@@ -95,11 +83,6 @@ public class ProductDetailModel implements ProductDetailModelInterface {
     @Override
     public void setAmount(int amount) {
         this.amount = amount;
-    }
-
-    @Override
-    public void setPrice(long price) {
-        this.price = price;
     }
 
     @Override
@@ -116,7 +99,7 @@ public class ProductDetailModel implements ProductDetailModelInterface {
     }
 
     @Override
-    public ProductModelInterface getProduct() {
+    public ProductSimpleModelInterface getProduct() {
         return this.product;
     }
 
@@ -127,7 +110,10 @@ public class ProductDetailModel implements ProductDetailModelInterface {
 
     @Override
     public long getPrice() {
-        return this.price;
+        if (product == null) {
+            throw new NullPointerException();
+        }
+        return this.product.getPrice() * this.amount;
     }
 
     @Override

@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.product.ProductModel;
+import model.product.ProductSimpleModel;
 import org.knowm.xchart.PieChart;
 import org.knowm.xchart.PieChartBuilder;
 import org.knowm.xchart.XChartPanel;
@@ -180,8 +181,8 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
             ResultSet resultSet = callableStatement.executeQuery();
 
             while (resultSet.next()) {
-                String productName = resultSet.getString(ProductModel.NAME_HEADER);
-                String productSize = resultSet.getString(ProductModel.SIZE_HEADER);
+                String productName = resultSet.getString(ProductSimpleModel.NAME_HEADER);
+                String productSize = resultSet.getString(ProductSimpleModel.SIZE_HEADER);
                 int sellAmount = resultSet.getInt("SoLuongBan");
                 remainProductSell -= sellAmount;
                 float percent = (float) sellAmount / totalProductSell * 100;
@@ -232,8 +233,8 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
             ResultSet resultSet = callableStatement.executeQuery();
 
             while (resultSet.next()) {
-                String productName = resultSet.getString(ProductModel.NAME_HEADER);
-                String productSize = resultSet.getString(ProductModel.SIZE_HEADER);
+                String productName = resultSet.getString(ProductSimpleModel.NAME_HEADER);
+                String productSize = resultSet.getString(ProductSimpleModel.SIZE_HEADER);
                 int sellAmount = resultSet.getInt("SoLuongBan");
                 remainProductSell -= sellAmount;
                 float percent = (float) sellAmount / totalProductSell * 100;
@@ -284,8 +285,8 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
             ResultSet resultSet = callableStatement.executeQuery();
 
             while (resultSet.next()) {
-                String productName = resultSet.getString(ProductModel.NAME_HEADER);
-                String productSize = resultSet.getString(ProductModel.SIZE_HEADER);
+                String productName = resultSet.getString(ProductSimpleModel.NAME_HEADER);
+                String productSize = resultSet.getString(ProductSimpleModel.SIZE_HEADER);
                 int sellAmount = resultSet.getInt("SoLuongBan");
                 remainProductSell -= sellAmount;
                 float percent = (float) sellAmount / totalProductSell * 100;
@@ -336,8 +337,8 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
             ResultSet resultSet = callableStatement.executeQuery();
 
             while (resultSet.next()) {
-                String productName = resultSet.getString(ProductModel.NAME_HEADER);
-                String productSize = resultSet.getString(ProductModel.SIZE_HEADER);
+                String productName = resultSet.getString(ProductSimpleModel.NAME_HEADER);
+                String productSize = resultSet.getString(ProductSimpleModel.SIZE_HEADER);
                 int sellAmount = resultSet.getInt("SoLuongBan");
                 remainProductSell -= sellAmount;
                 float percent = (float) sellAmount / totalProductSell * 100;

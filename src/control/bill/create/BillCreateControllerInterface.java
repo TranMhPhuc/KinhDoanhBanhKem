@@ -1,30 +1,37 @@
 package control.bill.create;
 
+import java.util.Iterator;
 import java.util.List;
+import model.bill.OfferedProductUpdateObserver;
 import model.product.ProductModelInterface;
+import model.product.ProductSimpleModelInterface;
 import org.apache.commons.lang3.tuple.Pair;
+import view.bill.BillCreatePanel;
 
-public interface BillCreateControllerInterface {
+public interface BillCreateControllerInterface extends OfferedProductUpdateObserver {
 
-    // Show new bill id (not created yet)
-    String getNewBillID();
+    void setBillCreatePanel(BillCreatePanel billCreatePanel);
+            
+    void requestClearProductSearch();
+
+    void requestChooseOfferedProduct();
+
+    void requestRemoveSelectedProduct();
+
+    void requestEditSelectedProductAmount();
     
-    List<Pair<ProductModelInterface, Integer>> getProductSearch(String searchText);
-    
-    List<Pair<ProductModelInterface, Integer>> getRemainProduct();
-    
-    void requestClearSearch();
-    
-    void requestChooseProduct(int rowID);
-    
-    void requestRemoveSelectedProduct(int rowID);
-    
-    void requestClearTableSelect();
-    
+    void requestClearTableSelectedProduct();
+
     void requestExportBill();
-    
-    void inputGuestMoney(String guestMoneyInput);
-    
+
+    void validateGuestMoney();
+
     void exportBill();
+    
+    void validateAmountInputFromDialog();
+
+    Iterator<ProductSimpleModelInterface> getProductSearch(String searchText);
+    
+    Iterator<ProductSimpleModelInterface> getAllProduct();
     
 }

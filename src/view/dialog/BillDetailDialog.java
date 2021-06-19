@@ -2,16 +2,17 @@ package view.dialog;
 
 import control.bill.history.BillHistoryControllerInterface;
 import java.awt.Color;
-import java.util.List;
+import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
-import model.product.ProductModelInterface;
 import util.swing.UIControl;
 import model.bill.detail.ProductDetailModelInterface;
 import model.bill.BillModelInterface;
 
 public class BillDetailDialog extends javax.swing.JDialog {
 
-    private BillHistoryControllerInterface controller;
+    public static final String DIALOG_TITLE = "Bill detail dialog";
+    
+    private BillHistoryControllerInterface billHistoryController;
     
     private DefaultTableModel tableBillDetailModel;
     
@@ -19,16 +20,19 @@ public class BillDetailDialog extends javax.swing.JDialog {
             BillHistoryControllerInterface controller) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(parent);
+        setTitle(DIALOG_TITLE);
         
-        this.controller = controller;
-        this.tableBillDetailModel = (DefaultTableModel) tableBillDetail.getModel();
+        this.billHistoryController = controller;
+        
+        this.tableBillDetailModel = (DefaultTableModel) tableProductDetail.getModel();
         
         setLocationRelativeTo(parent);
         createView();
     }
     
     private void createView() {
-        UIControl.setDefaultTableHeader(tableBillDetail);
+        UIControl.setDefaultTableHeader(tableProductDetail);
         this.getContentPane().setBackground(Color.WHITE);
     }
     
@@ -36,16 +40,17 @@ public class BillDetailDialog extends javax.swing.JDialog {
         this.labelBillID.setText(text);
     }
     
-    public void setTableBillDetail(List<ProductDetailModelInterface> productDetails) {
+    public void setTableBillDetail(Iterator<ProductDetailModelInterface> iterator) {
         clearTableBillDetail();
-        for (ProductDetailModelInterface productDetail : productDetails) {
-            addRowTableBillDetail(productDetail);
+        while (iterator.hasNext()) {
+            addRowTableBillDetail(iterator.next());
         }
     }
     
     private void addRowTableBillDetail(ProductDetailModelInterface productDetail) {
         Object[] object = new Object[] {
             productDetail.getProduct().getName(),
+            productDetail.getProduct().getSize().toString(),
             productDetail.getAmount(),
             productDetail.getPrice()
         };
@@ -57,11 +62,17 @@ public class BillDetailDialog extends javax.swing.JDialog {
     }
     
     public void setBillInfo(BillModelInterface bill) {
+        if (bill == null) {
+            throw new NullPointerException();
+        }
+        
         setLabelBillID(bill.getBillIDText());
-        this.labelBillDate.setText(bill.getDateTimeExport().toString());
-        this.labelPayment.setText(String.valueOf(bill.getPayment()));
+        this.labelExportDate.setText(bill.getDateTimeExport().toString());
+        this.labelTotalMoney.setText(String.valueOf(bill.getPayment()));
         this.labelGuestMoney.setText(String.valueOf(bill.getGuestMoney()));
         this.labelChangeMoney.setText(String.valueOf(bill.getChangeMoney()));
+        this.labelEmployeeID.setText(bill.getEmployee().getEmployeeIDText());
+        this.labelEmployeeName.setText(bill.getEmployee().getName());
     }
 
     @SuppressWarnings("unchecked")
@@ -70,17 +81,21 @@ public class BillDetailDialog extends javax.swing.JDialog {
 
         label_BillID = new javax.swing.JLabel();
         scrpane = new javax.swing.JScrollPane();
-        tableBillDetail = new javax.swing.JTable();
+        tableProductDetail = new javax.swing.JTable();
         label_Title = new javax.swing.JLabel();
         labelBillID = new javax.swing.JLabel();
         labelTitleBillDate = new javax.swing.JLabel();
         labelTitlePayment = new javax.swing.JLabel();
         labelTitleGuestMoney = new javax.swing.JLabel();
         labelTitleChangeMoney = new javax.swing.JLabel();
-        labelBillDate = new javax.swing.JLabel();
-        labelPayment = new javax.swing.JLabel();
+        labelExportDate = new javax.swing.JLabel();
+        labelTotalMoney = new javax.swing.JLabel();
         labelGuestMoney = new javax.swing.JLabel();
         labelChangeMoney = new javax.swing.JLabel();
+        labelTitleChangeMoney1 = new javax.swing.JLabel();
+        labelEmployeeID = new javax.swing.JLabel();
+        labelTitleChangeMoney2 = new javax.swing.JLabel();
+        labelEmployeeName = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -89,15 +104,30 @@ public class BillDetailDialog extends javax.swing.JDialog {
         label_BillID.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         label_BillID.setText("Bill ID: ");
 
-        tableBillDetail.setModel(new javax.swing.table.DefaultTableModel(
+        tableProductDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Product name", "Amount", "Cost"
+                "Product name", "Product size", "Amount", "Cost"
             }
-        ));
-        scrpane.setViewportView(tableBillDetail);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Long.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scrpane.setViewportView(tableProductDetail);
 
         label_Title.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         label_Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -123,13 +153,13 @@ public class BillDetailDialog extends javax.swing.JDialog {
         labelTitleChangeMoney.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         labelTitleChangeMoney.setText("Change:");
 
-        labelBillDate.setBackground(new java.awt.Color(153, 153, 153));
-        labelBillDate.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        labelBillDate.setText("6/9/1969");
+        labelExportDate.setBackground(new java.awt.Color(153, 153, 153));
+        labelExportDate.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        labelExportDate.setText("6/9/1969");
 
-        labelPayment.setBackground(new java.awt.Color(153, 153, 153));
-        labelPayment.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        labelPayment.setText("499 000 VND");
+        labelTotalMoney.setBackground(new java.awt.Color(153, 153, 153));
+        labelTotalMoney.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        labelTotalMoney.setText("499 000 VND");
 
         labelGuestMoney.setBackground(new java.awt.Color(153, 153, 153));
         labelGuestMoney.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -139,6 +169,22 @@ public class BillDetailDialog extends javax.swing.JDialog {
         labelChangeMoney.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         labelChangeMoney.setText("1000 VND");
 
+        labelTitleChangeMoney1.setFont(new java.awt.Font("Segoe UI", 2, 15)); // NOI18N
+        labelTitleChangeMoney1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelTitleChangeMoney1.setText("Employee ID:");
+
+        labelEmployeeID.setBackground(new java.awt.Color(153, 153, 153));
+        labelEmployeeID.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        labelEmployeeID.setText("15");
+
+        labelTitleChangeMoney2.setFont(new java.awt.Font("Segoe UI", 2, 15)); // NOI18N
+        labelTitleChangeMoney2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelTitleChangeMoney2.setText("Employee name:");
+
+        labelEmployeeName.setBackground(new java.awt.Color(153, 153, 153));
+        labelEmployeeName.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        labelEmployeeName.setText("15");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -147,27 +193,39 @@ public class BillDetailDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(label_Title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scrpane, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(70, 70, 70)
+                        .addComponent(label_BillID)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelTitlePayment, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scrpane, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelTitleChangeMoney2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(labelTitleGuestMoney, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(labelTitleChangeMoney, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(labelTitlePayment, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(labelTitleBillDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelPayment)
-                                    .addComponent(labelBillDate)
-                                    .addComponent(labelGuestMoney)
-                                    .addComponent(labelChangeMoney)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addComponent(label_BillID)
+                                .addComponent(labelTitleBillDate, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(labelExportDate, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(labelTitleChangeMoney1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(labelEmployeeID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(labelTitleGuestMoney, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelTitleChangeMoney, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelGuestMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelChangeMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -176,46 +234,57 @@ public class BillDetailDialog extends javax.swing.JDialog {
                 .addGap(14, 14, 14)
                 .addComponent(label_Title)
                 .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_BillID)
-                    .addComponent(labelBillID))
-                .addGap(18, 18, 18)
-                .addComponent(scrpane, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelTitleBillDate)
-                    .addComponent(labelBillDate))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(label_BillID)
+                        .addComponent(labelBillID))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(labelTotalMoney)
+                        .addComponent(labelTitlePayment)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelPayment)
-                    .addComponent(labelTitlePayment))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelTitleBillDate)
+                        .addComponent(labelExportDate))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelTitleGuestMoney)
+                            .addComponent(labelGuestMoney))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelTitleChangeMoney)
+                            .addComponent(labelChangeMoney)
+                            .addComponent(labelTitleChangeMoney1)
+                            .addComponent(labelEmployeeID))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelTitleGuestMoney)
-                    .addComponent(labelGuestMoney))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelTitleChangeMoney)
-                    .addComponent(labelChangeMoney))
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addComponent(labelTitleChangeMoney2)
+                    .addComponent(labelEmployeeName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrpane, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel labelBillDate;
     private javax.swing.JLabel labelBillID;
     private javax.swing.JLabel labelChangeMoney;
+    private javax.swing.JLabel labelEmployeeID;
+    private javax.swing.JLabel labelEmployeeName;
+    private javax.swing.JLabel labelExportDate;
     private javax.swing.JLabel labelGuestMoney;
-    private javax.swing.JLabel labelPayment;
     private javax.swing.JLabel labelTitleBillDate;
     private javax.swing.JLabel labelTitleChangeMoney;
+    private javax.swing.JLabel labelTitleChangeMoney1;
+    private javax.swing.JLabel labelTitleChangeMoney2;
     private javax.swing.JLabel labelTitleGuestMoney;
     private javax.swing.JLabel labelTitlePayment;
+    private javax.swing.JLabel labelTotalMoney;
     private javax.swing.JLabel label_BillID;
     private javax.swing.JLabel label_Title;
     private javax.swing.JScrollPane scrpane;
-    private javax.swing.JTable tableBillDetail;
+    private javax.swing.JTable tableProductDetail;
     // End of variables declaration//GEN-END:variables
 }

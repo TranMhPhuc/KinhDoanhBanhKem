@@ -7,21 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.ingredient.IngredientModelInterface;
 import model.product.ingredientDetail.IngredientDetailModel;
 import model.product.ingredientDetail.IngredientDetailModelInterface;
 
 public class ProductModel implements ProductModelInterface {
 
-    public static final String TABLE_NAME = "SanPham";
-    public static final String ID_HEADER = "MaSP";
-    public static final String NAME_HEADER = "TenSP";
-    public static final String SIZE_HEADER = "KichThuoc";
     public static final String COST_HEADER = "GiaGoc";
-    public static final String AMOUNT_HEADER = "SoLuong";
-    public static final String PRICE_HEADER = "GiaBan";
 
     public static final int DEFAULT_INIT_AMOUNT = 0;
 
@@ -34,39 +28,37 @@ public class ProductModel implements ProductModelInterface {
 
     private static final String SP_DELETE = "{call delete_SanPham(?)}";
 
-    private int id;
-    private String name;
-    private ProductSize size;
+    private ProductSimpleModelInterface productSimpleModel;
+
     private long cost;
-    private int amount;
-    private long price;
+
     private List<IngredientDetailModelInterface> ingredientDetails;
 
     public ProductModel() {
-        this.amount = DEFAULT_INIT_AMOUNT;
+        productSimpleModel = new ProductSimpleModel();
+        productSimpleModel.setAmount(DEFAULT_INIT_AMOUNT);
         ingredientDetails = new ArrayList<>();
     }
 
     @Override
     public String getProductIDText() {
-        return String.valueOf(this.id);
+        return productSimpleModel.getProductIDText();
     }
 
     @Override
     public void setProperty(ResultSet resultSet) {
+        if (resultSet == null) {
+            throw new NullPointerException();
+        }
         try {
-            this.id = resultSet.getInt(ID_HEADER);
-            this.name = resultSet.getString(NAME_HEADER);
-            this.size = ProductSize.getProductSizeFromString(resultSet.getString(SIZE_HEADER));
+            productSimpleModel.setProperty(resultSet);
             this.cost = resultSet.getLong(COST_HEADER);
-            this.amount = resultSet.getInt(AMOUNT_HEADER);
-            this.price = resultSet.getLong(PRICE_HEADER);
 
             ingredientDetails.clear();
 
             CallableStatement callableStatement = dbConnection
                     .prepareCall(SP_GET_ALL_INGREDIENT_DETAIL);
-            callableStatement.setInt(1, this.id);
+            productSimpleModel.setKeyArg(1, ProductSimpleModel.ID_HEADER, callableStatement);
             ResultSet resultSet1 = callableStatement.executeQuery();
             while (resultSet1.next()) {
                 IngredientDetailModelInterface ingredientDetail = new IngredientDetailModel();
@@ -86,11 +78,11 @@ public class ProductModel implements ProductModelInterface {
     @Override
     public void reloadIngredientDetailList() {
         ingredientDetails.clear();
-        
+
         try {
             CallableStatement callableStatement = dbConnection
                     .prepareCall(SP_GET_ALL_INGREDIENT_DETAIL);
-            callableStatement.setInt(1, this.id);
+            productSimpleModel.setKeyArg(1, ProductSimpleModel.ID_HEADER, callableStatement);
             ResultSet resultSet = callableStatement.executeQuery();
             while (resultSet.next()) {
                 IngredientDetailModelInterface ingredientDetail = new IngredientDetailModel();
@@ -98,7 +90,7 @@ public class ProductModel implements ProductModelInterface {
                 ingredientDetail.setProperty(resultSet);
                 ingredientDetails.add(ingredientDetail);
             }
-            
+
             resultSet.close();
             callableStatement.close();
         } catch (SQLException ex) {
@@ -111,10 +103,10 @@ public class ProductModel implements ProductModelInterface {
         try {
             CallableStatement callableStatement = dbConnection.prepareCall(SP_INSERT);
 
-            callableStatement.setString(1, this.name);
-            callableStatement.setString(2, this.size.name());
+            productSimpleModel.setKeyArg(1, ProductSimpleModel.NAME_HEADER, callableStatement);
+            productSimpleModel.setKeyArg(2, ProductSimpleModel.SIZE_HEADER, callableStatement);
             callableStatement.setLong(3, this.cost);
-            callableStatement.setLong(4, this.price);
+            productSimpleModel.setKeyArg(4, ProductSimpleModel.PRICE_HEADER, callableStatement);
 
             callableStatement.execute();
             callableStatement.close();
@@ -129,7 +121,7 @@ public class ProductModel implements ProductModelInterface {
             CallableStatement callableStatement = dbConnection
                     .prepareCall(SP_DELETE);
 
-            callableStatement.setInt(1, this.id);
+            productSimpleModel.setKeyArg(1, ProductSimpleModel.ID_HEADER, callableStatement);
 
             callableStatement.execute();
             callableStatement.close();
@@ -143,11 +135,11 @@ public class ProductModel implements ProductModelInterface {
         try {
             CallableStatement callableStatement = dbConnection.prepareCall(SP_UPDATE);
 
-            callableStatement.setInt(1, this.id);
-            callableStatement.setString(2, this.name);
-            callableStatement.setString(3, this.size.toString());
+            productSimpleModel.setKeyArg(1, ProductSimpleModel.ID_HEADER, callableStatement);
+            productSimpleModel.setKeyArg(2, ProductSimpleModel.NAME_HEADER, callableStatement);
+            productSimpleModel.setKeyArg(3, ProductSimpleModel.SIZE_HEADER, callableStatement);
             callableStatement.setLong(4, this.cost);
-            callableStatement.setLong(5, this.price);
+            productSimpleModel.setKeyArg(5, ProductSimpleModel.PRICE_HEADER, callableStatement);
 
             callableStatement.execute();
             callableStatement.close();
@@ -159,18 +151,18 @@ public class ProductModel implements ProductModelInterface {
     @Override
     public void setKeyArg(int index, String header, PreparedStatement preparedStatement) {
         try {
-            if (header.equals(ID_HEADER)) {
-                preparedStatement.setInt(index, this.id);
-            } else if (header.equals(NAME_HEADER)) {
-                preparedStatement.setString(index, this.name);
-            } else if (header.equals(SIZE_HEADER)) {
-                preparedStatement.setString(index, this.size.toString());
+            if (header.equals(ProductSimpleModel.ID_HEADER)) {
+                productSimpleModel.setKeyArg(index, header, preparedStatement);
+            } else if (header.equals(ProductSimpleModel.NAME_HEADER)) {
+                productSimpleModel.setKeyArg(index, header, preparedStatement);
+            } else if (header.equals(ProductSimpleModel.SIZE_HEADER)) {
+                productSimpleModel.setKeyArg(index, header, preparedStatement);
             } else if (header.equals(COST_HEADER)) {
                 preparedStatement.setLong(index, this.cost);
-            } else if (header.equals(AMOUNT_HEADER)) {
-                preparedStatement.setInt(index, this.amount);
-            } else if (header.equals(PRICE_HEADER)) {
-                preparedStatement.setLong(index, this.price);
+            } else if (header.equals(ProductSimpleModel.AMOUNT_HEADER)) {
+                productSimpleModel.setKeyArg(index, header, preparedStatement);
+            } else if (header.equals(ProductSimpleModel.PRICE_HEADER)) {
+                productSimpleModel.setKeyArg(index, header, preparedStatement);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -179,22 +171,22 @@ public class ProductModel implements ProductModelInterface {
 
     @Override
     public void setProductID(String id) {
-        this.id = Integer.parseInt(id);
+        productSimpleModel.setProductID(id);
     }
 
     @Override
     public void setName(String name) {
-        this.name = name;
+        productSimpleModel.setName(name);
     }
 
     @Override
     public void setAmount(int amount) {
-        this.amount = amount;
+        productSimpleModel.setAmount(amount);
     }
 
     @Override
     public void setSize(ProductSize size) {
-        this.size = size;
+        productSimpleModel.setSize(size);
     }
 
     @Override
@@ -204,17 +196,17 @@ public class ProductModel implements ProductModelInterface {
 
     @Override
     public void setPrice(long price) {
-        this.price = price;
+        productSimpleModel.setPrice(price);
     }
 
     @Override
     public String getName() {
-        return this.name;
+        return productSimpleModel.getName();
     }
 
     @Override
     public ProductSize getSize() {
-        return this.size;
+        return productSimpleModel.getSize();
     }
 
     @Override
@@ -224,19 +216,12 @@ public class ProductModel implements ProductModelInterface {
 
     @Override
     public int getAmount() {
-        return this.amount;
+        return productSimpleModel.getAmount();
     }
 
     @Override
     public long getPrice() {
-        return this.price;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 31 * hash + this.id;
-        return hash;
+        return productSimpleModel.getPrice();
     }
 
     @Override
@@ -294,6 +279,13 @@ public class ProductModel implements ProductModelInterface {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 83 * hash + Objects.hashCode(this.productSimpleModel);
+        return hash;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -305,7 +297,7 @@ public class ProductModel implements ProductModelInterface {
             return false;
         }
         final ProductModel other = (ProductModel) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.productSimpleModel, other.productSimpleModel)) {
             return false;
         }
         return true;
@@ -313,8 +305,8 @@ public class ProductModel implements ProductModelInterface {
 
     @Override
     public String toString() {
-        return "ProductModel{" + "id=" + id + ", name=" + name + ", cost=" + cost
-                + ", price=" + price + ", amount=" + amount + ", size=" + size + '}';
+        return "ProductModel{" + "productSimpleModel=" + productSimpleModel
+                + ", cost=" + cost + ", ingredientDetails=" + ingredientDetails + '}';
     }
 
 }

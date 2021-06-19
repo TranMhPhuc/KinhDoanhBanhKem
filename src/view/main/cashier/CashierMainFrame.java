@@ -1,6 +1,10 @@
 package view.main.cashier;
 
 import control.app.MainFrameControllerInterface;
+import control.bill.create.BillCreateController;
+import control.bill.create.BillCreateControllerInterface;
+import control.bill.history.BillHistoryController;
+import control.bill.history.BillHistoryControllerInterface;
 import java.awt.CardLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -9,9 +13,13 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import model.bill.BillCreateModel;
 import model.user.UserModelInterface;
 import util.constant.AppConstant;
 import view.MessageShowing;
+import model.bill.BillCreateModelInterface;
+import model.bill.BillHistoryModel;
+import model.bill.BillHistoryModelInterface;
 
 public class CashierMainFrame extends javax.swing.JFrame implements MessageShowing {
 
@@ -22,15 +30,25 @@ public class CashierMainFrame extends javax.swing.JFrame implements MessageShowi
 
     private CardLayout cardLayoutPanelCenter;
 
+    private BillCreateModelInterface billCreateModel;
+    private BillCreateControllerInterface billCreateController;
+
+    private BillHistoryModelInterface billHistoryModel;
+    private BillHistoryControllerInterface billHistoryController;
+
     public CashierMainFrame(MainFrameControllerInterface mainFrameController,
             UserModelInterface userModel) {
+        initComponents();
         this.mainFrameController = mainFrameController;
         this.userModel = userModel;
         this.userModel.setMainFrame(this);
 
-        initComponents();
         this.cardLayoutPanelCenter = (CardLayout) panelCenter.getLayout();
         setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
+
+        panelBillCreate.setMaiFrame(this);
+        panelBillHistory.setMainFrame(this);
+
         createView();
         createControl();
     }
@@ -44,6 +62,15 @@ public class CashierMainFrame extends javax.swing.JFrame implements MessageShowi
         this.panelProfile.setMainFrameController(mainFrameController);
         mainFrameController.setProfilePanelView(panelProfile);
         userModel.setProfilePanelView(panelProfile);
+
+        billCreateModel = new BillCreateModel();
+        billCreateController = new BillCreateController(billCreateModel);
+        billCreateController.setBillCreatePanel(panelBillCreate);
+
+        billHistoryModel = new BillHistoryModel();
+        billHistoryController = new BillHistoryController(billHistoryModel);
+        billHistoryController.setBillHistoryPanel(panelBillHistory);
+        
     }
 
     private void createControl() {
@@ -126,7 +153,7 @@ public class CashierMainFrame extends javax.swing.JFrame implements MessageShowi
     public void showWarningMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "Application message dialog", JOptionPane.WARNING_MESSAGE);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

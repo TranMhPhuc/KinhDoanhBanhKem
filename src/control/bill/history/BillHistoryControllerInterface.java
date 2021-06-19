@@ -1,22 +1,24 @@
 package control.bill.history;
 
-import java.util.Date;
-import java.util.List;
+import java.util.Iterator;
 import model.bill.BillModelInterface;
+import view.bill.BillHistoryPanel;
 
 public interface BillHistoryControllerInterface {
 
-    List<BillModelInterface> getBillList(Date dateFrom, Date dateTo);
+    void setBillHistoryPanel(BillHistoryPanel billHistoryPanel);
+    
+    void exportBillToExcel();
 
-    void exportBillList();
+    Iterator<BillModelInterface> getTodayBillData();
 
-    List<BillModelInterface> getTodayBillList();
+    Iterator<BillModelInterface> getBillDataFromDateRange();
 
-    void requestClearSearch();
+    Iterator<BillModelInterface> getBillSearchByEmployeeName();
 
-    List<BillModelInterface> getBillSearchByEmployeeName(String employeeNameSearchText);
-
-    List<BillModelInterface> getBillSearchByBillID(String billIDSearchText);
-
-    void requestViewBillDetail(int rowID);
+    void requestShowBillDetail();
+    
+    void requestShowBillFromDateRange();
+    
+    void requestShowTodayBill();
 }

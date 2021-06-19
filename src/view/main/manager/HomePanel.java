@@ -25,6 +25,7 @@ import model.ingredient.type.IngredientTypeModel;
 import model.ingredient.type.IngredientTypeModelInterface;
 import model.product.ProductModel;
 import model.product.ProductModelInterface;
+import model.product.ProductSimpleModel;
 import model.provider.ProviderModel;
 import model.provider.ProviderModelInterface;
 import model.setting.AppSetting;
@@ -329,7 +330,7 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
             ResultSet resultSet = callableStatement.executeQuery();
 
             while (resultSet.next()) {
-                String productSize = resultSet.getString(ProductModel.SIZE_HEADER);
+                String productSize = resultSet.getString(ProductSimpleModel.SIZE_HEADER);
                 int productAmount = resultSet.getInt(2);
                 float percent = (float) productAmount / totalProductAmount * 100;
                 String seriesName = String.format("Size %s (%.2f%%)", productSize, percent);
@@ -468,8 +469,8 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
             ResultSet resultSet = callableStatement.executeQuery();
 
             while (resultSet.next()) {
-                String productName = resultSet.getString(ProductModel.NAME_HEADER);
-                String productSize = resultSet.getString(ProductModel.SIZE_HEADER);
+                String productName = resultSet.getString(ProductSimpleModel.NAME_HEADER);
+                String productSize = resultSet.getString(ProductSimpleModel.SIZE_HEADER);
                 productProblems.add(productName + " - " + productSize);
             }
 

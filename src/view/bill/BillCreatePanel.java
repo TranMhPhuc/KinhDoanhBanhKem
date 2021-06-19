@@ -6,16 +6,21 @@ import java.util.List;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
-import model.bill.BillManageModelInterface;
 import model.product.ProductModelInterface;
 import org.apache.commons.lang3.tuple.Pair;
 import util.swing.UIControl;
 import view.MessageShowing;
 import control.bill.create.BillCreateControllerInterface;
+import java.util.Iterator;
 import javax.swing.JFrame;
+import model.bill.BillModelInterface;
+import model.bill.OfferedProductUpdateObserver;
+import model.bill.detail.ProductDetailModelInterface;
+import model.product.ProductSimpleModelInterface;
+import model.bill.BillCreateModelInterface;
 
 public class BillCreatePanel extends javax.swing.JPanel implements ActionListener,
-        MessageShowing {
+        MessageShowing, BillUpdateObserver {
 
     public static final int PRODUCT_OFFER_ID_COLUMN_INDEX = 0;
     public static final int PRODUCT_OFFER_LEFT_AMOUNT_COLUMN_INDEX = 4;
@@ -26,16 +31,16 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
 
     private JFrame mainFrame;
 
-    private BillManageModelInterface billManageModel;
+    private BillCreateModelInterface billManageModel;
     private BillCreateControllerInterface billCreateController;
 
-    private DefaultTableModel tableProductOfferModel;
-    private DefaultTableModel tableProductSelectModel;
+    private DefaultTableModel tableOfferedProductModel;
+    private DefaultTableModel tableSelectedProductModel;
 
     public BillCreatePanel() {
         initComponents();
-        tableProductOfferModel = (DefaultTableModel) tableProductOffer.getModel();
-        tableProductSelectModel = (DefaultTableModel) tableProductSelect.getModel();
+        tableOfferedProductModel = (DefaultTableModel) tableOfferedProduct.getModel();
+        tableSelectedProductModel = (DefaultTableModel) tableSelectedProduct.getModel();
         createView();
         createControl();
     }
@@ -48,32 +53,40 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         return mainFrame;
     }
 
-    public void setBillManageModel(BillManageModelInterface model) {
-        if (model == null) {
-            throw new NullPointerException("Bill model is null object.");
+    public void setBillManageModel(BillCreateModelInterface billManageModel) {
+        if (billManageModel == null) {
+            throw new NullPointerException("Bill manage model instance is null.");
         }
-        this.billManageModel = model;
-        resetAll();
+        this.billManageModel = billManageModel;
+        billManageModel.registerBillUpdateObserver(this);
+
+        String newBillID = billManageModel.getNextBillIDText();
+        textfBillID.setText(newBillID);
     }
 
     public void setBillCreateController(BillCreateControllerInterface controller) {
         if (controller == null) {
-            throw new NullPointerException("Bill controller is null object.");
+            throw new NullPointerException("Bill controller instance is null.");
         }
         this.billCreateController = controller;
+        resetProductList();
     }
 
     private void createView() {
-        UIControl.setDefaultTableHeader(tableProductOffer);
-        UIControl.setDefaultTableHeader(tableProductSelect);
+        UIControl.setDefaultTableHeader(tableOfferedProduct);
+        UIControl.setDefaultTableHeader(tableSelectedProduct);
+        textfTotalMoney.setText("0");
+        textfSearchProductName.setText("");
+        clearTableProductSelect();
     }
 
     private void createControl() {
         btnSearchClear.addActionListener(this);
-        btnExportBill.addActionListener(this);
+        btnExport.addActionListener(this);
         btnSelect.addActionListener(this);
         btnRemove.addActionListener(this);
         btnClear.addActionListener(this);
+        btnEditAmount.addActionListener(this);
 
         textfSearchProductName.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -104,145 +117,130 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
 
         if (source == btnSearchClear) {
             if (!textfSearchProductName.getText().isEmpty()) {
-                this.billCreateController.requestClearSearch();
+                this.billCreateController.requestClearProductSearch();
             }
-        } else if (source == btnExportBill) {
-            if (tableProductSelectModel.getRowCount() == 0) {
-                showInfoMessage("Bill has no product!");
-            } else {
-                this.billCreateController.requestExportBill();
-            }
+        } else if (source == btnExport) {
+            this.billCreateController.requestExportBill();
         } else if (source == btnSelect) {
-            int rowID = tableProductOffer.getSelectedRow();
-            if (rowID == -1) {
-                showInfoMessage("You should choose one product first.");
-            } else {
-                this.billCreateController.requestChooseProduct(rowID);
-            }
+            billCreateController.requestChooseOfferedProduct();
         } else if (source == btnRemove) {
-            int rowID = tableProductSelect.getSelectedRow();
-            if (rowID == -1) {
-                showInfoMessage("You should choose one product first.");
-            } else {
-                this.billCreateController.requestRemoveSelectedProduct(rowID);
-            }
+            billCreateController.requestRemoveSelectedProduct();
         } else if (source == btnClear) {
-            this.billCreateController.requestClearTableSelect();
+            this.billCreateController.requestClearTableSelectedProduct();
+        } else if (source == btnEditAmount) {
+            this.billCreateController.requestEditSelectedProductAmount();
         }
     }
 
+    public int getOfferedProductTableSelectedRowIndex() {
+        return tableOfferedProduct.getSelectedRow();
+    }
+
+    public int getSelectedProductTableSelectedRowIndex() {
+        return tableSelectedProduct.getSelectedRow();
+    }
+
     public int getLeftAmountProductOffer(int rowID) {
-        int leftAmount = (int) tableProductOfferModel.getValueAt(rowID, PRODUCT_OFFER_LEFT_AMOUNT_COLUMN_INDEX);
+        int leftAmount = (int) tableOfferedProductModel.getValueAt(rowID, PRODUCT_OFFER_LEFT_AMOUNT_COLUMN_INDEX);
         return leftAmount;
     }
 
     public String getIDProductOffer(int rowID) {
-        String productID = (String) tableProductOffer.getValueAt(rowID, PRODUCT_OFFER_ID_COLUMN_INDEX);
+        String productID = (String) tableOfferedProduct.getValueAt(rowID, PRODUCT_OFFER_ID_COLUMN_INDEX);
         return productID;
     }
 
     private void resetProductList() {
-        updateProductList(billCreateController.getRemainProduct());
+        updateProductList(billCreateController.getAllProduct());
     }
 
-    public void updateProductList(List<Pair<ProductModelInterface, Integer>> products) {
-        clearTableOffer();
-        for (Pair<ProductModelInterface, Integer> element : products) {
-            addRowTableOffer(element.getKey(), element.getValue());
+    public void updateProductList(Iterator<ProductSimpleModelInterface> iterator) {
+        clearOfferedProductTable();
+        while (iterator.hasNext()) {
+            addRowOfferedProductTable(iterator.next());
         }
     }
 
-    public void resetAll() {
-        String newBillID = this.billCreateController.getNewBillID();
-        textfBillID.setText(newBillID);
-
-        resetProductList();
-
-        textfTotalMoney.setText("0");
-        clearTableSelect();
+    public void updateOfferedProductInfo(int rowID, ProductSimpleModelInterface updatedOfferedProduct) {
+        if (rowID < 0 || rowID >= tableOfferedProductModel.getRowCount()) {
+            throw new IndexOutOfBoundsException();
+        }
+        tableOfferedProductModel.setValueAt(updatedOfferedProduct.getAmount(), rowID, PRODUCT_OFFER_LEFT_AMOUNT_COLUMN_INDEX);
     }
 
-    public void clearAll() {
-        textfSearchProductName.setText(null);
-        textfBillID.setText(null);
-        textfTotalMoney.setText(null);
+    @Override
+    public void updateFromInsertedSelectedProduct(ProductDetailModelInterface productDetail) {
+        Object[] record = new Object[]{
+            productDetail.getProduct().getProductIDText(),
+            productDetail.getProduct().getName(),
+            productDetail.getProduct().getSize().toString(),
+            productDetail.getAmount(),
+            productDetail.getPrice()
+        };
+        tableSelectedProductModel.addRow(record);
     }
 
-    public void setBillID(String billIDText) {
-        this.textfBillID.setText(billIDText);
+    @Override
+    public void updateFromDeletedSelectedProduct(int rowID) {
+        tableSelectedProductModel.removeRow(rowID);
     }
 
     public void setSearchProductText(String text) {
         this.textfSearchProductName.setText(text);
     }
 
-    public void setTotalMoneyText(String text) {
-        this.textfTotalMoney.setText(text);
+    public void clearOfferedProductTable() {
+        tableOfferedProductModel.setRowCount(0);
     }
 
-    public void setTableOfferRecords(List<String[]> records) {
-        clearTableOffer();
-
-        for (String[] record : records) {
-            tableProductOfferModel.addRow(record);
-        }
+    public void clearTableProductSelect() {
+        tableSelectedProductModel.setRowCount(0);
     }
 
-    public void updateLeftAmountProductOffer(int rowID, int amount) {
-        tableProductOfferModel.setValueAt(amount, rowID, PRODUCT_OFFER_LEFT_AMOUNT_COLUMN_INDEX);
-        tableProductOffer.repaint();
-    }
-
-    public void updateAmountProductSelect(int rowID, int amount) {
-        tableProductSelectModel.setValueAt(amount, rowID, PRODUCT_SELECT_AMOUNT_COLUMN_INDEX);
-    }
-
-    public void updatePriceProductSelect(int rowID, long price) {
-        tableProductSelectModel.setValueAt(price, rowID, PRODUCT_SELECT_PRICE_COLUMN_INDEX);
-    }
-
-    public void clearTableOffer() {
-        tableProductOfferModel.setRowCount(0);
-    }
-
-    public void clearTableSelect() {
-        tableProductSelectModel.setRowCount(0);
-    }
-
-    public void addRowTableOffer(ProductModelInterface product, int productAmount) {
+    public void addRowOfferedProductTable(ProductSimpleModelInterface product) {
         Object[] record = new Object[]{
             product.getProductIDText(),
             product.getName(),
             product.getSize(),
             product.getPrice(),
-            productAmount
+            product.getAmount()
         };
-        tableProductOfferModel.addRow(record);
-    }
-
-    public void addRowTableSelect(ProductModelInterface product) {
-        Object[] record = new Object[]{
-            product.getProductIDText(),
-            product.getName(),
-            product.getSize(),
-            1,
-            product.getPrice()
-        };
-        tableProductSelectModel.addRow(record);
-    }
-
-    public int getRowIndexTableOffer(String productIDText) {
-        for (int i = 0; i < tableProductOfferModel.getRowCount(); i++) {
-            if (((String) tableProductOfferModel.getValueAt(i, PRODUCT_OFFER_ID_COLUMN_INDEX))
-                    .equals(productIDText)) {
-                return i;
-            }
-        }
-        return -1;
+        tableOfferedProductModel.addRow(record);
     }
 
     public void removeRowTableSelect(int rowID) {
-        tableProductSelectModel.removeRow(rowID);
+        tableSelectedProductModel.removeRow(rowID);
+    }
+
+    @Override
+    public void updateFromNewBillCreated(BillModelInterface bill) {
+        // New bill created, reset input
+        resetProductList();
+        clearTableProductSelect();
+        textfBillID.setText(this.billManageModel.getNextBillIDText());
+        textfTotalMoney.setText("");
+    }
+
+    @Override
+    public void updateFromBillState() {
+        long totalMoney = billManageModel.getTotalMoney();
+        textfTotalMoney.setText(String.valueOf(totalMoney));
+        if (billManageModel.isBillHavingNoProduct()) {
+            clearTableProductSelect();
+        }
+    }
+
+    @Override
+    public void updateFromModifiedSelectedProduct(ProductDetailModelInterface modifiedSelectedProduct) {
+        for (int i = 0; i < tableSelectedProductModel.getRowCount(); i++) {
+            if (tableSelectedProductModel.getValueAt(i, PRODUCT_SELECT_ID_COLUMN_INDEX)
+                    .equals(modifiedSelectedProduct.getProduct().getProductIDText())) {
+                int updatedAmount = modifiedSelectedProduct.getAmount();
+                tableSelectedProductModel.setValueAt(updatedAmount, i, PRODUCT_SELECT_AMOUNT_COLUMN_INDEX);
+                long updatedPrice = modifiedSelectedProduct.getPrice();
+                tableSelectedProductModel.setValueAt(updatedPrice, i, PRODUCT_SELECT_PRICE_COLUMN_INDEX);
+            }
+        }
     }
 
     @Override
@@ -267,7 +265,7 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        tableProductOffer = new javax.swing.JTable() {
+        tableOfferedProduct = new javax.swing.JTable() {
 
         };
         labelProductList = new javax.swing.JLabel();
@@ -280,16 +278,16 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         jPanel2 = new javax.swing.JPanel();
         labelBillID = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        tableProductSelect = new javax.swing.JTable();
+        tableSelectedProduct = new javax.swing.JTable();
         labelTotalMoney = new javax.swing.JLabel();
-        btnExportBill = new javax.swing.JButton();
         label_prodChoose = new javax.swing.JLabel();
         textfTotalMoney = new javax.swing.JTextField();
         textfBillID = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
+        btnEditAmount = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(100, 0), new java.awt.Dimension(100, 0), new java.awt.Dimension(100, 32767));
         btnRemove = new javax.swing.JButton();
+        btnExport = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setName("BillCreate"); // NOI18N
@@ -298,9 +296,9 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMinimumSize(new java.awt.Dimension(600, 639));
         jPanel1.setName("BillCreate"); // NOI18N
-        jPanel1.setPreferredSize(new java.awt.Dimension(700, 639));
+        jPanel1.setPreferredSize(new java.awt.Dimension(900, 639));
 
-        tableProductOffer.setModel(new javax.swing.table.DefaultTableModel(
+        tableOfferedProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -323,8 +321,8 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
                 return canEdit [columnIndex];
             }
         });
-        tableProductOffer.getTableHeader().setReorderingAllowed(false);
-        jScrollPane7.setViewportView(tableProductOffer);
+        tableOfferedProduct.getTableHeader().setReorderingAllowed(false);
+        jScrollPane7.setViewportView(tableOfferedProduct);
 
         labelProductList.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         labelProductList.setText("Product list");
@@ -356,6 +354,7 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         btnSelect.setForeground(new java.awt.Color(51, 51, 51));
         btnSelect.setText("Select");
         btnSelect.setFocusPainted(false);
+        btnSelect.setPreferredSize(new java.awt.Dimension(120, 30));
         jPanel5.add(btnSelect);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -382,7 +381,7 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 27, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -397,7 +396,7 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         labelBillID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelBillID.setText("Bill ID");
 
-        tableProductSelect.setModel(new javax.swing.table.DefaultTableModel(
+        tableSelectedProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -420,17 +419,11 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
                 return canEdit [columnIndex];
             }
         });
-        tableProductSelect.getTableHeader().setReorderingAllowed(false);
-        jScrollPane8.setViewportView(tableProductSelect);
+        tableSelectedProduct.getTableHeader().setReorderingAllowed(false);
+        jScrollPane8.setViewportView(tableSelectedProduct);
 
         labelTotalMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelTotalMoney.setText("Total Money");
-
-        btnExportBill.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
-        btnExportBill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_export.png"))); // NOI18N
-        btnExportBill.setContentAreaFilled(false);
-        btnExportBill.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnExportBill.setFocusPainted(false);
 
         label_prodChoose.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         label_prodChoose.setText("Chosen products");
@@ -443,20 +436,32 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         textfBillID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
+
+        btnEditAmount.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnEditAmount.setForeground(new java.awt.Color(51, 51, 51));
+        btnEditAmount.setText("Edit amount");
+        btnEditAmount.setFocusPainted(false);
+        btnEditAmount.setPreferredSize(new java.awt.Dimension(120, 30));
+        jPanel4.add(btnEditAmount);
 
         btnClear.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnClear.setForeground(new java.awt.Color(51, 51, 51));
         btnClear.setText("Clear");
         btnClear.setFocusPainted(false);
-        btnClear.setPreferredSize(new java.awt.Dimension(89, 29));
+        btnClear.setPreferredSize(new java.awt.Dimension(120, 30));
         jPanel4.add(btnClear);
-        jPanel4.add(filler1);
 
         btnRemove.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnRemove.setForeground(new java.awt.Color(51, 51, 51));
         btnRemove.setText("Remove");
         btnRemove.setFocusPainted(false);
+        btnRemove.setPreferredSize(new java.awt.Dimension(120, 30));
         jPanel4.add(btnRemove);
+
+        btnExport.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnExport.setText("Export");
+        btnExport.setPreferredSize(new java.awt.Dimension(100, 30));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -466,20 +471,20 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane8)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(labelBillID)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textfBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(labelTotalMoney)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textfTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(label_prodChoose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnExportBill, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(label_prodChoose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(labelBillID)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textfBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelTotalMoney)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textfTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                        .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -487,18 +492,18 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(label_prodChoose, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(btnExportBill, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(textfBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(labelTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(textfTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(21, 21, 21)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textfTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textfBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -511,11 +516,11 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnExportBill;
+    private javax.swing.JButton btnEditAmount;
+    private javax.swing.JButton btnExport;
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnSearchClear;
     private javax.swing.JButton btnSelect;
-    private javax.swing.Box.Filler filler1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -529,8 +534,8 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
     private javax.swing.JLabel labelSearchProduct;
     private javax.swing.JLabel labelTotalMoney;
     private javax.swing.JLabel label_prodChoose;
-    private javax.swing.JTable tableProductOffer;
-    private javax.swing.JTable tableProductSelect;
+    private javax.swing.JTable tableOfferedProduct;
+    private javax.swing.JTable tableSelectedProduct;
     private javax.swing.JTextField textfBillID;
     private javax.swing.JTextField textfSearchProductName;
     private javax.swing.JTextField textfTotalMoney;

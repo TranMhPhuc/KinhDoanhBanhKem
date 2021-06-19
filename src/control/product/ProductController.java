@@ -15,6 +15,7 @@ import model.ingredient.IngredientModelInterface;
 import model.product.ProductManageModelInterface;
 import model.product.ProductModel;
 import model.product.ProductModelInterface;
+import model.product.ProductSimpleModel;
 import model.product.ProductSize;
 import model.product.ingredientDetail.IngredientDetailModel;
 import model.product.ingredientDetail.IngredientDetailModelInterface;
@@ -164,7 +165,7 @@ public class ProductController implements ProductControllerInterface {
         try {
             CallableStatement callableStatement = dbConnection.prepareCall(SP_CHECK_DELETE_PRODUCT_CONDITION);
             callableStatement.registerOutParameter(1, Types.BOOLEAN);
-            product.setKeyArg(2, ProductModel.ID_HEADER, callableStatement);
+            product.setKeyArg(2, ProductSimpleModel.ID_HEADER, callableStatement);
 
             callableStatement.execute();
 
@@ -489,7 +490,7 @@ public class ProductController implements ProductControllerInterface {
                     .prepareCall(SP_CHECK_PRODUCE_PRODUCT_CONDITION);
 
             callableStatement.registerOutParameter(1, Types.BOOLEAN);
-            product.setKeyArg(2, ProductModel.ID_HEADER, callableStatement);
+            product.setKeyArg(2, ProductSimpleModel.ID_HEADER, callableStatement);
 
             while (iterator.hasNext()) {
                 IngredientDetailModelInterface ingredientDetail = iterator.next();

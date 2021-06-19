@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.employee.EmployeeManageModel;
 import model.employee.EmployeeManageModelInterface;
 import model.employee.EmployeeModel;
+import model.employee.EmployeeModelInterface;
 
 public class BillModel implements BillModelInterface {
 
@@ -18,25 +18,20 @@ public class BillModel implements BillModelInterface {
     public static final String DATE_HEADER = "NgayLap";
     public static final String PAYMENT_HEADER = "TongTien";
     public static final String GUEST_MONEY_HEADER = "TienKhachTra";
-    public static final String CHANGE_MONEY_HEADER = "TienThoi";
+    public static final String EMPLOYEE_ID_HEADER = EmployeeModel.ID_HEADER;
     public static final String EMPLOYEE_NAME_HEADER = EmployeeModel.NAME_HEADER;
 
     private static final String SP_INSERT
             = "{call insert_HoaDon(?, ?, ?, ?)}";
 
-    private static EmployeeManageModelInterface employeeManageModel;
-
     private int id;
     private Timestamp dateTimeExport;
     private long payment;
     private long guestMoney;
-    private long changeMoney;
-    private String employeeName;
-
-    static {
-    }
+    private EmployeeModelInterface employee;
 
     public BillModel() {
+        employee = new EmployeeModel();
     }
 
     @Override
@@ -46,16 +41,15 @@ public class BillModel implements BillModelInterface {
             this.dateTimeExport = resultSet.getTimestamp("NgayLap");
             this.payment = resultSet.getInt("TongTien");
             this.guestMoney = resultSet.getInt("TienKhachTra");
-            this.changeMoney = resultSet.getInt("TienThoi");
-            this.employeeName = resultSet.getString(EMPLOYEE_NAME_HEADER);
+            employee.setProperty(resultSet);
         } catch (SQLException ex) {
             Logger.getLogger(BillModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public void setBillID(int id) {
-        this.id = id;
+    public void setBillIDText(String billIDText) {
+        this.id = Integer.parseInt(billIDText);
     }
 
     @Override
@@ -79,8 +73,6 @@ public class BillModel implements BillModelInterface {
                 preparedStatement.setLong(index, this.payment);
             } else if (header.equals(GUEST_MONEY_HEADER)) {
                 preparedStatement.setLong(index, this.guestMoney);
-            } else if (header.equals(CHANGE_MONEY_HEADER)) {
-                preparedStatement.setLong(index, this.changeMoney);
             }
         } catch (SQLException ex) {
             Logger.getLogger(BillModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -96,8 +88,8 @@ public class BillModel implements BillModelInterface {
             callableStatement.setTimestamp(1, this.dateTimeExport);
             callableStatement.setLong(2, this.payment);
             callableStatement.setLong(3, this.guestMoney);
-            callableStatement.setString(4, this.employeeName);
-
+            employee.setKeyArg(4, EmployeeModel.ID_HEADER, callableStatement);
+            
             callableStatement.execute();
             callableStatement.close();
         } catch (SQLException ex) {
@@ -129,13 +121,8 @@ public class BillModel implements BillModelInterface {
     }
 
     @Override
-    public void setChangeMoney(long changeMoney) {
-        this.changeMoney = changeMoney;
-    }
-
-    @Override
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
+    public void setEmployee(EmployeeModelInterface employee) {
+        this.employee = employee;
     }
 
     @Override
@@ -155,12 +142,12 @@ public class BillModel implements BillModelInterface {
 
     @Override
     public long getChangeMoney() {
-        return this.changeMoney;
+        return this.guestMoney - this.payment;
     }
 
     @Override
-    public String getEmployeeName() {
-        return this.employeeName;
+    public EmployeeModelInterface getEmployee() {
+        return this.employee;
     }
 
     @Override
@@ -191,8 +178,8 @@ public class BillModel implements BillModelInterface {
     @Override
     public String toString() {
         return "Bill{" + "billID=" + id + ", dateExport=" + dateTimeExport
-                + ", payment=" + payment + ", givenMoney=" + guestMoney + ", changeMoney="
-                + changeMoney + ", employeeName=" + employeeName + '}';
+                + ", payment=" + payment + ", givenMoney=" + guestMoney
+                + ", employeeID=" + (employee != null ? employee.getName() : "NULL") + '}';
     }
 
 }

@@ -1,22 +1,20 @@
 package model.bill.detail;
 
 import model.DatabaseModel;
-import model.product.ProductModelInterface;
 import model.bill.BillModelInterface;
+import model.product.ProductSimpleModelInterface;
 
 public interface ProductDetailModelInterface extends DatabaseModel {
 
     void setBill(BillModelInterface bill);
 
-    void setProduct(ProductModelInterface product);
+    void setProduct(ProductSimpleModelInterface product);
 
     void setAmount(int amount);
 
-    void setPrice(long price);
-
     BillModelInterface getBill();
 
-    ProductModelInterface getProduct();
+    ProductSimpleModelInterface getProduct();
 
     int getAmount();
 

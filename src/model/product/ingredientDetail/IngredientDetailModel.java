@@ -10,11 +10,12 @@ import java.util.logging.Logger;
 import model.ingredient.IngredientModel;
 import model.product.ProductModel;
 import model.product.ProductModelInterface;
+import model.product.ProductSimpleModel;
 
 public class IngredientDetailModel implements IngredientDetailModelInterface {
 
     public static final String TABLE_NAME = "ThanhPhan";
-    public static final String PRODUCT_ID_HEADER = ProductModel.ID_HEADER;
+    public static final String PRODUCT_ID_HEADER = ProductSimpleModel.ID_HEADER;
     public static final String INGREDIENT_NAME_HEADER = IngredientModel.NAME_HEADER;
     public static final String INGREDIENT_TYPE_NAME_HEADER = IngredientModel.TYPE_NAME_HEADER;
     public static final String AMOUNT_HEADER = "SoLuong";
@@ -115,7 +116,7 @@ public class IngredientDetailModel implements IngredientDetailModelInterface {
         try {
             CallableStatement callableStatement = dbConnection.prepareCall(SP_INSERT);
 
-            this.product.setKeyArg(1, ProductModel.ID_HEADER, callableStatement);
+            this.product.setKeyArg(1, ProductSimpleModel.ID_HEADER, callableStatement);
             callableStatement.setString(2, this.ingredientName);
             callableStatement.setFloat(3, this.amount);
             callableStatement.setString(4, this.unitName);
@@ -133,7 +134,7 @@ public class IngredientDetailModel implements IngredientDetailModelInterface {
         try {
             CallableStatement callableStatement = dbConnection.prepareCall(SP_DELETE);
 
-            this.product.setKeyArg(1, ProductModel.ID_HEADER, callableStatement);
+            this.product.setKeyArg(1, ProductSimpleModel.ID_HEADER, callableStatement);
             callableStatement.setString(2, this.ingredientName);
 
             callableStatement.execute();
@@ -149,7 +150,7 @@ public class IngredientDetailModel implements IngredientDetailModelInterface {
         try {
             CallableStatement callableStatement = dbConnection.prepareCall(SP_UPDATE);
 
-            this.product.setKeyArg(1, ProductModel.ID_HEADER, callableStatement);
+            this.product.setKeyArg(1, ProductSimpleModel.ID_HEADER, callableStatement);
             callableStatement.setString(2, this.ingredientName);
             callableStatement.setFloat(3, this.amount);
             callableStatement.setString(4, this.unitName);
