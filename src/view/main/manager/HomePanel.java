@@ -492,10 +492,6 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
                 providerProblems.add(providerName);
             }
 
-            System.out.println("product: " + productProblems.size());
-            System.out.println("ingredient: " + ingredientProblems.size());
-            System.out.println("provider: " + providerProblems.size());
-
             resultSet.close();
             callableStatement.close();
 
