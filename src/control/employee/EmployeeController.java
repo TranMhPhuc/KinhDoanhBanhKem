@@ -67,7 +67,7 @@ public class EmployeeController implements EmployeeControllerInterface {
             }
             case INVALLID: {
                 employeePanel.showErrorMessage("Employee mobile must have exact "
-                        + PhoneValidator.PHONE_NUM_VALID + " digits.");
+                        + PhoneValidator.getPhoneNumValid() + " digits.");
                 return false;
             }
         }
@@ -89,7 +89,7 @@ public class EmployeeController implements EmployeeControllerInterface {
             }
             case INVALLID: {
                 employeePanel.showErrorMessage("Employee personal id must have exact "
-                        + PersonalIDValidator.PERSONAL_ID_DIGIT_NUM_VALID + " digits.");
+                        + PersonalIDValidator.getPhoneNumValid() + " digits.");
                 return false;
             }
         }

@@ -9,13 +9,17 @@ public class PersonalIDValidator {
         PASS
     };
 
-    public static int PERSONAL_ID_DIGIT_NUM_VALID = 12;
+    private static int PERSONAL_ID_DIGIT_NUM_VALID = 12;
 
     private PersonalIDValidator() {
     }
 
     public static void setValidDigitNum(int num) {
         PERSONAL_ID_DIGIT_NUM_VALID = num;
+    }
+    
+    public static int getPhoneNumValid() {
+        return PERSONAL_ID_DIGIT_NUM_VALID;
     }
 
     public static PersonalIDValidateResult validate(String personalIDText) {
