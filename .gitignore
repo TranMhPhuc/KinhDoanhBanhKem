@@ -2,5 +2,5 @@
 /nbproject/private/
 /KinhDoanhBanhKem/build/
 /build/
-/KinhDoanhBanhKem/log/
+/KinhDoanhBanhKem/log/**
 /dist/
