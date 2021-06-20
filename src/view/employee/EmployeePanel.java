@@ -147,6 +147,20 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
                 throw new UnsupportedOperationException("Not supported yet.");
             }
         });
+
+        labelSettingPersonalID.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                employeeController.requestChangePersonalIDConstraint();
+            }
+        });
+        
+        labelSettingPhoneNum.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                employeeController.requestChangePhoneNumConstraint();
+            }
+        });
     }
 
     public int getTableEmployeeRowCount() {
@@ -592,7 +606,7 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
                 columnModel.getColumn(EMPLOYEE_WORKING_COLUMN_INDEX).setHeaderValue("Trạng thái");
                 columnModel.getColumn(EMPLOYEE_START_DATE_COLUMN_INDEX).setHeaderValue("Ngày bắt đầu");
                 columnModel.getColumn(EMPLOYEE_END_DATE_COLUMN_INDEX).setHeaderValue("Ngày kết thúc");
-                
+
                 break;
             }
         }
@@ -637,6 +651,8 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
         combEmployeeShift = new util.swing.checkcombobox.CheckedComboBox();
         dateChooserEndDate = new com.toedter.calendar.JDateChooser();
         labelEndDate = new javax.swing.JLabel();
+        labelSettingPersonalID = new javax.swing.JLabel();
+        labelSettingPhoneNum = new javax.swing.JLabel();
         panelCard = new javax.swing.JPanel();
         panelBtnFunction = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
@@ -808,6 +824,10 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
         labelEndDate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelEndDate.setText("End date");
 
+        labelSettingPersonalID.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Maintenance_20px.png"))); // NOI18N
+
+        labelSettingPhoneNum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Maintenance_20px.png"))); // NOI18N
+
         javax.swing.GroupLayout panelInfoLayout = new javax.swing.GroupLayout(panelInfo);
         panelInfo.setLayout(panelInfoLayout);
         panelInfoLayout.setHorizontalGroup(
@@ -821,12 +841,16 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
                     .addComponent(labelPersonalID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textfPersonalID, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(textfPhoneNum, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                         .addComponent(textfEmployeeName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                        .addComponent(textfEmployeeID, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)))
-                .addGap(30, 30, 30)
+                        .addComponent(textfEmployeeID, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
+                    .addComponent(textfPersonalID, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelSettingPersonalID, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelSettingPhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(labelPosition, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                     .addComponent(labelGender, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -898,11 +922,13 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
                                             .addComponent(textfPhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(labelMobile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(labelPosition)
-                                            .addComponent(combPositionName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(combPositionName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(labelSettingPhoneNum, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
                                         .addGap(20, 20, 20)
                                         .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(textfPersonalID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(labelPersonalID)))
+                                            .addComponent(labelPersonalID)
+                                            .addComponent(labelSettingPersonalID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(labelStatus)
                                         .addComponent(combEmployeeStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -1045,6 +1071,8 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
     private javax.swing.JLabel labelPersonalID;
     private javax.swing.JLabel labelPosition;
     private javax.swing.JLabel labelSearchEmployee;
+    private javax.swing.JLabel labelSettingPersonalID;
+    private javax.swing.JLabel labelSettingPhoneNum;
     private javax.swing.JLabel labelShift;
     private javax.swing.JLabel labelStartDate;
     private javax.swing.JLabel labelStatus;

@@ -30,4 +30,8 @@ public interface EmployeeControllerInterface {
 
     boolean canCloseEmployeeManagePanel();
     
+    void requestChangePersonalIDConstraint();
+    
+    void requestChangePhoneNumConstraint();
+    
 }

@@ -10,7 +10,6 @@ import control.product.ProductControllerInterface;
 import control.provider.ProviderController;
 import control.provider.ProviderControllerInterface;
 import control.setting.ManagerSettingController;
-import control.setting.SettingController;
 import java.awt.CardLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

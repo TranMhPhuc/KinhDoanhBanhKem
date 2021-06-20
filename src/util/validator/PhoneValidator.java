@@ -9,9 +9,13 @@ public class PhoneValidator {
         PASS
     }
     
-    public static final int PHONE_NUM_VALID = 10;
+    public static int PHONE_NUM_VALID = 10;
 
     private PhoneValidator() {
+    }
+    
+    public static void setValidDigitNum(int num) {
+        PHONE_NUM_VALID = num;
     }
 
     public static PhoneValidateResult validate(String phoneNumText) {

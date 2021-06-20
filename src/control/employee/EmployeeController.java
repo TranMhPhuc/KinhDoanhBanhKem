@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 import javax.swing.JOptionPane;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 import model.employee.EmployeeManageModelInterface;
@@ -401,14 +400,14 @@ public class EmployeeController implements EmployeeControllerInterface {
         this.employeeManageModel.updateEmployee(employee);
 
         List<ShiftDetailModelInterface> selectedShiftDetails = new ArrayList<>();
-        
+
         for (String shiftName : shiftNameSelected) {
             ShiftDetailModelInterface shiftDetail = new ShiftDetailModel();
             shiftDetail.setEmployee(employee);
             shiftDetail.setShiftName(shiftName);
             selectedShiftDetails.add(shiftDetail);
         }
-        
+
         List<ShiftDetailModelInterface> employeeShiftDetails = employee.getShiftDetails();
 
         // Find deleted shift detail
@@ -545,6 +544,40 @@ public class EmployeeController implements EmployeeControllerInterface {
             }
         }
         return true;
+    }
+
+    @Override
+    public void requestChangePersonalIDConstraint() {
+        String inputText = (String) JOptionPane.showInputDialog(employeePanel
+                .getMainFrame(), "Customize the personal id number of digit constraint:",
+                "Customize dialog", JOptionPane.PLAIN_MESSAGE, null, null, null);
+        if (inputText != null && !inputText.isEmpty()) {
+            int num;
+            try {
+                num = Integer.parseInt(inputText);
+            } catch (NumberFormatException ex) {
+                employeePanel.showErrorMessage("Setting value is invallid");
+                return;
+            }
+            PersonalIDValidator.setValidDigitNum(num);
+        }
+    }
+
+    @Override
+    public void requestChangePhoneNumConstraint() {
+        String inputText = (String) JOptionPane.showInputDialog(employeePanel
+                .getMainFrame(), "Customize the mobile number of digit constraint:",
+                "Customize dialog", JOptionPane.PLAIN_MESSAGE, null, null, null);
+        if (inputText != null && !inputText.isEmpty()) {
+            int num;
+            try {
+                num = Integer.parseInt(inputText);
+            } catch (NumberFormatException ex) {
+                employeePanel.showErrorMessage("Setting value is invallid");
+                return;
+            }
+            PhoneValidator.setValidDigitNum(num);
+        }
     }
 
 }
