@@ -479,6 +479,7 @@ public class IngredientManageModel implements IngredientManageModelInterface {
             }
 
             callableStatement.close();
+            
         } catch (SQLException ex) {
             Logger.getLogger(IngredientManageModel.class.getName()).log(Level.SEVERE, null, ex);
         }
