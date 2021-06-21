@@ -1,4 +1,4 @@
-package view.dialog;
+package view.bill;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;

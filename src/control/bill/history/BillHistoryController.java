@@ -15,7 +15,7 @@ import model.bill.BillHistoryModelInterface;
 import model.bill.BillModel;
 import model.bill.detail.ProductDetailModel;
 import util.db.SQLServerConnection;
-import view.dialog.BillDetailDialog;
+import view.bill.BillDetailDialog;
 import view.bill.BillHistoryPanel;
 import model.bill.detail.ProductDetailModelInterface;
 import model.bill.BillModelInterface;

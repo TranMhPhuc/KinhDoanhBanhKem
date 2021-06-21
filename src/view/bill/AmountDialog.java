@@ -1,4 +1,4 @@
-package view.dialog;
+package view.bill;
 
 import control.bill.create.BillCreateControllerInterface;
 import java.awt.Color;

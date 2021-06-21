@@ -9,9 +9,9 @@ import model.product.ProductModelInterface;
 import model.product.ProductSimpleModelInterface;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import view.dialog.BillExportDialog;
+import view.bill.BillExportDialog;
 import view.bill.BillCreatePanel;
-import view.dialog.AmountDialog;
+import view.bill.AmountDialog;
 import model.bill.BillCreateModelInterface;
 import util.messages.Messages;
 
