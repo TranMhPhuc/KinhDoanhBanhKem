@@ -24,6 +24,7 @@ import model.provider.ProviderModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
 import util.messages.Messages;
+import util.swing.NumberRenderer;
 import util.swing.UIControl;
 import view.MessageShowing;
 import view.product.ModifiedProductObserver;
@@ -107,6 +108,9 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         resetIngredientInput();
         setIngredientInputEditable(false);
         UIControl.setDefaultTableHeader(tableIngredient);
+        
+         TableColumnModel m = tableIngredient.getColumnModel();
+        m.getColumn(5).setCellRenderer(NumberRenderer.getCurrencyRenderer());
     }
 
     private void createControl() {
@@ -781,7 +785,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
                 .addContainerGap())
         );
 
-        tableIngredient.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        tableIngredient.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         tableIngredient.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -810,6 +814,16 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         tableIngredient.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableIngredient.getTableHeader().setReorderingAllowed(false);
         scrpaneIngredient.setViewportView(tableIngredient);
+        if (tableIngredient.getColumnModel().getColumnCount() > 0) {
+            tableIngredient.getColumnModel().getColumn(0).setMinWidth(7);
+            tableIngredient.getColumnModel().getColumn(0).setPreferredWidth(7);
+            tableIngredient.getColumnModel().getColumn(1).setMinWidth(170);
+            tableIngredient.getColumnModel().getColumn(1).setPreferredWidth(170);
+            tableIngredient.getColumnModel().getColumn(4).setMinWidth(170);
+            tableIngredient.getColumnModel().getColumn(4).setPreferredWidth(170);
+            tableIngredient.getColumnModel().getColumn(5).setMinWidth(170);
+            tableIngredient.getColumnModel().getColumn(5).setPreferredWidth(170);
+        }
 
         panelCard.setLayout(new java.awt.CardLayout());
 
@@ -925,11 +939,11 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
                     .addComponent(scrpaneIngredient)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE)
-                        .addComponent(panelCard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelCard, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(panelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1271, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -937,11 +951,11 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
                 .addContainerGap()
                 .addComponent(panelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelCard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelCard, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrpaneIngredient, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
+                .addComponent(scrpaneIngredient)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
         );

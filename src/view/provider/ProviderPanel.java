@@ -570,6 +570,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
                 .addContainerGap())
         );
 
+        tableProvider.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         tableProvider.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -596,6 +597,16 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
         tableProvider.setSelectionBackground(new java.awt.Color(113, 168, 255));
         tableProvider.getTableHeader().setReorderingAllowed(false);
         scrpaneTable.setViewportView(tableProvider);
+        if (tableProvider.getColumnModel().getColumnCount() > 0) {
+            tableProvider.getColumnModel().getColumn(0).setMinWidth(7);
+            tableProvider.getColumnModel().getColumn(0).setPreferredWidth(7);
+            tableProvider.getColumnModel().getColumn(1).setMinWidth(170);
+            tableProvider.getColumnModel().getColumn(1).setPreferredWidth(170);
+            tableProvider.getColumnModel().getColumn(2).setMinWidth(170);
+            tableProvider.getColumnModel().getColumn(2).setPreferredWidth(170);
+            tableProvider.getColumnModel().getColumn(4).setMinWidth(170);
+            tableProvider.getColumnModel().getColumn(4).setPreferredWidth(170);
+        }
 
         panelCard.setLayout(new java.awt.CardLayout());
 
@@ -696,8 +707,8 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
                     .addComponent(scrpaneTable, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
-                        .addComponent(panelCard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                        .addComponent(panelCard, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -706,9 +717,9 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
                 .addContainerGap()
                 .addComponent(panelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelCard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelCard, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrpaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
                 .addContainerGap())

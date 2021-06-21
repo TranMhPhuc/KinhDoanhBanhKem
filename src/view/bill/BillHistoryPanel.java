@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import model.bill.BillHistoryModelInterface;
 import view.MessageShowing;
 import model.bill.BillModelInterface;
+import util.swing.NumberRenderer;
 
 public class BillHistoryPanel extends javax.swing.JPanel implements ActionListener, MessageShowing {
 
@@ -65,6 +66,10 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
 
     private void createView() {
         UIControl.setDefaultTableHeader(tableBillInfo);
+        
+        tableBillInfo.getColumnModel().getColumn(2).setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        tableBillInfo.getColumnModel().getColumn(3).setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        tableBillInfo.getColumnModel().getColumn(4).setCellRenderer(NumberRenderer.getCurrencyRenderer());
     }
 
     private void createControl() {
@@ -288,6 +293,7 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
                 .addContainerGap())
         );
 
+        tableBillInfo.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         tableBillInfo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
