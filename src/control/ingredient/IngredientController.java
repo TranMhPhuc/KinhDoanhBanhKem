@@ -468,11 +468,6 @@ public class IngredientController implements IngredientControllerInterface {
     }
 
     @Override
-    public void requestImportExcel() {
-        ExcelTransfer.importExcelFileToTable(ingredientPanel.getTableIngredient());
-    }
-
-    @Override
     public void requestExportExcel() {
         if (ingredientPanel.getTableIngredientRowCount() == 0) {
             ingredientPanel.showErrorMessage("Table product data is empty.");

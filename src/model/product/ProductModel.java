@@ -246,8 +246,8 @@ public class ProductModel implements ProductModelInterface {
         if (id == -1) {
             throw new IllegalArgumentException("Ingredient detail is not existed.");
         }
-        if ((ingredientDetail instanceof IngredientDetailModel)
-                && ingredientDetails.get(id).compareTo((IngredientDetailModel) ingredientDetail) != 0) {
+        if (ingredientDetails.get(id).compareTo(ingredientDetail) != 0) {
+            ingredientDetails.set(id, ingredientDetail);
             ingredientDetail.updateInDatabase();
         }
     }

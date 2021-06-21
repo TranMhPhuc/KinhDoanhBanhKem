@@ -15,6 +15,8 @@ import javax.swing.table.DefaultTableModel;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -33,7 +35,7 @@ public class ExcelTransfer {
         font.setFontName("Times New Roman");
         font.setBold(true);
         font.setFontHeightInPoints((short) 14); // font size
-        font.setColor(IndexedColors.BLACK.getIndex()); // text color
+        font.setColor(IndexedColors.WHITE.getIndex()); // text color
 
         // Create CellStyle
         CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
@@ -43,6 +45,8 @@ public class ExcelTransfer {
         cellStyle.setBorderRight(BorderStyle.THIN);
         cellStyle.setBorderLeft(BorderStyle.THIN);
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
+        cellStyle.setFillForegroundColor(IndexedColors.BLUE.getIndex());
+        cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         return cellStyle;
     }
 
@@ -68,8 +72,8 @@ public class ExcelTransfer {
             @Override
             public void approveSelection() {
                 File f = getSelectedFile();
-                String notify = f.getName() + "already exists.\nDo you want to replace it?";
                 if (f.exists() && getDialogType() == JFileChooser.CUSTOM_DIALOG) {
+                    String notify = f.getName() + "already exists.\nDo you want to replace it?";
                     int result = JOptionPane.showConfirmDialog(null, notify,
                             "Confirm Override", JOptionPane.YES_NO_OPTION);
                     switch (result) {
@@ -93,7 +97,6 @@ public class ExcelTransfer {
                 "Excel Extensions (xls, xlsx, xlsm)", "xls", "xlsx", "xlsm");
         excelFileChooser.setFileFilter(excelFilter);
         int choose = excelFileChooser.showDialog(null, "Export");
-        // int choose = excelFileChooser.showSaveDialog(this);
         if (choose == JFileChooser.APPROVE_OPTION) {
             FileOutputStream excelFileOutput = null;
             BufferedOutputStream excelBuffered = null;
@@ -112,7 +115,6 @@ public class ExcelTransfer {
                 XSSFCell excelCell = headerRow.createCell(i);
                 excelCell.setCellValue(tableExample.getColumnName(i));
                 excelCell.setCellStyle(headerStyle);
-
             }
             //add Data to excel file
             for (int i = 0; i < dtm.getRowCount(); i++) {
@@ -139,8 +141,13 @@ public class ExcelTransfer {
                         excelCell.setCellValue("Invalid type");
                     }
                     excelCell.setCellStyle(dataStyle);
-
                 }
+            }
+
+            // Auto resize column witdth
+            int numberOfColumn = excelSheet.getRow(0).getPhysicalNumberOfCells();
+            for (int columnIndex = 0; columnIndex < numberOfColumn; columnIndex++) {
+                excelSheet.autoSizeColumn(columnIndex);
             }
 
             try {
@@ -290,25 +297,83 @@ public class ExcelTransfer {
                     for (int column = 0; column < excelRow.getLastCellNum(); column++) {
                         XSSFCell excelCell = excelRow.getCell(column);
                         if (dtm.getColumnClass(column).equals(Integer.class)) {
-                            try {
-                                double value = Double.parseDouble(excelCell.toString());
-                                rowData.add((int) Math.floor(value));
-
-                            } catch (NumberFormatException ex) {
+                            if (excelCell.getCellType() != CellType.NUMERIC) {
                                 passed = false;
                                 showErrorMessage(row, column + 1);
                                 break;
                             }
-
-                        } else if (dtm.getColumnClass(column).equals(String.class)) {
-                            rowData.add(excelCell.toString());
-
-                        } else if (dtm.getColumnClass(column).equals(Double.class)) {
                             try {
-                                rowData.add(Double.parseDouble(excelCell.toString()));
+                                double value = excelCell.getNumericCellValue();
+                                rowData.add((int) Math.floor(value));
+                            } catch (NumberFormatException ex ) {
+                                passed = false;
+                                showErrorMessage(row, column + 1);
+                                ex.printStackTrace();
+                                break;
+                            }
+                        } else if (dtm.getColumnClass(column).equals(Long.class)) {
+                            if (excelCell.getCellType() != CellType.NUMERIC) {
+                                passed = false;
+                                showErrorMessage(row, column + 1);
+                                break;
+                            }
+                            try {
+                                double value  = excelCell.getNumericCellValue();
+                                rowData.add(((Double) value).longValue());
                             } catch (NumberFormatException ex) {
                                 passed = false;
                                 showErrorMessage(row, column + 1);
+                                ex.printStackTrace();
+                                break;
+                            }
+                        } else if (dtm.getColumnClass(column).equals(Float.class)) {
+                            if (excelCell.getCellType() != CellType.NUMERIC) {
+                                passed = false;
+                                showErrorMessage(row, column + 1);
+                                break;
+                            }
+                            try {
+                                double value  = excelCell.getNumericCellValue();
+                                rowData.add(((Double) value).floatValue());
+                            } catch (NumberFormatException ex) {
+                                passed = false;
+                                showErrorMessage(row, column + 1);
+                                ex.printStackTrace();
+                                break;
+                            }
+                        } else if (dtm.getColumnClass(column).equals(Boolean.class)) {
+                            if (excelCell.getCellType() != CellType.BOOLEAN) {
+                                passed = false;
+                                showErrorMessage(row, column + 1);
+                                break;
+                            }
+                            try {
+                                rowData.add(Boolean.parseBoolean(excelCell.getStringCellValue()));
+                            } catch (NumberFormatException ex) {
+                                passed = false;
+                                showErrorMessage(row, column + 1);
+                                ex.printStackTrace();
+                                break;
+                            }
+                        } else if (dtm.getColumnClass(column).equals(String.class)) {
+                            if (excelCell.getCellType() != CellType.STRING) {
+                                passed = false;
+                                showErrorMessage(row, column + 1);
+                                break;
+                            }
+                            rowData.add(excelCell.getStringCellValue());
+                        } else if (dtm.getColumnClass(column).equals(Double.class)) {
+                            if (excelCell.getCellType() != CellType.NUMERIC) {
+                                passed = false;
+                                showErrorMessage(row, column + 1);
+                                break;
+                            }
+                            try {
+                                rowData.add(excelCell.getNumericCellValue());
+                            } catch (NumberFormatException ex) {
+                                passed = false;
+                                showErrorMessage(row, column + 1);
+                                ex.printStackTrace();
                                 break;
                             }
                         }
@@ -317,9 +382,9 @@ public class ExcelTransfer {
                         dtm.addRow(rowData);
                     } else {
                         dtm.setRowCount(0);
+                        break;
                     }
                 }
-
             } catch (IOException ex) {
                 ex.printStackTrace();
             } finally {

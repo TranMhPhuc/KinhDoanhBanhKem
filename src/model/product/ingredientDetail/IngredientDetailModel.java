@@ -42,6 +42,14 @@ public class IngredientDetailModel implements IngredientDetailModelInterface {
     public IngredientDetailModel() {
     }
 
+    public IngredientDetailModel(IngredientDetailModelInterface o) {
+        this.product = o.getProduct();
+        this.ingredientName = o.getIngredientName();
+        this.ingredientTypeName = o.getIngredientTypeName();
+        this.amount = o.getAmount();
+        this.unitName = o.getUnitName();
+    }
+    
     @Override
     public void setProduct(ProductModelInterface product) {
         this.product = product;
@@ -215,8 +223,12 @@ public class IngredientDetailModel implements IngredientDetailModelInterface {
         if (!this.product.equals(o.getProduct()) && !this.ingredientName.equals(o.getIngredientName())) {
             throw new IllegalArgumentException("Two comparing ingredient detail having not same id.");
         }
+        
+        System.out.println("this: " + this.amount + ", " + this.unitName);
+        System.out.println("o: " + o.getAmount() + ", " + o.getUnitName());
+        
         if ((this.amount != o.getAmount())
-                || (this.unitName.compareTo(o.getUnitName())) != 0) {
+                || !this.unitName.equals(o.getUnitName())) {
             return 1;
         }
         return 0;

@@ -86,10 +86,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
         btnAdd.addActionListener(this);
         btnModify.addActionListener(this);
         btnRemove.addActionListener(this);
-        btnMore.addActionListener(this);
-        mnImport.addActionListener(this);
-        mnExport.addActionListener(this);
-        mnTemplate.addActionListener(this);
+        btnExport.addActionListener(this);
         btnOK.addActionListener(this);
         btnCancel.addActionListener(this);
         btnReset.addActionListener(this);
@@ -318,14 +315,8 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
                     this.providerController.requestRemoveProvider();
                 }
             }
-        } else if (source == btnMore) {
-            popupBtnMore.show(btnMore, 0, btnMore.getY() + btnMore.getHeight());
-        } else if (source == mnImport) {
-            this.providerController.requestImportExcel();
-        } else if (source == mnExport) {
+        } else if (source == btnExport) {
             this.providerController.requestExportExcel();
-        } else if (source == mnTemplate) {
-            this.providerController.requestCreateTemplateExcel();
         } else if (source == btnOK) {
             switch (editState) {
                 case ADD: {
@@ -412,12 +403,9 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
                 btnAdd.setText("Add");
                 btnModify.setText("Modify");
                 btnRemove.setText("Remove");
-                btnMore.setText("More ▼");
+                btnExport.setText("Export");
                 btnReset.setText("Reset");
                 btnCancel.setText("Cancel");
-                mnExport.setText("Export Excel flie");
-                mnImport.setText("Import Excel file");
-                mnTemplate.setText("Create template");
 
                 TableColumnModel tableProviderColumnModel = tableProvider.getColumnModel();
                 tableProviderColumnModel.getColumn(PROVIDER_NAME_COLUMN_INDEX).setHeaderValue("Name");
@@ -435,12 +423,9 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
                 btnAdd.setText("Thêm");
                 btnModify.setText("Chỉnh sửa");
                 btnRemove.setText("Xóa");
-                btnMore.setText("Khác ▼");
+                btnExport.setText("Xuất");
                 btnReset.setText("Làm mới");
                 btnCancel.setText("Thoát");
-                mnExport.setText("Xuất file Excel");
-                mnImport.setText("Nhập file Excel");
-                mnTemplate.setText("Tạo biểu mẫu");
 
                 TableColumnModel tableProviderColumnModel = tableProvider.getColumnModel();
                 tableProviderColumnModel.getColumn(PROVIDER_NAME_COLUMN_INDEX).setHeaderValue("Name");
@@ -458,10 +443,6 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        popupBtnMore = new javax.swing.JPopupMenu();
-        mnImport = new javax.swing.JMenuItem();
-        mnExport = new javax.swing.JMenuItem();
-        mnTemplate = new javax.swing.JMenuItem();
         panelProviderInfo = new javax.swing.JPanel();
         label_provID4 = new javax.swing.JLabel();
         textfProviderID = new javax.swing.JTextField();
@@ -480,7 +461,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
         btnAdd = new javax.swing.JButton();
         btnModify = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
-        btnMore = new javax.swing.JButton();
+        btnExport = new javax.swing.JButton();
         panelBtnOption = new javax.swing.JPanel();
         btnOK = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
@@ -489,18 +470,6 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
         labelSearchProvider = new javax.swing.JLabel();
         textfSearchName = new javax.swing.JTextField();
         btnSearchClear = new javax.swing.JButton();
-
-        mnImport.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        mnImport.setText("Import");
-        popupBtnMore.add(mnImport);
-
-        mnExport.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        mnExport.setText("Export");
-        popupBtnMore.add(mnExport);
-
-        mnTemplate.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        mnTemplate.setText("Template");
-        popupBtnMore.add(mnTemplate);
 
         setBackground(new java.awt.Color(255, 255, 255));
         setName("Provider"); // NOI18N
@@ -613,6 +582,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
                 return canEdit [columnIndex];
             }
         });
+        tableProvider.setSelectionBackground(new java.awt.Color(113, 168, 255));
         tableProvider.getTableHeader().setReorderingAllowed(false);
         scrpaneTable.setViewportView(tableProvider);
 
@@ -620,10 +590,12 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
 
         panelBtnFunction.setBackground(new java.awt.Color(255, 255, 255));
         panelBtnFunction.setName("Function"); // NOI18N
+        panelBtnFunction.setPreferredSize(new java.awt.Dimension(530, 40));
         panelBtnFunction.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnAdd.setForeground(new java.awt.Color(51, 51, 51));
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Add_30px.png"))); // NOI18N
         btnAdd.setText("Add");
         btnAdd.setFocusPainted(false);
         btnAdd.setPreferredSize(new java.awt.Dimension(115, 40));
@@ -631,6 +603,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
 
         btnModify.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnModify.setForeground(new java.awt.Color(51, 51, 51));
+        btnModify.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Edit_30px.png"))); // NOI18N
         btnModify.setText("Modify");
         btnModify.setFocusPainted(false);
         btnModify.setPreferredSize(new java.awt.Dimension(115, 40));
@@ -638,17 +611,19 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
 
         btnRemove.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnRemove.setForeground(new java.awt.Color(51, 51, 51));
+        btnRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Trash_30px.png"))); // NOI18N
         btnRemove.setText("Remove");
         btnRemove.setFocusPainted(false);
         btnRemove.setPreferredSize(new java.awt.Dimension(115, 40));
         panelBtnFunction.add(btnRemove);
 
-        btnMore.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        btnMore.setForeground(new java.awt.Color(51, 51, 51));
-        btnMore.setText("More ▼");
-        btnMore.setFocusPainted(false);
-        btnMore.setPreferredSize(new java.awt.Dimension(115, 40));
-        panelBtnFunction.add(btnMore);
+        btnExport.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnExport.setForeground(new java.awt.Color(51, 51, 51));
+        btnExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Excel_30px.png"))); // NOI18N
+        btnExport.setText("Export");
+        btnExport.setFocusPainted(false);
+        btnExport.setPreferredSize(new java.awt.Dimension(115, 40));
+        panelBtnFunction.add(btnExport);
 
         panelCard.add(panelBtnFunction, "Function");
 
@@ -710,7 +685,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
                     .addComponent(scrpaneTable, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 270, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
                         .addComponent(panelCard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -732,8 +707,8 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnExport;
     private javax.swing.JButton btnModify;
-    private javax.swing.JButton btnMore;
     private javax.swing.JButton btnOK;
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnReset;
@@ -745,14 +720,10 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
     private javax.swing.JLabel labelPhoneNum;
     private javax.swing.JLabel labelSearchProvider;
     private javax.swing.JLabel label_provID4;
-    private javax.swing.JMenuItem mnExport;
-    private javax.swing.JMenuItem mnImport;
-    private javax.swing.JMenuItem mnTemplate;
     private javax.swing.JPanel panelBtnFunction;
     private javax.swing.JPanel panelBtnOption;
     private javax.swing.JPanel panelCard;
     private javax.swing.JPanel panelProviderInfo;
-    private javax.swing.JPopupMenu popupBtnMore;
     private javax.swing.JScrollPane scrpaneTable;
     private javax.swing.JTable tableProvider;
     private javax.swing.JTextField textfAddress;

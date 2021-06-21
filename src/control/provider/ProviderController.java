@@ -265,11 +265,6 @@ public class ProviderController implements ProviderControllerInterface {
     }
 
     @Override
-    public void requestImportExcel() {
-        ExcelTransfer.importExcelFileToTable(providerPanel.getTableProvider());
-    }
-
-    @Override
     public void requestExportExcel() {
         if (providerPanel.getTableProviderRowCount() == 0) {
             providerPanel.showErrorMessage("Table provider data is empty.");

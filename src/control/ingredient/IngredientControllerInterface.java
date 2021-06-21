@@ -18,8 +18,6 @@ public interface IngredientControllerInterface {
 
     void requestImportIngredient();
     
-    void requestImportExcel();
-    
     void requestExportExcel();
     
     void requestCreateTemplateExcel();

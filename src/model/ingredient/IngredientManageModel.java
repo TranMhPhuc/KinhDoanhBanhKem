@@ -191,18 +191,6 @@ public class IngredientManageModel implements IngredientManageModelInterface {
     }
 
     @Override
-    public void exportIngredientData() {
-        // XXX
-
-    }
-
-    @Override
-    public void importIngredientData() {
-        // XXX
-
-    }
-
-    @Override
     public IngredientModelInterface getIngredientByID(String ingredientIDText) {
         for (IngredientModelInterface element : ingredients) {
             if (element.getIngredientIDText().equals(ingredientIDText)) {

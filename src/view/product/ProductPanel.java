@@ -100,10 +100,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
         btnAdd.addActionListener(this);
         btnModify.addActionListener(this);
         btnRemove.addActionListener(this);
-        btnMore.addActionListener(this);
-        mnImport.addActionListener(this);
-        mnExport.addActionListener(this);
-        mnTemplate.addActionListener(this);
+        btnExport.addActionListener(this);
         btnRequestProduce.addActionListener(this);
         btnOK.addActionListener(this);
         btnCancel.addActionListener(this);
@@ -160,7 +157,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
     public void showIngredientDetailList() {
         this.tableIngredientDetailModel.setRowCount(0);
 
-        productManageModel.getIngredientDetailBufferList().forEach(ingredientDetail -> {
+        productManageModel.getBufferedIngredientDetailList().forEach(ingredientDetail -> {
             Object[] record = new Object[]{
                 ingredientDetail.getIngredientName(),
                 ingredientDetail.getIngredientTypeName(),
@@ -263,7 +260,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
         combProductSize.setSelectedIndex(0);
         tableIngredientDetailModel.setRowCount(0);
         if (productManageModel != null) {
-            productManageModel.getIngredientDetailBufferList().clear();
+            productManageModel.getBufferedIngredientDetailList().clear();
         }
     }
 
@@ -282,6 +279,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
         } else if (source == btnAdd) {
             resetProductInput();
             setProductInputEditable(true);
+            btnRequestProduce.setEnabled(false);
 
             if (btnAdd.getText().equals("Add")) {
                 btnOK.setText("Add");
@@ -299,6 +297,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
                 showInfoMessage("You should choose one product first.");
             } else {
                 setProductInputEditable(true);
+                btnRequestProduce.setEnabled(false);
                 if (btnModify.getText().equals("Modify")) {
                     btnOK.setText("Save");
                 } else {
@@ -319,14 +318,8 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
                     this.productController.requestRemoveProduct();
                 }
             }
-        } else if (source == btnMore) {
-            this.popupBtnMore.show(btnMore, 0, btnMore.getY() + btnMore.getHeight());
-        } else if (source == mnImport) {
-            this.productController.requestImportExcel();
-        } else if (source == mnExport) {
+        } else if (source == btnExport) {
             this.productController.requestExportExcel();
-        } else if (source == mnTemplate) {
-            this.productController.requestCreateTemplateExcel();
         } else if (source == btnRequestProduce) {
             this.productController.requestProduceProduct();
         } else if (source == btnOK) {
@@ -358,6 +351,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
         }
         this.editState = null;
         setProductInputEditable(false);
+        btnRequestProduce.setEnabled(true);
         showCardFunction();
         productController.requestShowProductInfo();
     }
@@ -453,12 +447,9 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
                 btnAdd.setText("Add");
                 btnModify.setText("Modify");
                 btnRemove.setText("Remove");
-                btnMore.setText("More ▼");
+                btnExport.setText("Export");
                 btnReset.setText("Reset");
                 btnCancel.setText("Cancel");
-                mnExport.setText("Export Excel flie");
-                mnImport.setText("Import Excel file");
-                mnTemplate.setText("Create template");
                 btnRequestProduce.setText("Produce product");
                 btnEditIngredient.setText("Edit");
                 
@@ -491,12 +482,9 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
                 btnAdd.setText("Thêm");
                 btnModify.setText("Chỉnh sửa");
                 btnRemove.setText("Xóa");
-                btnMore.setText("Khác ▼");
+                btnExport.setText("Xuất");
                 btnReset.setText("Làm mới");
                 btnCancel.setText("Thoát");
-                mnExport.setText("Xuất file Excel");
-                mnImport.setText("Nhập file Excel");
-                mnTemplate.setText("Tạo biểu mẫu");
                 btnRequestProduce.setText("Tạo sản phẩm");
                 btnEditIngredient.setText("Chỉnh sửa");
                 
@@ -527,10 +515,6 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        popupBtnMore = new javax.swing.JPopupMenu();
-        mnImport = new javax.swing.JMenuItem();
-        mnExport = new javax.swing.JMenuItem();
-        mnTemplate = new javax.swing.JMenuItem();
         panelProductInfo = new javax.swing.JPanel();
         label_productID = new javax.swing.JLabel();
         labelSize = new javax.swing.JLabel();
@@ -554,7 +538,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
         btnAdd = new javax.swing.JButton();
         btnModify = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
-        btnMore = new javax.swing.JButton();
+        btnExport = new javax.swing.JButton();
         panelBtnOption = new javax.swing.JPanel();
         btnOK = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
@@ -565,18 +549,6 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
         btnSearchClear = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         btnRequestProduce = new javax.swing.JButton();
-
-        mnImport.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        mnImport.setText("Import");
-        popupBtnMore.add(mnImport);
-
-        mnExport.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        mnExport.setText("Export");
-        popupBtnMore.add(mnExport);
-
-        mnTemplate.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        mnTemplate.setText("Template");
-        popupBtnMore.add(mnTemplate);
 
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -775,35 +747,40 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
 
         panelBtnFunction.setBackground(new java.awt.Color(255, 255, 255));
         panelBtnFunction.setName("Function"); // NOI18N
+        panelBtnFunction.setPreferredSize(new java.awt.Dimension(530, 30));
         panelBtnFunction.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnAdd.setForeground(new java.awt.Color(51, 51, 51));
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Add_30px.png"))); // NOI18N
         btnAdd.setText("Add");
         btnAdd.setFocusPainted(false);
-        btnAdd.setPreferredSize(new java.awt.Dimension(115, 40));
+        btnAdd.setPreferredSize(new java.awt.Dimension(120, 30));
         panelBtnFunction.add(btnAdd);
 
         btnModify.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnModify.setForeground(new java.awt.Color(51, 51, 51));
+        btnModify.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Edit_30px.png"))); // NOI18N
         btnModify.setText("Modify");
         btnModify.setFocusPainted(false);
-        btnModify.setPreferredSize(new java.awt.Dimension(115, 40));
+        btnModify.setPreferredSize(new java.awt.Dimension(120, 30));
         panelBtnFunction.add(btnModify);
 
         btnRemove.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnRemove.setForeground(new java.awt.Color(51, 51, 51));
+        btnRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Trash_30px.png"))); // NOI18N
         btnRemove.setText("Remove");
         btnRemove.setFocusPainted(false);
-        btnRemove.setPreferredSize(new java.awt.Dimension(115, 40));
+        btnRemove.setPreferredSize(new java.awt.Dimension(120, 30));
         panelBtnFunction.add(btnRemove);
 
-        btnMore.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        btnMore.setForeground(new java.awt.Color(51, 51, 51));
-        btnMore.setText("More ▼");
-        btnMore.setFocusPainted(false);
-        btnMore.setPreferredSize(new java.awt.Dimension(115, 40));
-        panelBtnFunction.add(btnMore);
+        btnExport.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnExport.setForeground(new java.awt.Color(51, 51, 51));
+        btnExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Excel_30px.png"))); // NOI18N
+        btnExport.setText("Export");
+        btnExport.setFocusPainted(false);
+        btnExport.setPreferredSize(new java.awt.Dimension(120, 30));
+        panelBtnFunction.add(btnExport);
 
         panelCard.add(panelBtnFunction, "Function");
 
@@ -859,9 +836,11 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
 
         btnRequestProduce.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnRequestProduce.setForeground(new java.awt.Color(51, 51, 51));
+        btnRequestProduce.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Cooking_30px.png"))); // NOI18N
         btnRequestProduce.setText("Produce product");
         btnRequestProduce.setFocusPainted(false);
-        btnRequestProduce.setPreferredSize(new java.awt.Dimension(160, 40));
+        btnRequestProduce.setIconTextGap(10);
+        btnRequestProduce.setPreferredSize(new java.awt.Dimension(300, 50));
         jPanel4.add(btnRequestProduce);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -901,8 +880,8 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnEditIngredient;
+    private javax.swing.JButton btnExport;
     private javax.swing.JButton btnModify;
-    private javax.swing.JButton btnMore;
     private javax.swing.JButton btnOK;
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnRequestProduce;
@@ -919,14 +898,10 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
     private javax.swing.JLabel labelSearchProduct;
     private javax.swing.JLabel labelSize;
     private javax.swing.JLabel label_productID;
-    private javax.swing.JMenuItem mnExport;
-    private javax.swing.JMenuItem mnImport;
-    private javax.swing.JMenuItem mnTemplate;
     private javax.swing.JPanel panelBtnFunction;
     private javax.swing.JPanel panelBtnOption;
     private javax.swing.JPanel panelCard;
     private javax.swing.JPanel panelProductInfo;
-    private javax.swing.JPopupMenu popupBtnMore;
     private javax.swing.JScrollPane scrpaneIngredientSelected;
     private javax.swing.JScrollPane scrpaneTable;
     private javax.swing.JTable tableIngredientDetail;

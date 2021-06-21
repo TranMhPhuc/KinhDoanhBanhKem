@@ -48,7 +48,7 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
     @Override
     public void setVisible(boolean b) {
         List<IngredientDetailModelInterface> ingredientDetails = this.productManageModel
-                .getIngredientDetailBufferList();
+                .getBufferedIngredientDetailList();
         clearTableIngredient();
         ingredientDetails.forEach(e -> {
             addRowTableIngredient(e);
@@ -181,8 +181,6 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
             this.productController.requestSaveIngredientDetailBuffer();
         } else if (source == btnCancel) {
             this.productController.requestCancelEditIngredientDetail();
-        } else if (source == combName) {
-        } else if (source == combUnit) {
         }
     }
 

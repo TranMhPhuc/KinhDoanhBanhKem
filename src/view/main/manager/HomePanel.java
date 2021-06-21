@@ -190,7 +190,7 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
 
     public void loadStatisticNumberData() {
         try {
-            CallableStatement callableStatement;
+            CallableStatement callableStatement = null;
 
             for (int i = 0; i < sqlFunctionGetStatisticNumber.length; i++) {
                 callableStatement = dbConnection.prepareCall(sqlFunctionGetStatisticNumber[i]);
@@ -198,6 +198,10 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
                 callableStatement.execute();
                 int recordNum = callableStatement.getInt(1);
                 statisticsNumberLabels[i].setText(String.valueOf(recordNum));
+            }
+
+            if (callableStatement != null) {
+                callableStatement.close();
             }
 
         } catch (SQLException ex) {
@@ -513,7 +517,6 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
         DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(
                 String.format(DIAGNOSTIC_ROOT_STRING_FORMAT, totalProblemNum));
 
-//        diagnosticTree = new JTree(rootNode);
         diagnosticTreeModel.setRoot(rootNode);
 
         if (!productProblems.isEmpty()) {
@@ -553,7 +556,7 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
         }
 
         diagnosticTree.expandRow(0);
-        diagnosticTree.repaint();
+        panelWarning.repaint();
     }
 
     private void showDiagnosticCard(String cardName) {

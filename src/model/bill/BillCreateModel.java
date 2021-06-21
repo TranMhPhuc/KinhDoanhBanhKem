@@ -53,7 +53,6 @@ public class BillCreateModel implements BillCreateModelInterface {
         billUpdateObservers = new ArrayList<>();
         offeredProductUpdateObservers = new ArrayList<>();
         updateFromDB();
-
         updateNextBillID();
     }
 

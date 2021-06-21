@@ -121,18 +121,6 @@ public class ProviderManageModel implements ProviderManageModelInterface {
     }
 
     @Override
-    public void exportProviderData() {
-        // XXX
-
-    }
-
-    @Override
-    public void importProviderData() {
-        // XXX
-
-    }
-
-    @Override
     public Iterator<ProviderModelInterface> getAllProviderData() {
         return providers.iterator();
     }

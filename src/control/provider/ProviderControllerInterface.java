@@ -14,8 +14,6 @@ public interface ProviderControllerInterface {
 
     void requestRemoveProvider();
 
-    void requestImportExcel();
-
     void requestExportExcel();
     
     void requestCreateTemplateExcel();
