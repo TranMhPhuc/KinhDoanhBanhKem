@@ -1,5 +1,6 @@
 package model.provider;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,17 +17,11 @@ public class ProviderModel implements ProviderModelInterface {
     public static final String ADDRESS_HEADER = "DiaChi";
     public static final String PHONE_HEADER = "SDT";
 
-    private static final String INSERT_QUERY_PROTOTYPE
-            = "INSERT INTO " + TABLE_NAME + " ("
-            + ID_HEADER + ", " + NAME_HEADER + ", " + EMAIL_HEADER + ", "
-            + ADDRESS_HEADER + ", " + PHONE_HEADER + ")"
-            + " VALUES (?, ?, ?, ?, ?)";
+    private static final String SP_INSERT
+            = "{call insert_NhaCungCap(?, ?, ?, ?, ?)}";
 
-    private static final String UPDATE_QUERY_PROTOTYPE
-            = "UPDATE " + TABLE_NAME + " SET "
-            + NAME_HEADER + " = ?, " + EMAIL_HEADER + " = ?, "
-            + ADDRESS_HEADER + " = ?, " + PHONE_HEADER + " = ?"
-            + " WHERE " + ID_HEADER + " = ?";
+    private static final String SP_UPDATE
+            = "{call update_NhaCungCap(?, ?, ?, ?, ?)}";
 
     private static final String DELETE_QUERY_PROTOTYPE
             = "DELETE FROM " + TABLE_NAME
@@ -107,17 +102,16 @@ public class ProviderModel implements ProviderModelInterface {
     @Override
     public void insertToDatabase() {
         try {
-            PreparedStatement preparedStatement = dbConnection
-                    .prepareStatement(INSERT_QUERY_PROTOTYPE);
+            CallableStatement callableStatement = dbConnection.prepareCall(SP_INSERT);
 
-            preparedStatement.setString(1, this.id);
-            preparedStatement.setString(2, this.name);
-            preparedStatement.setString(3, this.email);
-            preparedStatement.setString(4, this.address);
-            preparedStatement.setString(5, this.phoneNum);
+            callableStatement.setString(1, this.id);
+            callableStatement.setString(2, this.name);
+            callableStatement.setString(3, this.email);
+            callableStatement.setString(4, this.address);
+            callableStatement.setString(5, this.phoneNum);
 
-            preparedStatement.execute();
-            preparedStatement.close();
+            callableStatement.execute();
+            callableStatement.close();
         } catch (SQLException ex) {
             Logger.getLogger(ProviderModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -141,17 +135,16 @@ public class ProviderModel implements ProviderModelInterface {
     @Override
     public void updateInDatabase() {
         try {
-            PreparedStatement preparedStatement = dbConnection
-                    .prepareStatement(UPDATE_QUERY_PROTOTYPE);
+            CallableStatement callableStatement = dbConnection.prepareCall(SP_UPDATE);
 
-            preparedStatement.setString(1, this.name);
-            preparedStatement.setString(2, this.email);
-            preparedStatement.setString(3, this.address);
-            preparedStatement.setString(4, this.phoneNum);
-            preparedStatement.setString(5, this.id);
+            callableStatement.setString(1, this.id);
+            callableStatement.setString(2, this.name);
+            callableStatement.setString(3, this.email);
+            callableStatement.setString(4, this.address);
+            callableStatement.setString(5, this.phoneNum);
 
-            preparedStatement.execute();
-            preparedStatement.close();
+            callableStatement.execute();
+            callableStatement.close();
         } catch (SQLException ex) {
             Logger.getLogger(ProviderModel.class.getName()).log(Level.SEVERE, null, ex);
         }

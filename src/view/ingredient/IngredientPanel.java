@@ -509,6 +509,9 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
 
     @Override
     public void updateInsertedProviderObserver(ProviderModelInterface insertedProvider) {
+        if (insertedProvider == null) {
+            throw new NullPointerException();
+        }
         // insert item in combobox provider
         combProviderName.addItem(insertedProvider.getName());
     }
@@ -523,6 +526,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
 
         // Update provider name in table
         ingredientManageModel.updateProviderNameOfIngredientData();
+        
         String searchText = textfSearchName.getText().trim();
         if (searchText.isEmpty()) {
             resetIngredientList();

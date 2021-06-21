@@ -12,6 +12,7 @@ import control.employee.EmployeeControllerInterface;
 import java.awt.CardLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
@@ -24,6 +25,7 @@ import model.employee.EmployeeModelInterface;
 import model.employee.shift.detail.ShiftDetailModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
+import util.constant.AppConstant;
 import view.MessageShowing;
 
 public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
@@ -151,7 +153,7 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
                 employeeController.requestChangePersonalIDConstraint();
             }
         });
-        
+
         labelSettingPhoneNum.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -249,11 +251,11 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
             employee.getPersonalID(),
             employee.getEmail(),
             employee.getPhoneNum(),
-            employee.getBirthday(),
+            employee.getBirthday().toLocalDate().format(AppConstant.GLOBAL_DATE_FORMATTER),
             employee.getPositionName(),
             employee.getStatus(),
-            employee.getStartDate(),
-            employee.getEndDate()
+            employee.getStartDate().toLocalDate().format(AppConstant.GLOBAL_DATE_FORMATTER),
+            (employee.getEndDate() != null ? employee.getEndDate().toLocalDate().format(AppConstant.GLOBAL_DATE_FORMATTER) : null)
         };
         this.tableEmployeeModel.addRow(record);
     }
@@ -262,6 +264,7 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
         String employeeIDText = employee.getEmployeeIDText();
         for (int i = 0; i < this.tableEmployeeModel.getRowCount(); i++) {
             String employeeIDInTable = (String) this.tableEmployeeModel.getValueAt(i, EMPLOYEE_ID_COLUMN_INDEX);
+
             if (employeeIDInTable.equals(employeeIDText)) {
                 Object[] record = new Object[]{
                     employee.getEmployeeIDText(),
@@ -270,11 +273,11 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
                     employee.getPersonalID(),
                     employee.getEmail(),
                     employee.getPhoneNum(),
-                    employee.getBirthday(),
+                    employee.getBirthday().toLocalDate().format(AppConstant.GLOBAL_DATE_FORMATTER),
                     employee.getPositionName(),
                     employee.getStatus(),
-                    employee.getStartDate(),
-                    employee.getEndDate()
+                    employee.getStartDate().toLocalDate().format(AppConstant.GLOBAL_DATE_FORMATTER),
+                    (employee.getEndDate() != null ? employee.getEndDate().toLocalDate().format(AppConstant.GLOBAL_DATE_FORMATTER) : null)
                 };
                 for (int j = 0; j < record.length; j++) {
                     this.tableEmployeeModel.setValueAt(record[j], i, j);
@@ -530,7 +533,7 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
                 labelMobile.setText("Mobile:");
                 labelPersonalID.setText("Personal ID:");
                 labelGender.setText("Gender:");
-                rbtGenderMale.setText("Maie");
+                rbtGenderMale.setText("Male");
                 rbtGenderFemale.setText("Female");
                 labelPosition.setText("Position:");
                 labelStatus.setText("Status:");

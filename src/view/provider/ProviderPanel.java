@@ -367,6 +367,9 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
 
     @Override
     public void updateInsertedProviderObserver(ProviderModelInterface insertedProvider) {
+        if (insertedProvider == null) {
+            throw new NullPointerException();
+        }
         String searchText = textfSearchName.getText().trim();
         if (this.providerController.isSearchMatching(searchText, insertedProvider)) {
             if (searchText.isEmpty()) {

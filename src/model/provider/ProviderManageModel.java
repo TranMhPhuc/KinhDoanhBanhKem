@@ -169,6 +169,7 @@ public class ProviderManageModel implements ProviderManageModelInterface {
         } else {
             provider.deleteInDatabase();
             this.providers.remove(index);
+            notifyRemovedProviderObserver(provider);
             return true;
         }
     }
