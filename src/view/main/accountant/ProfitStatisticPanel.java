@@ -21,7 +21,7 @@ import org.knowm.xchart.style.Styler;
 import org.knowm.xchart.style.XYStyler;
 import util.db.SQLServerConnection;
 
-public class ProfitPanel extends javax.swing.JPanel {
+public class ProfitStatisticPanel extends javax.swing.JPanel {
 
     private static final Color[] XYCHART_PROFIT_MONTH_COLORS;
     private static final Color[] CATEGORYCHART_PROFIT_YEAR_COLORS;
@@ -47,14 +47,15 @@ public class ProfitPanel extends javax.swing.JPanel {
         };
     }
 
-    public ProfitPanel() {
+    public ProfitStatisticPanel() {
         initComponents();
-        configChart();
+        configChartProfitByMonth();
+        configChartProfitByYear();
         loadProfitByMonth();
         loadProfitByYear();
     }
 
-    private void configChart() {
+    private void configChartProfitByMonth() {
         xyChartProfitMonth = new XYChartBuilder().width(1000).height(500).
                 theme(Styler.ChartTheme.Matlab).build();
 
@@ -69,7 +70,9 @@ public class ProfitPanel extends javax.swing.JPanel {
 
         panelRevenueMonth.setLayout(new BorderLayout());
         panelRevenueMonth.add(new XChartPanel<XYChart>(xyChartProfitMonth));
+    }
 
+    private void configChartProfitByYear() {
         categoryChartProfitYear = new CategoryChartBuilder().width(1000)
                 .height(500).theme(Styler.ChartTheme.Matlab).build();
 
@@ -81,24 +84,25 @@ public class ProfitPanel extends javax.swing.JPanel {
         categoryStylerProfitYear.setLegendVisible(false);
         categoryStylerProfitYear.setPlotBorderVisible(false);
         categoryStylerProfitYear.setSeriesColors(CATEGORYCHART_PROFIT_YEAR_COLORS);
-
+        categoryStylerProfitYear.setAvailableSpaceFill(0.25);
+        
         panelRevenueYear.setLayout(new BorderLayout());
         panelRevenueYear.add(new XChartPanel<CategoryChart>(categoryChartProfitYear));
     }
 
     private void loadProfitByMonth() {
-        xyChartProfitMonth.removeSeries("Data1");
-        xyChartProfitMonth.removeSeries("Data2");
+        xyChartProfitMonth.removeSeries("Current Year");
+        xyChartProfitMonth.removeSeries("Last Year");
 
         int currYear = LocalDate.now().getYear();
         int previousYear = currYear - 1;
-        
+
         List<Integer> months = new ArrayList<>();
-        
+
         for (int i = 1; i <= 12; i++) {
             months.add(i);
         }
-        
+
         List<Long> profitOfMonthCurrYear = new ArrayList<>();
         List<Long> profitOfMonthPreviousYear = new ArrayList<>();
 
@@ -138,7 +142,7 @@ public class ProfitPanel extends javax.swing.JPanel {
             callableStatement.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(ProfitPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProfitStatisticPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         xyChartProfitMonth.addSeries("Data1", months, profitOfMonthCurrYear);
@@ -150,7 +154,7 @@ public class ProfitPanel extends javax.swing.JPanel {
 
         LocalDate nowLocal = LocalDate.now();
         int currYear = nowLocal.getYear();
-        
+
         List<Long> profitOfYears = new ArrayList<>();
         List<String> years = new ArrayList<>();
 
@@ -162,9 +166,9 @@ public class ProfitPanel extends javax.swing.JPanel {
 
             for (int i = 5; i > 0; i--) {
                 years.add(String.valueOf(currYear - i + 1));
-                
+
                 callableStatement.setInt(1, currYear - i + 1);
-                
+
                 resultSet = callableStatement.executeQuery();
 
                 if (resultSet.next()) {
@@ -175,7 +179,7 @@ public class ProfitPanel extends javax.swing.JPanel {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ProfitPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProfitStatisticPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         categoryChartProfitYear.addSeries("Data", years, profitOfYears);

@@ -20,8 +20,8 @@ public class AccountantSettingsPanel extends javax.swing.JPanel {
 
     public AccountantSettingsPanel() {
         initComponents();
-//        createView();
-//        createControl();
+        createView();
+        createControl();
     }
 
     public void setAppSettingModel(AppSetting appSettingModel) {
@@ -82,7 +82,7 @@ public class AccountantSettingsPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
+        labelOption = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -94,13 +94,13 @@ public class AccountantSettingsPanel extends javax.swing.JPanel {
         ckbConfirmSignOut = new javax.swing.JCheckBox();
         ckbConfirmExit = new javax.swing.JCheckBox();
         combLanguage = new javax.swing.JComboBox<>();
-        jLabel10 = new javax.swing.JLabel();
+        labelLanguage = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setName("Settings"); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel2.setText("Options:");
+        labelOption.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        labelOption.setText("Options:");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "About", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 15), new java.awt.Color(135, 135, 135))); // NOI18N
@@ -178,8 +178,8 @@ public class AccountantSettingsPanel extends javax.swing.JPanel {
         combLanguage.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         combLanguage.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "English", "Vietnamese" }));
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel10.setText("Language:");
+        labelLanguage.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelLanguage.setText("Language:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -192,10 +192,10 @@ public class AccountantSettingsPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel10)
+                                .addComponent(labelLanguage)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(combLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 726, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelOption, javax.swing.GroupLayout.PREFERRED_SIZE, 726, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(8, 8, 8)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,10 +208,10 @@ public class AccountantSettingsPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelOption, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
+                    .addComponent(labelLanguage)
                     .addComponent(combLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(ckbConfirmSignOut)
@@ -228,8 +228,6 @@ public class AccountantSettingsPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox ckbConfirmExit;
     private javax.swing.JCheckBox ckbConfirmSignOut;
     private javax.swing.JComboBox<String> combLanguage;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -238,5 +236,7 @@ public class AccountantSettingsPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel labelHyperlink;
+    private javax.swing.JLabel labelLanguage;
+    private javax.swing.JLabel labelOption;
     // End of variables declaration//GEN-END:variables
 }

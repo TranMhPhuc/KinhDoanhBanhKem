@@ -166,7 +166,7 @@ public class AccountantMainFrame extends javax.swing.JFrame implements MessageSh
         labelSignOut = new javax.swing.JLabel();
         panelCenter = new javax.swing.JPanel();
         panelProfile = new view.profile.ProfilePanel();
-        panelProfit = new view.main.accountant.ProfitPanel();
+        panelProfit = new view.main.accountant.ProfitStatisticPanel();
         panelProduct = new view.main.accountant.ProductStatisticPanel();
         panelIngredient = new view.main.accountant.IngredientStatisticPanel();
         paneltSetting = new view.main.accountant.AccountantSettingsPanel();
@@ -463,7 +463,7 @@ public class AccountantMainFrame extends javax.swing.JFrame implements MessageSh
     private view.main.accountant.IngredientStatisticPanel panelIngredient;
     private view.main.accountant.ProductStatisticPanel panelProduct;
     private view.profile.ProfilePanel panelProfile;
-    private view.main.accountant.ProfitPanel panelProfit;
+    private view.main.accountant.ProfitStatisticPanel panelProfit;
     private javax.swing.JPanel panelSide;
     private javax.swing.JPanel panelTitle;
     private view.main.accountant.AccountantSettingsPanel paneltSetting;
