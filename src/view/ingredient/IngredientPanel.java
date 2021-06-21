@@ -308,6 +308,8 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         } else if (source == btnAdd) {
             resetIngredientInput();
             setIngredientInputEditable(true);
+            btnRequestImport.setEnabled(false);
+            btnShowImportHistory.setEnabled(false);
             if (btnAdd.getText().equals("Add")) {
                 btnOK.setText("Add");
             } else {
@@ -323,6 +325,9 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
                 showInfoMessage("You should choose one ingredient first.");
             } else {
                 setIngredientInputEditable(true);
+                combIngredientUnitName.setEnabled(ingredientController.isUnitModifiable());
+                btnRequestImport.setEnabled(false);
+                btnShowImportHistory.setEnabled(false);
                 if (btnModify.getText().equals("Modify")) {
                     btnOK.setText("Save");
                 } else {
@@ -374,6 +379,8 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         }
         this.editState = null;
         setIngredientInputEditable(false);
+        btnRequestImport.setEnabled(true);
+        btnShowImportHistory.setEnabled(true);
         showCardFunction();
         ingredientController.requestShowIngredientInfo();
     }
@@ -589,7 +596,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
                 columnModel.getColumn(INGREDIENT_PROVIDER_NAME_COLUMN_INDEX).setHeaderValue("Nhà cung cấp");
                 columnModel.getColumn(INGREDIENT_COST_COLUMN_INDEX).setHeaderValue("Giá");
                 columnModel.getColumn(INGREDIENT_AMOUNT_COLUMN_INDEX).setHeaderValue("Số lượng");
-                
+
                 break;
             }
         }

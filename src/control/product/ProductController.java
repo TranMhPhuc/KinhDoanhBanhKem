@@ -771,6 +771,11 @@ public class ProductController implements ProductControllerInterface {
             dialogIngredientEditing.reloadIngredientInputData();
         }
 
+        Iterator<ProductModelInterface> products = productManageModel.getAllProductData();
+        products.forEachRemaining(product -> {
+            product.reloadIngredientDetailList();
+        });
+        
         String productIDText = productPanel.getProductIDText();
 
         if (productIDText.isEmpty()) {
@@ -778,8 +783,6 @@ public class ProductController implements ProductControllerInterface {
         }
 
         ProductModelInterface product = productManageModel.getProductByID(productIDText);
-
-        product.reloadIngredientDetailList();
 
         this.productManageModel.setIngredientDetailBufferList(product);
 

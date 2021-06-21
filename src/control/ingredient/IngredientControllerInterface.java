@@ -28,6 +28,8 @@ public interface IngredientControllerInterface {
     
     void createNewIngredientType();
     
+    boolean isUnitModifiable();
+    
     boolean isSearchMatching(String searchText, IngredientModelInterface ingredient);
     
     boolean deleteIngredientInSearchList(IngredientModelInterface ingredient);

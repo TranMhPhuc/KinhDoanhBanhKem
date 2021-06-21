@@ -21,6 +21,7 @@ import model.ingredient.IngredientModelInterface;
 import model.ingredient.type.IngredientTypeModel;
 import model.ingredient.type.IngredientTypeModelInterface;
 import org.junit.Assert;
+import util.common.string.StringUtil;
 import util.constant.AppConstant;
 import util.db.SQLServerConnection;
 import util.excel.ExcelTransfer;
@@ -78,7 +79,7 @@ public class IngredientController implements IngredientControllerInterface {
 
     @Override
     public void requestViewImportHistory() {
-        if (dialogIngredientImport == null) {
+        if (dialogImportHistory == null) {
             dialogImportHistory = new ImportHistoryDialog(ingredientPanel.getMainFrame(),
                     true, this, ingredientManageModel);
         }
@@ -105,7 +106,7 @@ public class IngredientController implements IngredientControllerInterface {
         LocalDate dateToLocal = dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
         if (dateFromLocal.isAfter(dateToLocal)) {
-            dialogImportHistory.showErrorMessage("Error: Date to is before date from.");
+            dialogImportHistory.showErrorMessage("Date range input is invalid.");
             return;
         }
 
@@ -176,7 +177,7 @@ public class IngredientController implements IngredientControllerInterface {
         ingredientManageModel.importIngredient(ingredient, importDate, importAmount,
                 ingredient.getUnitName());
 
-        ingredientPanel.showInfoMessage("Request to import ingredient successfully.");
+        ingredientPanel.showInfoMessage("Import ingredient successfully.");
     }
 
     @Override
@@ -249,7 +250,8 @@ public class IngredientController implements IngredientControllerInterface {
             return false;
         }
 
-        Iterator<IngredientModelInterface> iterator = ingredientManageModel.getAllIngredientData();
+        Iterator<IngredientModelInterface> iterator = ingredientManageModel
+                .getAllIngredientData();
 
         while (iterator.hasNext()) {
             IngredientModelInterface ingredient = iterator.next();
@@ -389,6 +391,33 @@ public class IngredientController implements IngredientControllerInterface {
     }
 
     @Override
+    public boolean isUnitModifiable() {
+        String ingredientIDText = this.ingredientPanel.getIngredientIDText();
+
+        IngredientModelInterface ingredient = ingredientManageModel
+                .getIngredientByID(ingredientIDText);
+        Assert.assertNotNull(ingredient);
+
+        try {
+            CallableStatement callableStatement = dbConnection
+                    .prepareCall(SP_CHECK_DELETE_CONDITION_INGREDIENT);
+            callableStatement.registerOutParameter(1, Types.BOOLEAN);
+            ingredient.setKeyArg(2, IngredientModel.ID_HEADER, callableStatement);
+            callableStatement.execute();
+
+            boolean isIncludedInProduct = callableStatement.getBoolean(1);
+
+            if (isIncludedInProduct) {
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
+
+    @Override
     public void requestRemoveIngredient() {
         String ingredientIDText = this.ingredientPanel.getIngredientIDText();
 
@@ -452,7 +481,8 @@ public class IngredientController implements IngredientControllerInterface {
     @Override
     public void createNewIngredientType() {
         String ingredientTypeName = this.dialogNewIngredientTypeCreate.getIngredientTypeName();
-
+        ingredientTypeName = StringUtil.getCapitalizeWord(ingredientTypeName);
+        
         if (!isNewIngredientTypeNameVallid(ingredientTypeName)) {
             return;
         }
