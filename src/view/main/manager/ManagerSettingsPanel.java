@@ -11,11 +11,10 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.border.TitledBorder;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
-import view.PathInputState;
 
 public class ManagerSettingsPanel extends javax.swing.JPanel implements SettingUpdateObserver {
 
@@ -120,12 +119,9 @@ public class ManagerSettingsPanel extends javax.swing.JPanel implements SettingU
     }
 
     private void loadSettingData() {
-        String excelProgramPath = appSettingModel.getExcelProgramPath();
-        textfExcelPath.setText(excelProgramPath);
-
+        updateSettingObserver();
         AppSetting.Language appLanguage = appSettingModel.getAppLanguage();
         combLanguage.setSelectedItem(appLanguage.toString());
-        ckbShowWarning.setSelected(appSettingModel.getDiagnosticFlag());
         ckbConfirmSignOut.setSelected(appSettingModel.getConfirmSignOutFlag());
         ckbConfirmExit.setSelected(appSettingModel.getConfirmExitFlag());
     }
@@ -136,17 +132,48 @@ public class ManagerSettingsPanel extends javax.swing.JPanel implements SettingU
         textfExcelPath.setText(excelProgramPath);
 
         ckbShowWarning.setSelected(appSettingModel.getDiagnosticFlag());
+
+        AppSetting.Language appLanguage = appSettingModel.getAppLanguage();
+        switch (appLanguage) {
+            case ENGLISH: {
+                labelExcelPath.setText("Excel program path");
+                labelOption.setText("Options");
+                labelLanguage.setText("Language");
+                ckbShowWarning.setText("Show warning at Home page");
+                ckbConfirmSignOut.setText("Confirm when sign out");
+                ckbConfirmExit.setText("Confirm when exit");
+
+                TitledBorder titledBorder = (TitledBorder) panelAbout.getBorder();
+                titledBorder.setTitle("About");
+
+                break;
+            }
+            case VIETNAMESE: {
+                labelExcelPath.setText("Đường dẫn phần mềm Excel");
+                labelOption.setText("Lựa chọn");
+                labelLanguage.setText("Ngôn ngữ");
+                ckbShowWarning.setText("Hiện cảnh báo tại trang Home");
+                ckbConfirmSignOut.setText("Xác nhận khi đăng xuất");
+                ckbConfirmExit.setText("Xác nhận khi thoát");
+
+                TitledBorder titledBorder = (TitledBorder) panelAbout.getBorder();
+                titledBorder.setTitle("Liên hệ");
+                break;
+            }
+        }
+
+        repaint();
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        labelExcelPath = new javax.swing.JLabel();
         textfExcelPath = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        labelOption = new javax.swing.JLabel();
         ckbShowWarning = new javax.swing.JCheckBox();
-        jPanel1 = new javax.swing.JPanel();
+        panelAbout = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -157,27 +184,27 @@ public class ManagerSettingsPanel extends javax.swing.JPanel implements SettingU
         ckbConfirmSignOut = new javax.swing.JCheckBox();
         ckbConfirmExit = new javax.swing.JCheckBox();
         combLanguage = new javax.swing.JComboBox<>();
-        jLabel10 = new javax.swing.JLabel();
+        labelLanguage = new javax.swing.JLabel();
         btnExcelPathEdit = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setName("Settings"); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel1.setText("Excel program path:");
+        labelExcelPath.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        labelExcelPath.setText("Excel program path:");
 
         textfExcelPath.setEditable(false);
         textfExcelPath.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel2.setText("Options:");
+        labelOption.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        labelOption.setText("Options:");
 
         ckbShowWarning.setBackground(new java.awt.Color(255, 255, 255));
         ckbShowWarning.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ckbShowWarning.setText("Show warning at home page");
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "About", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 15), new java.awt.Color(135, 135, 135))); // NOI18N
+        panelAbout.setBackground(new java.awt.Color(255, 255, 255));
+        panelAbout.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "About", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 15), new java.awt.Color(135, 135, 135))); // NOI18N
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/shop70px.png"))); // NOI18N
 
@@ -210,32 +237,32 @@ public class ManagerSettingsPanel extends javax.swing.JPanel implements SettingU
         labelHyperlink.setForeground(new java.awt.Color(0, 0, 204));
         labelHyperlink.setText("https://github.com/TranMhPhuc/KinhDoanhBanhKem");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelAboutLayout = new javax.swing.GroupLayout(panelAbout);
+        panelAbout.setLayout(panelAboutLayout);
+        panelAboutLayout.setHorizontalGroup(
+            panelAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAboutLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(panelAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAboutLayout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelHyperlink))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(panelAboutLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(28, 28, 28)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(626, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        panelAboutLayout.setVerticalGroup(
+            panelAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAboutLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(labelHyperlink))
                 .addContainerGap(45, Short.MAX_VALUE))
@@ -252,8 +279,8 @@ public class ManagerSettingsPanel extends javax.swing.JPanel implements SettingU
         combLanguage.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         combLanguage.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "English", "Vietnamese" }));
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel10.setText("Language:");
+        labelLanguage.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelLanguage.setText("Language:");
 
         btnExcelPathEdit.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         btnExcelPathEdit.setText("...");
@@ -265,21 +292,21 @@ public class ManagerSettingsPanel extends javax.swing.JPanel implements SettingU
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelAbout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ckbConfirmExit)
                             .addComponent(ckbShowWarning)
                             .addComponent(ckbConfirmSignOut)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel10)
+                                .addComponent(labelLanguage)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(combLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(textfExcelPath)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE))
+                                    .addComponent(labelOption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(labelExcelPath, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnExcelPathEdit)))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -289,16 +316,16 @@ public class ManagerSettingsPanel extends javax.swing.JPanel implements SettingU
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelExcelPath, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnExcelPathEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textfExcelPath, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelOption, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
+                    .addComponent(labelLanguage)
                     .addComponent(combLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(ckbShowWarning)
@@ -307,7 +334,7 @@ public class ManagerSettingsPanel extends javax.swing.JPanel implements SettingU
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ckbConfirmExit)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 291, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelAbout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -319,17 +346,17 @@ public class ManagerSettingsPanel extends javax.swing.JPanel implements SettingU
     private javax.swing.JCheckBox ckbConfirmSignOut;
     private javax.swing.JCheckBox ckbShowWarning;
     private javax.swing.JComboBox<String> combLanguage;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel labelExcelPath;
     private javax.swing.JLabel labelHyperlink;
+    private javax.swing.JLabel labelLanguage;
+    private javax.swing.JLabel labelOption;
+    private javax.swing.JPanel panelAbout;
     private javax.swing.JTextField textfExcelPath;
     // End of variables declaration//GEN-END:variables
 }
