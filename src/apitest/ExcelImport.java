@@ -217,7 +217,7 @@ public class ExcelImport {
 
     public static void showErrorMessage(int row, int column) {
         JOptionPane.showMessageDialog(null, "Row " + row + " Column " + column + " is invalid, stopped reading file.", "Bakery Management System",
-                JOptionPane.ERROR_MESSAGE);
+                JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon("img/error.png"));
     }
 
 }

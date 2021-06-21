@@ -18,6 +18,7 @@ import model.product.ProductManageModelInterface;
 import model.product.ProductModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
+import util.messages.Messages;
 import util.swing.UIControl;
 import view.MessageShowing;
 
@@ -296,7 +297,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
         } else if (source == btnModify) {
             String productIDText = textfProductID.getText();
             if (productIDText.isEmpty()) {
-                showInfoMessage("You should choose one product first.");
+                showInfoMessage(Messages.getInstance().PRODUCT_NO_PRODUCT_CHOSEN);
             } else {
                 setProductInputEditable(true);
                 if (btnModify.getText().equals("Modify")) {
@@ -310,11 +311,11 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
         } else if (source == btnRemove) {
             String productIDText = textfProductID.getText();
             if (productIDText.isEmpty()) {
-                showInfoMessage("You should choose one product first.");
+                showInfoMessage(Messages.getInstance().PRODUCT_NO_PRODUCT_CHOSEN);
             } else {
                 int ret = JOptionPane.showConfirmDialog(mainFrame,
-                        "Remove product?", "Confirmation", JOptionPane.YES_NO_OPTION,
-                        JOptionPane.WARNING_MESSAGE);
+                        Messages.getInstance().OTHERS_REMOVE_PRODUCT, "BakeryMS", JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
                 if (ret == JOptionPane.YES_OPTION) {
                     this.productController.requestRemoveProduct();
                 }

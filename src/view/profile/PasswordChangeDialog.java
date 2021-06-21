@@ -48,17 +48,17 @@ public class PasswordChangeDialog extends javax.swing.JDialog implements Message
 
     @Override
     public void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Password update dialog", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "BakeryMS", JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
     }
 
     @Override
     public void showInfoMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Password update dialog", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "BakeryMS", JOptionPane.INFORMATION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/infor.png")));
     }
 
     @Override
     public void showWarningMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Password update dialog", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "BakeryMS", JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
     }
     
     @SuppressWarnings("unchecked")

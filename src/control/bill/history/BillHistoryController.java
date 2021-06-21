@@ -20,6 +20,7 @@ import view.bill.BillHistoryPanel;
 import model.bill.detail.ProductDetailModelInterface;
 import model.bill.BillModelInterface;
 import util.excel.ExcelTransfer;
+import util.messages.Messages;
 
 public class BillHistoryController implements BillHistoryControllerInterface {
 
@@ -48,7 +49,7 @@ public class BillHistoryController implements BillHistoryControllerInterface {
     @Override
     public void exportBillToExcel() {
         if (searchList.isEmpty()) {
-            billHistoryPanel.showErrorMessage("Bill list is empty.");
+            billHistoryPanel.showErrorMessage(Messages.getInstance().BILLH_LIST_EMPTY);
             return;
         }
         
@@ -94,7 +95,7 @@ public class BillHistoryController implements BillHistoryControllerInterface {
         int rowID = billHistoryPanel.getTableBillSelectedRowIndex();
         
         if (rowID == -1) {
-            billHistoryPanel.showErrorMessage("You should choose bill first.");
+            billHistoryPanel.showErrorMessage(Messages.getInstance().BILLH_NO_BILL_CHOSEN);
             return;
         }
         
@@ -119,7 +120,7 @@ public class BillHistoryController implements BillHistoryControllerInterface {
         LocalDate dateTo = billHistoryPanel.getDateToInput();
 
         if (dateFrom.isAfter(dateTo)) {
-            billHistoryPanel.showErrorMessage("Date range is invalid.");
+            billHistoryPanel.showErrorMessage(Messages.getInstance().BILLH_DATE_RANGE_INVALID);
             return;
         }
 

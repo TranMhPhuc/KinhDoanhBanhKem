@@ -10,7 +10,7 @@ import view.MessageShowing;
 
 public class ProductProduceDialog extends javax.swing.JDialog implements MessageShowing {
 
-    private static final String DIALOG_TITLE = "Request produce product dialog";
+    private static final String DIALOG_TITLE = "Request produce product";
 
     private ProductControllerInterface productController;
 
@@ -63,17 +63,17 @@ public class ProductProduceDialog extends javax.swing.JDialog implements Message
 
     @Override
     public void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, DIALOG_TITLE, JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
     }
 
     @Override
     public void showInfoMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, DIALOG_TITLE, JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, DIALOG_TITLE, JOptionPane.INFORMATION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/infor.png")));
     }
 
     @Override
     public void showWarningMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, DIALOG_TITLE, JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, DIALOG_TITLE, JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
     }
 
     @SuppressWarnings("unchecked")

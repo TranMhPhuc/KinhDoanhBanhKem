@@ -21,6 +21,7 @@ import model.ingredient.type.IngredientTypeModelInterface;
 import model.provider.ProviderModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
+import util.messages.Messages;
 import util.swing.UIControl;
 import view.MessageShowing;
 import view.provider.InsertedProviderObserver;
@@ -323,7 +324,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         } else if (source == btnModify) {
             String ingredientIDText = textfIngredientID.getText();
             if (ingredientIDText.isEmpty()) {
-                showInfoMessage("You should choose one ingredient first.");
+                showInfoMessage(Messages.getInstance().INGR_NO_INGR_CHOSEN);
             } else {
                 setIngredientInputEditable(true);
                 if (btnModify.getText().equals("Modify")) {
@@ -337,11 +338,11 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         } else if (source == btnRemove) {
             String ingredientIDText = textfIngredientID.getText();
             if (ingredientIDText.isEmpty()) {
-                showInfoMessage("You should choose one ingredient first.");
+                showInfoMessage(Messages.getInstance().INGR_NO_INGR_CHOSEN);
             } else {
                 int ret = JOptionPane.showConfirmDialog(getParent(),
-                        "Remove ingredient?", "Confirmation", JOptionPane.YES_NO_OPTION,
-                        JOptionPane.WARNING_MESSAGE);
+                        Messages.getInstance().OTHERS_REMOVE_INGR, "BakeryMS", JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
                 if (ret == JOptionPane.YES_OPTION) {
                     this.ingredientController.requestRemoveIngredient();
                 }

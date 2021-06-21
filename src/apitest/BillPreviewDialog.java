@@ -15,6 +15,7 @@ import java.awt.print.PrinterJob;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import util.messages.Messages;
 
 /**
  *
@@ -77,7 +78,7 @@ public class BillPreviewDialog extends javax.swing.JDialog {
             try {
                 printerJob.print();
             } catch (PrinterException printerException) {
-                JOptionPane.showMessageDialog(this, "Print Error: " + printerException.getMessage());
+                JOptionPane.showMessageDialog(this, Messages.getInstance().OTHERS_PRINT_ERROR + printerException.getMessage());
             }
         }
     }

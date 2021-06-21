@@ -17,6 +17,7 @@ import util.common.string.StringUtil;
 import util.constant.AppConstant;
 import util.excel.ExcelTransfer;
 import util.mail.MailUtility;
+import util.messages.Messages;
 import util.validator.EmailValidator;
 import util.validator.PersonalIDValidator;
 import util.validator.PhoneValidator;
@@ -46,7 +47,7 @@ public class EmployeeController implements EmployeeControllerInterface {
 
     private boolean isEmployeeNameValid(String employeeName) {
         if (employeeName.isEmpty()) {
-            employeePanel.showErrorMessage("Employee name must not be empty.");
+            employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_NAME_EMPTY);
             return false;
         }
         return true;
@@ -58,16 +59,16 @@ public class EmployeeController implements EmployeeControllerInterface {
 
         switch (phoneValidateResult) {
             case EMPTY: {
-                employeePanel.showErrorMessage("Employee mobile must not be empty.");
+                employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_PHONE_NUMBER_EMPTY);
                 return false;
             }
             case ERROR_FORMAT: {
-                employeePanel.showErrorMessage("Employee mobile is not in number format.");
+                employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_PHONE_NUMBER_FORMAT);
                 return false;
             }
             case INVALLID: {
-                employeePanel.showErrorMessage("Employee mobile must have exact "
-                        + PhoneValidator.getPhoneNumValid() + " digits.");
+                employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_PID_DIGITS_1
+                        + PhoneValidator.getPhoneNumValid() + Messages.getInstance().EMPLOYEE_PHONE_NUMBER_DIGITS_2);
                 return false;
             }
         }
@@ -80,16 +81,16 @@ public class EmployeeController implements EmployeeControllerInterface {
 
         switch (personalIDValidateResult) {
             case EMPTY: {
-                employeePanel.showErrorMessage("Employee personal id must not be empty.");
+                employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_PID_EMPTY);
                 return false;
             }
             case ERROR_FORMAT: {
-                employeePanel.showErrorMessage("Employee personal id is not in number format.");
+                employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_PID_FORMAT);
                 return false;
             }
             case INVALLID: {
-                employeePanel.showErrorMessage("Employee personal id must have exact "
-                        + PersonalIDValidator.getPhoneNumValid() + " digits.");
+                employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_PID_DIGITS_1
+                        + PersonalIDValidator.getPhoneNumValid() + Messages.getInstance().EMPLOYEE_PID_DIGITS_2);
                 return false;
             }
         }
@@ -98,7 +99,7 @@ public class EmployeeController implements EmployeeControllerInterface {
         while (iterator.hasNext()) {
             EmployeeModelInterface employee = iterator.next();
             if (employee.getPersonalID().equals(employeePersonalID)) {
-                employeePanel.showErrorMessage("Employee personal ID is already existed.");
+                employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_PID_EXISTS);
                 return false;
             }
         }
@@ -112,11 +113,11 @@ public class EmployeeController implements EmployeeControllerInterface {
 
         switch (emailValidateResult) {
             case EMPTY: {
-                employeePanel.showErrorMessage("Employee email must not be empty.");
+                employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_EMAIL_EMPTY);
                 return false;
             }
             case INVALLID: {
-                employeePanel.showErrorMessage("Employee email is invalid.");
+                employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_EMAIL_INVALID);
                 return false;
             }
         }
@@ -125,7 +126,7 @@ public class EmployeeController implements EmployeeControllerInterface {
         while (iterator.hasNext()) {
             EmployeeModelInterface employee = iterator.next();
             if (employee.getEmail().equals(employeeEmail)) {
-                employeePanel.showErrorMessage("Employee email is already existed.");
+                employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_EMAIL_EXISTS);
                 return false;
             }
         }
@@ -135,7 +136,7 @@ public class EmployeeController implements EmployeeControllerInterface {
 
     private boolean isEmployeeBirthdayValid(Date birthday) {
         if (birthday == null) {
-            employeePanel.showErrorMessage("Employee birthday is required.");
+            employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_BIRTHDAY_EMPTY);
             return false;
         }
 
@@ -164,13 +165,13 @@ public class EmployeeController implements EmployeeControllerInterface {
             }
         }
 
-        employeePanel.showErrorMessage("Employee birthday is not enough 18 years.");
+        employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_UNDER_18);
         return false;
     }
 
     private boolean isEmployeeStartDateValid(Date employeeStartDate) {
         if (employeeStartDate == null) {
-            employeePanel.showErrorMessage("Employee start date is required.");
+            employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_START_DATE_EMPTY);
             return false;
         }
 
@@ -180,7 +181,7 @@ public class EmployeeController implements EmployeeControllerInterface {
         LocalDate nowLocal = LocalDate.now();
 
         if (startDateLocal.isBefore(nowLocal)) {
-            employeePanel.showErrorMessage("Employee start date is not valid.");
+            employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_START_DATE_INVALID);
             return false;
         }
 
@@ -199,7 +200,7 @@ public class EmployeeController implements EmployeeControllerInterface {
                 .systemDefault()).toLocalDate();
 
         if (endDateLocal.isBefore(startDateLocal)) {
-            employeePanel.showErrorMessage("Employee end date is not valid.");
+            employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_END_DATE_INVALID);
             return false;
         }
 
@@ -208,7 +209,7 @@ public class EmployeeController implements EmployeeControllerInterface {
 
     private boolean isEmployeeShiftValid(List<String> shiftNameSelected) {
         if (shiftNameSelected.isEmpty()) {
-            employeePanel.showErrorMessage("Employee shift must not be empty.");
+            employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_SHIFT_EMPTY);
             return false;
         }
         return true;
@@ -309,7 +310,7 @@ public class EmployeeController implements EmployeeControllerInterface {
         }
 
         employeePanel.exitEditState();
-        employeePanel.showInfoMessage("Insert new employee successfully.");
+        employeePanel.showInfoMessage(Messages.getInstance().EMPLOYEE_INSERTED_SUCCESSFULLY);
     }
 
     @Override
@@ -441,7 +442,7 @@ public class EmployeeController implements EmployeeControllerInterface {
         }
 
         employeePanel.exitEditState();
-        employeePanel.showInfoMessage("Insert new employee successfully.");
+        employeePanel.showInfoMessage(Messages.getInstance().EMPLOYEE_UPDATED_SUCCESSFULLY);
     }
 
     @Override
@@ -452,7 +453,7 @@ public class EmployeeController implements EmployeeControllerInterface {
     @Override
     public void requestExportExcel() {
         if (employeePanel.getTableEmployeeRowCount() == 0) {
-            employeePanel.showErrorMessage("Table employee data is empty.");
+            employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_TABLE_EMPTY);
         } else {
             ExcelTransfer.exportTableToExcel(employeePanel.getTableEmployee());
         }
@@ -533,9 +534,9 @@ public class EmployeeController implements EmployeeControllerInterface {
         if (employeePanel.getEditState() == EmployeePanel.EditState.ADD
                 || employeePanel.getEditState() == EmployeePanel.EditState.MODIFY) {
             int ret = JOptionPane.showConfirmDialog(employeePanel.getMainFrame(),
-                    "Cancel editing employee?",
-                    "Cancel editing employee confirm dialog",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    Messages.getInstance().EMPLOYEE_CANCEL_EDITING,
+                    "BakeryMS",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
             if (ret == JOptionPane.YES_OPTION) {
                 employeePanel.exitEditState();
                 return true;
@@ -549,14 +550,14 @@ public class EmployeeController implements EmployeeControllerInterface {
     @Override
     public void requestChangePersonalIDConstraint() {
         String inputText = (String) JOptionPane.showInputDialog(employeePanel
-                .getMainFrame(), "Customize the personal id number of digit constraint:",
-                "Customize dialog", JOptionPane.PLAIN_MESSAGE, null, null, null);
+                .getMainFrame(), Messages.getInstance().EMPLOYEE_CUSTOM_PID_CONS,
+                "BakeryMS", JOptionPane.PLAIN_MESSAGE, null, null, null);
         if (inputText != null && !inputText.isEmpty()) {
             int num;
             try {
                 num = Integer.parseInt(inputText);
             } catch (NumberFormatException ex) {
-                employeePanel.showErrorMessage("Setting value is invallid");
+                employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_INVALID_CUSTOM_PID_CONS_NUM);
                 return;
             }
             PersonalIDValidator.setValidDigitNum(num);
@@ -566,14 +567,14 @@ public class EmployeeController implements EmployeeControllerInterface {
     @Override
     public void requestChangePhoneNumConstraint() {
         String inputText = (String) JOptionPane.showInputDialog(employeePanel
-                .getMainFrame(), "Customize the mobile number of digit constraint:",
-                "Customize dialog", JOptionPane.PLAIN_MESSAGE, null, null, null);
+                .getMainFrame(), Messages.getInstance().EMPLOYEE_CUSTOM_PHONE_NUMBER_CONS,
+                "BakeryMS", JOptionPane.PLAIN_MESSAGE, null, null, null);
         if (inputText != null && !inputText.isEmpty()) {
             int num;
             try {
                 num = Integer.parseInt(inputText);
             } catch (NumberFormatException ex) {
-                employeePanel.showErrorMessage("Setting value is invallid");
+                employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_INVALID_CUSTOM_PHONE_NUMBER_CONS_NUM);
                 return;
             }
             PhoneValidator.setValidDigitNum(num);

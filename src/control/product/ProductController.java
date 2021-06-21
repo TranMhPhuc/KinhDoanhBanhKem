@@ -23,6 +23,7 @@ import org.junit.Assert;
 import util.constant.AppConstant;
 import util.db.SQLServerConnection;
 import util.excel.ExcelTransfer;
+import util.messages.Messages;
 import view.product.IngredientEditDialog;
 import view.product.ProductPanel;
 import view.product.ProductProduceDialog;
@@ -66,7 +67,7 @@ public class ProductController implements ProductControllerInterface {
 
     private boolean isProductNameInputValid(String productName) {
         if (productName.isEmpty()) {
-            productPanel.showErrorMessage("Product name is required.");
+            productPanel.showErrorMessage(Messages.getInstance().PRODUCT_NAME_EMPTY);
             return false;
         }
         return true;
@@ -85,7 +86,7 @@ public class ProductController implements ProductControllerInterface {
             ProductModelInterface element = iterator.next();
             if (element.getName().equals(productName)
                     && element.getSize().equals(productSize)) {
-                productPanel.showErrorMessage("Product with same name can't have same size value.");
+                productPanel.showErrorMessage(Messages.getInstance().PRODUCT_EXISTS);
                 return false;
             }
         }
@@ -95,7 +96,7 @@ public class ProductController implements ProductControllerInterface {
 
     private boolean isProductCostInputVallid(long productCost) {
         if (productCost <= 0) {
-            productPanel.showErrorMessage("Product cost is not negative.");
+            productPanel.showErrorMessage(Messages.getInstance().PRODUCT_COST_LESS_THAN_1);
             return false;
         }
         return true;
@@ -103,12 +104,12 @@ public class ProductController implements ProductControllerInterface {
 
     private boolean isProductPriceInputVallid(long productPrice, long productCost) {
         if (productPrice <= 0) {
-            productPanel.showErrorMessage("Product cost is not negative.");
+            productPanel.showErrorMessage(Messages.getInstance().PRODUCT_PRICE_LESS_THAN_1);
             return false;
         }
 
         if (productPrice < 1.1 * productCost) {
-            productPanel.showErrorMessage("Product price must be greater at least 10% than cost.");
+            productPanel.showErrorMessage(Messages.getInstance().PRODUCT_PRICE_10_COST);
             return false;
         }
         return true;
@@ -122,14 +123,14 @@ public class ProductController implements ProductControllerInterface {
                     .getProductByNameAndSize(productName, productSizes[preSize].name());
             if (preSizeProduct != null) {
                 if (preSizeProduct.getCost() > productCost) {
-                    productPanel.showErrorMessage("Product cost is smaller than one having same name and less size "
+                    productPanel.showErrorMessage(Messages.getInstance().PRODUCT_COST_LESS_SMALLER_SIZE
                             + productSizes[preSize].name() + " (" + preSizeProduct.getCost()
                             + " > " + productCost + ").");
                     return false;
                 }
 
                 if (preSizeProduct.getPrice() > productPrice) {
-                    productPanel.showErrorMessage("Product price is smaller than one having same name and less size "
+                    productPanel.showErrorMessage(Messages.getInstance().PRODUCT_PRICE_LESS_SMALLER_SIZE
                             + productSizes[preSize].name() + " (" + preSizeProduct.getPrice()
                             + " > " + productPrice + ").");
                     return false;
@@ -142,14 +143,14 @@ public class ProductController implements ProductControllerInterface {
                     .getProductByNameAndSize(productName, productSizes[nextSize].name());
             if (nextSizeProduct != null) {
                 if (nextSizeProduct.getCost() < productCost) {
-                    productPanel.showErrorMessage("Product cost is greater than one having same name and larger size "
+                    productPanel.showErrorMessage(Messages.getInstance().PRODUCT_COST_GREATER_BIGGER_SIZE
                             + productSizes[nextSize].name() + " (" + nextSizeProduct.getCost()
                             + " < " + productCost + ").");
                     return false;
                 }
 
                 if (nextSizeProduct.getPrice() < productPrice) {
-                    productPanel.showErrorMessage("Product price is greater than one having same name and larger size "
+                    productPanel.showErrorMessage(Messages.getInstance().PRODUCT_PRICE_GREATER_BIGGER_SIZE
                             + productSizes[nextSize].name() + " (" + nextSizeProduct.getPrice()
                             + " < " + productPrice + ").");
                     return false;
@@ -202,7 +203,7 @@ public class ProductController implements ProductControllerInterface {
         String productCostInput = this.productPanel.getProductCost();
 
         if (productCostInput.isEmpty()) {
-            productPanel.showErrorMessage("Product cost is required.");
+            productPanel.showErrorMessage(Messages.getInstance().PRODUCT_COST_EMPTY);
             return;
         }
 
@@ -210,7 +211,7 @@ public class ProductController implements ProductControllerInterface {
         try {
             productCost = Long.parseLong(productCostInput);
         } catch (NumberFormatException ex) {
-            productPanel.showErrorMessage("Product cost is invallid.");
+            productPanel.showErrorMessage(Messages.getInstance().PRODUCT_COST_INVALID);
             return;
         }
 
@@ -222,7 +223,7 @@ public class ProductController implements ProductControllerInterface {
         String productPriceInput = this.productPanel.getProductPrice();
 
         if (productPriceInput.isEmpty()) {
-            productPanel.showErrorMessage("Product price is required.");
+            productPanel.showErrorMessage(Messages.getInstance().PRODUCT_PRICE_EMPTY);
             return;
         }
 
@@ -230,7 +231,7 @@ public class ProductController implements ProductControllerInterface {
         try {
             productPrice = Long.parseLong(productPriceInput);
         } catch (NumberFormatException ex) {
-            productPanel.showErrorMessage("Product price is invallid.");
+            productPanel.showErrorMessage(Messages.getInstance().PRODUCT_PRICE_INVALID);
             return;
         }
 
@@ -258,7 +259,7 @@ public class ProductController implements ProductControllerInterface {
         }
 
         if (productManageModel.getIngredientDetailBufferList().isEmpty()) {
-            this.productPanel.showErrorMessage("Ingredient list must have at least one ingredient.");
+            this.productPanel.showErrorMessage(Messages.getInstance().PRODUCT_SAVE_INGR_LIST_EMPTY);
             return;
         }
 
@@ -277,7 +278,7 @@ public class ProductController implements ProductControllerInterface {
         });
 
         this.productPanel.exitEditState();
-        productPanel.showInfoMessage("Insert new product successfully.");
+        productPanel.showInfoMessage(Messages.getInstance().PRODUCT_INSERTED_SUCCESSFULLY);
     }
 
     @Override
@@ -306,7 +307,7 @@ public class ProductController implements ProductControllerInterface {
         String productCostInput = this.productPanel.getProductCost();
 
         if (productCostInput.isEmpty()) {
-            productPanel.showErrorMessage("Product cost is required.");
+            productPanel.showErrorMessage(Messages.getInstance().PRODUCT_COST_EMPTY);
             return;
         }
 
@@ -314,7 +315,7 @@ public class ProductController implements ProductControllerInterface {
         try {
             productCost = Long.parseLong(productCostInput);
         } catch (NumberFormatException ex) {
-            productPanel.showErrorMessage("Product cost is invallid.");
+            productPanel.showErrorMessage(Messages.getInstance().PRODUCT_COST_INVALID);
             return;
         }
 
@@ -325,7 +326,7 @@ public class ProductController implements ProductControllerInterface {
         String productPriceInput = this.productPanel.getProductPrice();
 
         if (productPriceInput.isEmpty()) {
-            productPanel.showErrorMessage("Product price is required.");
+            productPanel.showErrorMessage(Messages.getInstance().PRODUCT_PRICE_EMPTY);
             return;
         }
 
@@ -333,7 +334,7 @@ public class ProductController implements ProductControllerInterface {
         try {
             productPrice = Long.parseLong(productPriceInput);
         } catch (NumberFormatException ex) {
-            productPanel.showErrorMessage("Product price is invallid.");
+            productPanel.showErrorMessage(Messages.getInstance().PRODUCT_PRICE_INVALID);
             return;
         }
 
@@ -361,7 +362,7 @@ public class ProductController implements ProductControllerInterface {
         }
 
         if (productManageModel.getIngredientDetailBufferList().isEmpty()) {
-            this.productPanel.showErrorMessage("Ingredient list must have at least one ingredient.");
+            this.productPanel.showErrorMessage(Messages.getInstance().PRODUCT_SAVE_INGR_LIST_EMPTY);
             return;
         }
 
@@ -428,7 +429,7 @@ public class ProductController implements ProductControllerInterface {
         }
 
         this.productPanel.exitEditState();
-        productPanel.showInfoMessage("Update product data successfully.");
+        productPanel.showInfoMessage(Messages.getInstance().PRODUCT_UPDATED_SUCCESSFULLY);
     }
 
     @Override
@@ -440,7 +441,7 @@ public class ProductController implements ProductControllerInterface {
         Assert.assertNotNull(product);
 
         if (isProductCanDelete(product)) {
-            productPanel.showErrorMessage("Can't delete product with existed bill including it.");
+            productPanel.showErrorMessage(Messages.getInstance().PRODUCT_CANT_REMOVE);
             return;
         }
 
@@ -451,14 +452,14 @@ public class ProductController implements ProductControllerInterface {
 
         productManageModel.getIngredientDetailBufferList().clear();
 
-        productPanel.showInfoMessage("Delete product successfully.");
+        productPanel.showInfoMessage(Messages.getInstance().PRODUCT_REMOVED_SUCCESSFULLY);
     }
 
     @Override
     public void requestProduceProduct() {
         int rowID = this.productPanel.getSelectedRow();
         if (rowID == -1) {
-            productPanel.showErrorMessage("You should choose one product first.");
+            productPanel.showErrorMessage(Messages.getInstance().PRODUCT_NO_PRODUCT_CHOSEN);
             return;
         }
         ProductModelInterface product = this.searchList.get(rowID);
@@ -502,8 +503,8 @@ public class ProductController implements ProductControllerInterface {
 
                 boolean ret = callableStatement.getBoolean(1);
                 if (!ret) {
-                    productProduceDialog.showErrorMessage("Ingredient name '"
-                            + ingredientDetail.getIngredientName() + "' has not enough amount to produce.");
+                    productProduceDialog.showErrorMessage(Messages.getInstance().PRODUCT_NOT_ENOUGH_INGR_1
+                            + ingredientDetail.getIngredientName() + Messages.getInstance().PRODUCT_NOT_ENOUGH_INGR_2);
                     return;
                 }
             }
@@ -516,7 +517,7 @@ public class ProductController implements ProductControllerInterface {
 
         productManageModel.produceProduct(product, produceAmount);
 
-        productPanel.showInfoMessage("Request to produce product successfully.");
+        productPanel.showInfoMessage(Messages.getInstance().PRODUCT_PRODUCED_SUCCESSFULLY);
     }
 
     @Override
@@ -543,7 +544,7 @@ public class ProductController implements ProductControllerInterface {
     @Override
     public void requestExportExcel() {
         if (productPanel.getTableProductRowCount() == 0) {
-            productPanel.showErrorMessage("Table product data is empty.");
+            productPanel.showErrorMessage(Messages.getInstance().PRODUCT_TABLE_EMPTY);
         } else {
             ExcelTransfer.exportTableToExcel(productPanel.getTableProduct());
         }
@@ -627,21 +628,21 @@ public class ProductController implements ProductControllerInterface {
         String selectedIngredientName = dialogIngredientEditing.getSelectedIngredientName();
 
         if (selectedIngredientName == null) {
-            dialogIngredientEditing.showErrorMessage("You should add new ingredient first");
+            dialogIngredientEditing.showErrorMessage(Messages.getInstance().PRODUCT_NO_INGR_CHOSEN);//??
             return;
         }
 
         String selectedUnitName = dialogIngredientEditing.getSelectedUnitName();
 
         if (selectedUnitName == null) {
-            dialogIngredientEditing.showErrorMessage("Error: no unit is existed.");
+            dialogIngredientEditing.showErrorMessage(Messages.getInstance().PRODUCT_NO_UNIT_CHOSEN);
             return;
         }
 
         float amountInput = dialogIngredientEditing.getAmountInput();
 
         if (amountInput == 0f) {
-            dialogIngredientEditing.showErrorMessage("Amount value must be 1 at least.");
+            dialogIngredientEditing.showErrorMessage(Messages.getInstance().PRODUCT_AMOUNT_AL_1);
             return;
         }
 
@@ -678,14 +679,14 @@ public class ProductController implements ProductControllerInterface {
         int tableIngredientRowCount = dialogIngredientEditing.getTableIngredientRowCount();
 
         if (tableIngredientRowCount == 0) {
-            dialogIngredientEditing.showErrorMessage("Ingredient list is empty.");
+            dialogIngredientEditing.showErrorMessage(Messages.getInstance().PRODUCT_INGR_LIST_EMPTY);
             return;
         }
 
         int selectedRowTableIngredient = dialogIngredientEditing.getSelectedRowTableIngredient();
 
         if (selectedRowTableIngredient == -1) {
-            dialogIngredientEditing.showErrorMessage("You should choose one ingredient in list.");
+            dialogIngredientEditing.showErrorMessage(Messages.getInstance().PRODUCT_NO_INGR_CHOSEN);
             return;
         }
 
@@ -704,7 +705,7 @@ public class ProductController implements ProductControllerInterface {
         int tableIngredientRowCount = dialogIngredientEditing.getTableIngredientRowCount();
 
         if (tableIngredientRowCount == 0) {
-            dialogIngredientEditing.showErrorMessage("Ingredient list is empty.");
+            dialogIngredientEditing.showErrorMessage(Messages.getInstance().PRODUCT_INGR_LIST_EMPTY);
             return;
         }
 
@@ -730,9 +731,9 @@ public class ProductController implements ProductControllerInterface {
         boolean modified = this.productManageModel.getBufferListModifiedFlag();
 
         if (modified) {
-            int ret = JOptionPane.showConfirmDialog(dialogIngredientEditing, "Discard your change?",
-                    IngredientEditDialog.DIALOG_TITLE, JOptionPane.YES_NO_OPTION,
-                    JOptionPane.WARNING_MESSAGE);
+            int ret = JOptionPane.showConfirmDialog(dialogIngredientEditing, Messages.getInstance().PRODUCT_DISCARD_CHANGE,
+                    "BakeryMS", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
             if (ret == JOptionPane.YES_OPTION) {
                 List<IngredientDetailModelInterface> ingredientDetailBufferList
                         = this.productManageModel.getIngredientDetailBufferList();
@@ -782,9 +783,9 @@ public class ProductController implements ProductControllerInterface {
         if (productPanel.getEditState() == ProductPanel.EditState.ADD
                 || productPanel.getEditState() == ProductPanel.EditState.MODIFY) {
             int ret = JOptionPane.showConfirmDialog(productPanel.getMainFrame(),
-                    "Cancel editing product?",
-                    "Cancel editing product confirm dialog",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    Messages.getInstance().PRODUCT_CANEL_EDITING,
+                    "BakeryMS",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
             if (ret == JOptionPane.YES_OPTION) {
                 productPanel.exitEditState();
                 return true;

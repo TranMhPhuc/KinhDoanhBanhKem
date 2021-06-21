@@ -13,6 +13,7 @@ import view.dialog.BillExportDialog;
 import view.bill.BillCreatePanel;
 import view.dialog.AmountDialog;
 import model.bill.BillCreateModelInterface;
+import util.messages.Messages;
 
 public class BillCreateController implements BillCreateControllerInterface {
 
@@ -69,13 +70,13 @@ public class BillCreateController implements BillCreateControllerInterface {
     public void requestChooseOfferedProduct() {
         int rowID = billCreatePanel.getOfferedProductTableSelectedRowIndex();
         if (rowID == -1) {
-            billCreatePanel.showInfoMessage("You should choose one product first.");
+            billCreatePanel.showInfoMessage(Messages.getInstance().BILL_NO_PRODUCT_CHOSEN);
             return;
         }
         ProductSimpleModelInterface offeredProduct = productSearchList.get(rowID);
         if (offeredProduct.getAmount() == 0) {
-            billCreatePanel.showErrorMessage("Product " + offeredProduct.getName() + " - "
-                    + offeredProduct.getSize().toString() + " is out of stock.");
+            billCreatePanel.showErrorMessage(Messages.getInstance().BILL_PRODUCT_OOS_1 + offeredProduct.getName() + " - "
+                    + offeredProduct.getSize().toString() + Messages.getInstance().BILL_PRODUCT_OOS_2);
             return;
         }
         billManageModel.addOfferedProductToBill(productSearchList.get(rowID));
@@ -85,7 +86,7 @@ public class BillCreateController implements BillCreateControllerInterface {
     public void requestRemoveSelectedProduct() {
         int rowID = billCreatePanel.getSelectedProductTableSelectedRowIndex();
         if (rowID == -1) {
-            billCreatePanel.showErrorMessage("You should choose one selected product first.");
+            billCreatePanel.showErrorMessage(Messages.getInstance().BILL_CANT_REMOVE_PRODUCT);
             return;
         }
         billManageModel.removeSeletedProductInBill(rowID);
@@ -94,7 +95,7 @@ public class BillCreateController implements BillCreateControllerInterface {
     @Override
     public void requestClearTableSelectedProduct() {
         if (billManageModel.isBillHavingNoProduct()) {
-            billCreatePanel.showErrorMessage("Bill has no product.");
+            billCreatePanel.showErrorMessage(Messages.getInstance().BILL_CANT_CLEAR_PRODUCTS);
             return;
         }
         billManageModel.clearSelectedProductData();
@@ -104,7 +105,7 @@ public class BillCreateController implements BillCreateControllerInterface {
     public void requestEditSelectedProductAmount() {
         int rowID = billCreatePanel.getSelectedProductTableSelectedRowIndex();
         if (rowID == -1) {
-            billCreatePanel.showErrorMessage("You should choose one selected product first.");
+            billCreatePanel.showErrorMessage(Messages.getInstance().BILL_CANT_EDIT_PRODUCT);
             return;
         }
         if (dialogAmount == null) {
@@ -129,11 +130,11 @@ public class BillCreateController implements BillCreateControllerInterface {
         int originAmount = billManageModel.getOriginAmountOfProduct(selectedProduct);
         
         if (newAmount > originAmount) {
-            String messageFormat = "Product %s - %s has not enough amount";
+            String messageFormat = Messages.getInstance().BILL_NOT_ENOUGH_AMOUNT;
             ProductSimpleModelInterface offeredProduct = selectedProduct.getProduct();
             JOptionPane.showMessageDialog(dialogAmount, 
                     String.format(messageFormat, offeredProduct.getName(), offeredProduct.getSize().toString()), 
-                    null, JOptionPane.ERROR_MESSAGE);
+                    null, JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
             return;
         }
         
@@ -145,7 +146,7 @@ public class BillCreateController implements BillCreateControllerInterface {
     @Override
     public void requestExportBill() {
         if (billManageModel.isBillHavingNoProduct()) {
-            billCreatePanel.showErrorMessage("Bill has no product!");
+            billCreatePanel.showErrorMessage(Messages.getInstance().BILL_CANT_EXPORT);
             return;
         }
 
@@ -195,7 +196,7 @@ public class BillCreateController implements BillCreateControllerInterface {
         if (guestMoney < totalMoney) {
             dialogBillExport.setBtnContinueEnable(false);
             dialogBillExport.setChangeMoneyText("");
-            dialogBillExport.setLabelErrorText("Guest money is insuccint");
+            dialogBillExport.setLabelErrorText(Messages.getInstance().BILL_NOT_ENOUGH_MONEY);
             return;
         }
 
@@ -209,7 +210,7 @@ public class BillCreateController implements BillCreateControllerInterface {
     @Override
     public void exportBill() {
         this.billManageModel.createBill();
-        dialogBillExport.showInfoMessage("Create bill successfully.");
+        dialogBillExport.showInfoMessage(Messages.getInstance().BILL_EXPORT_SUCCESSFULLY);
         dialogBillExport.dispose();
     }
 

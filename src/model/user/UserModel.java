@@ -4,6 +4,7 @@ import control.app.MainFrameController;
 import javax.swing.JFrame;
 import model.employee.EmployeeModelInterface;
 import control.app.MainFrameControllerInterface;
+import util.messages.Messages;
 import view.MessageShowing;
 import view.login.LoginFrame;
 import view.profile.ProfilePanel;
@@ -64,7 +65,7 @@ public class UserModel implements UserModelInterface {
             MainFrameControllerInterface mainFrameController = new MainFrameController(this);
             loginFrame.dispose();
         } else {
-            loginFrame.showErrorMessage("You don't have permission to login program.");
+            loginFrame.showErrorMessage(Messages.getInstance().LOGIN_NO_PERMISSON);
         }
     }
 
@@ -100,7 +101,7 @@ public class UserModel implements UserModelInterface {
         if (this.profilePanel == null) {
             throw new NullPointerException("Profile panel observer is null");
         }
-        ((MessageShowing) mainFrame).showInfoMessage("Update profile successfully!");
+        ((MessageShowing) mainFrame).showInfoMessage(Messages.getInstance().PROFILE_UPDATED_SUCCESSFULLY);
         this.profilePanel.setInputEnable(false);
     }
 

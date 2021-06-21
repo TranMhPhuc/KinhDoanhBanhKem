@@ -366,7 +366,7 @@ public class EmployeeModel implements EmployeeModelInterface {
         }
         int id = this.shiftDetails.indexOf(shiftDetail);
         if (id >= 0) {
-            throw new IllegalArgumentException("Shift detail instance is existed.");
+            throw new IllegalArgumentException("Shift detail instance already exists.");
         }
         this.shiftDetails.add(shiftDetail);
         shiftDetail.insertToDatabase();
@@ -379,7 +379,7 @@ public class EmployeeModel implements EmployeeModelInterface {
         }
         int id = this.shiftDetails.indexOf(shiftDetail);
         if (id == -1) {
-            throw new IllegalArgumentException("Shift detail instance is not existed.");
+            throw new IllegalArgumentException("Shift detail instance doesn't exist.");
         }
         this.shiftDetails.remove(shiftDetail);
         shiftDetail.deleteInDatabase();

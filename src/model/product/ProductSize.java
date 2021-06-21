@@ -11,6 +11,6 @@ public enum ProductSize {
                 return values()[i];
             }
         }
-        throw new IllegalArgumentException("Product size name is not existed.");
+        throw new IllegalArgumentException("Product size name doesn't exist.");
     }
 }

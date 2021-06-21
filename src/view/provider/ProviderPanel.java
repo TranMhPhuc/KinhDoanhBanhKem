@@ -18,6 +18,7 @@ import model.provider.ProviderManageModelInterface;
 import model.provider.ProviderModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
+import util.messages.Messages;
 import util.swing.UIControl;
 import view.MessageShowing;
 
@@ -295,7 +296,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
         } else if (source == btnModify) {
             String providerIDText = textfProviderID.getText();
             if (providerIDText.isEmpty()) {
-                showInfoMessage("You should choose one provider first.");
+                showInfoMessage(Messages.getInstance().PROVIDER_NO_PROVIDER_CHOSEN);
             } else {
                 setProviderInputEditable(true);
                 if (btnModify.getText().equals("Modify")) {
@@ -309,11 +310,11 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
         } else if (source == btnRemove) {
             String providerIDText = textfProviderID.getText();
             if (providerIDText.isEmpty()) {
-                showInfoMessage("You should choose one provider first.");
+                showInfoMessage(Messages.getInstance().PROVIDER_NO_PROVIDER_CHOSEN);
             } else {
                 int ret = JOptionPane.showConfirmDialog(mainFrame,
-                        "Remove provider?", "Confirmation", JOptionPane.YES_NO_OPTION,
-                        JOptionPane.WARNING_MESSAGE);
+                        Messages.getInstance().OTHERS_REMOVE_PROVIDER, "BakeryMS", JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
                 if (ret == JOptionPane.YES_OPTION) {
                     this.providerController.requestRemoveProvider();
                 }

@@ -24,6 +24,7 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import util.messages.Messages;
 
 public class ExcelExport {
 
@@ -67,9 +68,9 @@ public class ExcelExport {
             @Override
             public void approveSelection() {
                 File f = getSelectedFile();
-                String notify = f.getName() + "already exists.\nDo you want to replace it?";
+                String notify = f.getName() + Messages.getInstance().OTHERS_REPLACE_EXCEL;
                 if (f.exists() && getDialogType() == JFileChooser.CUSTOM_DIALOG) {
-                    int result = JOptionPane.showConfirmDialog(null, notify, "Confirm Override", JOptionPane.YES_NO_OPTION);
+                    int result = JOptionPane.showConfirmDialog(null, notify, "Save excel file", JOptionPane.YES_NO_OPTION);
                     switch (result) {
                         case JOptionPane.YES_OPTION:
                             super.approveSelection();
@@ -95,7 +96,7 @@ public class ExcelExport {
             FileOutputStream excelFileOutput = null;
             BufferedOutputStream excelBuffered = null;
             XSSFWorkbook excelExporter = new XSSFWorkbook();
-            XSSFSheet excelSheet = excelExporter.createSheet("Your sheet name");
+            XSSFSheet excelSheet = excelExporter.createSheet("Sheet1");
 
             XSSFRow headerRow = excelSheet.createRow(0);
             excelSheet.setColumnWidth(3, 2850);

@@ -120,17 +120,17 @@ public class AccountantMainFrame extends javax.swing.JFrame implements MessageSh
 
     @Override
     public void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Application message dialog", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "Application message dialog", JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
     }
 
     @Override
     public void showInfoMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Application message dialog", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "Application message dialog", JOptionPane.INFORMATION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/infor.png")));
     }
 
     @Override
     public void showWarningMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Application message dialog", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "Application message dialog", JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
     }
 
     @SuppressWarnings("unchecked")

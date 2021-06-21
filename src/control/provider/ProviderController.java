@@ -18,6 +18,7 @@ import org.junit.Assert;
 import util.constant.AppConstant;
 import util.db.SQLServerConnection;
 import util.excel.ExcelTransfer;
+import util.messages.Messages;
 import util.validator.EmailValidator;
 import util.validator.PhoneValidator;
 import view.provider.ProviderPanel;
@@ -45,7 +46,7 @@ public class ProviderController implements ProviderControllerInterface {
 
     private boolean isProviderNameValid(String providerName) {
         if (providerName.isEmpty()) {
-            providerPanel.showErrorMessage("Provider name must not be empty.");
+            providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_NAME_EMPTY);
             return false;
         }
         Iterator<ProviderModelInterface> iterator = this.providerManageModel
@@ -53,7 +54,7 @@ public class ProviderController implements ProviderControllerInterface {
         while (iterator.hasNext()) {
             ProviderModelInterface provider = iterator.next();
             if (provider.getName().equals(providerName)) {
-                providerPanel.showErrorMessage("Provider name is already existed.");
+                providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_NAME_EXISTS);
                 return false;
             }
         }
@@ -66,15 +67,15 @@ public class ProviderController implements ProviderControllerInterface {
 
         switch (phoneValidateResult) {
             case EMPTY: {
-                this.providerPanel.showErrorMessage("Provider phone number is empty.");
+                this.providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_PHONE_NUMBER_EMPTY);
                 return false;
             }
             case ERROR_FORMAT: {
-                this.providerPanel.showErrorMessage("Please enter provider phone number in number format.");
+                this.providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_PHONE_NUMBER_FORMAT);
                 return false;
             }
             case INVALLID: {
-                this.providerPanel.showErrorMessage("Provider number should be in 10 numbers.");
+                this.providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_PHONE_NUMBER_DIGITS);
                 return false;
             }
         }
@@ -84,7 +85,7 @@ public class ProviderController implements ProviderControllerInterface {
         while (iterator.hasNext()) {
             ProviderModelInterface provider = iterator.next();
             if (provider.getPhoneNum().equals(providerPhoneNum)) {
-                providerPanel.showErrorMessage("Provider phone num is already existed.");
+                providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_PHONE_NUMBER_EXISTS);
                 return false;
             }
         }
@@ -97,11 +98,11 @@ public class ProviderController implements ProviderControllerInterface {
 
         switch (emailValidateResult) {
             case EMPTY: {
-                this.providerPanel.showErrorMessage("Provider email must be not empty.");
+                this.providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_EMAIL_EMPTY);
                 return false;
             }
             case INVALLID: {
-                this.providerPanel.showErrorMessage("Provider email is invallid.");
+                this.providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_EMAIL_INVALID);
                 return false;
             }
         }
@@ -111,7 +112,7 @@ public class ProviderController implements ProviderControllerInterface {
         while (iterator.hasNext()) {
             ProviderModelInterface provider = iterator.next();
             if (provider.getEmail().equals(providerEmail)) {
-                providerPanel.showErrorMessage("Provider email is already existed.");
+                providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_EMAIL_EXISTS);
                 return false;
             }
         }
@@ -120,7 +121,7 @@ public class ProviderController implements ProviderControllerInterface {
 
     private boolean isProviderAddressValid(String providerAddress) {
         if (providerAddress.isEmpty()) {
-            providerPanel.showErrorMessage("Provider address must be not empty.");
+            providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_ADDRESS_EMPTY);
             return false;
         }
         Iterator<ProviderModelInterface> iterator = this.providerManageModel
@@ -128,7 +129,7 @@ public class ProviderController implements ProviderControllerInterface {
         while (iterator.hasNext()) {
             ProviderModelInterface provider = iterator.next();
             if (provider.getAddress().equals(providerAddress)) {
-                providerPanel.showErrorMessage("Provider address is already existed.");
+                providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_ADDRESS_EXISTS);
                 return false;
             }
         }
@@ -173,7 +174,7 @@ public class ProviderController implements ProviderControllerInterface {
         this.providerManageModel.addProvider(provider);
 
         this.providerPanel.exitEditState();
-        this.providerPanel.showInfoMessage("Insert new provider successfullly!");
+        this.providerPanel.showInfoMessage(Messages.getInstance().PROVIDER_INSERTED_SUCCESSFULLY);
     }
 
     @Override
@@ -224,7 +225,7 @@ public class ProviderController implements ProviderControllerInterface {
         this.providerManageModel.updateProvider(provider);
 
         this.providerPanel.exitEditState();
-        this.providerPanel.showInfoMessage("Update provider data successfully.");
+        this.providerPanel.showInfoMessage(Messages.getInstance().PROVIDER_UPDATED_SUCCESSFULLY);
     }
 
     @Override
@@ -249,8 +250,7 @@ public class ProviderController implements ProviderControllerInterface {
             callableStatement.close();
 
             if (isProviderHavingIngredient) {
-                providerPanel.showErrorMessage("Can't delete provider having "
-                        + "existed ingredient.");
+                providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_CANT_REMOVE);
                 return;
             }
         } catch (SQLException ex) {
@@ -261,7 +261,7 @@ public class ProviderController implements ProviderControllerInterface {
 
         this.searchList.remove(provider);
 
-        this.providerPanel.showInfoMessage("Delete provider successfully.");
+        this.providerPanel.showInfoMessage(Messages.getInstance().PROVIDER_REMOVED_SUCCESSFULLY);
     }
 
     @Override
@@ -272,7 +272,7 @@ public class ProviderController implements ProviderControllerInterface {
     @Override
     public void requestExportExcel() {
         if (providerPanel.getTableProviderRowCount() == 0) {
-            providerPanel.showErrorMessage("Table provider data is empty.");
+            providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_TABLE_EMPTY);
         } else {
             ExcelTransfer.exportTableToExcel(providerPanel.getTableProvider());
         }
@@ -363,9 +363,9 @@ public class ProviderController implements ProviderControllerInterface {
         if (providerPanel.getEditState() == ProviderPanel.EditState.ADD
                 || providerPanel.getEditState() == ProviderPanel.EditState.MODIFY) {
             int ret = JOptionPane.showConfirmDialog(providerPanel.getMainFrame(),
-                    "Cancel editing provider?",
-                    "Cancel editing provider confirm dialog",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    Messages.getInstance().PROVIDER_CANCEL_EDITING,
+                    "BakeryMS",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
             if (ret == JOptionPane.YES_OPTION) {
                 providerPanel.exitEditState();
                 return true;

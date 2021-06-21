@@ -71,7 +71,7 @@ public class EmployeeManageModel implements EmployeeManageModelInterface {
         }
         int index = this.employees.indexOf(employee);
         if (index != -1) {
-            throw new IllegalArgumentException("Employee instance is already existed.");
+            throw new IllegalArgumentException("Employee instance already exists.");
         }
         this.employees.add(employee);
         employee.insertToDatabase();
@@ -99,7 +99,7 @@ public class EmployeeManageModel implements EmployeeManageModelInterface {
                 return employee;
             }
         }
-        throw new IllegalArgumentException("Employee id '" + employeeIDText + "' is not existed.");
+        throw new IllegalArgumentException("Employee id '" + employeeIDText + "' doesn't exist.");
     }
 
     @Override

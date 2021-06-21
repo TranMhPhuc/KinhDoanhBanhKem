@@ -63,17 +63,17 @@ public class NewIngredientTypeDialog extends javax.swing.JDialog implements
 
     @Override
     public void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Create new ingredient type", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "BakeryMS", JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
     }
 
     @Override
     public void showInfoMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Create new ingredient type", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "BakeryMS", JOptionPane.INFORMATION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/infor.png")));
     }
 
     @Override
     public void showWarningMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Create new ingredient type", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "BakeryMS", JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
     }
 
     @SuppressWarnings("unchecked")

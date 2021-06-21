@@ -167,7 +167,7 @@ public class ProviderManageModel implements ProviderManageModelInterface {
                 return element;
             }
         }
-        throw new IllegalArgumentException("Provider id '" + providerIDText + "' is not existed");
+        throw new IllegalArgumentException("Provider id '" + providerIDText + "' doesn't exist");
     }
 
     @Override
@@ -192,7 +192,7 @@ public class ProviderManageModel implements ProviderManageModelInterface {
         }
         int index = providers.indexOf(provider);
         if (index != -1) {
-            throw new IllegalArgumentException("Provider instance is already existed.");
+            throw new IllegalArgumentException("Provider instance already exists.");
         } else {
             provider.insertToDatabase();
             this.providers.add(provider);
