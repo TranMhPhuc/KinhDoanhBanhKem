@@ -186,20 +186,20 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
 
     @Override
     public void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Ingredient product editing dialog",
-                JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "BakeryMS",
+                JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
     }
 
     @Override
     public void showInfoMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Ingredient product editing dialog",
-                JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "BakeryMS",
+                JOptionPane.INFORMATION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/infor.png")));
     }
 
     @Override
     public void showWarningMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Ingredient product editing dialog",
-                JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "BakeryMS",
+                JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
     }
 
     @SuppressWarnings("unchecked")
@@ -291,7 +291,7 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Select ingredient", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(153, 153, 153))); // NOI18N
 
-        combUnit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        combUnit.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         label_SelectedIngredients2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         label_SelectedIngredients2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -305,7 +305,7 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
         label_SelectedIngredients3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         label_SelectedIngredients3.setText("Amount:");
 
-        combName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        combName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         spinnerAmount.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         spinnerAmount.setModel(new javax.swing.SpinnerNumberModel(1.0f, 1.0f, null, 1.0f));

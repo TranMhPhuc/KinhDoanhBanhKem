@@ -231,7 +231,7 @@ public class ProductModel implements ProductModelInterface {
         }
         int id = this.ingredientDetails.indexOf(ingredientDetail);
         if (id != -1) {
-            throw new IllegalArgumentException("Ingredient detail is existed.");
+            throw new IllegalArgumentException("Ingredient detail already exists.");
         }
         this.ingredientDetails.add(ingredientDetail);
         ingredientDetail.insertToDatabase();
@@ -244,7 +244,7 @@ public class ProductModel implements ProductModelInterface {
         }
         int id = this.ingredientDetails.indexOf(ingredientDetail);
         if (id == -1) {
-            throw new IllegalArgumentException("Ingredient detail is not existed.");
+            throw new IllegalArgumentException("Ingredient detail doesn't exist.");
         }
         if (ingredientDetails.get(id).compareTo(ingredientDetail) != 0) {
             ingredientDetails.set(id, ingredientDetail);
@@ -259,7 +259,7 @@ public class ProductModel implements ProductModelInterface {
         }
         int id = this.ingredientDetails.indexOf(ingredientDetail);
         if (id == -1) {
-            throw new IllegalArgumentException("Ingredient detail is not existed.");
+            throw new IllegalArgumentException("Ingredient detail doesn't exist.");
         }
         ingredientDetail.deleteInDatabase();
         ingredientDetails.remove(id);

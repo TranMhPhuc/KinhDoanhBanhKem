@@ -25,6 +25,7 @@ import util.common.string.StringUtil;
 import util.constant.AppConstant;
 import util.db.SQLServerConnection;
 import util.excel.ExcelTransfer;
+import util.messages.Messages;
 import view.ingredient.ImportHistoryDialog;
 import view.ingredient.IngredientImportDialog;
 import view.ingredient.NewIngredientTypeDialog;
@@ -106,7 +107,7 @@ public class IngredientController implements IngredientControllerInterface {
         LocalDate dateToLocal = dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
         if (dateFromLocal.isAfter(dateToLocal)) {
-            dialogImportHistory.showErrorMessage("Date range input is invalid.");
+            dialogImportHistory.showErrorMessage(Messages.getInstance().INGR_DATE_TO_BEFORE);
             return;
         }
 
@@ -118,14 +119,14 @@ public class IngredientController implements IngredientControllerInterface {
         int ingredientTotalNumber = ingredientManageModel.getIngredientTotalNumber();
 
         if (ingredientTotalNumber == 0) {
-            this.ingredientPanel.showErrorMessage("Ingredient data list is empty.");
+            this.ingredientPanel.showErrorMessage(Messages.getInstance().INGR_DATA_LIST_EMPTY);
             return;
         }
 
         int rowID = this.ingredientPanel.getSelectedRow();
 
         if (rowID == -1) {
-            this.ingredientPanel.showInfoMessage("You should choose one ingredient first.");
+            this.ingredientPanel.showInfoMessage(Messages.getInstance().INGR_NO_INGR_CHOSEN);
             return;
         }
 
@@ -170,14 +171,14 @@ public class IngredientController implements IngredientControllerInterface {
         LocalDate importDateLocal = importDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
         if (importDateLocal.isBefore(LocalDate.now())) {
-            dialogIngredientImport.showErrorMessage("Please enter valid date import.");
+            dialogIngredientImport.showErrorMessage(Messages.getInstance().INGR_IMPORT_DATE_INVALID);
             return;
         }
 
         ingredientManageModel.importIngredient(ingredient, importDate, importAmount,
                 ingredient.getUnitName());
 
-        ingredientPanel.showInfoMessage("Import ingredient successfully.");
+        ingredientPanel.showInfoMessage(Messages.getInstance().INGR_IMPORTED_SUCCESSFULLY);
     }
 
     @Override
@@ -219,7 +220,7 @@ public class IngredientController implements IngredientControllerInterface {
 
     private boolean isProviderNameVallid(String providerName) {
         if (providerName == null) {
-            this.ingredientPanel.showErrorMessage("Please create a new provider first.");
+            this.ingredientPanel.showErrorMessage(Messages.getInstance().INGR_REQUEST_CREATE_PROVIDER);
             return false;
         }
 
@@ -228,7 +229,7 @@ public class IngredientController implements IngredientControllerInterface {
 
     private boolean isIngredientTypeNameVallid(String ingredientTypeName) {
         if (ingredientTypeName == null) {
-            this.ingredientPanel.showErrorMessage("Please create a new ingredient type first.");
+            this.ingredientPanel.showErrorMessage(Messages.getInstance().INGR_REQUEST_CREATE_ING_TYPE);
             return false;
         }
 
@@ -237,7 +238,7 @@ public class IngredientController implements IngredientControllerInterface {
 
     private boolean isIngredientUnitNameVallid(String ingredientUnitName) {
         if (ingredientUnitName == null) {
-            this.ingredientPanel.showErrorMessage("System error: Can not load unit data.");
+            this.ingredientPanel.showErrorMessage(Messages.getInstance().INGR_CANT_LOAD_UNIT);
             return false;
         }
 
@@ -246,7 +247,7 @@ public class IngredientController implements IngredientControllerInterface {
 
     private boolean isIngredientNameVallid(String ingredientName) {
         if (ingredientName.isEmpty()) {
-            this.ingredientPanel.showErrorMessage("Ingredient name must not be empty.");
+            this.ingredientPanel.showErrorMessage(Messages.getInstance().INGR_NAME_EMPTY);
             return false;
         }
 
@@ -256,7 +257,7 @@ public class IngredientController implements IngredientControllerInterface {
         while (iterator.hasNext()) {
             IngredientModelInterface ingredient = iterator.next();
             if (ingredient.getName().equals(ingredientName)) {
-                this.ingredientPanel.showErrorMessage("Ingredient name is already existed.");
+                this.ingredientPanel.showErrorMessage(Messages.getInstance().INGR_NAME_EXISTS);
                 return false;
             }
         }
@@ -266,7 +267,7 @@ public class IngredientController implements IngredientControllerInterface {
 
     private boolean isIngredientCostVallid(long ingredientCost) {
         if (ingredientCost <= 0) {
-            this.ingredientPanel.showErrorMessage("Ingredient cost must be greater than 0.");
+            this.ingredientPanel.showErrorMessage(Messages.getInstance().INGR_COST_GREATER_THAN_0);
             return false;
         }
 
@@ -307,7 +308,7 @@ public class IngredientController implements IngredientControllerInterface {
         try {
             ingredientCost = Long.parseLong(ingredientCostInputText);
         } catch (NumberFormatException ex) {
-            this.ingredientPanel.showErrorMessage("Please enter ingredient cost in number.");
+            this.ingredientPanel.showErrorMessage(Messages.getInstance().INGR_COST_FORMAT);
             return;
         }
 
@@ -328,7 +329,7 @@ public class IngredientController implements IngredientControllerInterface {
         // Update view
         this.ingredientPanel.exitEditState();
 
-        this.ingredientPanel.showInfoMessage("Insert new ingredient successfully.");
+        this.ingredientPanel.showInfoMessage(Messages.getInstance().INGR_INSERTED_SUCCESSFULLY);
     }
 
     @Override
@@ -369,7 +370,7 @@ public class IngredientController implements IngredientControllerInterface {
         try {
             ingredientCost = Long.parseLong(ingredientCostInputText);
         } catch (NumberFormatException ex) {
-            this.ingredientPanel.showErrorMessage("Please enter ingredient cost in number.");
+            this.ingredientPanel.showErrorMessage(Messages.getInstance().INGR_COST_FORMAT);
             return;
         }
 
@@ -387,7 +388,7 @@ public class IngredientController implements IngredientControllerInterface {
 
         this.ingredientPanel.exitEditState();
 
-        this.ingredientPanel.showInfoMessage("Update ingredient data successfully.");
+        this.ingredientPanel.showInfoMessage(Messages.getInstance().INGR_UPDATED_SUCCESSFULLY);
     }
 
     @Override
@@ -435,7 +436,7 @@ public class IngredientController implements IngredientControllerInterface {
             boolean isIncludedInProduct = callableStatement.getBoolean(1);
 
             if (isIncludedInProduct) {
-                this.ingredientPanel.showErrorMessage("Can not delete ingredient included in product.");
+                this.ingredientPanel.showErrorMessage(Messages.getInstance().INGR_CANT_REMOVE);
                 return;
             }
 
@@ -447,13 +448,13 @@ public class IngredientController implements IngredientControllerInterface {
 
         this.searchList.remove(ingredient);
 
-        this.ingredientPanel.showInfoMessage("Delete ingredient successfully.");
+        this.ingredientPanel.showInfoMessage(Messages.getInstance().INGR_REMOVE_SUCCESSFULLY);
     }
 
     @Override
     public boolean isNewIngredientTypeNameVallid(String ingredientTypeName) {
         if (ingredientTypeName.isEmpty()) {
-            this.dialogNewIngredientTypeCreate.showErrorMessage("Ingredient type name must not be empty.");
+            this.dialogNewIngredientTypeCreate.showErrorMessage(Messages.getInstance().INGR_TYPE_EMPTY);
             return false;
         }
 
@@ -467,7 +468,7 @@ public class IngredientController implements IngredientControllerInterface {
             boolean isTypeNameExisted = callableStatement.getBoolean(1);
 
             if (isTypeNameExisted) {
-                this.dialogNewIngredientTypeCreate.showErrorMessage("Ingredient type name is already existed.");
+                this.dialogNewIngredientTypeCreate.showErrorMessage(Messages.getInstance().INGR_TYPE_EXISTS);
                 return false;
             }
 
@@ -492,7 +493,7 @@ public class IngredientController implements IngredientControllerInterface {
 
         ingredientManageModel.addIngredientType(ingredientType);
 
-        this.ingredientPanel.showInfoMessage("Create new ingredient type successfully.");
+        this.ingredientPanel.showInfoMessage(Messages.getInstance().INGR_TYPE_INSERTED_SUCCESSFULLY);
 
         this.dialogNewIngredientTypeCreate.dispose();
     }
@@ -500,7 +501,7 @@ public class IngredientController implements IngredientControllerInterface {
     @Override
     public void requestExportExcel() {
         if (ingredientPanel.getTableIngredientRowCount() == 0) {
-            ingredientPanel.showErrorMessage("Table product data is empty.");
+            ingredientPanel.showErrorMessage(Messages.getInstance().INGR_TABLE_EMPTY);
         } else {
             ExcelTransfer.exportTableToExcel(ingredientPanel.getTableIngredient());
         }
@@ -545,7 +546,7 @@ public class IngredientController implements IngredientControllerInterface {
             int ret = JOptionPane.showConfirmDialog(ingredientPanel.getMainFrame(),
                     "Cancel editing ingredient?",
                     "Cancel editing ingredient confirm dialog",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
             if (ret == JOptionPane.YES_OPTION) {
                 ingredientPanel.exitEditState();
                 return true;

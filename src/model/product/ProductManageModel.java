@@ -175,7 +175,7 @@ public class ProductManageModel implements ProductManageModelInterface {
                 return product;
             }
         }
-        throw new IllegalArgumentException("Product id '" + productIDText + "' is not existed.");
+        throw new IllegalArgumentException("Product id '" + productIDText + "' doesn't exist.");
     }
 
     @Override
@@ -196,7 +196,7 @@ public class ProductManageModel implements ProductManageModelInterface {
         }
         int index = this.products.indexOf(product);
         if (index != -1) {
-            throw new IllegalArgumentException("Product instance is already existed.");
+            throw new IllegalArgumentException("Product instance already exists.");
         } else {
             this.products.add(product);
             product.insertToDatabase();

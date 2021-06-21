@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import model.setting.AppSetting;
 import model.user.UserModelInterface;
 import util.db.SQLServerConnection;
+import util.messages.Messages;
 import util.validator.EmailValidator;
 import util.validator.PhoneValidator;
 import view.MessageShowing;
@@ -70,11 +71,11 @@ public class MainFrameController implements MainFrameControllerInterface {
 
         switch (emailValidateResult) {
             case EMPTY: {
-                ((MessageShowing) mainFrame).showErrorMessage("Updating profile requires email not empty.");
+               ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_EMAIL_EMPTY);
                 return;
             }
             case INVALLID: {
-                ((MessageShowing) mainFrame).showErrorMessage("Updating profile requires email valid.");
+               ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_EMAIL_INVALID);
                 return;
             }
         }
@@ -85,15 +86,15 @@ public class MainFrameController implements MainFrameControllerInterface {
 
         switch (phoneValidateResult) {
             case EMPTY: {
-                ((MessageShowing) mainFrame).showErrorMessage("Updating profile requires phone num not empty.");
+                ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_PHONE_NUMBER_EMPTY);
                 return;
             }
             case ERROR_FORMAT: {
-                ((MessageShowing) mainFrame).showErrorMessage("Updating profile requires phone num is in number format.");
+                ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_PHONE_NUMBER_FORMAT);
                 return;
             }
             case INVALLID: {
-                ((MessageShowing) mainFrame).showErrorMessage("Updating profile requires phone num has exact 10 digits.");
+                ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_PHONE_NUMBER_DIGITS);
                 return;
             }
         }
@@ -118,39 +119,39 @@ public class MainFrameController implements MainFrameControllerInterface {
         String oldPasswordInput = passwordChangeDialog.getOldPasswordInput();
 
         if (oldPasswordInput.isEmpty()) {
-            ((MessageShowing) mainFrame).showErrorMessage("Old password is required.");
+            ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_OLD_PASSWORD_EMPTY);
             return;
         }
 
         String userPassword = userModel.getImpl().getPassword();
 
         if (!oldPasswordInput.equals(userPassword)) {
-            ((MessageShowing) mainFrame).showErrorMessage("Old password is incorrect.");
+            ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_OLD_PASSWORD_INCORRECT);
             return;
         }
 
         String newPasswordInput = passwordChangeDialog.getNewPasswordInput();
 
         if (newPasswordInput.isEmpty()) {
-            ((MessageShowing) mainFrame).showErrorMessage("New password is required.");
+            ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_NEW_PASSWORD_EMPTY);
             return;
         }
 
         String verifyPasswordInput = passwordChangeDialog.getVerifyPasswordInput();
 
         if (verifyPasswordInput.isEmpty()) {
-            ((MessageShowing) mainFrame).showErrorMessage("Verifying password is required.");
+            ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_NEW_PASSWORD_VERIFICATION_EMPTY);
             return;
         }
 
         if (!newPasswordInput.equals(verifyPasswordInput)) {
-            ((MessageShowing) mainFrame).showErrorMessage("Verifying password is incorrect.");
+            ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_NEW_PASSWORD_VERIFICATION_INCORRECT);
             return;
         }
 
         userModel.updatePassword(newPasswordInput);
 
-        ((MessageShowing) mainFrame).showInfoMessage("Change password successfully.");
+        ((MessageShowing) mainFrame).showInfoMessage(Messages.getInstance().PROFILE_CHANGE_PASSWORD_SUCCESSFULLY);
 
         passwordChangeDialog.dispose();
     }
@@ -162,8 +163,8 @@ public class MainFrameController implements MainFrameControllerInterface {
             return;
         }
 
-        int ret = JOptionPane.showConfirmDialog(this.mainFrame, "Do you want to sign out?",
-                "Confirm to sign out dialog", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        int ret = JOptionPane.showConfirmDialog(this.mainFrame, Messages.getInstance().PROFILE_SIGN_OUT_CONFIRMATION,
+                "BakeryMS", JOptionPane.YES_NO_OPTION);
         if (ret == JOptionPane.YES_OPTION) {
             this.userModel.clearSession();
         }
@@ -183,8 +184,8 @@ public class MainFrameController implements MainFrameControllerInterface {
         }
 
         // Confirm exit, if exit then close database connection
-        int ret = JOptionPane.showConfirmDialog(this.mainFrame, "Do you want to exit?",
-                "Confirm to close program dialog", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        int ret = JOptionPane.showConfirmDialog(this.mainFrame, Messages.getInstance().PROFILE_EXIT_CONFIRMATION,
+                "BakeryMS", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
         if (ret == JOptionPane.YES_OPTION) {
             try {
                 AppSetting.getInstance().writeProperty();
@@ -201,9 +202,9 @@ public class MainFrameController implements MainFrameControllerInterface {
         boolean isProfileUpdating = profilePanel.isProfileEditing();
         if (isProfileUpdating) {
             int ret = JOptionPane.showConfirmDialog(mainFrame,
-                    "Cancel editing profile?",
-                    "Cancel editing profile confirm dialog",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    Messages.getInstance().PROFILE_CANCEL_EDITING,
+                    "BakeryMS",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
             if (ret == JOptionPane.YES_OPTION) {
                 this.profilePanel.resetProfileEditing();
                 this.profilePanel.setInputEnable(false);

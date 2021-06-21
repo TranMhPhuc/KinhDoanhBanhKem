@@ -197,7 +197,7 @@ public class IngredientManageModel implements IngredientManageModelInterface {
                 return element;
             }
         }
-        throw new IllegalArgumentException("Ingredient id '" + ingredientIDText + "' is not existed.");
+        throw new IllegalArgumentException("Ingredient id '" + ingredientIDText + "' doesn't exist.");
     }
 
     @Override
@@ -207,7 +207,7 @@ public class IngredientManageModel implements IngredientManageModelInterface {
         }
         int index = this.ingredients.indexOf(ingredient);
         if (index != -1) {
-            throw new IllegalArgumentException("Ingredient instance is already existed.");
+            throw new IllegalArgumentException("Ingredient instance already exists.");
         } else {
             this.ingredients.add(ingredient);
             ingredient.insertToDatabase();
@@ -290,7 +290,7 @@ public class IngredientManageModel implements IngredientManageModelInterface {
                 return ingredient;
             }
         }
-        throw new IllegalArgumentException("Ingredient name is not existed.");
+        throw new IllegalArgumentException("Ingredient name doesn't exist.");
     }
 
     @Override

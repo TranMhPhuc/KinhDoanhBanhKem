@@ -12,6 +12,7 @@ import model.employee.EmployeeModelInterface;
 import model.user.UserModelInterface;
 import util.db.SQLServerConnection;
 import util.mail.MailUtility;
+import util.messages.Messages;
 import util.validator.EmailValidator;
 import util.validator.EmailValidator.EmailValidateResult;
 import view.login.LoginFrame;
@@ -60,17 +61,17 @@ public class LoginController implements LoginControllerInterface {
 
         switch (emailValidateResult) {
             case EMPTY: {
-                this.loginFrame.showErrorMessage("Email must be not empty.");
+                this.loginFrame.showErrorMessage(Messages.getInstance().LOGIN_EMAIL_EMPTY);
                 return;
             }
             case INVALLID: {
-                this.loginFrame.showErrorMessage("Email is invallid.");
+                this.loginFrame.showErrorMessage(Messages.getInstance().LOGIN_EMAIL_INVALID);
                 return;
             }
         }
 
         if (password.isEmpty()) {
-            this.loginFrame.showErrorMessage("Password must be not empty.");
+            this.loginFrame.showErrorMessage(Messages.getInstance().LOGIN_PASSWORD_EMPTY);
             return;
         }
 
@@ -83,7 +84,7 @@ public class LoginController implements LoginControllerInterface {
             ResultSet resultSet = callableStatement.executeQuery();
             
             if (!resultSet.next()) {
-                loginFrame.showErrorMessage("Email or password is incorrect. Try again!");
+                loginFrame.showErrorMessage(Messages.getInstance().LOGIN_EMAIL_PASSWORD_INCORRECT);
                 return;
             }
 
@@ -118,11 +119,11 @@ public class LoginController implements LoginControllerInterface {
         
         switch (emailValidateResult) {
             case EMPTY: {
-                this.loginFrame.showErrorMessage("Email must be required.");
+                this.loginFrame.showErrorMessage(Messages.getInstance().LOGIN_EMAIL_EMPTY);
                 return;
             }
             case INVALLID: {
-                this.loginFrame.showErrorMessage("Email is invallid.");
+                this.loginFrame.showErrorMessage(Messages.getInstance().LOGIN_EMAIL_INVALID);
                 return;
             }
         }
@@ -140,7 +141,7 @@ public class LoginController implements LoginControllerInterface {
             userPassword = callableStatement.getString(1);
 
             if (userPassword == null) {
-                loginFrame.showErrorMessage("Email is not available. Enter your email exactly!");
+                loginFrame.showErrorMessage(Messages.getInstance().LOGIN_EMAIL_NOT_AVILABLE);
                 return;
             }
 
@@ -151,7 +152,7 @@ public class LoginController implements LoginControllerInterface {
         }
 
         MailUtility.sendPasswordRecover(email, userPassword);
-        this.passwordRecoveryDialog.showInfoMessage("Your password is sent to email successfullly!");
+        this.passwordRecoveryDialog.showInfoMessage(Messages.getInstance().LOGIN_SENT_PASSWORD_SUCCESSFULLY);
 
         this.passwordRecoveryDialog.dispose();
 

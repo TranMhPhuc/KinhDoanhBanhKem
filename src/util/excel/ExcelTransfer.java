@@ -24,6 +24,7 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import util.messages.Messages;
 
 public class ExcelTransfer {
 
@@ -72,10 +73,11 @@ public class ExcelTransfer {
             @Override
             public void approveSelection() {
                 File f = getSelectedFile();
+
                 if (f.exists() && getDialogType() == JFileChooser.CUSTOM_DIALOG) {
-                    String notify = f.getName() + "already exists.\nDo you want to replace it?";
+                    String notify = f.getName() + Messages.getInstance().OTHERS_REPLACE_EXCEL;
                     int result = JOptionPane.showConfirmDialog(null, notify,
-                            "Confirm Override", JOptionPane.YES_NO_OPTION);
+                            "BakeryMS", JOptionPane.YES_NO_OPTION);
                     switch (result) {
                         case JOptionPane.YES_OPTION:
                             super.approveSelection();
@@ -411,7 +413,7 @@ public class ExcelTransfer {
     private static void showErrorMessage(int row, int column) {
         JOptionPane.showMessageDialog(null, "Row " + row + " Column " + column
                 + " is invalid, stopped reading file.", "Bakery Management System",
-                JOptionPane.ERROR_MESSAGE);
+                JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon("img/error.png"));
     }
 
 }

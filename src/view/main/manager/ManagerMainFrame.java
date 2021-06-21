@@ -30,6 +30,7 @@ import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
 import model.user.UserModelInterface;
 import util.constant.AppConstant;
+import util.messages.Messages;
 import view.MessageShowing;
 
 public class ManagerMainFrame extends javax.swing.JFrame implements MessageShowing,
@@ -146,6 +147,9 @@ public class ManagerMainFrame extends javax.swing.JFrame implements MessageShowi
 
         appSettingModel.registerObserver(panelEmployee);
         panelEmployee.updateSettingObserver();
+        
+        appSettingModel.registerObserver(Messages.getInstance());
+        Messages.getInstance().updateSettingObserver();
     }
 
     private void createControl() {
@@ -271,17 +275,17 @@ public class ManagerMainFrame extends javax.swing.JFrame implements MessageShowi
 
     @Override
     public void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Application message dialog", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "Application message dialog", JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
     }
 
     @Override
     public void showInfoMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Application message dialog", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "Application message dialog", JOptionPane.INFORMATION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/infor.png")));
     }
 
     @Override
     public void showWarningMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Application message dialog", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "Application message dialog", JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
     }
 
     @SuppressWarnings("unchecked")

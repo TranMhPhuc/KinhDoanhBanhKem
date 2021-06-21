@@ -25,6 +25,7 @@ import model.employee.EmployeeModelInterface;
 import model.employee.shift.detail.ShiftDetailModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
+import util.messages.Messages;
 import util.constant.AppConstant;
 import view.MessageShowing;
 
@@ -437,7 +438,7 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
         } else if (source == btnModify) {
             String employeeIDText = textfEmployeeID.getText();
             if (employeeIDText.isEmpty()) {
-                showErrorMessage("You should choose one employee first.");
+                showErrorMessage(Messages.getInstance().EMPLOYEE_NO_EMPLOYEE_CHOSEN);
             } else {
                 setEmployeeInputEditable(true);
                 if (btnModify.getText().equals("Modify")) {
