@@ -28,10 +28,10 @@
                   <Component id="scrpaneIngredient" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jPanel3" min="-2" pref="459" max="-2" attributes="0"/>
-                      <EmptySpace pref="270" max="32767" attributes="0"/>
+                      <EmptySpace pref="220" max="32767" attributes="0"/>
                       <Component id="panelCard" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="panelIngredientInfo" max="32767" attributes="0"/>
+                  <Component id="panelInfo" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -42,7 +42,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="panelIngredientInfo" min="-2" max="-2" attributes="0"/>
+              <Component id="panelInfo" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="panelCard" max="32767" attributes="0"/>
@@ -57,7 +57,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="panelIngredientInfo">
+    <Container class="javax.swing.JPanel" name="panelInfo">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -383,7 +383,7 @@
             </Property>
             <Property name="name" type="java.lang.String" value="Function" noResource="true"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[530, 40]"/>
+              <Dimension value="[580, 40]"/>
             </Property>
           </Properties>
           <Constraints>
@@ -607,7 +607,7 @@
             <Property name="text" type="java.lang.String" value="Import Ingredient"/>
             <Property name="iconTextGap" type="int" value="10"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[300, 50]"/>
+              <Dimension value="[330, 50]"/>
             </Property>
           </Properties>
         </Component>
@@ -654,7 +654,7 @@
             <Property name="text" type="java.lang.String" value="View import history"/>
             <Property name="iconTextGap" type="int" value="10"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[300, 50]"/>
+              <Dimension value="[330, 50]"/>
             </Property>
           </Properties>
         </Component>

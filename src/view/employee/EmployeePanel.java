@@ -16,6 +16,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -561,6 +562,9 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
                 columnModel.getColumn(EMPLOYEE_START_DATE_COLUMN_INDEX).setHeaderValue("Start date");
                 columnModel.getColumn(EMPLOYEE_END_DATE_COLUMN_INDEX).setHeaderValue("End date");
 
+                TitledBorder titledBorder = (TitledBorder) panelInfo.getBorder();
+                titledBorder.setTitle("Employee information");
+                
                 break;
             }
             case VIETNAMESE: {
@@ -596,6 +600,9 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
                 columnModel.getColumn(EMPLOYEE_START_DATE_COLUMN_INDEX).setHeaderValue("Ngày bắt đầu");
                 columnModel.getColumn(EMPLOYEE_END_DATE_COLUMN_INDEX).setHeaderValue("Ngày kết thúc");
 
+                TitledBorder titledBorder = (TitledBorder) panelInfo.getBorder();
+                titledBorder.setTitle("Thông tin nhân viên");
+                
                 break;
             }
         }
@@ -917,7 +924,7 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
 
         panelBtnFunction.setBackground(new java.awt.Color(255, 255, 255));
         panelBtnFunction.setName("Function"); // NOI18N
-        panelBtnFunction.setPreferredSize(new java.awt.Dimension(390, 40));
+        panelBtnFunction.setPreferredSize(new java.awt.Dimension(480, 40));
         panelBtnFunction.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N

@@ -2,5 +2,6 @@
 /nbproject/private/
 /KinhDoanhBanhKem/build/
 /build/
-/KinhDoanhBanhKem/log/**
+/KinhDoanhBanhKem/log/*.gz
+/KinhDoanhBanhKem/src/appconfig/setting.properties
 /dist/

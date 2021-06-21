@@ -10,6 +10,7 @@ import java.util.Iterator;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -32,7 +33,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
     public static final int PRODUCT_COST_COLUMN_INDEX = 3;
     public static final int PRODUCT_PRICE_COLUMN_INDEX = 4;
     public static final int PRODUCT_AMOUNT_COLUMN_INDEX = 5;
-    
+
     public static final int INGREDIENT_DETAIL_NAME_COLUMN_INDEX = 0;
     public static final int INGREDIENT_DETAIL_TYPE_COLUMN_INDEX = 1;
     public static final int INGREDIENT_DETAIL_UNIT_COLUMN_INDEX = 2;
@@ -453,14 +454,14 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
                 btnCancel.setText("Cancel");
                 btnRequestProduce.setText("Produce product");
                 btnEditIngredient.setText("Edit");
-                
+
                 TableColumnModel tableProductColumnModel = tableProduct.getColumnModel();
                 tableProductColumnModel.getColumn(PRODUCT_NAME_COLUMN_INDEX).setHeaderValue("Name");
                 tableProductColumnModel.getColumn(PRODUCT_SIZE_COLUMN_INDEX).setHeaderValue("Size");
                 tableProductColumnModel.getColumn(PRODUCT_COST_COLUMN_INDEX).setHeaderValue("Cost");
                 tableProductColumnModel.getColumn(PRODUCT_PRICE_COLUMN_INDEX).setHeaderValue("Price");
                 tableProductColumnModel.getColumn(PRODUCT_AMOUNT_COLUMN_INDEX).setHeaderValue("Amount");
-                
+
                 TableColumnModel tableIngredientDetailColumnModel = tableIngredientDetail.getColumnModel();
                 tableIngredientDetailColumnModel.getColumn(INGREDIENT_DETAIL_NAME_COLUMN_INDEX)
                         .setHeaderValue("Name");
@@ -470,7 +471,13 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
                         .setHeaderValue("Unit");
                 tableIngredientDetailColumnModel.getColumn(INGREDIENT_DETAIL_AMOUNT_COLUMN_INDEX)
                         .setHeaderValue("Amount");
-                
+
+                TitledBorder titledBorder = (TitledBorder) panelProductInfo.getBorder();
+                titledBorder.setTitle("Product information");
+
+                titledBorder = (TitledBorder) panelIngredientDetail.getBorder();
+                titledBorder.setTitle("Ingredient detail");
+
                 break;
             }
             case VIETNAMESE: {
@@ -488,14 +495,14 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
                 btnCancel.setText("Thoát");
                 btnRequestProduce.setText("Tạo sản phẩm");
                 btnEditIngredient.setText("Chỉnh sửa");
-                
+
                 TableColumnModel tableProductColumnModel = tableProduct.getColumnModel();
                 tableProductColumnModel.getColumn(PRODUCT_NAME_COLUMN_INDEX).setHeaderValue("Tên");
                 tableProductColumnModel.getColumn(PRODUCT_SIZE_COLUMN_INDEX).setHeaderValue("Kích thước");
                 tableProductColumnModel.getColumn(PRODUCT_COST_COLUMN_INDEX).setHeaderValue("Giá gốc");
                 tableProductColumnModel.getColumn(PRODUCT_PRICE_COLUMN_INDEX).setHeaderValue("Giá bán");
                 tableProductColumnModel.getColumn(PRODUCT_AMOUNT_COLUMN_INDEX).setHeaderValue("Số lượng");
-                
+
                 TableColumnModel tableIngredientDetailColumnModel = tableIngredientDetail.getColumnModel();
                 tableIngredientDetailColumnModel.getColumn(INGREDIENT_DETAIL_NAME_COLUMN_INDEX)
                         .setHeaderValue("Tên nguyên liệu");
@@ -505,6 +512,13 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
                         .setHeaderValue("Đơn vị");
                 tableIngredientDetailColumnModel.getColumn(INGREDIENT_DETAIL_AMOUNT_COLUMN_INDEX)
                         .setHeaderValue("Số lượng");
+
+                TitledBorder titledBorder = (TitledBorder) panelProductInfo.getBorder();
+                titledBorder.setTitle("Thông tin sản phẩm");
+
+                titledBorder = (TitledBorder) panelIngredientDetail.getBorder();
+                titledBorder.setTitle("Thành phần nguyên liệu");
+
                 break;
             }
         }
@@ -527,7 +541,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
         textfProductCost = new javax.swing.JTextField();
         textfProductPrice = new javax.swing.JTextField();
         labelPrice = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        panelIngredientDetail = new javax.swing.JPanel();
         scrpaneIngredientSelected = new javax.swing.JScrollPane();
         tableIngredientDetail = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -589,9 +603,9 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
         labelPrice.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelPrice.setText("Price");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ingredient List", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(153, 153, 153))); // NOI18N
-        jPanel1.setMaximumSize(new java.awt.Dimension(2147483647, 188));
-        jPanel1.setMinimumSize(new java.awt.Dimension(549, 188));
+        panelIngredientDetail.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ingredient List", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(153, 153, 153))); // NOI18N
+        panelIngredientDetail.setMaximumSize(new java.awt.Dimension(2147483647, 188));
+        panelIngredientDetail.setMinimumSize(new java.awt.Dimension(549, 188));
 
         scrpaneIngredientSelected.setPreferredSize(new java.awt.Dimension(452, 350));
 
@@ -633,16 +647,16 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
         btnEditIngredient.setPreferredSize(new java.awt.Dimension(100, 30));
         jPanel2.add(btnEditIngredient);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelIngredientDetailLayout = new javax.swing.GroupLayout(panelIngredientDetail);
+        panelIngredientDetail.setLayout(panelIngredientDetailLayout);
+        panelIngredientDetailLayout.setHorizontalGroup(
+            panelIngredientDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(scrpaneIngredientSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        panelIngredientDetailLayout.setVerticalGroup(
+            panelIngredientDetailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelIngredientDetailLayout.createSequentialGroup()
                 .addComponent(scrpaneIngredientSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -675,7 +689,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
                     .addComponent(textfProductCost, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textfProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelIngredientDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         panelProductInfoLayout.setVerticalGroup(
@@ -683,7 +697,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
             .addGroup(panelProductInfoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelProductInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelIngredientDetail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelProductInfoLayout.createSequentialGroup()
                         .addGroup(panelProductInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(label_productID)
@@ -748,7 +762,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
 
         panelBtnFunction.setBackground(new java.awt.Color(255, 255, 255));
         panelBtnFunction.setName("Function"); // NOI18N
-        panelBtnFunction.setPreferredSize(new java.awt.Dimension(530, 30));
+        panelBtnFunction.setPreferredSize(new java.awt.Dimension(580, 30));
         panelBtnFunction.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -889,7 +903,6 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSearchClear;
     private javax.swing.JComboBox<String> combProductSize;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -902,6 +915,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
     private javax.swing.JPanel panelBtnFunction;
     private javax.swing.JPanel panelBtnOption;
     private javax.swing.JPanel panelCard;
+    private javax.swing.JPanel panelIngredientDetail;
     private javax.swing.JPanel panelProductInfo;
     private javax.swing.JScrollPane scrpaneIngredientSelected;
     private javax.swing.JScrollPane scrpaneTable;

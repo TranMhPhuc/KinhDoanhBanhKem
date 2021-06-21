@@ -10,6 +10,7 @@ import java.util.Iterator;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -416,6 +417,9 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
                 tableProviderColumnModel.getColumn(PROVIDER_PHONE_NUM_COLUMN_INDEX).setHeaderValue("Mobile");
                 tableProviderColumnModel.getColumn(PROVIDER_ADDRESS_COLUMN_INDEX).setHeaderValue("Address");
 
+                TitledBorder titledBorder = (TitledBorder) panelInfo.getBorder();
+                titledBorder.setTitle("Provider information");
+                
                 break;
             }
             case VIETNAMESE: {
@@ -436,6 +440,9 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
                 tableProviderColumnModel.getColumn(PROVIDER_PHONE_NUM_COLUMN_INDEX).setHeaderValue("Mobile");
                 tableProviderColumnModel.getColumn(PROVIDER_ADDRESS_COLUMN_INDEX).setHeaderValue("Address");
 
+                TitledBorder titledBorder = (TitledBorder) panelInfo.getBorder();
+                titledBorder.setTitle("Thông tin nhà cung cấp");
+
                 break;
             }
         }
@@ -447,7 +454,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelProviderInfo = new javax.swing.JPanel();
+        panelInfo = new javax.swing.JPanel();
         label_provID4 = new javax.swing.JLabel();
         textfProviderID = new javax.swing.JTextField();
         labelName = new javax.swing.JLabel();
@@ -478,8 +485,8 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
         setBackground(new java.awt.Color(255, 255, 255));
         setName("Provider"); // NOI18N
 
-        panelProviderInfo.setBackground(new java.awt.Color(255, 255, 255));
-        panelProviderInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Provider Information", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(153, 153, 153))); // NOI18N
+        panelInfo.setBackground(new java.awt.Color(255, 255, 255));
+        panelInfo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Provider Information", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(153, 153, 153))); // NOI18N
 
         label_provID4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_provID4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -515,18 +522,18 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
 
         textfAddress.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        javax.swing.GroupLayout panelProviderInfoLayout = new javax.swing.GroupLayout(panelProviderInfo);
-        panelProviderInfo.setLayout(panelProviderInfoLayout);
-        panelProviderInfoLayout.setHorizontalGroup(
-            panelProviderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelProviderInfoLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelInfoLayout = new javax.swing.GroupLayout(panelInfo);
+        panelInfo.setLayout(panelInfoLayout);
+        panelInfoLayout.setHorizontalGroup(
+            panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInfoLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(panelProviderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(labelName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(label_provID4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelProviderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelProviderInfoLayout.createSequentialGroup()
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelInfoLayout.createSequentialGroup()
                         .addComponent(textfProviderID, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
                         .addComponent(labelPhoneNum)
@@ -534,20 +541,20 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
                         .addComponent(textfPhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(textfProviderName))
                 .addGap(30, 30, 30)
-                .addGroup(panelProviderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(labelAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelProviderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(textfEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                     .addComponent(textfAddress))
                 .addContainerGap())
         );
-        panelProviderInfoLayout.setVerticalGroup(
-            panelProviderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelProviderInfoLayout.createSequentialGroup()
+        panelInfoLayout.setVerticalGroup(
+            panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelProviderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textfProviderID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_provID4)
                     .addComponent(labelPhoneNum)
@@ -555,7 +562,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
                     .addComponent(labelEmail)
                     .addComponent(textfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(panelProviderInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelName)
                     .addComponent(labelAddress)
                     .addComponent(textfProviderName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -594,7 +601,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
 
         panelBtnFunction.setBackground(new java.awt.Color(255, 255, 255));
         panelBtnFunction.setName("Function"); // NOI18N
-        panelBtnFunction.setPreferredSize(new java.awt.Dimension(530, 40));
+        panelBtnFunction.setPreferredSize(new java.awt.Dimension(580, 40));
         panelBtnFunction.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -685,11 +692,11 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelProviderInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(scrpaneTable, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
                         .addComponent(panelCard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -697,7 +704,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelProviderInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelCard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -727,7 +734,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
     private javax.swing.JPanel panelBtnFunction;
     private javax.swing.JPanel panelBtnOption;
     private javax.swing.JPanel panelCard;
-    private javax.swing.JPanel panelProviderInfo;
+    private javax.swing.JPanel panelInfo;
     private javax.swing.JScrollPane scrpaneTable;
     private javax.swing.JTable tableProvider;
     private javax.swing.JTextField textfAddress;
