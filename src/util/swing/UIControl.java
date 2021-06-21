@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -18,6 +19,15 @@ public class UIControl {
     }
 
     public static void setDefaultTableHeader(JTable table) {
+        DefaultTableCellRenderer defaultTableCellRenderer;
+        table.setRowHeight(30);
+        defaultTableCellRenderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
+        defaultTableCellRenderer.setHorizontalAlignment(0);
+        table.getTableHeader().setFont(new Font("Segoe UI", 1, 15));
+        setHorizontalAlignmentForColumn(table, 0, JLabel.CENTER);
+    }
+
+    public static void setDefaultTableHeader2(JTable table) {
         DefaultTableCellRenderer defaultTableCellRenderer;
         table.setRowHeight(30);
         defaultTableCellRenderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();

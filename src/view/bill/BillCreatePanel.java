@@ -2,22 +2,20 @@ package view.bill;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
-import model.product.ProductModelInterface;
-import org.apache.commons.lang3.tuple.Pair;
 import util.swing.UIControl;
 import view.MessageShowing;
 import control.bill.create.BillCreateControllerInterface;
 import java.util.Iterator;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import model.bill.BillModelInterface;
-import model.bill.OfferedProductUpdateObserver;
 import model.bill.detail.ProductDetailModelInterface;
 import model.product.ProductSimpleModelInterface;
 import model.bill.BillCreateModelInterface;
+import util.swing.NumberRenderer;
 
 public class BillCreatePanel extends javax.swing.JPanel implements ActionListener,
         MessageShowing, BillUpdateObserver {
@@ -78,6 +76,11 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         textfTotalMoney.setText("0");
         textfSearchProductName.setText("");
         clearTableProductSelect();
+
+        tableOfferedProduct.getColumnModel().getColumn(3).setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        tableSelectedProduct.getColumnModel().getColumn(4).setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        UIControl.setHorizontalAlignmentForColumn(tableOfferedProduct, 2, JLabel.CENTER);
+        UIControl.setHorizontalAlignmentForColumn(tableSelectedProduct, 2, JLabel.CENTER);
     }
 
     private void createControl() {
@@ -298,6 +301,7 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         jPanel1.setName("BillCreate"); // NOI18N
         jPanel1.setPreferredSize(new java.awt.Dimension(900, 639));
 
+        tableOfferedProduct.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         tableOfferedProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -396,6 +400,7 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         labelBillID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelBillID.setText("Bill ID");
 
+        tableSelectedProduct.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         tableSelectedProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -495,13 +500,11 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textfTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textfBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textfTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textfBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
                 .addGap(18, 18, 18)

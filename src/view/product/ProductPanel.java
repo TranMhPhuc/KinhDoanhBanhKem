@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
@@ -20,6 +21,7 @@ import model.product.ProductModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
 import util.messages.Messages;
+import util.swing.NumberRenderer;
 import util.swing.UIControl;
 import view.MessageShowing;
 
@@ -94,6 +96,12 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
         resetProductInput();
         setProductInputEditable(false);
         UIControl.setDefaultTableHeader(tableProduct);
+        UIControl.setDefaultTableHeader2(tableIngredientDetail);
+        UIControl.setHorizontalAlignmentForColumn(tableProduct, 2, JLabel.CENTER);
+        
+        TableColumnModel m = tableProduct.getColumnModel();
+        m.getColumn(3).setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        m.getColumn(4).setCellRenderer(NumberRenderer.getCurrencyRenderer());
     }
 
     private void createControl() {
@@ -609,7 +617,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
 
         scrpaneIngredientSelected.setPreferredSize(new java.awt.Dimension(452, 350));
 
-        tableIngredientDetail.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        tableIngredientDetail.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         tableIngredientDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -715,7 +723,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
                 .addContainerGap())
         );
 
-        tableProduct.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        tableProduct.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         tableProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -745,6 +753,18 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
         tableProduct.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableProduct.getTableHeader().setReorderingAllowed(false);
         scrpaneTable.setViewportView(tableProduct);
+        if (tableProduct.getColumnModel().getColumnCount() > 0) {
+            tableProduct.getColumnModel().getColumn(0).setMinWidth(7);
+            tableProduct.getColumnModel().getColumn(0).setPreferredWidth(7);
+            tableProduct.getColumnModel().getColumn(1).setMinWidth(170);
+            tableProduct.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tableProduct.getColumnModel().getColumn(2).setMinWidth(10);
+            tableProduct.getColumnModel().getColumn(2).setPreferredWidth(10);
+            tableProduct.getColumnModel().getColumn(3).setMinWidth(170);
+            tableProduct.getColumnModel().getColumn(3).setPreferredWidth(200);
+            tableProduct.getColumnModel().getColumn(4).setMinWidth(170);
+            tableProduct.getColumnModel().getColumn(4).setPreferredWidth(200);
+        }
         tableProduct.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
 
         //table_proInfo.getTableHeader().setFont(new Font("Segoe UI",1,15));
@@ -870,7 +890,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panelCard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(panelCard, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -881,8 +901,8 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
                 .addComponent(panelProductInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelCard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelCard, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrpaneTable, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
