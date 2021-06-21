@@ -465,6 +465,26 @@ public class IngredientManageModel implements IngredientManageModelInterface {
     }
 
     @Override
+    public void updateAmountOfIngredientData() {
+        try {
+            CallableStatement callableStatement = dbConnection
+                    .prepareCall(FT_GET_AMOUNT_OF_INGREDIENT);
+            callableStatement.registerOutParameter(1, Types.NVARCHAR);
+
+            for (IngredientModelInterface ingredient : ingredients) {
+                ingredient.setKeyArg(2, IngredientModel.ID_HEADER, callableStatement);
+                callableStatement.execute();
+                float updatedAmount = callableStatement.getFloat(1);
+                ingredient.setAmount(updatedAmount);
+            }
+
+            callableStatement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientManageModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
     public void addIngredientType(IngredientTypeModelInterface ingredientType) {
         ingredientType.insertToDatabase();
         notifyInsertedIngredientTypeObserver(ingredientType);

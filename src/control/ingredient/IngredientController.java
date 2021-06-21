@@ -483,7 +483,7 @@ public class IngredientController implements IngredientControllerInterface {
     public void createNewIngredientType() {
         String ingredientTypeName = this.dialogNewIngredientTypeCreate.getIngredientTypeName();
         ingredientTypeName = StringUtil.getCapitalizeWord(ingredientTypeName);
-        
+
         if (!isNewIngredientTypeNameVallid(ingredientTypeName)) {
             return;
         }

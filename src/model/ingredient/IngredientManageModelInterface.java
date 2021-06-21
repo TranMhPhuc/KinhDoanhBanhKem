@@ -70,5 +70,7 @@ public interface IngredientManageModelInterface extends DatabaseUpdate {
     
     void updateProviderNameOfIngredientData();
     
+    void updateAmountOfIngredientData();
+    
     void addIngredientType(IngredientTypeModelInterface ingredientType);
 }

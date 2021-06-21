@@ -88,6 +88,7 @@ public class ManagerMainFrame extends javax.swing.JFrame implements MessageShowi
         productManageModel = new ProductManageModel();
         productManageModel.registerInsertedProductObserver(panelHome);
         productManageModel.registerModifiedProductObserver(panelHome);
+        productManageModel.registerModifiedProductObserver(panelIngredient);
         productManageModel.registerRemovedProductObserver(panelHome);
 
         productController = new ProductController(productManageModel);

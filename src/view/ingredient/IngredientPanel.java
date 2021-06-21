@@ -19,12 +19,14 @@ import javax.swing.table.TableColumnModel;
 import model.ingredient.IngredientManageModelInterface;
 import model.ingredient.IngredientModelInterface;
 import model.ingredient.type.IngredientTypeModelInterface;
+import model.product.ProductModelInterface;
 import model.provider.ProviderModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
 import util.messages.Messages;
 import util.swing.UIControl;
 import view.MessageShowing;
+import view.product.ModifiedProductObserver;
 import view.provider.InsertedProviderObserver;
 import view.provider.ModifiedProviderObserver;
 import view.provider.RemovedProviderObserver;
@@ -32,7 +34,8 @@ import view.provider.RemovedProviderObserver;
 public class IngredientPanel extends javax.swing.JPanel implements ActionListener,
         MessageShowing, InsertedIngredientObserver, ModifiedIngredientObserver,
         RemovedIngredientObserver, InsertedIngredientTypeObserver, InsertedProviderObserver,
-        ModifiedProviderObserver, RemovedProviderObserver, SettingUpdateObserver {
+        ModifiedProviderObserver, RemovedProviderObserver, ModifiedProductObserver,
+        SettingUpdateObserver {
 
     public static final int INGREDIENT_ID_COLUMN_INDEX = 0;
     public static final int INGREDIENT_NAME_COLUMN_INDEX = 1;
@@ -540,6 +543,19 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
     @Override
     public void updateRemovedProviderObserver(ProviderModelInterface provider) {
         combProviderName.removeItem(provider.getName());
+    }
+
+    @Override
+    public void updateModifiedProductObserver(ProductModelInterface updatedProduct) {
+        // update amount in model
+        ingredientManageModel.updateAmountOfIngredientData();
+
+        String searchText = textfSearchName.getText().trim();
+        if (searchText.isEmpty()) {
+            resetIngredientList();
+        } else {
+            showIngredientList(ingredientController.getIngredientBySearchName(searchText));
+        }
     }
 
     @Override
