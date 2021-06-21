@@ -22,30 +22,6 @@ public class ManagerSettingController extends SettingController {
     }
 
     @Override
-    public void requestInputExcelPath() {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Edit excel program path");
-
-        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("Excel execution file", "exe", "EXE");
-
-        fileChooser.setFileFilter(fileFilter);
-
-        int ret = fileChooser.showOpenDialog(managerSettingsPanel.getMainFrame());
-
-        if (ret != JFileChooser.APPROVE_OPTION) {
-            return;
-        }
-
-        File file = fileChooser.getSelectedFile();
-        appSettingModel.setExcelProgramPath(file.getAbsolutePath());
-    }
-
-    @Override
-    public void validatePDFPath() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public void requestChangeDiagnosticState() {
         boolean showWarning = managerSettingsPanel.getDiagnosticFlagInput();
         appSettingModel.setDiagnosticFlag(showWarning);

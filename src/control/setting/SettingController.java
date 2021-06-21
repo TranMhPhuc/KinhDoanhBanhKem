@@ -10,10 +10,6 @@ public abstract class SettingController {
         this.appSettingModel = appSettingModel;
     }
     
-    public abstract void requestInputExcelPath();
-    
-    public abstract void validatePDFPath();
-    
     public void requestChangeLanguage(AppSetting.Language language) {
         if (language == null) {
             throw new NullPointerException();
