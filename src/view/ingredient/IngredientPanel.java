@@ -111,12 +111,9 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         btnAdd.addActionListener(this);
         btnModify.addActionListener(this);
         btnRemove.addActionListener(this);
-        btnMore.addActionListener(this);
+        btnExport.addActionListener(this);
         btnRequestImport.addActionListener(this);
         btnShowImportHistory.addActionListener(this);
-        mnImport.addActionListener(this);
-        mnExport.addActionListener(this);
-        mnTemplate.addActionListener(this);
         btnOK.addActionListener(this);
         btnCancel.addActionListener(this);
         btnReset.addActionListener(this);
@@ -312,6 +309,8 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         } else if (source == btnAdd) {
             resetIngredientInput();
             setIngredientInputEditable(true);
+            btnRequestImport.setEnabled(false);
+            btnShowImportHistory.setEnabled(false);
             if (btnAdd.getText().equals("Add")) {
                 btnOK.setText("Add");
             } else {
@@ -327,6 +326,9 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
                 showInfoMessage(Messages.getInstance().INGR_NO_INGR_CHOSEN);
             } else {
                 setIngredientInputEditable(true);
+                combIngredientUnitName.setEnabled(ingredientController.isUnitModifiable());
+                btnRequestImport.setEnabled(false);
+                btnShowImportHistory.setEnabled(false);
                 if (btnModify.getText().equals("Modify")) {
                     btnOK.setText("Save");
                 } else {
@@ -347,18 +349,12 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
                     this.ingredientController.requestRemoveIngredient();
                 }
             }
-        } else if (source == btnMore) {
-            this.popupBtnMore.show(btnMore, 0, btnMore.getY() + btnMore.getHeight());
+        } else if (source == btnExport) {
+            this.ingredientController.requestExportExcel();
         } else if (source == btnRequestImport) {
             this.ingredientController.requestImportIngredient();
         } else if (source == btnShowImportHistory) {
             this.ingredientController.requestViewImportHistory();
-        } else if (source == mnImport) {
-            this.ingredientController.requestImportExcel();
-        } else if (source == mnExport) {
-            this.ingredientController.requestExportExcel();
-        } else if (source == mnTemplate) {
-            this.ingredientController.requestCreateTemplateExcel();
         } else if (source == btnOK) {
             switch (editState) {
                 case ADD: {
@@ -384,6 +380,8 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         }
         this.editState = null;
         setIngredientInputEditable(false);
+        btnRequestImport.setEnabled(true);
+        btnShowImportHistory.setEnabled(true);
         showCardFunction();
         ingredientController.requestShowIngredientInfo();
     }
@@ -512,6 +510,9 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
 
     @Override
     public void updateInsertedProviderObserver(ProviderModelInterface insertedProvider) {
+        if (insertedProvider == null) {
+            throw new NullPointerException();
+        }
         // insert item in combobox provider
         combProviderName.addItem(insertedProvider.getName());
     }
@@ -526,6 +527,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
 
         // Update provider name in table
         ingredientManageModel.updateProviderNameOfIngredientData();
+        
         String searchText = textfSearchName.getText().trim();
         if (searchText.isEmpty()) {
             resetIngredientList();
@@ -556,12 +558,9 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
                 btnAdd.setText("Add");
                 btnModify.setText("Modify");
                 btnRemove.setText("Remove");
-                btnMore.setText("More ▼");
+                btnExport.setText("Export");
                 btnRequestImport.setText("Import ingredient");
                 btnShowImportHistory.setText("Show import history");
-                mnImport.setText("Import Excel file");
-                mnExport.setText("Export Excel file");
-                mnTemplate.setText("Create template");
                 btnCancel.setText("Cancel");
                 btnReset.setText("Reset");
 
@@ -588,12 +587,9 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
                 btnAdd.setText("Thêm");
                 btnModify.setText("Chỉnh sửa");
                 btnRemove.setText("Xóa");
-                btnMore.setText("Khác ▼");
+                btnExport.setText("Xuất");
                 btnRequestImport.setText("Nhập nguyên liệu");
                 btnShowImportHistory.setText("Xem lịch sử nhập nguyên liệu");
-                mnImport.setText("Nhập file Excel");
-                mnExport.setText("Xuất Excel file");
-                mnTemplate.setText("Tạo biểu mẫu");
                 btnCancel.setText("Thoát");
                 btnReset.setText("Làm mới");
 
@@ -605,7 +601,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
                 columnModel.getColumn(INGREDIENT_PROVIDER_NAME_COLUMN_INDEX).setHeaderValue("Nhà cung cấp");
                 columnModel.getColumn(INGREDIENT_COST_COLUMN_INDEX).setHeaderValue("Giá");
                 columnModel.getColumn(INGREDIENT_AMOUNT_COLUMN_INDEX).setHeaderValue("Số lượng");
-                
+
                 break;
             }
         }
@@ -617,10 +613,6 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        popupBtnMore = new javax.swing.JPopupMenu();
-        mnImport = new javax.swing.JMenuItem();
-        mnExport = new javax.swing.JMenuItem();
-        mnTemplate = new javax.swing.JMenuItem();
         panelIngredientInfo = new javax.swing.JPanel();
         label_ingreID = new javax.swing.JLabel();
         textfIngredientID = new javax.swing.JTextField();
@@ -642,7 +634,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         btnAdd = new javax.swing.JButton();
         btnModify = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
-        btnMore = new javax.swing.JButton();
+        btnExport = new javax.swing.JButton();
         panelBtnOption = new javax.swing.JPanel();
         btnOK = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
@@ -656,20 +648,6 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(50, 0), new java.awt.Dimension(50, 0), new java.awt.Dimension(50, 32767));
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(100, 0), new java.awt.Dimension(100, 0), new java.awt.Dimension(100, 32767));
         btnShowImportHistory = new javax.swing.JButton();
-
-        mnImport.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        mnImport.setText("Import");
-        popupBtnMore.add(mnImport);
-
-        mnExport.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        mnExport.setText("Export");
-        mnExport.setToolTipText("");
-        popupBtnMore.add(mnExport);
-
-        mnTemplate.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        mnTemplate.setText("Template");
-        mnTemplate.setToolTipText("");
-        popupBtnMore.add(mnTemplate);
 
         setBackground(new java.awt.Color(255, 255, 255));
         setName("Ingredient"); // NOI18N
@@ -718,6 +696,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         combIngredientUnitName.setPreferredSize(new java.awt.Dimension(160, 30));
 
         btnCreateIngredientType.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnCreateIngredientType.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Sugar_cubes_20px_1.png"))); // NOI18N
         btnCreateIngredientType.setText("New type");
 
         javax.swing.GroupLayout panelIngredientInfoLayout = new javax.swing.GroupLayout(panelIngredientInfo);
@@ -815,10 +794,12 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
 
         panelBtnFunction.setBackground(new java.awt.Color(255, 255, 255));
         panelBtnFunction.setName("Function"); // NOI18N
+        panelBtnFunction.setPreferredSize(new java.awt.Dimension(530, 40));
         panelBtnFunction.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnAdd.setForeground(new java.awt.Color(51, 51, 51));
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Add_30px.png"))); // NOI18N
         btnAdd.setText("Add");
         btnAdd.setFocusPainted(false);
         btnAdd.setPreferredSize(new java.awt.Dimension(115, 40));
@@ -826,6 +807,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
 
         btnModify.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnModify.setForeground(new java.awt.Color(51, 51, 51));
+        btnModify.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Edit_30px.png"))); // NOI18N
         btnModify.setText("Modify");
         btnModify.setFocusPainted(false);
         btnModify.setPreferredSize(new java.awt.Dimension(115, 40));
@@ -833,17 +815,19 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
 
         btnRemove.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnRemove.setForeground(new java.awt.Color(51, 51, 51));
+        btnRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Trash_30px.png"))); // NOI18N
         btnRemove.setText("Remove");
         btnRemove.setFocusPainted(false);
         btnRemove.setPreferredSize(new java.awt.Dimension(115, 40));
         panelBtnFunction.add(btnRemove);
 
-        btnMore.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        btnMore.setForeground(new java.awt.Color(51, 51, 51));
-        btnMore.setText("More ▼");
-        btnMore.setFocusPainted(false);
-        btnMore.setPreferredSize(new java.awt.Dimension(115, 40));
-        panelBtnFunction.add(btnMore);
+        btnExport.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnExport.setForeground(new java.awt.Color(51, 51, 51));
+        btnExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Excel_30px.png"))); // NOI18N
+        btnExport.setText("Export");
+        btnExport.setFocusPainted(false);
+        btnExport.setPreferredSize(new java.awt.Dimension(115, 40));
+        panelBtnFunction.add(btnExport);
 
         panelCard.add(panelBtnFunction, "Function");
 
@@ -895,14 +879,18 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         btnRequestImport.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnRequestImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Partially_shipped_30px.png"))); // NOI18N
         btnRequestImport.setText("Import Ingredient");
+        btnRequestImport.setIconTextGap(10);
         btnRequestImport.setPreferredSize(new java.awt.Dimension(300, 50));
         jPanel1.add(btnRequestImport);
         jPanel1.add(filler1);
         jPanel1.add(filler2);
 
         btnShowImportHistory.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnShowImportHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Content_30px.png"))); // NOI18N
         btnShowImportHistory.setText("View import history");
+        btnShowImportHistory.setIconTextGap(10);
         btnShowImportHistory.setPreferredSize(new java.awt.Dimension(300, 50));
         jPanel1.add(btnShowImportHistory);
 
@@ -916,7 +904,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
                     .addComponent(scrpaneIngredient)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 310, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 270, Short.MAX_VALUE)
                         .addComponent(panelCard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(panelIngredientInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -942,8 +930,8 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnCreateIngredientType;
+    private javax.swing.JButton btnExport;
     private javax.swing.JButton btnModify;
-    private javax.swing.JButton btnMore;
     private javax.swing.JButton btnOK;
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnRequestImport;
@@ -964,14 +952,10 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
     private javax.swing.JLabel labelUnit;
     private javax.swing.JLabel label_ingreID;
     private javax.swing.JLabel labelsearchProduct;
-    private javax.swing.JMenuItem mnExport;
-    private javax.swing.JMenuItem mnImport;
-    private javax.swing.JMenuItem mnTemplate;
     private javax.swing.JPanel panelBtnFunction;
     private javax.swing.JPanel panelBtnOption;
     private javax.swing.JPanel panelCard;
     private javax.swing.JPanel panelIngredientInfo;
-    private javax.swing.JPopupMenu popupBtnMore;
     private javax.swing.JScrollPane scrpaneIngredient;
     private javax.swing.JTable tableIngredient;
     private javax.swing.JTextField textfIngredientCost;

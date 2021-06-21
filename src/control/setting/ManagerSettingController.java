@@ -38,7 +38,6 @@ public class ManagerSettingController extends SettingController {
 
         File file = fileChooser.getSelectedFile();
         appSettingModel.setExcelProgramPath(file.getAbsolutePath());
-        managerSettingsPanel.setExcelPathInputState(PathInputState.CORRECT);
     }
 
     @Override

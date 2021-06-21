@@ -18,8 +18,6 @@ public interface IngredientControllerInterface {
 
     void requestImportIngredient();
     
-    void requestImportExcel();
-    
     void requestExportExcel();
     
     void requestCreateTemplateExcel();
@@ -29,6 +27,8 @@ public interface IngredientControllerInterface {
     void requestCreateNewIngredientType();
     
     void createNewIngredientType();
+    
+    boolean isUnitModifiable();
     
     boolean isSearchMatching(String searchText, IngredientModelInterface ingredient);
     

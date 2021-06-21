@@ -121,18 +121,6 @@ public class ProviderManageModel implements ProviderManageModelInterface {
     }
 
     @Override
-    public void exportProviderData() {
-        // XXX
-
-    }
-
-    @Override
-    public void importProviderData() {
-        // XXX
-
-    }
-
-    @Override
     public Iterator<ProviderModelInterface> getAllProviderData() {
         return providers.iterator();
     }
@@ -181,6 +169,7 @@ public class ProviderManageModel implements ProviderManageModelInterface {
         } else {
             provider.deleteInDatabase();
             this.providers.remove(index);
+            notifyRemovedProviderObserver(provider);
             return true;
         }
     }

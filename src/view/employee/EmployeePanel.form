@@ -4,38 +4,6 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="btnGroupGender">
     </Component>
-    <Container class="javax.swing.JPopupMenu" name="popupBtnMore">
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
-        <Property name="useNullLayout" type="boolean" value="true"/>
-      </Layout>
-      <SubComponents>
-        <MenuItem class="javax.swing.JMenuItem" name="mnImport">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="15" style="1"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Import"/>
-          </Properties>
-        </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="mnExport">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="15" style="1"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Export"/>
-          </Properties>
-        </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="mnTemplate">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="15" style="1"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Template"/>
-          </Properties>
-        </MenuItem>
-      </SubComponents>
-    </Container>
   </NonVisualComponents>
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -185,7 +153,7 @@
               </TableColumnModel>
             </Property>
             <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cb" green="81" red="36" type="rgb"/>
+              <Color blue="ff" green="a8" red="71" type="rgb"/>
             </Property>
             <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
               <JTableSelectionModel selectionMode="0"/>
@@ -326,18 +294,22 @@
                                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="textfPhoneNum" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="labelMobile" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="labelPosition" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="combPositionName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="labelSettingPhoneNum" alignment="1" pref="31" max="32767" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="textfPhoneNum" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="labelMobile" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                                  <Component id="labelPosition" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="combPositionName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="textfPersonalID" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="labelPersonalID" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="labelSettingPersonalID" alignment="0" max="32767" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="textfPersonalID" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="labelPersonalID" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                       </Group>
                                       <Group type="103" alignment="1" groupAlignment="3" attributes="0">
@@ -609,14 +581,14 @@
         <Component class="javax.swing.JLabel" name="labelSettingPersonalID">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/img/Maintenance_20px.png"/>
+              <Image iconType="3" name="/img/Slider_20px_1.png"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="labelSettingPhoneNum">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/img/Maintenance_20px.png"/>
+              <Image iconType="3" name="/img/Slider_20px_1.png"/>
             </Property>
           </Properties>
         </Component>
@@ -632,6 +604,9 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="name" type="java.lang.String" value="Function" noResource="true"/>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[390, 40]"/>
+            </Property>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
@@ -653,6 +628,9 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/img/Add_30px.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Add"/>
                 <Property name="focusPainted" type="boolean" value="false"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -668,6 +646,9 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/img/Edit_30px.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Modify"/>
                 <Property name="focusPainted" type="boolean" value="false"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -675,7 +656,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnMore">
+            <Component class="javax.swing.JButton" name="btnExport">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="15" style="1"/>
@@ -683,7 +664,10 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="More &#x25bc;"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/img/Excel_30px.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Export"/>
                 <Property name="focusPainted" type="boolean" value="false"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[115, 40]"/>

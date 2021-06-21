@@ -2,6 +2,7 @@ package util.constant;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.time.format.DateTimeFormatter;
 
 public interface AppConstant {
 
@@ -24,5 +25,10 @@ public interface AppConstant {
 //    private static final Font SUM_FONT = new Font("Segoe UI", Font.BOLD, 20);
     public static final Font SUM_FONT = new Font("Segoe UI", Font.BOLD, 10);
     public static final Font DELETE_FONT = new Font("Segoe UI", Font.BOLD, 2);
+    
+    //==========================================================================
+    
+    public static final DateTimeFormatter GLOBAL_DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    public static final DateTimeFormatter GLOBAL_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
 }

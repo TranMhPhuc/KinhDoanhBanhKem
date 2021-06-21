@@ -19,8 +19,6 @@ public interface ProductControllerInterface extends ModifiedIngredientObserver,
     
     void requestProduceProduct();
     
-    void requestImportExcel();
-    
     void requestExportExcel();
     
     void requestCreateTemplateExcel();

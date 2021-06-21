@@ -49,7 +49,7 @@ public class IngredientManageModel implements IngredientManageModelInterface {
             = "{? = call get_amount_of_ingredient(?)}";
 
     private static final String SP_GET_ALL_IMPORT_HISTORY
-            = "{call get_ChiTietNhapNguyneLieu_from_date_range(?, ?)}";
+            = "{call get_ChiTietNhapNguyenLieu_from_date_range(?, ?)}";
 
     private static final String SP_UPDATE_PROVIDER_NAME
             = "{? = call get_provider_name_of_ingredient(?)}";
@@ -188,18 +188,6 @@ public class IngredientManageModel implements IngredientManageModelInterface {
             Logger.getLogger(IngredientManageModel.class.getName()).log(Level.SEVERE, null, ex);
         }
         return String.valueOf(nextIdentity);
-    }
-
-    @Override
-    public void exportIngredientData() {
-        // XXX
-
-    }
-
-    @Override
-    public void importIngredientData() {
-        // XXX
-
     }
 
     @Override

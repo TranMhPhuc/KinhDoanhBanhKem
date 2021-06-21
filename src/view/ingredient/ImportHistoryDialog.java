@@ -3,12 +3,18 @@ package view.ingredient;
 import control.ingredient.IngredientControllerInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ingredient.IngredientManageModelInterface;
 import model.ingredient.importDetail.IngredientImportDetailInterface;
+import util.constant.AppConstant;
 import util.swing.UIControl;
 import view.MessageShowing;
 
@@ -70,10 +76,19 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
 
         tableImportHistoryModel.setRowCount(0);
         
+        LocalDate visualDate = null;
+        LocalTime visualTime = null;
+        
         for (IngredientImportDetailInterface ingredientImportDetail : ingredientImportDetails) {
+            Timestamp importTimestamp = ingredientImportDetail.getDate();
+            visualDate = importTimestamp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            
+            visualTime = importTimestamp.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
+            
             Object[] record = new Object[]{
                 ingredientImportDetail.getIngredientName(),
-                ingredientImportDetail.getDate().toString(),
+                visualDate.format(AppConstant.GLOBAL_DATE_FORMATTER),
+                visualTime.format(AppConstant.GLOBAL_TIME_FORMATTER),
                 ingredientImportDetail.getAmount(),
                 ingredientImportDetail.getImportUnitName(),
                 ingredientImportDetail.getTotalCost()
@@ -126,15 +141,22 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
 
             },
             new String [] {
-                "Ingredient name", "Import date", "Amount", "Unit", "Cost"
+                "Ingredient name", "Import date", "Time", "Amount", "Unit", "Cost"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Long.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Long.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tableImportHistory.setSelectionBackground(new java.awt.Color(113, 168, 255));

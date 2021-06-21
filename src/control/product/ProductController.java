@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 import model.ingredient.IngredientModelInterface;
 import model.product.ProductManageModelInterface;
@@ -20,6 +22,7 @@ import model.product.ProductSize;
 import model.product.ingredientDetail.IngredientDetailModel;
 import model.product.ingredientDetail.IngredientDetailModelInterface;
 import org.junit.Assert;
+import util.common.string.StringUtil;
 import util.constant.AppConstant;
 import util.db.SQLServerConnection;
 import util.excel.ExcelTransfer;
@@ -44,7 +47,7 @@ public class ProductController implements ProductControllerInterface {
     private ProductPanel productPanel;
 
     private IngredientEditDialog dialogIngredientEditing;
-    private ProductProduceDialog productProduceDialog;
+    private ProductProduceDialog dialogProductProduce;
 
     static {
         dbConnection = SQLServerConnection.getConnection();
@@ -187,6 +190,7 @@ public class ProductController implements ProductControllerInterface {
         String productIDText = this.productPanel.getProductIDText();
 
         String productNameInput = this.productPanel.getProductName();
+        productNameInput = StringUtil.getCapitalizeWord(productNameInput);
 
         if (!isProductNameInputValid(productNameInput)) {
             return;
@@ -258,7 +262,8 @@ public class ProductController implements ProductControllerInterface {
             return;
         }
 
-        if (productManageModel.getIngredientDetailBufferList().isEmpty()) {
+
+        if (productManageModel.getBufferedIngredientDetailList().isEmpty()) {
             this.productPanel.showErrorMessage(Messages.getInstance().PRODUCT_SAVE_INGR_LIST_EMPTY);
             return;
         }
@@ -272,7 +277,7 @@ public class ProductController implements ProductControllerInterface {
 
         this.productManageModel.addProduct(product);
 
-        productManageModel.getIngredientDetailBufferList().forEach(ingredientDetail -> {
+        productManageModel.getBufferedIngredientDetailList().forEach(ingredientDetail -> {
             ingredientDetail.setProduct(product);
             product.addIngredientDetail(ingredientDetail);
         });
@@ -290,6 +295,7 @@ public class ProductController implements ProductControllerInterface {
         Assert.assertNotNull(product);
 
         String productNameInput = this.productPanel.getProductName();
+        productNameInput = StringUtil.getCapitalizeWord(productNameInput);
 
         if (!isProductNameInputValid(productNameInput)) {
             return;
@@ -360,8 +366,8 @@ public class ProductController implements ProductControllerInterface {
         if (!isProductCostAndPriceVallid(productSize, preSize, nextSize, productCost, productPrice)) {
             return;
         }
-
-        if (productManageModel.getIngredientDetailBufferList().isEmpty()) {
+        
+        if (productManageModel.getBufferedIngredientDetailList().isEmpty()) {
             this.productPanel.showErrorMessage(Messages.getInstance().PRODUCT_SAVE_INGR_LIST_EMPTY);
             return;
         }
@@ -372,62 +378,72 @@ public class ProductController implements ProductControllerInterface {
 
         this.productManageModel.updateProduct(product);
 
-        List<IngredientDetailModelInterface> ingredientDetailBufferList = this.productManageModel
-                .getIngredientDetailBufferList();
+        List<IngredientDetailModelInterface> bufferedIngredientDetailList = this.productManageModel
+                .getBufferedIngredientDetailList();
 
-        ingredientDetailBufferList.forEach(ingredientDetail -> {
+        bufferedIngredientDetailList.forEach(ingredientDetail -> {
             ingredientDetail.setProduct(product);
         });
 
         // Find deleted ingredient detail
         Iterator<IngredientDetailModelInterface> iterator = product.getAllIngredientDetail();
 
-        List<IngredientDetailModelInterface> deletedIngredientDetailList = new ArrayList<>();
+        List<IngredientDetailModelInterface> tempList = new ArrayList<>();
 
         while (iterator.hasNext()) {
             IngredientDetailModelInterface ingredientDetail = iterator.next();
-            int id = ingredientDetailBufferList.indexOf(ingredientDetail);
+            int id = bufferedIngredientDetailList.indexOf(ingredientDetail);
             if (id == -1) {
-                deletedIngredientDetailList.add(ingredientDetail);
+                tempList.add(ingredientDetail);
             }
         }
 
-        deletedIngredientDetailList.forEach(ingredientDetail -> {
+        tempList.forEach(ingredientDetail -> {
             product.removeIngredientDetail(ingredientDetail);
         });
 
-        // Find updated ingredient detail
-        iterator = product.getAllIngredientDetail();
+        tempList.clear();
 
-        for (int i = 0; i < ingredientDetailBufferList.size(); i++) {
-            while (iterator.hasNext()) {
-                IngredientDetailModelInterface ingredientDetail = iterator.next();
-                if (ingredientDetailBufferList.get(i).equals(ingredientDetail)) {
-                    product.updateIngredientDetail(ingredientDetail);
-                    break;
-                }
-            }
-        }
-
-        // Find inserted ingredient detail
-        iterator = product.getAllIngredientDetail();
-
-        for (int i = 0; i < ingredientDetailBufferList.size(); i++) {
+        // Find updated and inserted ingredient detail
+        for (int i = 0; i < bufferedIngredientDetailList.size(); i++) {
+            IngredientDetailModelInterface ingredientDetail = bufferedIngredientDetailList.get(i);
             boolean found = false;
+            iterator = product.getAllIngredientDetail();
             while (iterator.hasNext()) {
-                IngredientDetailModelInterface ingredientDetail = iterator.next();
-                if (ingredientDetailBufferList.get(i).equals(ingredientDetail)) {
+                if (ingredientDetail.equals(iterator.next())) {
+                    product.updateIngredientDetail(ingredientDetail);
                     found = true;
                     break;
                 }
             }
+
             if (!found) {
-                IngredientDetailModelInterface ingredientDetail = ingredientDetailBufferList.get(i);
-                ingredientDetail.setProduct(product);
-                product.addIngredientDetail(ingredientDetail);
+                tempList.add(ingredientDetail);
             }
         }
 
+        tempList.forEach(ingredientDetail -> {
+            ingredientDetail.setProduct(product);
+            product.addIngredientDetail(ingredientDetail);
+        });
+
+        // Find inserted ingredient detail
+//        for (int i = 0; i < bufferedIngredientDetailList.size(); i++) {
+//            boolean found = false;
+//            iterator = product.getAllIngredientDetail();
+//            while (iterator.hasNext()) {
+//                IngredientDetailModelInterface ingredientDetail = iterator.next();
+//                if (bufferedIngredientDetailList.get(i).equals(ingredientDetail)) {
+//                    found = true;
+//                    break;
+//                }
+//            }
+//            if (!found) {
+//                IngredientDetailModelInterface ingredientDetail = bufferedIngredientDetailList.get(i);
+//                ingredientDetail.setProduct(product);
+//                product.addIngredientDetail(ingredientDetail);
+//            }
+//        }
         this.productPanel.exitEditState();
         productPanel.showInfoMessage(Messages.getInstance().PRODUCT_UPDATED_SUCCESSFULLY);
     }
@@ -450,7 +466,7 @@ public class ProductController implements ProductControllerInterface {
         this.productManageModel.removeProduct(product);
         this.searchList.remove(product);
 
-        productManageModel.getIngredientDetailBufferList().clear();
+        productManageModel.getBufferedIngredientDetailList().clear();
 
         productPanel.showInfoMessage(Messages.getInstance().PRODUCT_REMOVED_SUCCESSFULLY);
     }
@@ -463,15 +479,15 @@ public class ProductController implements ProductControllerInterface {
             return;
         }
         ProductModelInterface product = this.searchList.get(rowID);
-        if (productProduceDialog == null) {
-            productProduceDialog = new ProductProduceDialog(productPanel
+        if (dialogProductProduce == null) {
+            dialogProductProduce = new ProductProduceDialog(productPanel
                     .getMainFrame(), true, this);
         }
 
-        productProduceDialog.setProuductIDText(product.getProductIDText());
-        productProduceDialog.setProductName(product.getName());
-        productProduceDialog.setTotalCost(String.valueOf(product.getCost()));
-        productProduceDialog.setVisible(true);
+        dialogProductProduce.setProuductIDText(product.getProductIDText());
+        dialogProductProduce.setProductName(product.getName());
+        dialogProductProduce.setTotalCost(String.valueOf(product.getCost()));
+        dialogProductProduce.setVisible(true);
     }
 
     @Override
@@ -481,7 +497,7 @@ public class ProductController implements ProductControllerInterface {
 
         ProductModelInterface product = this.searchList.get(rowID);
 
-        int produceAmount = productProduceDialog.getProduceAmountInput();
+        int produceAmount = dialogProductProduce.getProduceAmountInput();
 
         Iterator<IngredientDetailModelInterface> iterator = product
                 .getAllIngredientDetail();
@@ -503,7 +519,7 @@ public class ProductController implements ProductControllerInterface {
 
                 boolean ret = callableStatement.getBoolean(1);
                 if (!ret) {
-                    productProduceDialog.showErrorMessage(Messages.getInstance().PRODUCT_NOT_ENOUGH_INGR_1
+                    dialogProductProduce.showErrorMessage(Messages.getInstance().PRODUCT_NOT_ENOUGH_INGR_1
                             + ingredientDetail.getIngredientName() + Messages.getInstance().PRODUCT_NOT_ENOUGH_INGR_2);
                     return;
                 }
@@ -526,14 +542,9 @@ public class ProductController implements ProductControllerInterface {
         Assert.assertNotEquals(rowID, -1);
 
         ProductModelInterface product = this.searchList.get(rowID);
-        int produceAmount = productProduceDialog.getProduceAmountInput();
+        int produceAmount = dialogProductProduce.getProduceAmountInput();
         long totalCost = product.getCost() * produceAmount;
-        productProduceDialog.setTotalCost(String.valueOf(totalCost));
-    }
-
-    @Override
-    public void requestImportExcel() {
-        ExcelTransfer.importExcelFileToTable(productPanel.getTableProduct());
+        dialogProductProduce.setTotalCost(String.valueOf(totalCost));
     }
 
     @Override
@@ -649,7 +660,7 @@ public class ProductController implements ProductControllerInterface {
         this.productManageModel.setBufferListModifiedFlag(true);
 
         List<IngredientDetailModelInterface> ingredientDetailBufferList
-                = this.productManageModel.getIngredientDetailBufferList();
+                = this.productManageModel.getBufferedIngredientDetailList();
 
         boolean found = false;
 
@@ -695,7 +706,7 @@ public class ProductController implements ProductControllerInterface {
         dialogIngredientEditing.removeRowTableIngredient(selectedRowTableIngredient);
 
         List<IngredientDetailModelInterface> ingredientDetailBufferList
-                = this.productManageModel.getIngredientDetailBufferList();
+                = this.productManageModel.getBufferedIngredientDetailList();
 
         ingredientDetailBufferList.remove(selectedRowTableIngredient);
     }
@@ -712,7 +723,7 @@ public class ProductController implements ProductControllerInterface {
         this.productManageModel.setBufferListModifiedFlag(true);
 
         List<IngredientDetailModelInterface> ingredientDetailBufferList
-                = this.productManageModel.getIngredientDetailBufferList();
+                = this.productManageModel.getBufferedIngredientDetailList();
 
         ingredientDetailBufferList.clear();
 
@@ -736,7 +747,7 @@ public class ProductController implements ProductControllerInterface {
                     JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
             if (ret == JOptionPane.YES_OPTION) {
                 List<IngredientDetailModelInterface> ingredientDetailBufferList
-                        = this.productManageModel.getIngredientDetailBufferList();
+                        = this.productManageModel.getBufferedIngredientDetailList();
 
                 ingredientDetailBufferList.clear();
 
@@ -762,6 +773,11 @@ public class ProductController implements ProductControllerInterface {
             dialogIngredientEditing.reloadIngredientInputData();
         }
 
+        Iterator<ProductModelInterface> products = productManageModel.getAllProductData();
+        products.forEachRemaining(product -> {
+            product.reloadIngredientDetailList();
+        });
+        
         String productIDText = productPanel.getProductIDText();
 
         if (productIDText.isEmpty()) {
@@ -769,8 +785,6 @@ public class ProductController implements ProductControllerInterface {
         }
 
         ProductModelInterface product = productManageModel.getProductByID(productIDText);
-
-        product.reloadIngredientDetailList();
 
         this.productManageModel.setIngredientDetailBufferList(product);
 

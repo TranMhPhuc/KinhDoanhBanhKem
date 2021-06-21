@@ -12,6 +12,7 @@ import control.employee.EmployeeControllerInterface;
 import java.awt.CardLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
@@ -25,6 +26,7 @@ import model.employee.shift.detail.ShiftDetailModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
 import util.messages.Messages;
+import util.constant.AppConstant;
 import view.MessageShowing;
 
 public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
@@ -111,10 +113,7 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
         btnSearchClear.addActionListener(this);
         btnAdd.addActionListener(this);
         btnModify.addActionListener(this);
-        btnMore.addActionListener(this);
-        mnImport.addActionListener(this);
-        mnExport.addActionListener(this);
-        mnTemplate.addActionListener(this);
+        btnExport.addActionListener(this);
         btnOK.addActionListener(this);
         btnCancel.addActionListener(this);
         btnReset.addActionListener(this);
@@ -155,7 +154,7 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
                 employeeController.requestChangePersonalIDConstraint();
             }
         });
-        
+
         labelSettingPhoneNum.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -253,11 +252,11 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
             employee.getPersonalID(),
             employee.getEmail(),
             employee.getPhoneNum(),
-            employee.getBirthday(),
+            employee.getBirthday().toLocalDate().format(AppConstant.GLOBAL_DATE_FORMATTER),
             employee.getPositionName(),
             employee.getStatus(),
-            employee.getStartDate(),
-            employee.getEndDate()
+            employee.getStartDate().toLocalDate().format(AppConstant.GLOBAL_DATE_FORMATTER),
+            (employee.getEndDate() != null ? employee.getEndDate().toLocalDate().format(AppConstant.GLOBAL_DATE_FORMATTER) : null)
         };
         this.tableEmployeeModel.addRow(record);
     }
@@ -266,6 +265,7 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
         String employeeIDText = employee.getEmployeeIDText();
         for (int i = 0; i < this.tableEmployeeModel.getRowCount(); i++) {
             String employeeIDInTable = (String) this.tableEmployeeModel.getValueAt(i, EMPLOYEE_ID_COLUMN_INDEX);
+
             if (employeeIDInTable.equals(employeeIDText)) {
                 Object[] record = new Object[]{
                     employee.getEmployeeIDText(),
@@ -274,11 +274,11 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
                     employee.getPersonalID(),
                     employee.getEmail(),
                     employee.getPhoneNum(),
-                    employee.getBirthday(),
+                    employee.getBirthday().toLocalDate().format(AppConstant.GLOBAL_DATE_FORMATTER),
                     employee.getPositionName(),
                     employee.getStatus(),
-                    employee.getStartDate(),
-                    employee.getEndDate()
+                    employee.getStartDate().toLocalDate().format(AppConstant.GLOBAL_DATE_FORMATTER),
+                    (employee.getEndDate() != null ? employee.getEndDate().toLocalDate().format(AppConstant.GLOBAL_DATE_FORMATTER) : null)
                 };
                 for (int j = 0; j < record.length; j++) {
                     this.tableEmployeeModel.setValueAt(record[j], i, j);
@@ -449,14 +449,8 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
                 showCardOption();
                 this.editState = EditState.MODIFY;
             }
-        } else if (source == btnMore) {
-            popupBtnMore.show(btnMore, 0, btnMore.getY() + btnMore.getHeight());
-        } else if (source == mnImport) {
-            this.employeeController.requestImportExcel();
-        } else if (source == mnExport) {
+        } else if (source == btnExport) {
             this.employeeController.requestExportExcel();
-        } else if (source == mnTemplate) {
-            this.employeeController.requestCreateTemplateExcel();
         } else if (source == btnOK) {
             switch (editState) {
                 case ADD: {
@@ -540,7 +534,7 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
                 labelMobile.setText("Mobile:");
                 labelPersonalID.setText("Personal ID:");
                 labelGender.setText("Gender:");
-                rbtGenderMale.setText("Maie");
+                rbtGenderMale.setText("Male");
                 rbtGenderFemale.setText("Female");
                 labelPosition.setText("Position:");
                 labelStatus.setText("Status:");
@@ -552,12 +546,9 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
                 btnSearchClear.setText("Clear");
                 btnAdd.setText("Add");
                 btnModify.setText("Modify");
-                btnMore.setText("More ▼");
+                btnExport.setText("Export");
                 btnReset.setText("Reset");
                 btnCancel.setText("Cancel");
-                mnExport.setText("Export Excel flie");
-                mnImport.setText("Import Excel file");
-                mnTemplate.setText("Create template");
 
                 TableColumnModel columnModel = tableEmployee.getColumnModel();
                 columnModel.getColumn(EMPLOYEE_NAME_COLUMN_INDEX).setHeaderValue("Name");
@@ -590,12 +581,9 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
                 btnSearchClear.setText("Xóa");
                 btnAdd.setText("Thêm");
                 btnModify.setText("Chỉnh sửa");
-                btnMore.setText("Khác ▼");
+                btnExport.setText("Xuất");
                 btnReset.setText("Làm mới");
                 btnCancel.setText("Thoát");
-                mnExport.setText("Xuất file Excel");
-                mnImport.setText("Nhập file Excel");
-                mnTemplate.setText("Tạo biểu mẫu");
 
                 TableColumnModel columnModel = tableEmployee.getColumnModel();
                 columnModel.getColumn(EMPLOYEE_NAME_COLUMN_INDEX).setHeaderValue("Họ tên");
@@ -620,10 +608,6 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
     private void initComponents() {
 
         btnGroupGender = new javax.swing.ButtonGroup();
-        popupBtnMore = new javax.swing.JPopupMenu();
-        mnImport = new javax.swing.JMenuItem();
-        mnExport = new javax.swing.JMenuItem();
-        mnTemplate = new javax.swing.JMenuItem();
         scrollpane = new javax.swing.JScrollPane();
         tableEmployee = new javax.swing.JTable();
         panelInfo = new javax.swing.JPanel();
@@ -658,7 +642,7 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
         panelBtnFunction = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
         btnModify = new javax.swing.JButton();
-        btnMore = new javax.swing.JButton();
+        btnExport = new javax.swing.JButton();
         panelBtnOption = new javax.swing.JPanel();
         btnOK = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
@@ -667,18 +651,6 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
         labelSearchEmployee = new javax.swing.JLabel();
         textfSearchName = new javax.swing.JTextField();
         btnSearchClear = new javax.swing.JButton();
-
-        mnImport.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        mnImport.setText("Import");
-        popupBtnMore.add(mnImport);
-
-        mnExport.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        mnExport.setText("Export");
-        popupBtnMore.add(mnExport);
-
-        mnTemplate.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        mnTemplate.setText("Template");
-        popupBtnMore.add(mnTemplate);
 
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -708,7 +680,7 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
                 return canEdit [columnIndex];
             }
         });
-        tableEmployee.setSelectionBackground(new java.awt.Color(54, 129, 203));
+        tableEmployee.setSelectionBackground(new java.awt.Color(113, 168, 255));
         tableEmployee.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableEmployee.getTableHeader().setReorderingAllowed(false);
         scrollpane.setViewportView(tableEmployee);
@@ -825,9 +797,9 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
         labelEndDate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelEndDate.setText("End date");
 
-        labelSettingPersonalID.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Maintenance_20px.png"))); // NOI18N
+        labelSettingPersonalID.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Slider_20px_1.png"))); // NOI18N
 
-        labelSettingPhoneNum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Maintenance_20px.png"))); // NOI18N
+        labelSettingPhoneNum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Slider_20px_1.png"))); // NOI18N
 
         javax.swing.GroupLayout panelInfoLayout = new javax.swing.GroupLayout(panelInfo);
         panelInfo.setLayout(panelInfoLayout);
@@ -919,17 +891,19 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
                                 .addGap(20, 20, 20)
                                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoLayout.createSequentialGroup()
-                                        .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(textfPhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(labelMobile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(labelPosition)
-                                            .addComponent(combPositionName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(labelSettingPhoneNum, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
+                                        .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(labelSettingPhoneNum, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                                            .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(textfPhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(labelMobile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(labelPosition)
+                                                .addComponent(combPositionName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(20, 20, 20)
-                                        .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(textfPersonalID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(labelPersonalID)
-                                            .addComponent(labelSettingPersonalID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(labelSettingPersonalID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(textfPersonalID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(labelPersonalID))))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(labelStatus)
                                         .addComponent(combEmployeeStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -943,10 +917,12 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
 
         panelBtnFunction.setBackground(new java.awt.Color(255, 255, 255));
         panelBtnFunction.setName("Function"); // NOI18N
+        panelBtnFunction.setPreferredSize(new java.awt.Dimension(390, 40));
         panelBtnFunction.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnAdd.setForeground(new java.awt.Color(51, 51, 51));
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Add_30px.png"))); // NOI18N
         btnAdd.setText("Add");
         btnAdd.setFocusPainted(false);
         btnAdd.setPreferredSize(new java.awt.Dimension(115, 40));
@@ -954,17 +930,19 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
 
         btnModify.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnModify.setForeground(new java.awt.Color(51, 51, 51));
+        btnModify.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Edit_30px.png"))); // NOI18N
         btnModify.setText("Modify");
         btnModify.setFocusPainted(false);
         btnModify.setPreferredSize(new java.awt.Dimension(115, 40));
         panelBtnFunction.add(btnModify);
 
-        btnMore.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        btnMore.setForeground(new java.awt.Color(51, 51, 51));
-        btnMore.setText("More ▼");
-        btnMore.setFocusPainted(false);
-        btnMore.setPreferredSize(new java.awt.Dimension(115, 40));
-        panelBtnFunction.add(btnMore);
+        btnExport.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnExport.setForeground(new java.awt.Color(51, 51, 51));
+        btnExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Excel_30px.png"))); // NOI18N
+        btnExport.setText("Export");
+        btnExport.setFocusPainted(false);
+        btnExport.setPreferredSize(new java.awt.Dimension(115, 40));
+        panelBtnFunction.add(btnExport);
 
         panelCard.add(panelBtnFunction, "Function");
 
@@ -1050,9 +1028,9 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnExport;
     private javax.swing.ButtonGroup btnGroupGender;
     private javax.swing.JButton btnModify;
-    private javax.swing.JButton btnMore;
     private javax.swing.JButton btnOK;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSearchClear;
@@ -1078,14 +1056,10 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
     private javax.swing.JLabel labelStartDate;
     private javax.swing.JLabel labelStatus;
     private javax.swing.JLabel label_email;
-    private javax.swing.JMenuItem mnExport;
-    private javax.swing.JMenuItem mnImport;
-    private javax.swing.JMenuItem mnTemplate;
     private javax.swing.JPanel panelBtnFunction;
     private javax.swing.JPanel panelBtnOption;
     private javax.swing.JPanel panelCard;
     private javax.swing.JPanel panelInfo;
-    private javax.swing.JPopupMenu popupBtnMore;
     private javax.swing.JRadioButton rbtGenderFemale;
     private javax.swing.JRadioButton rbtGenderMale;
     private javax.swing.JScrollPane scrollpane;

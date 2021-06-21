@@ -15,6 +15,7 @@ import model.provider.ProviderManageModelInterface;
 import model.provider.ProviderModel;
 import model.provider.ProviderModelInterface;
 import org.junit.Assert;
+import util.common.string.StringUtil;
 import util.constant.AppConstant;
 import util.db.SQLServerConnection;
 import util.excel.ExcelTransfer;
@@ -141,6 +142,7 @@ public class ProviderController implements ProviderControllerInterface {
         String providerIDText = this.providerPanel.getProviderIDtext();
 
         String providerName = this.providerPanel.getProviderName();
+        providerName = StringUtil.getCapitalizeWord(providerName);
 
         if (!isProviderNameValid(providerName)) {
             return;
@@ -186,6 +188,7 @@ public class ProviderController implements ProviderControllerInterface {
         Assert.assertNotNull(provider);
 
         String providerName = this.providerPanel.getProviderName();
+        providerName = StringUtil.getCapitalizeWord(providerName);
 
         if (!provider.getName().equals(providerName)) {
             if (!isProviderNameValid(providerName)) {
@@ -262,11 +265,6 @@ public class ProviderController implements ProviderControllerInterface {
         this.searchList.remove(provider);
 
         this.providerPanel.showInfoMessage(Messages.getInstance().PROVIDER_REMOVED_SUCCESSFULLY);
-    }
-
-    @Override
-    public void requestImportExcel() {
-        ExcelTransfer.importExcelFileToTable(providerPanel.getTableProvider());
     }
 
     @Override

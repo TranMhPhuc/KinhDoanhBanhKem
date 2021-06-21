@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 import me.xdrop.fuzzywuzzy.model.BoundExtractedResult;
+import model.product.ingredientDetail.IngredientDetailModel;
 import model.product.ingredientDetail.IngredientDetailModelInterface;
 import util.AppLog;
 import view.product.InsertedProductObserver;
@@ -33,7 +34,7 @@ public class ProductManageModel implements ProductManageModelInterface {
     private static final String SP_PRODUCE_PRODUCT
             = "{call import_product(?, ?)}";
 
-    private List<IngredientDetailModelInterface> ingredientDetailBufferList;
+    private List<IngredientDetailModelInterface> bufferedIngredientDetailList;
 
     private boolean ingredientBufferListModified;
 
@@ -43,8 +44,10 @@ public class ProductManageModel implements ProductManageModelInterface {
 
     private ArrayList<ProductModelInterface> products;
 
+    private String nextProductIDText;
+
     public ProductManageModel() {
-        ingredientDetailBufferList = new ArrayList<>();
+        bufferedIngredientDetailList = new ArrayList<>();
         products = new ArrayList<>();
         ingredientBufferListModified = false;
 
@@ -53,10 +56,28 @@ public class ProductManageModel implements ProductManageModelInterface {
         removedProductObservers = new ArrayList<>();
 
         updateFromDB();
+        updateNextProductID();
     }
 
-    public List<IngredientDetailModelInterface> getIngredientDetailBufferList() {
-        return this.ingredientDetailBufferList;
+    private void updateNextProductID() {
+        int nextIdentity = 0;
+        try {
+            Statement statement = dbConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SP_GET_NEXT_IDENTITY_PRODUCT);
+            if (resultSet.next()) {
+                nextIdentity = resultSet.getInt(1);
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductManageModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.nextProductIDText = String.valueOf(nextIdentity);
+    }
+
+    @Override
+    public List<IngredientDetailModelInterface> getBufferedIngredientDetailList() {
+        return this.bufferedIngredientDetailList;
     }
 
     @Override
@@ -115,33 +136,10 @@ public class ProductManageModel implements ProductManageModelInterface {
             observer.updateRemovedProductObserver(removedProduct);
         }
     }
-    
+
     @Override
     public String getNextProductIDText() {
-        int nextIdentity = 0;
-        try {
-            Statement statement = dbConnection.createStatement();
-            ResultSet resultSet = statement.executeQuery(SP_GET_NEXT_IDENTITY_PRODUCT);
-            if (resultSet.next()) {
-                nextIdentity = resultSet.getInt(1);
-            }
-            resultSet.close();
-            statement.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductManageModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return String.valueOf(nextIdentity);
-    }
-
-    @Override
-    public void exportProductData() {
-        // XXX
-    }
-
-    @Override
-    public void importProductData() {
-        // XXX
-
+        return this.nextProductIDText;
     }
 
     @Override
@@ -204,6 +202,7 @@ public class ProductManageModel implements ProductManageModelInterface {
             product.insertToDatabase();
             notifyInsertedProductObserver(product);
         }
+        updateNextProductID();
     }
 
     @Override
@@ -232,7 +231,7 @@ public class ProductManageModel implements ProductManageModelInterface {
         } else {
             product.deleteInDatabase();
             this.products.remove(product);
-            this.ingredientDetailBufferList.clear();
+            this.bufferedIngredientDetailList.clear();
             notifyRemovedProductObserver(product);
             return true;
         }
@@ -315,10 +314,11 @@ public class ProductManageModel implements ProductManageModelInterface {
 
     @Override
     public void setIngredientDetailBufferList(ProductModelInterface product) {
-        this.ingredientDetailBufferList.clear();
+        this.bufferedIngredientDetailList.clear();
         Iterator<IngredientDetailModelInterface> iterator = product.getAllIngredientDetail();
         while (iterator.hasNext()) {
-            this.ingredientDetailBufferList.add(iterator.next());
+            IngredientDetailModelInterface copyInstance = new IngredientDetailModel(iterator.next());
+            this.bufferedIngredientDetailList.add(copyInstance);
         }
     }
 

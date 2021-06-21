@@ -35,9 +35,6 @@ public interface IngredientManageModelInterface extends DatabaseUpdate {
     String getNextIngredientTypeIDText();
 
     //=========================================================================
-    void exportIngredientData();
-
-    void importIngredientData();
     
     int getIngredientTotalNumber();
 

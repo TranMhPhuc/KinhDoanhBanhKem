@@ -25,12 +25,6 @@ public interface ProviderManageModelInterface extends DatabaseUpdate {
     String getNextProviderIDText();
 
     //=========================================================================
-    
-    void exportProviderData();
-
-    void importProviderData();
-    
-    //=========================================================================
 
     void addProvider(ProviderModelInterface newProvider);
     

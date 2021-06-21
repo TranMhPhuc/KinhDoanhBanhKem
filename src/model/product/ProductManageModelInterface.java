@@ -26,10 +26,6 @@ public interface ProductManageModelInterface extends DatabaseUpdate {
     
     String getNextProductIDText();
     
-    void exportProductData();
-    
-    void importProductData();
-    
     //=========================================================================
     
     void addProduct(ProductModelInterface newProduct);
@@ -56,7 +52,7 @@ public interface ProductManageModelInterface extends DatabaseUpdate {
     
     void setIngredientDetailBufferList(ProductModelInterface product);
     
-    List<IngredientDetailModelInterface> getIngredientDetailBufferList();
+    List<IngredientDetailModelInterface> getBufferedIngredientDetailList();
     
     void setBufferListModifiedFlag(boolean modified);
     

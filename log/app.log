@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 2021-06-21 16:38:51 [INFO ] AppLog:165 - Update product database: successfully, 10 rows inserted.
 2021-06-21 16:38:51 [INFO ] AppLog:326 - Clone ingredient data from database: successfully, 25 rows inserted.
 2021-06-21 16:38:51 [INFO ] AppLog:193 - Update employee database: sucessfully, 13 rows inserted.
+=======
+2021-06-21 14:08:07 [INFO ] AppLog:163 - Update product database: successfully, 10 rows inserted.
+2021-06-21 14:08:07 [INFO ] AppLog:314 - Clone ingredient data from database: successfully, 25 rows inserted.
+2021-06-21 14:08:08 [INFO ] AppLog:193 - Update employee database: sucessfully, 13 rows inserted.
+>>>>>>> 71888e346a40098907cd2ecbe212e3b512748b20
