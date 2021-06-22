@@ -1,6 +1,7 @@
 package view.main.accountant;
 
 import control.app.MainFrameControllerInterface;
+import control.setting.AccountantSettingController;
 import java.awt.CardLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -9,14 +10,21 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import model.setting.AppSetting;
+import model.setting.SettingUpdateObserver;
 import model.user.UserModelInterface;
 import util.constant.AppConstant;
+import util.messages.Messages;
 import view.MessageShowing;
 
-public class AccountantMainFrame extends javax.swing.JFrame implements MessageShowing {
+public class AccountantMainFrame extends javax.swing.JFrame implements MessageShowing,
+        SettingUpdateObserver {
 
     private UserModelInterface userModel;
     private MainFrameControllerInterface mainFrameController;
+
+    private AppSetting appSettingModel;
+    private AccountantSettingController accountantSettingController;
 
     private JLabel choosedLabel;
     private CardLayout cardLayoutPanelCenter;
@@ -43,6 +51,15 @@ public class AccountantMainFrame extends javax.swing.JFrame implements MessageSh
         this.panelProfile.setMainFrameController(mainFrameController);
         mainFrameController.setProfilePanelView(panelProfile);
         userModel.setProfilePanelView(panelProfile);
+
+        appSettingModel = AppSetting.getInstance();
+        accountantSettingController = new AccountantSettingController(appSettingModel);
+        accountantSettingController.setManagerSettingPanel(paneltSetting);
+
+        appSettingModel.registerObserver(this);
+        appSettingModel.registerObserver(panelProfile);
+        appSettingModel.registerObserver(panelProfit);
+        appSettingModel.registerObserver(Messages.getInstance());
     }
 
     private void createControl() {
@@ -116,6 +133,32 @@ public class AccountantMainFrame extends javax.swing.JFrame implements MessageSh
                 mainFrameController.requestCloseProgram();
             }
         });
+    }
+
+    @Override
+    public void updateSettingObserver() {
+        AppSetting.Language appLanguage = AppSetting.getInstance().getAppLanguage();
+
+        switch (appLanguage) {
+            case ENGLISH: {
+                labelProfile.setText("Profile");
+                labelProfit.setText("Profit");
+                labelProduct.setText("Product");
+                labelIngredient.setText("Ingredient");
+                labelSettings.setText("Settings");
+                labelSignOut.setText("Sign out");
+                break;
+            }
+            case VIETNAMESE: {
+                labelProfile.setText("Thông tin cá nhân");
+                labelProfit.setText("Lợi nhuận");
+                labelProduct.setText("Sản phẩm");
+                labelIngredient.setText("Nguyên liệu");
+                labelSettings.setText("Thiết lập");
+                labelSignOut.setText("Thoát");
+                break;
+            }
+        }
     }
 
     @Override

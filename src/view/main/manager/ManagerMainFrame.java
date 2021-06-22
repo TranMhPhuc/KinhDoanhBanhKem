@@ -129,28 +129,13 @@ public class ManagerMainFrame extends javax.swing.JFrame implements MessageShowi
         managerSettingController.setManagerSettingPanel(panelSettings);
 
         appSettingModel.registerObserver(this);
-        updateSettingObserver();
-
         appSettingModel.registerObserver(panelProfile);
-        panelProfile.updateSettingObserver();
-
         appSettingModel.registerObserver(panelHome);
-        panelHome.updateSettingObserver();
-
         appSettingModel.registerObserver(panelProduct);
-        panelProduct.updateSettingObserver();
-
         appSettingModel.registerObserver(panelIngredient);
-        panelIngredient.updateSettingObserver();
-
         appSettingModel.registerObserver(panelProvider);
-        panelProvider.updateSettingObserver();
-
         appSettingModel.registerObserver(panelEmployee);
-        panelEmployee.updateSettingObserver();
-        
         appSettingModel.registerObserver(Messages.getInstance());
-        Messages.getInstance().updateSettingObserver();
     }
 
     private void createControl() {

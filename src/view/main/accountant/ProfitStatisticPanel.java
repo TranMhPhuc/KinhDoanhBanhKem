@@ -6,7 +6,6 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,21 +13,29 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import model.setting.AppSetting;
+import model.setting.SettingUpdateObserver;
 import org.knowm.xchart.CategoryChart;
 import org.knowm.xchart.CategoryChartBuilder;
-import org.knowm.xchart.CategorySeries;
 import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;
 import org.knowm.xchart.XYChartBuilder;
 import org.knowm.xchart.XYSeries;
-import org.knowm.xchart.internal.series.Series;
 import org.knowm.xchart.style.CategoryStyler;
 import org.knowm.xchart.style.Styler;
 import org.knowm.xchart.style.XYStyler;
 import util.constant.AppConstant;
 import util.db.SQLServerConnection;
 
-public class ProfitStatisticPanel extends javax.swing.JPanel {
+public class ProfitStatisticPanel extends javax.swing.JPanel implements SettingUpdateObserver {
+
+    private static final int TABLE_PROFIT_MONTH_COLUMN_MONTH_INDEX = 0;
+
+    private static final int NUMBER_OF_YEAR_PROFIT_STATISTIC = 5;
+
+    private static final int TABLE_PROFIT_YEAR_COLUMN_YEAR_INDEX = 0;
+    private static final int TABLE_PROFIT_YEAR_COLUMN_PROFIT_INDEX = 1;
 
     private static final Color[] XYCHART_PROFIT_MONTH_COLORS;
     private static final Color[] CATEGORYCHART_PROFIT_YEAR_COLORS;
@@ -66,7 +73,7 @@ public class ProfitStatisticPanel extends javax.swing.JPanel {
         xyChartProfitMonth = new XYChartBuilder().width(1000).height(500).
                 theme(Styler.ChartTheme.Matlab).build();
 
-        xyChartProfitMonth.setTitle("Profit statistics chart of each month 2020-2021");
+        xyChartProfitMonth.setTitle("Profit statistics chart of each month of 2020 and 2021");
         xyChartProfitMonth.setXAxisTitle("Month");
         xyChartProfitMonth.setYAxisTitle("Profit");
 
@@ -239,10 +246,65 @@ public class ProfitStatisticPanel extends javax.swing.JPanel {
         dtm.setRowCount(0);
 
         for (int i = 5; i > 0; i--) {
-            dtm.addRow(new Object[] {
+            dtm.addRow(new Object[]{
                 currYear - i + 1,
                 profitOfYears.get(5 - i)
             });
+        }
+    }
+
+    @Override
+    public void updateSettingObserver() {
+        AppSetting.Language language = AppSetting.getInstance().getAppLanguage();
+
+        LocalDate nowLocal = LocalDate.now();
+        int currYear = nowLocal.getYear();
+
+        switch (language) {
+            case ENGLISH: {
+                TableColumnModel tableColumnModel = tableProfitByMonth.getColumnModel();
+
+                tableColumnModel.getColumn(TABLE_PROFIT_MONTH_COLUMN_MONTH_INDEX).setHeaderValue("Month");
+
+                tableColumnModel = tableProfitByYear.getColumnModel();
+                tableColumnModel.getColumn(TABLE_PROFIT_YEAR_COLUMN_YEAR_INDEX).setHeaderValue("Year");
+                tableColumnModel.getColumn(TABLE_PROFIT_YEAR_COLUMN_PROFIT_INDEX).setHeaderValue("Profit");
+
+                String chartTitle = "Profit statistics chart of each month of %d and %d";
+                xyChartProfitMonth.setTitle(String.format(chartTitle, currYear - 1, currYear));
+                xyChartProfitMonth.setXAxisTitle("Month");
+                xyChartProfitMonth.setYAxisTitle("Profit");
+
+                chartTitle = "Profit statistics chart of year from %d to %d";
+                categoryChartProfitYear.setTitle(String.format(chartTitle, 
+                        currYear - NUMBER_OF_YEAR_PROFIT_STATISTIC + 1, currYear));
+                categoryChartProfitYear.setXAxisTitle("Year");
+                categoryChartProfitYear.setYAxisTitle("Profit");
+
+                break;
+            }
+            case VIETNAMESE: {
+                TableColumnModel tableColumnModel = tableProfitByMonth.getColumnModel();
+
+                tableColumnModel.getColumn(TABLE_PROFIT_MONTH_COLUMN_MONTH_INDEX).setHeaderValue("Tháng");
+
+                tableColumnModel = tableProfitByYear.getColumnModel();
+                tableColumnModel.getColumn(TABLE_PROFIT_YEAR_COLUMN_YEAR_INDEX).setHeaderValue("Năm");
+                tableColumnModel.getColumn(TABLE_PROFIT_YEAR_COLUMN_PROFIT_INDEX).setHeaderValue("Lợi nhuận");
+
+                String chartTitle = "Đồ thị thống kê lợi nhuận từng tháng trong năm %d và %d";
+                xyChartProfitMonth.setTitle(String.format(chartTitle, currYear - 1, currYear));
+                xyChartProfitMonth.setXAxisTitle("Tháng");
+                xyChartProfitMonth.setYAxisTitle("Lợi nhuận");
+
+                chartTitle = "Đồ thị thống kê lợi nhuận từ năm %d đến năm %d";
+                categoryChartProfitYear.setTitle(String.format(chartTitle,
+                        currYear - NUMBER_OF_YEAR_PROFIT_STATISTIC + 1, currYear));
+                categoryChartProfitYear.setXAxisTitle("Năm");
+                categoryChartProfitYear.setYAxisTitle("Lợi nhuận");
+
+                break;
+            }
         }
     }
 

@@ -80,7 +80,11 @@ public class AppSetting {
     }
     
     public void registerObserver(SettingUpdateObserver observer) {
+        if (observer == null) {
+            throw new NullPointerException();
+        }
         this.observers.add(observer);
+        observer.updateSettingObserver();
     }
     
     public void removeObserver(SettingUpdateObserver observer) {
