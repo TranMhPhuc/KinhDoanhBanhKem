@@ -71,6 +71,7 @@ public class Messages implements SettingUpdateObserver {
     public String BILL_NOT_ENOUGH_AMOUNT;
     public String BILL_CANT_EXPORT;
     public String BILL_NOT_ENOUGH_MONEY;
+    public String BILL_GUEST_MONEY_WRONG_FORMAT;
     public String BILL_EXPORT_SUCCESSFULLY;
 
     //=============Bill History=============
@@ -200,7 +201,8 @@ public class Messages implements SettingUpdateObserver {
                 BILL_CANT_EDIT_PRODUCT = "You should choose one selected product first";
                 BILL_NOT_ENOUGH_AMOUNT = "Product %s - %s has not enough amount";
                 BILL_CANT_EXPORT = "Bill has no product!";
-                BILL_NOT_ENOUGH_MONEY = "Guest's amount is insufficient";
+                BILL_NOT_ENOUGH_MONEY = "Guest's money is insufficient";
+                BILL_GUEST_MONEY_WRONG_FORMAT = "Guest's money is format error";
                 BILL_EXPORT_SUCCESSFULLY = "Created bill successfully";
 
                 EMPLOYEE_PHONE_NUMBER_EMPTY = "Employee phone number is required";
@@ -348,6 +350,7 @@ public class Messages implements SettingUpdateObserver {
                 BILL_NOT_ENOUGH_AMOUNT = "Sản phẩm %s - %s không đủ số lượng";
                 BILL_CANT_EXPORT = "Hóa đơn không có sản phẩm nào!";
                 BILL_NOT_ENOUGH_MONEY = "Tiền của khách không đủ";
+                BILL_GUEST_MONEY_WRONG_FORMAT = "Tiền khách nhập không đúng định dạng";
                 BILL_EXPORT_SUCCESSFULLY = "Tạo hóa đơn thành công";
 
                 EMPLOYEE_PHONE_NUMBER_EMPTY = "Cần nhập SDT của nhân viên";

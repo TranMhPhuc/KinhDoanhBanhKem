@@ -10,16 +10,26 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import model.ingredient.IngredientManageModelInterface;
 import model.ingredient.importDetail.IngredientImportDetailInterface;
+import model.setting.AppSetting;
+import model.setting.SettingUpdateObserver;
 import util.constant.AppConstant;
 import util.swing.UIControl;
 import view.MessageShowing;
 
-public class ImportHistoryDialog extends javax.swing.JDialog implements MessageShowing {
+public class ImportHistoryDialog extends javax.swing.JDialog implements MessageShowing,
+        SettingUpdateObserver {
 
-    private static final String DIALOG_TITLE = "BakeryMS";
+    private static final int INGREDIENT_NAME_COLUMN_INDEX = 0;
+    private static final int INGREDIENT_IMPORT_DATE_COLUMN_INDEX = 1;
+    private static final int INGREDIENT_TIME_COLUMN_INDEX = 2;
+    private static final int INGREDIENT_AMOUNT_COLUMN_INDEX = 3;
+    private static final int INGREDIENT_UNIT_COLUMN_INDEX = 4;
+    private static final int INGREDIENT_COST_COLUMN_INDEX = 5;
 
     private IngredientControllerInterface ingredientController;
     private IngredientManageModelInterface ingredientManageModel;
@@ -32,7 +42,6 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
-        setTitle(DIALOG_TITLE);
         UIControl.setDefaultTableHeader(tableImportHistory);
 
         this.ingredientController = ingredientController;
@@ -68,46 +77,93 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
         Date dateFrom = dateChooserdateFrom.getDate();
 
         Date dateTo = dateChooserdateTo.getDate();
-        
+
         List<IngredientImportDetailInterface> ingredientImportDetails
                 = this.ingredientManageModel
                         .getImportHistoryFromDateRange(dateFrom, dateTo);
 
         tableImportHistoryModel.setRowCount(0);
-        
+
         LocalDate visualDate = null;
         LocalTime visualTime = null;
-        
+
         for (IngredientImportDetailInterface ingredientImportDetail : ingredientImportDetails) {
             Timestamp importTimestamp = ingredientImportDetail.getDate();
             visualDate = importTimestamp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             visualTime = importTimestamp.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
-            
+
             Object[] record = new Object[]{
                 ingredientImportDetail.getIngredientName(),
                 visualDate.format(AppConstant.GLOBAL_DATE_FORMATTER),
                 visualTime.format(AppConstant.GLOBAL_TIME_FORMATTER),
                 ingredientImportDetail.getAmount(),
                 ingredientImportDetail.getImportUnitName(),
-                ingredientImportDetail.getTotalCost()
+                AppConstant.GLOBAL_VIE_CURRENCY_FORMATTER.format(ingredientImportDetail.getTotalCost())
             };
             tableImportHistoryModel.addRow(record);
         }
     }
 
     @Override
+    public void updateSettingObserver() {
+        if (AppSetting.getInstance().getAppLanguage() == AppSetting.Language.ENGLISH) {
+            setTitle("Ingredient import history dialog");
+
+            labelMainTitle.setText("Ingredient Import History");
+
+            TitledBorder titledBorder = (TitledBorder) panelDateInput.getBorder();
+            titledBorder.setTitle("Date filter");
+
+            labelDateFrom.setText("Date from:");
+            labelDateTo.setText("Date to:");
+
+            btnApply.setText("Apply");
+
+            TableColumnModel tableColumnModel = tableImportHistory.getColumnModel();
+            tableColumnModel.getColumn(INGREDIENT_NAME_COLUMN_INDEX).setHeaderValue("Ingredient name");
+            tableColumnModel.getColumn(INGREDIENT_IMPORT_DATE_COLUMN_INDEX).setHeaderValue("Import date");
+            tableColumnModel.getColumn(INGREDIENT_TIME_COLUMN_INDEX).setHeaderValue("Time");
+            tableColumnModel.getColumn(INGREDIENT_AMOUNT_COLUMN_INDEX).setHeaderValue("Amount");
+            tableColumnModel.getColumn(INGREDIENT_UNIT_COLUMN_INDEX).setHeaderValue("Unit");
+            tableColumnModel.getColumn(INGREDIENT_COST_COLUMN_INDEX).setHeaderValue("Cost");
+        } else {
+            setTitle("Hộp thoại xem lịch sử nhập nguyên liệu");
+
+            labelMainTitle.setText("Lịch Sử Nhập Nguyên Liệu");
+
+            TitledBorder titledBorder = (TitledBorder) panelDateInput.getBorder();
+            titledBorder.setTitle("Lọc ngày");
+
+            labelDateFrom.setText("Ngày bắt đầu:");
+            labelDateTo.setText("Ngày kết thúc:");
+
+            btnApply.setText("Lọc");
+
+            TableColumnModel tableColumnModel = tableImportHistory.getColumnModel();
+            tableColumnModel.getColumn(INGREDIENT_NAME_COLUMN_INDEX).setHeaderValue("Tên nguyên liệu");
+            tableColumnModel.getColumn(INGREDIENT_IMPORT_DATE_COLUMN_INDEX).setHeaderValue("Ngày nhập");
+            tableColumnModel.getColumn(INGREDIENT_TIME_COLUMN_INDEX).setHeaderValue("Thời gian");
+            tableColumnModel.getColumn(INGREDIENT_AMOUNT_COLUMN_INDEX).setHeaderValue("Số lượng");
+            tableColumnModel.getColumn(INGREDIENT_UNIT_COLUMN_INDEX).setHeaderValue("Đơn vị");
+            tableColumnModel.getColumn(INGREDIENT_COST_COLUMN_INDEX).setHeaderValue("Giá");
+        }
+        
+        repaint();
+    }
+
+    @Override
     public void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, DIALOG_TITLE, JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
+        JOptionPane.showMessageDialog(this, message, getTitle(), JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
     }
 
     @Override
     public void showInfoMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, DIALOG_TITLE, JOptionPane.INFORMATION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/infor.png")));
+        JOptionPane.showMessageDialog(this, message, getTitle(), JOptionPane.INFORMATION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/infor.png")));
     }
 
     @Override
     public void showWarningMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, DIALOG_TITLE, JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
+        JOptionPane.showMessageDialog(this, message, getTitle(), JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
     }
 
     @SuppressWarnings("unchecked")
@@ -115,12 +171,12 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        label_ImportHistory = new javax.swing.JLabel();
+        labelMainTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableImportHistory = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        panelDateInput = new javax.swing.JPanel();
+        labelDateFrom = new javax.swing.JLabel();
+        labelDateTo = new javax.swing.JLabel();
         dateChooserdateFrom = new com.toedter.calendar.JDateChooser();
         dateChooserdateTo = new com.toedter.calendar.JDateChooser();
         btnApply = new javax.swing.JButton();
@@ -129,9 +185,9 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        label_ImportHistory.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        label_ImportHistory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_ImportHistory.setText("Ingredient Import History");
+        labelMainTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        labelMainTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelMainTitle.setText("Ingredient Import History");
 
         tableImportHistory.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         tableImportHistory.setModel(new javax.swing.table.DefaultTableModel(
@@ -161,47 +217,47 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
         tableImportHistory.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tableImportHistory);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Date filter", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(153, 153, 153))); // NOI18N
+        panelDateInput.setBackground(new java.awt.Color(255, 255, 255));
+        panelDateInput.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Date filter", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(153, 153, 153))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Date from:");
+        labelDateFrom.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelDateFrom.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelDateFrom.setText("Date from:");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel2.setText("Date to:");
+        labelDateTo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelDateTo.setText("Date to:");
 
         btnApply.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         btnApply.setText("Apply");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelDateInputLayout = new javax.swing.GroupLayout(panelDateInput);
+        panelDateInput.setLayout(panelDateInputLayout);
+        panelDateInputLayout.setHorizontalGroup(
+            panelDateInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDateInputLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(labelDateFrom)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dateChooserdateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(jLabel2)
+                .addComponent(labelDateTo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dateChooserdateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(btnApply, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        panelDateInputLayout.setVerticalGroup(
+            panelDateInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDateInputLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panelDateInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnApply, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelDateInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(labelDateFrom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(dateChooserdateTo, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                         .addComponent(dateChooserdateFrom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(labelDateTo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -212,18 +268,18 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label_ImportHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelMainTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 843, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelDateInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(label_ImportHistory)
+                .addComponent(labelMainTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelDateInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -238,12 +294,12 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
     private javax.swing.JButton btnApply;
     private com.toedter.calendar.JDateChooser dateChooserdateFrom;
     private com.toedter.calendar.JDateChooser dateChooserdateTo;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel label_ImportHistory;
+    private javax.swing.JLabel labelDateFrom;
+    private javax.swing.JLabel labelDateTo;
+    private javax.swing.JLabel labelMainTitle;
+    private javax.swing.JPanel panelDateInput;
     private javax.swing.JTable tableImportHistory;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,10 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import model.ingredient.IngredientManageModelInterface;
+import model.setting.AppSetting;
+import model.setting.SettingUpdateObserver;
 import view.MessageShowing;
 
 public class NewIngredientTypeDialog extends javax.swing.JDialog implements
-        ActionListener, MessageShowing {
+        ActionListener, MessageShowing, SettingUpdateObserver {
 
     private IngredientManageModelInterface ingredientManageModel;
     private IngredientControllerInterface ingredientController;
@@ -62,27 +64,48 @@ public class NewIngredientTypeDialog extends javax.swing.JDialog implements
     }
 
     @Override
+    public void updateSettingObserver() {
+        if (AppSetting.getInstance().getAppLanguage() == AppSetting.Language.ENGLISH) {
+            setTitle("Create new ingredient type dialog");
+
+            labelMainTitle.setText("New Ingredient Type");
+            labelTypeID.setText("Type ID:");
+            labelTypeName.setText("Type name:");
+            btnCreate.setText("Create");
+            btnCancel.setText("Cancel");
+        } else {
+            setTitle("Hộp thoại tạo loại nguyên liệu mới");
+
+            labelMainTitle.setText("Loại nguyên liệu mới");
+            labelTypeID.setText("Mã loại:");
+            labelTypeName.setText("Tên loại:");
+            btnCreate.setText("Tạo");
+            btnCancel.setText("Thoát");
+        }
+    }
+
+    @Override
     public void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "BakeryMS", JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
+        JOptionPane.showMessageDialog(this, message, getTitle(), JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
     }
 
     @Override
     public void showInfoMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "BakeryMS", JOptionPane.INFORMATION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/infor.png")));
+        JOptionPane.showMessageDialog(this, message, getTitle(), JOptionPane.INFORMATION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/infor.png")));
     }
 
     @Override
     public void showWarningMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "BakeryMS", JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
+        JOptionPane.showMessageDialog(this, message, getTitle(), JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        label_addIngre_title = new javax.swing.JLabel();
-        label_ingredientID = new javax.swing.JLabel();
-        label_ingredientName = new javax.swing.JLabel();
+        labelMainTitle = new javax.swing.JLabel();
+        labelTypeID = new javax.swing.JLabel();
+        labelTypeName = new javax.swing.JLabel();
         textfTypeID = new javax.swing.JTextField();
         textfTypeName = new javax.swing.JTextField();
         btnCreate = new javax.swing.JButton();
@@ -91,71 +114,71 @@ public class NewIngredientTypeDialog extends javax.swing.JDialog implements
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        label_addIngre_title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        label_addIngre_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_addIngre_title.setText("New Ingredient Type");
+        labelMainTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        labelMainTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelMainTitle.setText("New Ingredient Type");
 
-        label_ingredientID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_ingredientID.setText(" ID");
+        labelTypeID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelTypeID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelTypeID.setText(" ID");
 
-        label_ingredientName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_ingredientName.setText(" Name");
+        labelTypeName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelTypeName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelTypeName.setText(" Name");
 
         textfTypeID.setEditable(false);
         textfTypeID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textfTypeName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        btnCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_create.png"))); // NOI18N
-        btnCreate.setContentAreaFilled(false);
-        btnCreate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCreate.setFocusPainted(false);
+        btnCreate.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnCreate.setText("Create");
+        btnCreate.setPreferredSize(new java.awt.Dimension(100, 30));
 
-        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_cancel_40.png"))); // NOI18N
-        btnCancel.setContentAreaFilled(false);
-        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCancel.setFocusPainted(false);
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnCancel.setText("Cancel");
+        btnCancel.setPreferredSize(new java.awt.Dimension(100, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(label_addIngre_title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+            .addComponent(labelMainTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(93, 93, 93)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(label_ingredientName)
-                    .addComponent(label_ingredientID))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(labelTypeID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelTypeName, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textfTypeID, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textfTypeName, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textfTypeName, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCreate)
-                .addGap(34, 34, 34)
-                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(label_addIngre_title)
+                .addComponent(labelMainTitle)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_ingredientID)
+                    .addComponent(labelTypeID)
                     .addComponent(textfTypeID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_ingredientName)
+                    .addComponent(labelTypeName)
                     .addComponent(textfTypeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancel))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29))
         );
 
         pack();
@@ -164,9 +187,9 @@ public class NewIngredientTypeDialog extends javax.swing.JDialog implements
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnCreate;
-    private javax.swing.JLabel label_addIngre_title;
-    private javax.swing.JLabel label_ingredientID;
-    private javax.swing.JLabel label_ingredientName;
+    private javax.swing.JLabel labelMainTitle;
+    private javax.swing.JLabel labelTypeID;
+    private javax.swing.JLabel labelTypeName;
     private javax.swing.JTextField textfTypeID;
     private javax.swing.JTextField textfTypeName;
     // End of variables declaration//GEN-END:variables

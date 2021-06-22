@@ -139,6 +139,7 @@ public class BillHistoryModel implements BillHistoryModelInterface {
                 product.setProductID(resultSet.getString(ProductSimpleModel.ID_HEADER));
                 product.setName(resultSet.getString(ProductSimpleModel.NAME_HEADER));
                 product.setSize(ProductSize.getProductSizeFromString(resultSet.getString(ProductSimpleModel.SIZE_HEADER)));
+                product.setPrice(resultSet.getLong(ProductSimpleModel.PRICE_HEADER));
                 productDetail.setProduct(product);
                 productDetail.setAmount(resultSet.getInt(ProductDetailModel.AMOUNT_HEADER));
                 ret.add(productDetail);

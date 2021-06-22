@@ -1,24 +1,15 @@
 package control.bill.history;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.bill.BillHistoryModelInterface;
-import model.bill.BillModel;
-import model.bill.detail.ProductDetailModel;
-import util.db.SQLServerConnection;
 import view.bill.BillDetailDialog;
 import view.bill.BillHistoryPanel;
 import model.bill.detail.ProductDetailModelInterface;
 import model.bill.BillModelInterface;
+import model.setting.AppSetting;
 import util.excel.ExcelTransfer;
 import util.messages.Messages;
 
@@ -101,6 +92,7 @@ public class BillHistoryController implements BillHistoryControllerInterface {
 
         if (dialogBillDetail == null) {
             dialogBillDetail = new BillDetailDialog(billHistoryPanel.getMainFrame(), true, this);
+            AppSetting.getInstance().registerObserver(dialogBillDetail);
         }
 
         BillModelInterface selectedBill = searchList.get(rowID);

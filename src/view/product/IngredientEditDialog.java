@@ -9,18 +9,21 @@ import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import model.product.ProductManageModelInterface;
 import model.product.ingredientDetail.IngredientDetailModelInterface;
+import model.setting.AppSetting;
+import model.setting.SettingUpdateObserver;
 import util.swing.UIControl;
 import view.MessageShowing;
 
 public class IngredientEditDialog extends javax.swing.JDialog implements ActionListener,
-        MessageShowing {
-
-    public static final String DIALOG_TITLE = "Ingredient product editing dialog";
+        MessageShowing, SettingUpdateObserver {
 
     private static final int INGREDIENT_DETAIL_NAME_COLUMN_INDEX = 0;
+    private static final int INGREDIENT_DETAIL_TYPE_COLUMN_INDEX = 1;
     private static final int INGREDIENT_DETAIL_UNIT_COLUMN_INDEX = 2;
     private static final int INGREDIENT_DETAIL_AMOUNT_COLUMN_INDEX = 3;
 
@@ -36,7 +39,6 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
-        setTitle(DIALOG_TITLE);
         this.productManageModel = productManageModel;
         this.productController = controller;
         this.tableIngredientModel = (DefaultTableModel) tableIngredient.getModel();
@@ -78,7 +80,7 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
     private void createControl() {
         btnRemove.addActionListener(this);
         btnClear.addActionListener(this);
-        btnSaveChange.addActionListener(this);
+        btnSave.addActionListener(this);
         btnAdd.addActionListener(this);
         btnCancel.addActionListener(this);
 
@@ -177,7 +179,7 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
             this.productController.requestRemoveIngredientDetailBuffer();
         } else if (source == btnClear) {
             this.productController.requestClearIngredientDetailBuffer();
-        } else if (source == btnSaveChange) {
+        } else if (source == btnSave) {
             this.productController.requestSaveIngredientDetailBuffer();
         } else if (source == btnCancel) {
             this.productController.requestCancelEditIngredientDetail();
@@ -185,20 +187,67 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
     }
 
     @Override
+    public void updateSettingObserver() {
+        if (AppSetting.getInstance().getAppLanguage() == AppSetting.Language.ENGLISH) {
+            setTitle("Edit ingredient detail of product dialog");
+
+            TitledBorder titledBorder = (TitledBorder) panelSelectIngredient.getBorder();
+            titledBorder.setTitle("Select ingredient");
+            labelIngredientName.setText("Name:");
+            labelIngredientUnit.setText("Unit:");
+            labelIngredientAmount.setText("Amount:");
+            btnAdd.setText("Add");
+            labelIngredientOfProduct.setText("Ingredients of product");
+            btnRemove.setText("Remove");
+            btnClear.setText("Clear");
+
+            TableColumnModel tableColumnModel = tableIngredient.getColumnModel();
+            tableColumnModel.getColumn(INGREDIENT_DETAIL_NAME_COLUMN_INDEX).setHeaderValue("Name");
+            tableColumnModel.getColumn(INGREDIENT_DETAIL_TYPE_COLUMN_INDEX).setHeaderValue("Type");
+            tableColumnModel.getColumn(INGREDIENT_DETAIL_UNIT_COLUMN_INDEX).setHeaderValue("Unit");
+            tableColumnModel.getColumn(INGREDIENT_DETAIL_AMOUNT_COLUMN_INDEX).setHeaderValue("Amount");
+
+            btnSave.setText("Save");
+            btnCancel.setText("Cancel");
+        } else {
+            setTitle("Hộp thoại điều chỉnh thành phần nguyên liệu của sản phẩm");
+
+            TitledBorder titledBorder = (TitledBorder) panelSelectIngredient.getBorder();
+            titledBorder.setTitle("Chọn nguyên liệu");
+            labelIngredientName.setText("Tên:");
+            labelIngredientUnit.setText("Đơn vị:");
+            labelIngredientAmount.setText("Số lượng:");
+            btnAdd.setText("Thêm");
+            labelIngredientOfProduct.setText("Các thành phần nguyên liệu");
+            btnRemove.setText("Bỏ thành phần");
+            btnClear.setText("Xóa danh sách");
+
+            TableColumnModel tableColumnModel = tableIngredient.getColumnModel();
+            tableColumnModel.getColumn(INGREDIENT_DETAIL_NAME_COLUMN_INDEX).setHeaderValue("Tên");
+            tableColumnModel.getColumn(INGREDIENT_DETAIL_TYPE_COLUMN_INDEX).setHeaderValue("Loại");
+            tableColumnModel.getColumn(INGREDIENT_DETAIL_UNIT_COLUMN_INDEX).setHeaderValue("Đơn vị");
+            tableColumnModel.getColumn(INGREDIENT_DETAIL_AMOUNT_COLUMN_INDEX).setHeaderValue("Số lượng");
+
+            btnSave.setText("Lưu");
+            btnCancel.setText("Thoát");
+        }
+    }
+
+    @Override
     public void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "BakeryMS",
+        JOptionPane.showMessageDialog(this, message, getTitle(),
                 JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
     }
 
     @Override
     public void showInfoMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "BakeryMS",
+        JOptionPane.showMessageDialog(this, message, getTitle(),
                 JOptionPane.INFORMATION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/infor.png")));
     }
 
     @Override
     public void showWarningMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "BakeryMS",
+        JOptionPane.showMessageDialog(this, message, getTitle(),
                 JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
     }
 
@@ -209,19 +258,19 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
         jPanel1 = new javax.swing.JPanel();
         scrpaneIngredientSelected = new javax.swing.JScrollPane();
         tableIngredient = new javax.swing.JTable();
-        label_SelectedIngredients = new javax.swing.JLabel();
+        labelIngredientOfProduct = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        btnSaveChange = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(50, 0), new java.awt.Dimension(50, 0), new java.awt.Dimension(50, 32767));
         btnCancel = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnRemove = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
+        panelSelectIngredient = new javax.swing.JPanel();
         combUnit = new javax.swing.JComboBox<>();
-        label_SelectedIngredients2 = new javax.swing.JLabel();
-        label_SelectedIngredients1 = new javax.swing.JLabel();
-        label_SelectedIngredients3 = new javax.swing.JLabel();
+        labelIngredientUnit = new javax.swing.JLabel();
+        labelIngredientName = new javax.swing.JLabel();
+        labelIngredientAmount = new javax.swing.JLabel();
         combName = new javax.swing.JComboBox<>();
         spinnerAmount = new javax.swing.JSpinner();
         btnAdd = new javax.swing.JButton();
@@ -260,22 +309,20 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
         tableIngredient.getTableHeader().setReorderingAllowed(false);
         scrpaneIngredientSelected.setViewportView(tableIngredient);
 
-        label_SelectedIngredients.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label_SelectedIngredients.setText("Ingredients of product");
+        labelIngredientOfProduct.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labelIngredientOfProduct.setText("Ingredients of product");
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnSaveChange.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_save-all-changes.png"))); // NOI18N
-        btnSaveChange.setContentAreaFilled(false);
-        btnSaveChange.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSaveChange.setFocusPainted(false);
-        jPanel3.add(btnSaveChange);
+        btnSave.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnSave.setText("Save");
+        btnSave.setPreferredSize(new java.awt.Dimension(150, 40));
+        jPanel3.add(btnSave);
         jPanel3.add(filler2);
 
-        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_cancel_50.png"))); // NOI18N
-        btnCancel.setContentAreaFilled(false);
-        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCancel.setFocusPainted(false);
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnCancel.setText("Cancel");
+        btnCancel.setPreferredSize(new java.awt.Dimension(150, 40));
         jPanel3.add(btnCancel);
 
         jPanel2.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
@@ -288,22 +335,22 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
         btnClear.setText("Clear");
         jPanel2.add(btnClear);
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Select ingredient", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(153, 153, 153))); // NOI18N
+        panelSelectIngredient.setBackground(new java.awt.Color(255, 255, 255));
+        panelSelectIngredient.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Select ingredient", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(153, 153, 153))); // NOI18N
 
         combUnit.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        label_SelectedIngredients2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        label_SelectedIngredients2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        label_SelectedIngredients2.setText("Unit:");
+        labelIngredientUnit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelIngredientUnit.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelIngredientUnit.setText("Unit:");
 
-        label_SelectedIngredients1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        label_SelectedIngredients1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        label_SelectedIngredients1.setText("Name:");
+        labelIngredientName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelIngredientName.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelIngredientName.setText("Name:");
 
-        label_SelectedIngredients3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        label_SelectedIngredients3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        label_SelectedIngredients3.setText("Amount:");
+        labelIngredientAmount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelIngredientAmount.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelIngredientAmount.setText("Amount:");
 
         combName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
@@ -313,39 +360,39 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
         btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         btnAdd.setText("Add");
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelSelectIngredientLayout = new javax.swing.GroupLayout(panelSelectIngredient);
+        panelSelectIngredient.setLayout(panelSelectIngredientLayout);
+        panelSelectIngredientLayout.setHorizontalGroup(
+            panelSelectIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSelectIngredientLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(label_SelectedIngredients1)
+                .addGroup(panelSelectIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSelectIngredientLayout.createSequentialGroup()
+                        .addComponent(labelIngredientName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(combName, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40)
-                        .addComponent(label_SelectedIngredients2)
+                        .addComponent(labelIngredientUnit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(combUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40)
-                        .addComponent(label_SelectedIngredients3)
+                        .addComponent(labelIngredientAmount)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(spinnerAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        panelSelectIngredientLayout.setVerticalGroup(
+            panelSelectIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSelectIngredientLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(label_SelectedIngredients2)
+                .addGroup(panelSelectIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSelectIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelIngredientUnit)
                         .addComponent(combUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(label_SelectedIngredients1)
-                        .addComponent(label_SelectedIngredients3)
+                    .addGroup(panelSelectIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelIngredientName)
+                        .addComponent(labelIngredientAmount)
                         .addComponent(combName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(spinnerAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(30, 30, 30)
@@ -359,14 +406,14 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 921, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelSelectIngredient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(scrpaneIngredientSelected)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(label_SelectedIngredients, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelIngredientOfProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -375,10 +422,10 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelSelectIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label_SelectedIngredients)
+                    .addComponent(labelIngredientOfProduct)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(scrpaneIngredientSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -397,18 +444,18 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnRemove;
-    private javax.swing.JButton btnSaveChange;
+    private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> combName;
     private javax.swing.JComboBox<String> combUnit;
     private javax.swing.Box.Filler filler2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JLabel label_SelectedIngredients;
-    private javax.swing.JLabel label_SelectedIngredients1;
-    private javax.swing.JLabel label_SelectedIngredients2;
-    private javax.swing.JLabel label_SelectedIngredients3;
+    private javax.swing.JLabel labelIngredientAmount;
+    private javax.swing.JLabel labelIngredientName;
+    private javax.swing.JLabel labelIngredientOfProduct;
+    private javax.swing.JLabel labelIngredientUnit;
+    private javax.swing.JPanel panelSelectIngredient;
     private javax.swing.JScrollPane scrpaneIngredientSelected;
     private javax.swing.JSpinner spinnerAmount;
     private javax.swing.JTable tableIngredient;

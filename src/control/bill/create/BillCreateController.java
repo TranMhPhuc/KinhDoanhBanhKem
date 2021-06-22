@@ -13,6 +13,7 @@ import view.bill.BillExportDialog;
 import view.bill.BillCreatePanel;
 import view.bill.AmountDialog;
 import model.bill.BillCreateModelInterface;
+import model.setting.AppSetting;
 import util.messages.Messages;
 
 public class BillCreateController implements BillCreateControllerInterface {
@@ -110,6 +111,7 @@ public class BillCreateController implements BillCreateControllerInterface {
         }
         if (dialogAmount == null) {
             dialogAmount = new AmountDialog(billCreatePanel.getMaiFrame(), true, this);
+            AppSetting.getInstance().registerObserver(dialogAmount);
         }
         
         int selectedProductedAmount = billManageModel.getSelectedProductByIndex(rowID).getAmount();
@@ -153,6 +155,7 @@ public class BillCreateController implements BillCreateControllerInterface {
         if (dialogBillExport == null) {
             dialogBillExport = new BillExportDialog(billCreatePanel.getMaiFrame(),
                     true, billManageModel, this);
+            AppSetting.getInstance().registerObserver(dialogBillExport);
         }
 
         dialogBillExport.setBillIDText(billManageModel.getNextBillIDText());
@@ -187,7 +190,7 @@ public class BillCreateController implements BillCreateControllerInterface {
         } catch (NumberFormatException ex) {
             dialogBillExport.setBtnContinueEnable(false);
             dialogBillExport.setChangeMoneyText("");
-            dialogBillExport.setLabelErrorText("Money input format error");
+            dialogBillExport.setLabelErrorText(Messages.getInstance().BILL_GUEST_MONEY_WRONG_FORMAT);
             return;
         }
 

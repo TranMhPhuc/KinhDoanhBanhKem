@@ -416,6 +416,7 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
                 return canEdit [columnIndex];
             }
         });
+        tableBill.setSelectionBackground(new java.awt.Color(113, 168, 255));
         tableBill.getTableHeader().setReorderingAllowed(false);
         scrollPane_BillTable.setViewportView(tableBill);
 
