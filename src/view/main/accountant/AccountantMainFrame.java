@@ -59,6 +59,7 @@ public class AccountantMainFrame extends javax.swing.JFrame implements MessageSh
         appSettingModel.registerObserver(this);
         appSettingModel.registerObserver(panelProfile);
         appSettingModel.registerObserver(panelProfit);
+        appSettingModel.registerObserver(panelProduct);
         appSettingModel.registerObserver(Messages.getInstance());
     }
 
