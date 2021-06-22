@@ -7,7 +7,6 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -82,7 +81,6 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
         for (IngredientImportDetailInterface ingredientImportDetail : ingredientImportDetails) {
             Timestamp importTimestamp = ingredientImportDetail.getDate();
             visualDate = importTimestamp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            
             visualTime = importTimestamp.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
             
             Object[] record = new Object[]{

@@ -5,6 +5,7 @@ import control.bill.create.BillCreateController;
 import control.bill.create.BillCreateControllerInterface;
 import control.bill.history.BillHistoryController;
 import control.bill.history.BillHistoryControllerInterface;
+import control.setting.CashierSettingController;
 import java.awt.CardLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -20,21 +21,27 @@ import view.MessageShowing;
 import model.bill.BillCreateModelInterface;
 import model.bill.BillHistoryModel;
 import model.bill.BillHistoryModelInterface;
+import model.setting.AppSetting;
+import model.setting.SettingUpdateObserver;
+import util.messages.Messages;
 
-public class CashierMainFrame extends javax.swing.JFrame implements MessageShowing {
+public class CashierMainFrame extends javax.swing.JFrame implements MessageShowing,
+        SettingUpdateObserver {
 
     private UserModelInterface userModel;
     private MainFrameControllerInterface mainFrameController;
-
-    private JLabel choosedLabel;
-
-    private CardLayout cardLayoutPanelCenter;
 
     private BillCreateModelInterface billCreateModel;
     private BillCreateControllerInterface billCreateController;
 
     private BillHistoryModelInterface billHistoryModel;
     private BillHistoryControllerInterface billHistoryController;
+
+    private AppSetting appSettingModel;
+    private CashierSettingController cashierSettingController;
+
+    private JLabel choosedLabel;
+    private CardLayout cardLayoutPanelCenter;
 
     public CashierMainFrame(MainFrameControllerInterface mainFrameController,
             UserModelInterface userModel) {
@@ -64,13 +71,25 @@ public class CashierMainFrame extends javax.swing.JFrame implements MessageShowi
         userModel.setProfilePanelView(panelProfile);
 
         billCreateModel = new BillCreateModel();
+
         billCreateController = new BillCreateController(billCreateModel);
         billCreateController.setBillCreatePanel(panelBillCreate);
 
         billHistoryModel = new BillHistoryModel();
         billHistoryController = new BillHistoryController(billHistoryModel);
         billHistoryController.setBillHistoryPanel(panelBillHistory);
-        
+
+        billCreateModel.registerInsertedBillObserver(billHistoryController);
+
+        appSettingModel = AppSetting.getInstance();
+        cashierSettingController = new CashierSettingController(appSettingModel);
+        cashierSettingController.setCashierSettingsPanel(panelSetting);
+
+        appSettingModel.registerObserver(this);
+        appSettingModel.registerObserver(panelProfile);
+        appSettingModel.registerObserver(panelBillCreate);
+        appSettingModel.registerObserver(panelBillHistory);
+        appSettingModel.registerObserver(Messages.getInstance());
     }
 
     private void createControl() {
@@ -137,6 +156,30 @@ public class CashierMainFrame extends javax.swing.JFrame implements MessageShowi
                 mainFrameController.requestCloseProgram();
             }
         });
+    }
+
+    @Override
+    public void updateSettingObserver() {
+        AppSetting.Language appLanguage = AppSetting.getInstance().getAppLanguage();
+
+        switch (appLanguage) {
+            case ENGLISH: {
+                labelProfile.setText("Profile");
+                labelBillCreate.setText("Create bill");
+                labelBillHistory.setText("View bill");
+                labelSettings.setText("Settings");
+                labelSignOut.setText("Sign out");
+                break;
+            }
+            case VIETNAMESE: {
+                labelProfile.setText("Thông tin cá nhân");
+                labelBillCreate.setText("Tạo hóa đơn");
+                labelBillHistory.setText("Lịch sử hóa đơn");
+                labelSettings.setText("Thiết lập");
+                labelSignOut.setText("Thoát");
+                break;
+            }
+        }
     }
 
     @Override

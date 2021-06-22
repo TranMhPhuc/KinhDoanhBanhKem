@@ -52,7 +52,7 @@ public class BillHistoryController implements BillHistoryControllerInterface {
             billHistoryPanel.showErrorMessage(Messages.getInstance().BILLH_LIST_EMPTY);
             return;
         }
-        
+
         ExcelTransfer.exportTableToExcel(billHistoryPanel.getTableBillInfo());
     }
 
@@ -93,24 +93,24 @@ public class BillHistoryController implements BillHistoryControllerInterface {
     @Override
     public void requestShowBillDetail() {
         int rowID = billHistoryPanel.getTableBillSelectedRowIndex();
-        
+
         if (rowID == -1) {
             billHistoryPanel.showErrorMessage(Messages.getInstance().BILLH_NO_BILL_CHOSEN);
             return;
         }
-        
+
         if (dialogBillDetail == null) {
             dialogBillDetail = new BillDetailDialog(billHistoryPanel.getMainFrame(), true, this);
         }
-        
+
         BillModelInterface selectedBill = searchList.get(rowID);
-        
+
         dialogBillDetail.setBillInfo(selectedBill);
-        
+
         Iterator<ProductDetailModelInterface> iterator = billHistoryModel.getBillDetail(selectedBill);
-        
+
         dialogBillDetail.setTableBillDetail(iterator);
-        
+
         dialogBillDetail.setVisible(true);
     }
 
@@ -132,6 +132,11 @@ public class BillHistoryController implements BillHistoryControllerInterface {
         billHistoryModel.loadTodayBillData();
         billHistoryPanel.setDateFromInput(LocalDate.now());
         billHistoryPanel.setDateToInput(LocalDate.now());
+    }
+
+    @Override
+    public void updateInsertedBillObserver() {
+        requestShowBillFromDateRange();
     }
 
 }

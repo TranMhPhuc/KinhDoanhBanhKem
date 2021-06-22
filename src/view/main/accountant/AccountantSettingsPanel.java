@@ -35,13 +35,6 @@ public class AccountantSettingsPanel extends javax.swing.JPanel
         appSettingModel.registerObserver(this);
     }
 
-    private void loadSettingData() {
-        AppSetting.Language appLanguage = appSettingModel.getAppLanguage();
-        combLanguage.setSelectedItem(appLanguage.toString());
-        ckbConfirmSignOut.setSelected(appSettingModel.getConfirmSignOutFlag());
-        ckbConfirmExit.setSelected(appSettingModel.getConfirmExitFlag());
-    }
-
     public void setAccountantSettingController(AccountantSettingController accountantSettingController) {
         if (accountantSettingController == null) {
             throw new NullPointerException();

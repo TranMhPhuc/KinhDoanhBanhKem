@@ -12,6 +12,9 @@ public class AccountantSettingController extends SettingController {
     }
     
     public void setManagerSettingPanel(AccountantSettingsPanel accountantSettingsPanel) {
+        if (accountantSettingsPanel == null) {
+            throw new NullPointerException();
+        }
         this.accountantSettingsPanel = accountantSettingsPanel;
         accountantSettingsPanel.setAppSettingModel(appSettingModel);
         accountantSettingsPanel.setAccountantSettingController(this);

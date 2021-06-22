@@ -25,6 +25,7 @@ public class NumberRenderer extends FormatRenderer {
         setHorizontalAlignment(SwingConstants.RIGHT);
     }
     private static String pattern = "###,### VNĐ";
+
     /*
 	 *  Use the default currency formatter for the default locale
      */
@@ -46,5 +47,5 @@ public class NumberRenderer extends FormatRenderer {
     public static NumberRenderer getPercentRenderer() {
         return new NumberRenderer(NumberFormat.getPercentInstance());
     }
-    
+
 }

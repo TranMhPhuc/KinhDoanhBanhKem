@@ -23,6 +23,7 @@ import model.product.ProductSimpleModelInterface;
 import model.user.UserModel;
 import org.apache.commons.lang3.tuple.Pair;
 import util.constant.AppConstant;
+import view.bill.BillInsertedObserver;
 
 public class BillCreateModel implements BillCreateModelInterface {
 
@@ -42,6 +43,7 @@ public class BillCreateModel implements BillCreateModelInterface {
 
     private List<BillUpdateObserver> billUpdateObservers;
     private List<OfferedProductUpdateObserver> offeredProductUpdateObservers;
+    private List<BillInsertedObserver> billInsertedObservers;
 
     static {
         dbConnection = SQLServerConnection.getConnection();
@@ -52,6 +54,7 @@ public class BillCreateModel implements BillCreateModelInterface {
         selectedProducts = new ArrayList<>();
         billUpdateObservers = new ArrayList<>();
         offeredProductUpdateObservers = new ArrayList<>();
+        billInsertedObservers = new ArrayList<>();
         updateFromDB();
         updateNextBillID();
     }
@@ -112,11 +115,17 @@ public class BillCreateModel implements BillCreateModelInterface {
 
     @Override
     public void registerBillUpdateObserver(BillUpdateObserver observer) {
+        if (observer == null) {
+            throw new NullPointerException();
+        }
         billUpdateObservers.add(observer);
     }
 
     @Override
     public void removeBillUpdateObserver(BillUpdateObserver observer) {
+        if (observer == null) {
+            throw new NullPointerException();
+        }
         int id = billUpdateObservers.indexOf(observer);
         if (id >= 0) {
             billUpdateObservers.remove(observer);
@@ -125,14 +134,39 @@ public class BillCreateModel implements BillCreateModelInterface {
 
     @Override
     public void registerOfferedProductUpdateObserver(OfferedProductUpdateObserver observer) {
+        if (observer == null) {
+            throw new NullPointerException();
+        }
         offeredProductUpdateObservers.add(observer);
     }
 
     @Override
     public void removeOfferedProductUpdateObserver(OfferedProductUpdateObserver observer) {
+        if (observer == null) {
+            throw new NullPointerException();
+        }
         int id = offeredProductUpdateObservers.indexOf(observer);
         if (id >= 0) {
             offeredProductUpdateObservers.remove(id);
+        }
+    }
+
+    @Override
+    public void registerInsertedBillObserver(BillInsertedObserver observer) {
+        if (observer == null) {
+            throw new NullPointerException();
+        }
+        billInsertedObservers.add(observer);
+    }
+
+    @Override
+    public void removeInsertedBillObserver(BillInsertedObserver observer) {
+        if (observer == null) {
+            throw new NullPointerException();
+        }
+        int id = billInsertedObservers.indexOf(observer);
+        if (id >= 0) {
+            billInsertedObservers.remove(id);
         }
     }
 
@@ -157,9 +191,9 @@ public class BillCreateModel implements BillCreateModelInterface {
 
         updateNextBillID();
 
-        for (BillUpdateObserver observer : billUpdateObservers) {
-            observer.updateFromNewBillCreated(bill);
-        }
+        billUpdateObservers.forEach(observer -> observer.updateFromNewBillCreated(bill));
+
+        billInsertedObservers.forEach(observer -> observer.updateInsertedBillObserver());
     }
 
     @Override

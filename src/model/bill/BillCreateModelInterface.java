@@ -4,6 +4,7 @@ import java.util.Iterator;
 import model.DatabaseUpdate;
 import model.bill.detail.ProductDetailModelInterface;
 import model.product.ProductSimpleModelInterface;
+import view.bill.BillInsertedObserver;
 import view.bill.BillUpdateObserver;
 
 public interface BillCreateModelInterface extends DatabaseUpdate {
@@ -15,6 +16,10 @@ public interface BillCreateModelInterface extends DatabaseUpdate {
     void registerOfferedProductUpdateObserver(OfferedProductUpdateObserver observer);
 
     void removeOfferedProductUpdateObserver(OfferedProductUpdateObserver observer);
+    
+    void registerInsertedBillObserver(BillInsertedObserver observer);
+
+    void removeInsertedBillObserver(BillInsertedObserver observer);
 
     String getNextBillIDText();
 
