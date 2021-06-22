@@ -124,8 +124,6 @@ public class ProfitStatisticPanel extends javax.swing.JPanel implements SettingU
         categoryStylerProfitYear.setYAxisMax(1e7);
         categoryStylerProfitYear.setDecimalPattern("###,###,###");
 
-        categoryStylerProfitYear.setToolTipsEnabled(true);
-
         panelRevenueYear.setLayout(new BorderLayout());
         panelRevenueYear.add(new XChartPanel<CategoryChart>(categoryChartProfitYear));
     }
