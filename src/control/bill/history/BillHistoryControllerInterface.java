@@ -3,8 +3,9 @@ package control.bill.history;
 import java.util.Iterator;
 import model.bill.BillModelInterface;
 import view.bill.BillHistoryPanel;
+import view.bill.BillInsertedObserver;
 
-public interface BillHistoryControllerInterface {
+public interface BillHistoryControllerInterface extends BillInsertedObserver {
 
     void setBillHistoryPanel(BillHistoryPanel billHistoryPanel);
     

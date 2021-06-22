@@ -20,6 +20,7 @@ import model.ingredient.IngredientModel;
 import model.ingredient.IngredientModelInterface;
 import model.ingredient.type.IngredientTypeModel;
 import model.ingredient.type.IngredientTypeModelInterface;
+import model.setting.AppSetting;
 import org.junit.Assert;
 import util.common.string.StringUtil;
 import util.constant.AppConstant;
@@ -74,6 +75,7 @@ public class IngredientController implements IngredientControllerInterface {
         if (this.dialogNewIngredientTypeCreate == null) {
             this.dialogNewIngredientTypeCreate = new NewIngredientTypeDialog(
                     ingredientPanel.getMainFrame(), true, ingredientManageModel, this);
+            AppSetting.getInstance().registerObserver(dialogNewIngredientTypeCreate);
         }
         this.dialogNewIngredientTypeCreate.setVisible(true);
     }
@@ -83,6 +85,7 @@ public class IngredientController implements IngredientControllerInterface {
         if (dialogImportHistory == null) {
             dialogImportHistory = new ImportHistoryDialog(ingredientPanel.getMainFrame(),
                     true, this, ingredientManageModel);
+            AppSetting.getInstance().registerObserver(dialogImportHistory);
         }
 
         Date todayStart = Date.from(LocalDate.now()
@@ -135,6 +138,7 @@ public class IngredientController implements IngredientControllerInterface {
         if (dialogIngredientImport == null) {
             dialogIngredientImport = new IngredientImportDialog(
                     ingredientPanel.getMainFrame(), true, this);
+            AppSetting.getInstance().registerObserver(dialogIngredientImport);
         }
 
         dialogIngredientImport.setIngredientIDText(ingredient.getIngredientIDText());

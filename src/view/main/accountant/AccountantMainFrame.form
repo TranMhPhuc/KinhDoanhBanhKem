@@ -549,7 +549,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="view.main.accountant.ProfitPanel" name="panelProfit">
+            <Component class="view.main.accountant.ProfitStatisticPanel" name="panelProfit">
               <Properties>
                 <Property name="name" type="java.lang.String" value="Profit" noResource="true"/>
               </Properties>
