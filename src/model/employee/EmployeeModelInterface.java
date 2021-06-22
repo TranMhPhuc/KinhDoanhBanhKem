@@ -55,7 +55,7 @@ public interface EmployeeModelInterface extends DatabaseModel {
     
     Date getEndDate();
     
-    void randomPassword();
+    String randomPassword();
     
     List<ShiftDetailModelInterface> getShiftDetails();
     
@@ -67,6 +67,8 @@ public interface EmployeeModelInterface extends DatabaseModel {
     
     void updateProfile(String updatedEmail, String updatedPhoneNum);
     
-    void updatePassword(String updatedPassword);
+    void updatePassword(String updatedPlainPassword);
+    
+    int getRandomPasswordLength();
     
 }

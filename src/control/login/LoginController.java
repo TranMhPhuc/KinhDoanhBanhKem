@@ -13,6 +13,7 @@ import model.user.UserModelInterface;
 import util.db.SQLServerConnection;
 import util.mail.MailUtility;
 import util.messages.Messages;
+import util.password.Hash;
 import util.validator.EmailValidator;
 import util.validator.EmailValidator.EmailValidateResult;
 import view.login.LoginFrame;
@@ -22,9 +23,15 @@ public class LoginController implements LoginControllerInterface {
 
     private static final String SP_LOGIN
             = "{call login(?, ?)}";
+    
+    private static final String FC_GET_SALT_FROM_EMAIL 
+            = "{? = call get_salt_from_email(?)}";
 
-    private static final String SP_GET_PASSWORD_FROM_EMAIL
+    private static final String FC_GET_PASSWORD_FROM_EMAIL
             = "{? = call get_password_from_email(?)}";
+    
+    private static final String SP_GET_EMPLOYEE_BY_MAIL
+            = "{call get_employee_by_mail(?)}";
 
     private static Connection dbConnection;
     private volatile static LoginController uniqueInstance;
@@ -56,7 +63,7 @@ public class LoginController implements LoginControllerInterface {
     }
 
     @Override
-    public void requestLogin(String email, String password) {
+    public void requestLogin(String email, String plaintextPassword) {
         EmailValidateResult emailValidateResult = EmailValidator.validate(email);
 
         switch (emailValidateResult) {
@@ -70,16 +77,30 @@ public class LoginController implements LoginControllerInterface {
             }
         }
 
-        if (password.isEmpty()) {
+        if (plaintextPassword.isEmpty()) {
             this.loginFrame.showErrorMessage(Messages.getInstance().LOGIN_PASSWORD_EMPTY);
             return;
         }
-
+        
+        CallableStatement callableStatement = null;
+        
         try {
-            CallableStatement callableStatement = dbConnection.prepareCall(SP_LOGIN);
-
+            // lay chuoi salt tu email
+            callableStatement = dbConnection.prepareCall(FC_GET_SALT_FROM_EMAIL);
+            callableStatement.setString(2, email);
+            callableStatement.registerOutParameter(1, Types.BINARY);
+            callableStatement.execute();
+            byte[] salt = callableStatement.getBytes(1);
+            if (salt == null) {
+                loginFrame.showErrorMessage(Messages.getInstance().LOGIN_EMAIL_PASSWORD_INCORRECT);
+                return;
+            }
+            
+            String hashedPassword = Hash.doHash(plaintextPassword, salt);
+            
+            callableStatement = dbConnection.prepareCall(SP_LOGIN);
             callableStatement.setString(1, email);
-            callableStatement.setString(2, password);
+            callableStatement.setString(2, hashedPassword);
             
             ResultSet resultSet = callableStatement.executeQuery();
             
@@ -128,30 +149,30 @@ public class LoginController implements LoginControllerInterface {
             }
         }
 
-        String userPassword = "";
-
         try {
-            CallableStatement callableStatement = dbConnection.prepareCall(SP_GET_PASSWORD_FROM_EMAIL);
-            
-            callableStatement.registerOutParameter(1, Types.VARCHAR);
+            CallableStatement callableStatement = dbConnection.prepareCall(SP_GET_EMPLOYEE_BY_MAIL);
             callableStatement.setString(1, email);
+            ResultSet resultSet = callableStatement.executeQuery();
 
-            callableStatement.execute();
-            
-            userPassword = callableStatement.getString(1);
-
-            if (userPassword == null) {
+            if (resultSet.next() == false) {
                 loginFrame.showErrorMessage(Messages.getInstance().LOGIN_EMAIL_NOT_AVILABLE);
                 return;
             }
-
+            EmployeeModelInterface impl = new EmployeeModel();
+            impl.setProperty(resultSet);
+            
+            String randomPlaintextPass = Hash.generateRandomPassword(impl.getRandomPasswordLength());
+            impl.updatePassword(randomPlaintextPass);
+            
+            MailUtility.sendPasswordRecover(email, randomPlaintextPass);
+            
+            resultSet.close();
             callableStatement.close();
-
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        MailUtility.sendPasswordRecover(email, userPassword);
+        
         this.passwordRecoveryDialog.showInfoMessage(Messages.getInstance().LOGIN_SENT_PASSWORD_SUCCESSFULLY);
 
         this.passwordRecoveryDialog.dispose();

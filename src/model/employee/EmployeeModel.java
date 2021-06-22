@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.employee.shift.detail.ShiftDetailModel;
 import model.employee.shift.detail.ShiftDetailModelInterface;
+import util.password.Hash;
 
 public class EmployeeModel implements EmployeeModelInterface {
 
@@ -29,13 +30,10 @@ public class EmployeeModel implements EmployeeModelInterface {
     public static final String STATUS_HEADER = "TrangThai";
     public static final String END_DATE_HEADER = "NgayNghiViec";
 
-    private static final int MIN_RANDOM_PASSWORD_NUMBER = 100000;
-    private static final int MAX_RANDOM_PASSWORD_NUMBER = 999999;
-    
-    private static Random passwordGenerator;
+    private static final int RANDOM_PASSWORD_LENGTH = 6;
 
     private static final String SP_INSERT
-            = "{call insert_NhanVien(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            = "{call insert_NhanVien(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
     private static final String SP_UPDATE
             = "{call update_NhanVien(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
@@ -47,7 +45,9 @@ public class EmployeeModel implements EmployeeModelInterface {
             = "{call update_employee_profile(?, ?, ?)}";
 
     private static final String SP_UPDATE_PASSWORD
-            = "{call update_employee_password(?, ?)}";
+            = "{call update_employee_password(?, ?, ?)}";
+    
+    private static byte[] salt = null;
 
     private int employeeID;
     private String name;
@@ -62,10 +62,6 @@ public class EmployeeModel implements EmployeeModelInterface {
     private boolean isActive;
     private Date endDate;
     private List<ShiftDetailModelInterface> shiftDetails;
-
-    static {
-        passwordGenerator = new Random();
-    }
 
     public EmployeeModel() {
         shiftDetails = new ArrayList<>();
@@ -217,10 +213,12 @@ public class EmployeeModel implements EmployeeModelInterface {
     }
 
     @Override
-    public void randomPassword() {
-        int randomValue = passwordGenerator.nextInt(MAX_RANDOM_PASSWORD_NUMBER 
-                - MIN_RANDOM_PASSWORD_NUMBER + 1) + MIN_RANDOM_PASSWORD_NUMBER;
-        this.password = String.valueOf(randomValue);
+    public String randomPassword() {
+        EmployeeModel.salt = Hash.getNextSalt();
+        String randomPlaintextPass = Hash.generateRandomPassword(RANDOM_PASSWORD_LENGTH);
+        String hashedPass = Hash.doHash(randomPlaintextPass, EmployeeModel.salt);
+        this.password = hashedPass;
+        return randomPlaintextPass;
     }
 
     @Override
@@ -267,9 +265,11 @@ public class EmployeeModel implements EmployeeModelInterface {
             callableStatement.setString(6, this.password);
             callableStatement.setBoolean(7, this.isMale);
             callableStatement.setDate(8, this.startDate);
-            callableStatement.setString(9, this.positionName);
+            callableStatement.setString(9, this.positionName); // ERROR
             callableStatement.setBoolean(10, this.isActive);
             callableStatement.setDate(11, this.endDate);
+            callableStatement.setBytes(12, EmployeeModel.salt);
+            EmployeeModel.salt = null;
 
             callableStatement.execute();
             callableStatement.close();
@@ -340,12 +340,17 @@ public class EmployeeModel implements EmployeeModelInterface {
     }
 
     @Override
-    public void updatePassword(String updatedPassword) {
+    public void updatePassword(String updatedPlainPassword) {
         try {
             CallableStatement callableStatement = dbConnection.prepareCall(SP_UPDATE_PASSWORD);
 
             callableStatement.setInt(1, this.employeeID);
-            callableStatement.setString(2, updatedPassword);
+            
+            byte[] salt = Hash.getNextSalt();
+            String hashedPass = Hash.doHash(updatedPlainPassword, salt);
+            
+            callableStatement.setString(2, hashedPass);
+            callableStatement.setBytes(3, salt);
 
             callableStatement.execute();
             callableStatement.close();
@@ -420,4 +425,9 @@ public class EmployeeModel implements EmployeeModelInterface {
                 + '}';
     }
     
+    @Override
+    public int getRandomPasswordLength() {
+        return EmployeeModel.RANDOM_PASSWORD_LENGTH;
+    }
+
 }
