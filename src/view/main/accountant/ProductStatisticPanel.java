@@ -9,19 +9,18 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.text.DateFormatSymbols;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.product.ProductModel;
 import model.product.ProductSimpleModel;
 import org.knowm.xchart.PieChart;
 import org.knowm.xchart.PieChartBuilder;
+import org.knowm.xchart.PieSeries;
 import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.style.PieStyler;
 import org.knowm.xchart.style.Styler;
+import util.constant.AppConstant;
 import util.db.SQLServerConnection;
 
 public class ProductStatisticPanel extends javax.swing.JPanel {
@@ -35,28 +34,23 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
     private static final String SP_GET_TOP_5_PRODUCT_SLOW_SELLING_OF_MONTH
             = "{call get_the_least_selling_products_by_month(?, ?)}";
 
-    private static final Color[] PIECHART_BEST_SELLER_SIDE_COLORS;
-    private static final Color[] PIECHART_SLOW_SELLER_SIDE_COLORS;
+    private static final Color[] PIECHART_BEST_SALES_SIDE_COLORS;
+    private static final Color[] PIECHART_SLOW_SALES_SIDE_COLORS;
 
     private static Connection dbConnection;
 
-    private PieChart pieChartBestSellingCurrYear;
-    private PieChart pieChartBestSellingPreviousYear;
-    private PieChart pieChartSlowSellingCurrYear;
-    private PieChart pieChartSlowSellingPreviousYear;
-
-    private List<String> pieChartBestSellingCurrYearSeriesNames;
-    private List<String> pieChartBestSellingPreviousYearSeriesNames;
-    private List<String> pieChartSlowSellingCurrYearSeriesNames;
-    private List<String> pieChartSlowSellingPreviousYearSeriesNames;
+    private PieChart pieChartBestSalesCurrYear;
+    private PieChart pieChartBestSalesPreviousYear;
+    private PieChart pieChartSlowSalesCurrYear;
+    private PieChart pieChartSlowSalesPreviousYear;
 
     static {
         dbConnection = SQLServerConnection.getConnection();
-        PIECHART_BEST_SELLER_SIDE_COLORS = new Color[]{
+        PIECHART_BEST_SALES_SIDE_COLORS = new Color[]{
             new Color(255, 112, 67), new Color(255, 167, 38), new Color(255, 202, 40),
             new Color(212, 225, 87), new Color(156, 204, 101), new Color(102, 187, 106)
         };
-        PIECHART_SLOW_SELLER_SIDE_COLORS = new Color[]{
+        PIECHART_SLOW_SALES_SIDE_COLORS = new Color[]{
             new Color(236, 64, 122), new Color(171, 71, 188), new Color(126, 87, 194),
             new Color(92, 107, 192), new Color(66, 165, 245), new Color(66, 165, 245)
         };
@@ -64,24 +58,14 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
 
     public ProductStatisticPanel() {
         initComponents();
-        pieChartBestSellingCurrYearSeriesNames = new ArrayList<>();
-        pieChartBestSellingPreviousYearSeriesNames = new ArrayList<>();
-        pieChartSlowSellingCurrYearSeriesNames = new ArrayList<>();
-        pieChartSlowSellingPreviousYearSeriesNames = new ArrayList<>();
-        
-        configChart();
-        
+        configChartBestSales();
+        configChartSlowSales();
+
         loadProductBestSellingCurrYear(1);
         loadProductBestSellingPreviousYear(1);
         loadProductSlowSellingPreviousYear(1);
         loadProductSlowSellingPreviousYear(1);
-        
-        String[] monthNames = new DateFormatSymbols().getMonths();
-        for (String monthName : monthNames) {
-            combMonthTop.addItem(monthName);
-            combMonthBottom.addItem(monthName);
-        }
-        
+
         combMonthTop.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -90,7 +74,7 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
                 loadProductBestSellingPreviousYear(monthIndex);
             }
         });
-        
+
         combMonthBottom.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -101,76 +85,115 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
         });
     }
 
-    private void configChart() {
-        pieChartBestSellingCurrYear = new PieChartBuilder().width(350).height(200)
+    private void configChartBestSales() {
+        pieChartBestSalesCurrYear = new PieChartBuilder().width(350).height(200)
                 .theme(Styler.ChartTheme.Matlab).build();
 
-        PieStyler pieChartBestSellingCurrYearStyle = pieChartBestSellingCurrYear.getStyler();
-        pieChartBestSellingCurrYearStyle.setLegendVisible(true);
-        pieChartBestSellingCurrYearStyle.setPlotBorderVisible(false);
-        pieChartBestSellingCurrYearStyle.setSeriesColors(PIECHART_BEST_SELLER_SIDE_COLORS);
+        PieStyler pieChartBestSalesCurrYearStyle = pieChartBestSalesCurrYear.getStyler();
 
-        panelTopLeft.setLayout(new BorderLayout());
-        panelTopLeft.add(new XChartPanel<PieChart>(pieChartBestSellingCurrYear));
+        pieChartBestSalesCurrYearStyle.setChartTitleFont(AppConstant.MAIN_TITLE_FONT);
+        pieChartBestSalesCurrYearStyle.setChartPadding(30);
+        pieChartBestSalesCurrYearStyle.setHasAnnotations(true);
 
-        //
-        pieChartBestSellingPreviousYear = new PieChartBuilder().width(350).height(200)
-                .theme(Styler.ChartTheme.Matlab).build();
-
-        PieStyler pieChartBestSellingPreviousYearStyle = pieChartBestSellingPreviousYear.getStyler();
-        pieChartBestSellingPreviousYearStyle.setLegendVisible(true);
-        pieChartBestSellingPreviousYearStyle.setPlotBorderVisible(false);
-        pieChartBestSellingPreviousYearStyle.setSeriesColors(PIECHART_BEST_SELLER_SIDE_COLORS);
+        pieChartBestSalesCurrYearStyle.setLegendVisible(true);
+        pieChartBestSalesCurrYearStyle.setLegendFont(AppConstant.LEGEND_FONT);
+        pieChartBestSalesCurrYearStyle.setLegendPosition(Styler.LegendPosition.OutsideE);
+        pieChartBestSalesCurrYearStyle.setLegendBorderColor(Color.WHITE);
+        pieChartBestSalesCurrYearStyle.setPlotBorderVisible(false);
+        pieChartBestSalesCurrYearStyle.setSeriesColors(PIECHART_BEST_SALES_SIDE_COLORS);
 
         panelTopRight.setLayout(new BorderLayout());
-        panelTopRight.add(new XChartPanel<PieChart>(pieChartBestSellingPreviousYear));
+        panelTopRight.add(new XChartPanel<PieChart>(pieChartBestSalesCurrYear));
 
         //
-        pieChartSlowSellingCurrYear = new PieChartBuilder().width(350).height(200)
+        pieChartBestSalesPreviousYear = new PieChartBuilder().width(350).height(200)
                 .theme(Styler.ChartTheme.Matlab).build();
 
-        PieStyler pieChartSlowSellingCurrYearStyle = pieChartSlowSellingCurrYear.getStyler();
-        pieChartSlowSellingCurrYearStyle.setLegendVisible(true);
-        pieChartSlowSellingCurrYearStyle.setPlotBorderVisible(false);
-        pieChartSlowSellingCurrYearStyle.setSeriesColors(PIECHART_SLOW_SELLER_SIDE_COLORS);
+        PieStyler pieChartBestSalesPreviousYearStyle = pieChartBestSalesPreviousYear.getStyler();
+        pieChartBestSalesPreviousYearStyle.setChartPadding(30);
+        pieChartBestSalesPreviousYearStyle.setHasAnnotations(true);
 
-        panelBottomLeft.setLayout(new BorderLayout());
-        panelBottomLeft.add(new XChartPanel<PieChart>(pieChartSlowSellingCurrYear));
+        pieChartBestSalesPreviousYearStyle.setLegendVisible(true);
+        pieChartBestSalesPreviousYearStyle.setLegendFont(AppConstant.LEGEND_FONT);
+        pieChartBestSalesPreviousYearStyle.setLegendPosition(Styler.LegendPosition.OutsideE);
+        pieChartBestSalesPreviousYearStyle.setLegendBorderColor(Color.WHITE);
+        pieChartBestSalesPreviousYearStyle.setPlotBorderVisible(false);
+        pieChartBestSalesPreviousYearStyle.setSeriesColors(PIECHART_BEST_SALES_SIDE_COLORS);
 
-        //
-        pieChartSlowSellingPreviousYear = new PieChartBuilder().width(350).height(200)
+        panelTopLeft.setLayout(new BorderLayout());
+        panelTopLeft.add(new XChartPanel<PieChart>(pieChartBestSalesPreviousYear));
+    }
+
+    private void configChartSlowSales() {
+        pieChartSlowSalesCurrYear = new PieChartBuilder().width(350).height(200)
                 .theme(Styler.ChartTheme.Matlab).build();
 
-        PieStyler pieChartSlowSellingPreviousYearStyle = pieChartSlowSellingPreviousYear.getStyler();
-        pieChartSlowSellingPreviousYearStyle.setLegendVisible(true);
-        pieChartSlowSellingPreviousYearStyle.setPlotBorderVisible(false);
-        pieChartSlowSellingPreviousYearStyle.setSeriesColors(PIECHART_SLOW_SELLER_SIDE_COLORS);
+        PieStyler pieChartSlowSalesCurrYearStyle = pieChartSlowSalesCurrYear.getStyler();
+        pieChartSlowSalesCurrYearStyle.setChartPadding(30);
+        pieChartSlowSalesCurrYearStyle.setHasAnnotations(true);
+
+        pieChartSlowSalesCurrYearStyle.setLegendVisible(true);
+        pieChartSlowSalesCurrYearStyle.setLegendFont(AppConstant.LEGEND_FONT);
+        pieChartSlowSalesCurrYearStyle.setLegendPosition(Styler.LegendPosition.OutsideE);
+        pieChartSlowSalesCurrYearStyle.setLegendBorderColor(Color.WHITE);
+        pieChartSlowSalesCurrYearStyle.setPlotBorderVisible(false);
+        pieChartSlowSalesCurrYearStyle.setSeriesColors(PIECHART_SLOW_SALES_SIDE_COLORS);
 
         panelBottomRight.setLayout(new BorderLayout());
-        panelBottomRight.add(new XChartPanel<PieChart>(pieChartSlowSellingPreviousYear));
+        panelBottomRight.add(new XChartPanel<PieChart>(pieChartSlowSalesCurrYear));
+
+        //
+        pieChartSlowSalesPreviousYear = new PieChartBuilder().width(350).height(200)
+                .theme(Styler.ChartTheme.Matlab).build();
+
+        PieStyler pieChartSlowSalesPreviousYearStyle = pieChartSlowSalesPreviousYear.getStyler();
+        pieChartSlowSalesPreviousYearStyle.setChartPadding(30);
+        pieChartSlowSalesPreviousYearStyle.setHasAnnotations(true);
+
+        pieChartSlowSalesPreviousYearStyle.setLegendVisible(true);
+        pieChartSlowSalesPreviousYearStyle.setLegendFont(AppConstant.LEGEND_FONT);
+        pieChartSlowSalesPreviousYearStyle.setLegendPosition(Styler.LegendPosition.OutsideE);
+        pieChartSlowSalesPreviousYearStyle.setLegendBorderColor(Color.WHITE);
+        pieChartSlowSalesPreviousYearStyle.setPlotBorderVisible(false);
+        pieChartSlowSalesPreviousYearStyle.setSeriesColors(PIECHART_SLOW_SALES_SIDE_COLORS);
+
+        panelBottomLeft.setLayout(new BorderLayout());
+        panelBottomLeft.add(new XChartPanel<PieChart>(pieChartSlowSalesPreviousYear));
+
     }
 
     public void loadProductBestSellingCurrYear(int month) {
-        pieChartBestSellingCurrYearSeriesNames.forEach(seriesName -> {
-            pieChartBestSellingCurrYear.removeSeries(seriesName);
-        });
+        if (month <= 0 || month >= 13) {
+            throw new IllegalArgumentException();
+        }
 
-        pieChartBestSellingCurrYearSeriesNames.clear();
+        Map<String, PieSeries> seriesMap = pieChartBestSalesCurrYear.getSeriesMap();
+
+        Object[] seriesNames = seriesMap.keySet().toArray();
+
+        for (int i = 0; i < seriesNames.length; i++) {
+            pieChartBestSalesCurrYear.removeSeries((String) seriesNames[i]);
+        }
 
         int currYear = LocalDate.now().getYear();
 
         try {
-            CallableStatement callableStatement;
-
-            callableStatement = dbConnection.prepareCall(SP_GET_TOTAL_SELL_AMOUNT_OF_MONTH);
+            CallableStatement callableStatement = dbConnection
+                    .prepareCall(SP_GET_TOTAL_SELL_AMOUNT_OF_MONTH);
 
             callableStatement.registerOutParameter(1, Types.INTEGER);
+
             callableStatement.setInt(2, month);
             callableStatement.setInt(3, currYear);
+
             callableStatement.execute();
 
             long totalProductSell = callableStatement.getLong(1);
             long remainProductSell = totalProductSell;
+
+            if (totalProductSell == 0) {
+                return;
+            }
 
             callableStatement = dbConnection
                     .prepareCall(SP_GET_TOP_5_PRODUCT_BEST_SELLING_OF_MONTH);
@@ -188,14 +211,12 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
                 float percent = (float) sellAmount / totalProductSell * 100;
                 String seriesName = String.format("%s - %s \n(%.2f%%)",
                         productName, productSize, percent);
-                pieChartBestSellingCurrYear.addSeries(seriesName, sellAmount);
-                pieChartBestSellingCurrYearSeriesNames.add(seriesName);
+                pieChartBestSalesCurrYear.addSeries(seriesName, sellAmount);
             }
 
             float percent = (float) remainProductSell / totalProductSell * 100;
             String seriesName = String.format("Other (%.2f%%)", percent);
-            pieChartBestSellingCurrYear.addSeries(seriesName, remainProductSell);
-            pieChartBestSellingCurrYearSeriesNames.add(seriesName);
+            pieChartBestSalesCurrYear.addSeries(seriesName, remainProductSell);
 
         } catch (SQLException ex) {
             Logger.getLogger(ProductStatisticPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -203,26 +224,37 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
     }
 
     public void loadProductBestSellingPreviousYear(int month) {
-        pieChartBestSellingPreviousYearSeriesNames.forEach(seriesName -> {
-            pieChartBestSellingPreviousYear.removeSeries(seriesName);
-        });
+        if (month <= 0 || month >= 13) {
+            throw new IllegalArgumentException();
+        }
 
-        pieChartBestSellingPreviousYearSeriesNames.clear();
+        Map<String, PieSeries> seriesMap = pieChartBestSalesPreviousYear.getSeriesMap();
+
+        Object[] seriesNames = seriesMap.keySet().toArray();
+
+        for (int i = 0; i < seriesNames.length; i++) {
+            pieChartBestSalesPreviousYear.removeSeries((String) seriesNames[i]);
+        }
 
         int previousYear = LocalDate.now().getYear() - 1;
 
         try {
-            CallableStatement callableStatement;
-
-            callableStatement = dbConnection.prepareCall(SP_GET_TOTAL_SELL_AMOUNT_OF_MONTH);
+            CallableStatement callableStatement = dbConnection
+                    .prepareCall(SP_GET_TOTAL_SELL_AMOUNT_OF_MONTH);
 
             callableStatement.registerOutParameter(1, Types.INTEGER);
+
             callableStatement.setInt(2, month);
             callableStatement.setInt(3, previousYear);
+
             callableStatement.execute();
 
             long totalProductSell = callableStatement.getLong(1);
             long remainProductSell = totalProductSell;
+
+            if (totalProductSell == 0) {
+                return;
+            }
 
             callableStatement = dbConnection
                     .prepareCall(SP_GET_TOP_5_PRODUCT_BEST_SELLING_OF_MONTH);
@@ -240,14 +272,12 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
                 float percent = (float) sellAmount / totalProductSell * 100;
                 String seriesName = String.format("%s - %s \n(%.2f%%)",
                         productName, productSize, percent);
-                pieChartBestSellingPreviousYear.addSeries(seriesName, sellAmount);
-                pieChartBestSellingPreviousYearSeriesNames.add(seriesName);
+                pieChartBestSalesPreviousYear.addSeries(seriesName, sellAmount);
             }
 
             float percent = (float) remainProductSell / totalProductSell * 100;
             String seriesName = String.format("Other (%.2f%%)", percent);
-            pieChartBestSellingPreviousYear.addSeries(seriesName, remainProductSell);
-            pieChartBestSellingPreviousYearSeriesNames.add(seriesName);
+            pieChartBestSalesPreviousYear.addSeries(seriesName, remainProductSell);
 
         } catch (SQLException ex) {
             Logger.getLogger(ProductStatisticPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -255,26 +285,37 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
     }
 
     public void loadProductSlowSellingCurrYear(int month) {
-        pieChartSlowSellingCurrYearSeriesNames.forEach(seriesName -> {
-            pieChartSlowSellingCurrYear.removeSeries(seriesName);
-        });
+        if (month <= 0 || month >= 13) {
+            throw new IllegalArgumentException();
+        }
 
-        pieChartSlowSellingCurrYearSeriesNames.clear();
+        Map<String, PieSeries> seriesMap = pieChartSlowSalesCurrYear.getSeriesMap();
+
+        Object[] seriesNames = seriesMap.keySet().toArray();
+
+        for (int i = 0; i < seriesNames.length; i++) {
+            pieChartSlowSalesCurrYear.removeSeries((String) seriesNames[i]);
+        }
 
         int previousYear = LocalDate.now().getYear();
 
         try {
-            CallableStatement callableStatement;
-
-            callableStatement = dbConnection.prepareCall(SP_GET_TOTAL_SELL_AMOUNT_OF_MONTH);
+            CallableStatement callableStatement = dbConnection
+                    .prepareCall(SP_GET_TOTAL_SELL_AMOUNT_OF_MONTH);
 
             callableStatement.registerOutParameter(1, Types.INTEGER);
+
             callableStatement.setInt(2, month);
             callableStatement.setInt(3, previousYear);
+
             callableStatement.execute();
 
             long totalProductSell = callableStatement.getLong(1);
             long remainProductSell = totalProductSell;
+
+            if (totalProductSell == 0) {
+                return;
+            }
 
             callableStatement = dbConnection
                     .prepareCall(SP_GET_TOP_5_PRODUCT_SLOW_SELLING_OF_MONTH);
@@ -292,14 +333,12 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
                 float percent = (float) sellAmount / totalProductSell * 100;
                 String seriesName = String.format("%s - %s \n(%.2f%%)",
                         productName, productSize, percent);
-                pieChartSlowSellingCurrYear.addSeries(seriesName, sellAmount);
-                pieChartSlowSellingCurrYearSeriesNames.add(seriesName);
+                pieChartSlowSalesCurrYear.addSeries(seriesName, sellAmount);
             }
 
             float percent = (float) remainProductSell / totalProductSell * 100;
             String seriesName = String.format("Other (%.2f%%)", percent);
-            pieChartSlowSellingCurrYear.addSeries(seriesName, remainProductSell);
-            pieChartSlowSellingCurrYearSeriesNames.add(seriesName);
+            pieChartSlowSalesCurrYear.addSeries(seriesName, remainProductSell);
 
         } catch (SQLException ex) {
             Logger.getLogger(ProductStatisticPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -307,26 +346,37 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
     }
 
     public void loadProductSlowSellingPreviousYear(int month) {
-        pieChartSlowSellingPreviousYearSeriesNames.forEach(seriesName -> {
-            pieChartSlowSellingPreviousYear.removeSeries(seriesName);
-        });
+        if (month <= 0 || month >= 13) {
+            throw new IllegalArgumentException();
+        }
 
-        pieChartSlowSellingPreviousYearSeriesNames.clear();
+        Map<String, PieSeries> seriesMap = pieChartSlowSalesPreviousYear.getSeriesMap();
+
+        Object[] seriesNames = seriesMap.keySet().toArray();
+
+        for (int i = 0; i < seriesNames.length; i++) {
+            pieChartSlowSalesPreviousYear.removeSeries((String) seriesNames[i]);
+        }
 
         int previousYear = LocalDate.now().getYear() - 1;
 
         try {
-            CallableStatement callableStatement;
-
-            callableStatement = dbConnection.prepareCall(SP_GET_TOTAL_SELL_AMOUNT_OF_MONTH);
+            CallableStatement callableStatement = dbConnection
+                    .prepareCall(SP_GET_TOTAL_SELL_AMOUNT_OF_MONTH);
 
             callableStatement.registerOutParameter(1, Types.INTEGER);
+            
             callableStatement.setInt(2, month);
             callableStatement.setInt(3, previousYear);
+            
             callableStatement.execute();
 
             long totalProductSell = callableStatement.getLong(1);
             long remainProductSell = totalProductSell;
+            
+            if (totalProductSell == 0) {
+                return;
+            }
 
             callableStatement = dbConnection
                     .prepareCall(SP_GET_TOP_5_PRODUCT_SLOW_SELLING_OF_MONTH);
@@ -344,14 +394,12 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
                 float percent = (float) sellAmount / totalProductSell * 100;
                 String seriesName = String.format("%s - %s \n(%.2f%%)",
                         productName, productSize, percent);
-                pieChartSlowSellingPreviousYear.addSeries(seriesName, sellAmount);
-                pieChartSlowSellingPreviousYearSeriesNames.add(seriesName);
+                pieChartSlowSalesPreviousYear.addSeries(seriesName, sellAmount);
             }
 
             float percent = (float) remainProductSell / totalProductSell * 100;
             String seriesName = String.format("Other (%.2f%%)", percent);
-            pieChartSlowSellingPreviousYear.addSeries(seriesName, remainProductSell);
-            pieChartSlowSellingPreviousYearSeriesNames.add(seriesName);
+            pieChartSlowSalesPreviousYear.addSeries(seriesName, remainProductSell);
 
         } catch (SQLException ex) {
             Logger.getLogger(ProductStatisticPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -376,9 +424,10 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
         labelMonthBottom = new javax.swing.JLabel();
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hàng bán chạy", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(204, 204, 204))); // NOI18N
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Best Sales", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(97, 97, 97))); // NOI18N
 
         combMonthTop.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        combMonthTop.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
         jPanel6.setBackground(new java.awt.Color(204, 204, 204));
         jPanel6.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
@@ -415,7 +464,7 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
 
         labelMonthTop.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelMonthTop.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        labelMonthTop.setText("Tháng:");
+        labelMonthTop.setText("Month:");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -428,7 +477,7 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(labelMonthTop)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(combMonthTop, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(combMonthTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -445,9 +494,10 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
         );
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hàng bán chậm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(204, 204, 204))); // NOI18N
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Slow sales", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(97, 97, 97))); // NOI18N
 
         combMonthBottom.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        combMonthBottom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
         jPanel9.setBackground(new java.awt.Color(204, 204, 204));
         jPanel9.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
@@ -484,7 +534,7 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
 
         labelMonthBottom.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelMonthBottom.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        labelMonthBottom.setText("Tháng:");
+        labelMonthBottom.setText("Month:");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -497,7 +547,7 @@ public class ProductStatisticPanel extends javax.swing.JPanel {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(labelMonthBottom)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(combMonthBottom, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(combMonthBottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
