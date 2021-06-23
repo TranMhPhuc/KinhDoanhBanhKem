@@ -15,6 +15,7 @@ import model.bill.BillModelInterface;
 import model.bill.detail.ProductDetailModelInterface;
 import model.product.ProductSimpleModelInterface;
 import model.bill.BillCreateModelInterface;
+import util.swing.CurrencyTextField;
 import util.swing.NumberRenderer;
 
 public class BillCreatePanel extends javax.swing.JPanel implements ActionListener,
@@ -73,7 +74,7 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
     private void createView() {
         UIControl.setDefaultTableHeader(tableOfferedProduct);
         UIControl.setDefaultTableHeader(tableSelectedProduct);
-        textfTotalMoney.setText("0");
+        textfTotalMoney.setValue(0);
         textfSearchProductName.setText("");
         clearTableProductSelect();
 
@@ -221,13 +222,13 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         resetProductList();
         clearTableProductSelect();
         textfBillID.setText(this.billManageModel.getNextBillIDText());
-        textfTotalMoney.setText("");
+        textfTotalMoney.setValue(null);
     }
 
     @Override
     public void updateFromBillState() {
         long totalMoney = billManageModel.getTotalMoney();
-        textfTotalMoney.setText(String.valueOf(totalMoney));
+        textfTotalMoney.setValue(totalMoney);
         if (billManageModel.isBillHavingNoProduct()) {
             clearTableProductSelect();
         }
@@ -284,13 +285,14 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         tableSelectedProduct = new javax.swing.JTable();
         labelTotalMoney = new javax.swing.JLabel();
         label_prodChoose = new javax.swing.JLabel();
-        textfTotalMoney = new javax.swing.JTextField();
         textfBillID = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         btnEditAmount = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
         btnExport = new javax.swing.JButton();
+        textfTotalMoney = new CurrencyTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setName("BillCreate"); // NOI18N
@@ -434,9 +436,6 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         label_prodChoose.setText("Chosen products");
         label_prodChoose.setPreferredSize(new java.awt.Dimension(133, 30));
 
-        textfTotalMoney.setEditable(false);
-        textfTotalMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-
         textfBillID.setEditable(false);
         textfBillID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
@@ -468,6 +467,12 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         btnExport.setText("Export");
         btnExport.setPreferredSize(new java.awt.Dimension(100, 30));
 
+        textfTotalMoney.setEditable(false);
+        textfTotalMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel1.setText("VNĐ");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -475,7 +480,7 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane8)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 803, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(label_prodChoose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -487,8 +492,10 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
                         .addGap(18, 18, 18)
                         .addComponent(labelTotalMoney)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textfTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                        .addComponent(textfTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -502,11 +509,12 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
                     .addComponent(labelBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(labelTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(textfTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textfTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(textfBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -524,6 +532,7 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnSearchClear;
     private javax.swing.JButton btnSelect;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -541,6 +550,6 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
     private javax.swing.JTable tableSelectedProduct;
     private javax.swing.JTextField textfBillID;
     private javax.swing.JTextField textfSearchProductName;
-    private javax.swing.JTextField textfTotalMoney;
+    private javax.swing.JFormattedTextField textfTotalMoney;
     // End of variables declaration//GEN-END:variables
 }

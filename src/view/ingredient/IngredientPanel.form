@@ -35,7 +35,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <Component id="jPanel1" alignment="0" pref="1271" max="32767" attributes="0"/>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -91,27 +91,34 @@
                       <Component id="labelProvider" max="32767" attributes="0"/>
                       <Component id="labelCost" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="textfIngredientCost" max="32767" attributes="0"/>
-                      <Component id="combProviderName" pref="264" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="labelType" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="combIngredientTypeName" min="-2" pref="143" max="-2" attributes="0"/>
+                          <Component id="combProviderName" min="-2" pref="218" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Component id="textfIngredientCost" min="-2" pref="212" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="labelUnit" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="combIngredientUnitName" min="-2" pref="143" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="labelType" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="combIngredientTypeName" min="-2" pref="143" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Component id="btnCreateIngredientType" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="241" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -119,28 +126,36 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="label_ingreID" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="textfIngredientID" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="combIngredientTypeName" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelType" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelCost" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                          <Component id="textfIngredientCost" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnCreateIngredientType" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="labelName" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="textfIngredientName" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelProvider" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="combProviderName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="combIngredientTypeName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelType" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCreateIngredientType" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="combIngredientUnitName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelUnit" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="combIngredientUnitName" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelUnit" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="label_ingreID" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="textfIngredientID" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                  <Component id="labelCost" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="textfIngredientCost" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="labelName" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="textfIngredientName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelProvider" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="combProviderName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -227,13 +242,6 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textfIngredientCost">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="15" style="0"/>
-            </Property>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JComboBox" name="combProviderName">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -286,6 +294,24 @@
             </Property>
             <Property name="text" type="java.lang.String" value="New type"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel2">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="15" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="VN&#x110;"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="textfIngredientCost">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="15" style="0"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new CurrencyTextField()"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

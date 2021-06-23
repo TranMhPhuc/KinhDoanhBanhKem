@@ -16,11 +16,13 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import javax.swing.text.NumberFormatter;
 import model.product.ProductManageModelInterface;
 import model.product.ProductModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
 import util.messages.Messages;
+import util.swing.CurrencyTextField;
 import util.swing.NumberRenderer;
 import util.swing.UIControl;
 import view.MessageShowing;
@@ -150,8 +152,8 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
     public void showProductInfo(ProductModelInterface product) {
         this.textfProductID.setText(product.getProductIDText());
         this.textfProductName.setText(product.getName());
-        this.textfProductCost.setText(String.valueOf(product.getCost()));
-        this.textfProductPrice.setText(String.valueOf(product.getPrice()));
+        this.textfProductCost.setValue(product.getCost());
+        this.textfProductPrice.setValue(product.getPrice());
 
         String productSize = product.getSize().name();
         for (int i = 0; i < this.combProductSize.getItemCount(); i++) {
@@ -264,8 +266,8 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
     }
 
     public void resetProductInput() {
-        textfProductCost.setText("");
-        textfProductPrice.setText("");
+        textfProductCost.setValue(null);
+        textfProductPrice.setValue(null);
         textfProductName.setText("");
         combProductSize.setSelectedIndex(0);
         tableIngredientDetailModel.setRowCount(0);
@@ -387,11 +389,11 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
     }
 
     public String getProductCost() {
-        return this.textfProductCost.getText().trim();
+        return String.valueOf(this.textfProductCost.getValue());
     }
 
     public String getProductPrice() {
-        return this.textfProductPrice.getText().trim();
+        return String.valueOf(this.textfProductPrice.getValue());
     }
 
     public void showCardOption() {
@@ -546,14 +548,16 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
         labelName = new javax.swing.JLabel();
         labelCost = new javax.swing.JLabel();
         textfProductName = new javax.swing.JTextField();
-        textfProductCost = new javax.swing.JTextField();
-        textfProductPrice = new javax.swing.JTextField();
         labelPrice = new javax.swing.JLabel();
         panelIngredientDetail = new javax.swing.JPanel();
         scrpaneIngredientSelected = new javax.swing.JScrollPane();
         tableIngredientDetail = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         btnEditIngredient = new javax.swing.JButton();
+        textfProductCost = new CurrencyTextField();
+        textfProductPrice = new CurrencyTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         scrpaneTable = new javax.swing.JScrollPane();
         tableProduct = new javax.swing.JTable();
         panelCard = new javax.swing.JPanel();
@@ -603,10 +607,6 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
         labelCost.setText("Cost");
 
         textfProductName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-
-        textfProductCost.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-
-        textfProductPrice.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         labelPrice.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelPrice.setText("Price");
@@ -670,6 +670,16 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        textfProductCost.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        textfProductPrice.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel2.setText("VNĐ");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel3.setText("VNĐ");
+
         javax.swing.GroupLayout panelProductInfoLayout = new javax.swing.GroupLayout(panelProductInfo);
         panelProductInfo.setLayout(panelProductInfoLayout);
         panelProductInfoLayout.setHorizontalGroup(
@@ -693,12 +703,16 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
                     .addComponent(labelCost, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(labelPrice, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelProductInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(textfProductCost, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                    .addComponent(textfProductPrice))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelProductInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textfProductCost, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textfProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelIngredientDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelProductInfoLayout.setVerticalGroup(
             panelProductInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -713,13 +727,15 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
                             .addComponent(labelSize, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(combProductSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelCost, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textfProductCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textfProductCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
                         .addGap(30, 30, 30)
                         .addGroup(panelProductInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelName)
                             .addComponent(textfProductName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(textfProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel3))))
                 .addContainerGap())
         );
 
@@ -889,7 +905,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
                     .addComponent(scrpaneTable)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
                         .addComponent(panelCard, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -923,6 +939,8 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSearchClear;
     private javax.swing.JComboBox<String> combProductSize;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -941,10 +959,10 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
     private javax.swing.JScrollPane scrpaneTable;
     private javax.swing.JTable tableIngredientDetail;
     private javax.swing.JTable tableProduct;
-    private javax.swing.JTextField textfProductCost;
+    private javax.swing.JFormattedTextField textfProductCost;
     private javax.swing.JTextField textfProductID;
     private javax.swing.JTextField textfProductName;
-    private javax.swing.JTextField textfProductPrice;
+    private javax.swing.JFormattedTextField textfProductPrice;
     private javax.swing.JTextField textfSearchName;
     // End of variables declaration//GEN-END:variables
 }
