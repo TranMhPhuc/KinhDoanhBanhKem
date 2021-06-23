@@ -26,9 +26,6 @@ public class LoginController implements LoginControllerInterface {
     
     private static final String FC_GET_SALT_FROM_EMAIL 
             = "{? = call get_salt_from_email(?)}";
-
-    private static final String FC_GET_PASSWORD_FROM_EMAIL
-            = "{? = call get_password_from_email(?)}";
     
     private static final String SP_GET_EMPLOYEE_BY_MAIL
             = "{call get_employee_by_mail(?)}";

@@ -71,4 +71,6 @@ public interface EmployeeModelInterface extends DatabaseModel {
     
     int getRandomPasswordLength();
     
+    boolean isCorrectPassword(String plaintextPassword);
+    
 }

@@ -25,6 +25,9 @@ public class MainFrameController implements MainFrameControllerInterface {
     private UserModelInterface userModel;
 
     private PasswordChangeDialog dialogPasswordChange;
+    
+    private static final String FC_GET_SALT_FROM_EMAIL 
+            = "{? = call get_salt_from_email(?)}";
 
     public MainFrameController(UserModelInterface userModel) {
         this.userModel = userModel;
@@ -124,9 +127,7 @@ public class MainFrameController implements MainFrameControllerInterface {
             return;
         }
 
-        String userPassword = userModel.getImpl().getPassword();
-
-        if (!oldPasswordInput.equals(userPassword)) {
+        if (!userModel.getImpl().isCorrectPassword(oldPasswordInput)) {
             ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_OLD_PASSWORD_INCORRECT);
             return;
         }

@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -46,6 +47,9 @@ public class EmployeeModel implements EmployeeModelInterface {
 
     private static final String SP_UPDATE_PASSWORD
             = "{call update_employee_password(?, ?, ?)}";
+    
+    private static final String FC_GET_SALT_FROM_EMAIL 
+            = "{? = call get_salt_from_email(?)}";
     
     private static byte[] salt = null;
 
@@ -347,9 +351,9 @@ public class EmployeeModel implements EmployeeModelInterface {
             callableStatement.setInt(1, this.employeeID);
             
             byte[] salt = Hash.getNextSalt();
-            String hashedPass = Hash.doHash(updatedPlainPassword, salt);
+            this.password = Hash.doHash(updatedPlainPassword, salt);
             
-            callableStatement.setString(2, hashedPass);
+            callableStatement.setString(2, this.password);
             callableStatement.setBytes(3, salt);
 
             callableStatement.execute();
@@ -428,6 +432,26 @@ public class EmployeeModel implements EmployeeModelInterface {
     @Override
     public int getRandomPasswordLength() {
         return EmployeeModel.RANDOM_PASSWORD_LENGTH;
+    }
+    
+    @Override
+    public boolean isCorrectPassword(String plaintextPassword) {
+        CallableStatement callableStatement = null;
+        try {
+            callableStatement = dbConnection.prepareCall(FC_GET_SALT_FROM_EMAIL);
+            callableStatement.setString(2, email);
+            callableStatement.registerOutParameter(1, Types.BINARY);
+            callableStatement.execute();
+            
+            byte[] empSalt = callableStatement.getBytes(1);
+            String hashedPass = Hash.doHash(plaintextPassword, empSalt);
+            callableStatement.close();
+            
+            return this.password.equals(hashedPass);
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
 }
