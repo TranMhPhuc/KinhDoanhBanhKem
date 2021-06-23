@@ -5,10 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.bill.detail.ProductDetailModelInterface;
-import model.product.ProductModelInterface;
 import model.product.ProductSimpleModelInterface;
-import org.apache.commons.lang3.tuple.MutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 import view.bill.BillExportDialog;
 import view.bill.BillCreatePanel;
 import view.bill.AmountDialog;
@@ -32,6 +29,7 @@ public class BillCreateController implements BillCreateControllerInterface {
         billManageModel.registerOfferedProductUpdateObserver(this);
     }
 
+    @Override
     public void setBillCreatePanel(BillCreatePanel billCreatePanel) {
         if (billCreatePanel == null) {
             throw new NullPointerException();
