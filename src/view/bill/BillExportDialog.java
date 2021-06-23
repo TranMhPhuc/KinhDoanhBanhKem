@@ -1,19 +1,28 @@
 package view.bill;
 
+import com.itextpdf.text.DocumentException;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import control.bill.create.BillCreateControllerInterface;
+import control.bill.create.BillPDF;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import model.bill.BillModelInterface;
 import model.bill.detail.ProductDetailModelInterface;
 import view.MessageShowing;
-import view.bill.BillUpdateObserver;
 import model.bill.BillCreateModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
+import org.apache.commons.io.FilenameUtils;
+import util.messages.Messages;
 
 public class BillExportDialog extends javax.swing.JDialog implements ActionListener,
         BillUpdateObserver, MessageShowing, SettingUpdateObserver {
@@ -135,7 +144,7 @@ public class BillExportDialog extends javax.swing.JDialog implements ActionListe
             labelTotalMoney.setText("Total money:");
             labelGuestMoney.setText("Guest money:");
             labelChangeMoney.setText("Change money:");
-            
+
             btnContinue.setText("Continue");
             btnCancel.setText("Cancel");
 
@@ -147,7 +156,7 @@ public class BillExportDialog extends javax.swing.JDialog implements ActionListe
             labelTotalMoney.setText("Tổng tiền:");
             labelGuestMoney.setText("Tiền khách:");
             labelChangeMoney.setText("Tiền thối:");
-            
+
             btnContinue.setText("Tiếp tục");
             btnCancel.setText("Thoát");
         }
