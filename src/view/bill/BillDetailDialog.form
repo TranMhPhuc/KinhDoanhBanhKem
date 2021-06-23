@@ -31,44 +31,40 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="labelMainTitle" alignment="1" max="32767" attributes="0"/>
-                  <Component id="scrpane" alignment="1" max="32767" attributes="0"/>
+                  <Component id="scrpane" alignment="1" pref="614" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="labelTitleEmployeeName" max="32767" attributes="0"/>
                           <Component id="labelTitleEmployeeID" alignment="0" max="32767" attributes="0"/>
-                          <Component id="labelTitleBillID" alignment="0" max="32767" attributes="0"/>
                           <Component id="labelTitleBillDate" alignment="0" max="32767" attributes="0"/>
+                          <Component id="labelTitleBillID" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="labelExportDate" alignment="0" pref="175" max="32767" attributes="0"/>
-                                  <Component id="labelBillID" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="labelEmployeeID" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="textfEmployeeID" alignment="0" pref="50" max="32767" attributes="0"/>
+                                      <Component id="textfBillID" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="textfExportDate" min="-2" pref="146" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="22" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="labelTitleGuestMoney" max="32767" attributes="0"/>
-                                          <Component id="labelTitleChangeMoney" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="labelGuestMoney" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                          <Component id="labelChangeMoney" min="-2" pref="200" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="labelTitlePayment" max="32767" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="labelTotalMoney" min="-2" pref="200" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="labelTitleGuestMoney" max="32767" attributes="0"/>
+                                  <Component id="labelTitleChangeMoney" max="32767" attributes="0"/>
+                                  <Component id="labelTitlePayment" max="32767" attributes="0"/>
                               </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="currencyTotalMoney" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
+                                  <Component id="currencyGuestMoney" min="-2" pref="152" max="-2" attributes="0"/>
+                                  <Component id="currencyChangeMoney" min="-2" pref="152" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="labelEmployeeName" min="-2" pref="343" max="-2" attributes="0"/>
+                              <Component id="textfEmployeeName" min="-2" pref="190" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -83,45 +79,44 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Component id="labelMainTitle" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="labelTitleBillID" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelBillID" alignment="1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="labelTotalMoney" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelTitlePayment" min="-2" max="-2" attributes="0"/>
-                  </Group>
+              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="labelTitleBillID" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelTitlePayment" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="currencyTotalMoney" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="textfBillID" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="labelTitleBillDate" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="labelTitleGuestMoney" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelGuestMoney" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="labelExportDate" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="textfEmployeeID" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelTitleEmployeeID" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="labelTitleBillDate" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="labelTitleGuestMoney" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="currencyGuestMoney" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="labelTitleChangeMoney" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelChangeMoney" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelTitleEmployeeID" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelEmployeeID" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="currencyChangeMoney" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfExportDate" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="labelTitleEmployeeName" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="labelEmployeeName" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="textfEmployeeName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="scrpane" min="-2" pref="248" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace pref="15" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -133,7 +128,7 @@
           <Font name="Segoe UI" size="15" style="0"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="4"/>
-        <Property name="text" type="java.lang.String" value="Bill ID: "/>
+        <Property name="text" type="java.lang.String" value="Bill ID:"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="scrpane">
@@ -195,14 +190,6 @@
         <Property name="text" type="java.lang.String" value="Bill Detail"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelBillID">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="15" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="1"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="labelTitleBillDate">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -239,50 +226,6 @@
         <Property name="text" type="java.lang.String" value="Change:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelExportDate">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="99" green="99" red="99" type="rgb"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="15" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="6/9/1969"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="labelTotalMoney">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="99" green="99" red="99" type="rgb"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="15" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="499 000 VND"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="labelGuestMoney">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="99" green="99" red="99" type="rgb"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="15" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="500 000 VND"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="labelChangeMoney">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="99" green="99" red="99" type="rgb"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="15" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="1000 VND"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="labelTitleEmployeeID">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -290,17 +233,6 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="11"/>
         <Property name="text" type="java.lang.String" value="Employee ID:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="labelEmployeeID">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="99" green="99" red="99" type="rgb"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="15" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="15"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labelTitleEmployeeName">
@@ -312,15 +244,62 @@
         <Property name="text" type="java.lang.String" value="Employee name:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelEmployeeName">
+    <Component class="javax.swing.JFormattedTextField" name="currencyTotalMoney">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="99" green="99" red="99" type="rgb"/>
-        </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="15" style="1"/>
+          <Font name="Segoe UI" size="15" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="15"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new CurrencyTextField()"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="currencyGuestMoney">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="15" style="0"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new CurrencyTextField()"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="currencyChangeMoney">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="15" style="0"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new CurrencyTextField()"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textfBillID">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="15" style="0"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textfEmployeeID">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="15" style="0"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textfEmployeeName">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="15" style="0"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textfExportDate">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="15" style="0"/>
+        </Property>
       </Properties>
     </Component>
   </SubComponents>

@@ -267,11 +267,11 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
         btnRemove = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         panelSelectIngredient = new javax.swing.JPanel();
-        combUnit = new javax.swing.JComboBox<>();
-        labelIngredientUnit = new javax.swing.JLabel();
         labelIngredientName = new javax.swing.JLabel();
-        labelIngredientAmount = new javax.swing.JLabel();
         combName = new javax.swing.JComboBox<>();
+        labelIngredientUnit = new javax.swing.JLabel();
+        combUnit = new javax.swing.JComboBox<>();
+        labelIngredientAmount = new javax.swing.JLabel();
         spinnerAmount = new javax.swing.JSpinner();
         btnAdd = new javax.swing.JButton();
 
@@ -280,7 +280,7 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        tableIngredient.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        tableIngredient.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         tableIngredient.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -325,40 +325,42 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
         btnCancel.setPreferredSize(new java.awt.Dimension(150, 40));
         jPanel3.add(btnCancel);
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         btnRemove.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Trash_30px.png"))); // NOI18N
         btnRemove.setText("Remove");
         jPanel2.add(btnRemove);
 
         btnClear.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/clear.png"))); // NOI18N
         btnClear.setText("Clear");
         jPanel2.add(btnClear);
 
         panelSelectIngredient.setBackground(new java.awt.Color(255, 255, 255));
         panelSelectIngredient.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Select ingredient", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(153, 153, 153))); // NOI18N
 
-        combUnit.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-
-        labelIngredientUnit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        labelIngredientUnit.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        labelIngredientUnit.setText("Unit:");
-
-        labelIngredientName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelIngredientName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelIngredientName.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         labelIngredientName.setText("Name:");
 
-        labelIngredientAmount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        combName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        combName.setPreferredSize(new java.awt.Dimension(200, 31));
+
+        labelIngredientUnit.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelIngredientUnit.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelIngredientUnit.setText("Unit:");
+
+        combUnit.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        combUnit.setPreferredSize(new java.awt.Dimension(105, 31));
+
+        labelIngredientAmount.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelIngredientAmount.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         labelIngredientAmount.setText("Amount:");
 
-        combName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-
         spinnerAmount.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         spinnerAmount.setModel(new javax.swing.SpinnerNumberModel(1.0f, 1.0f, null, 1.0f));
-
-        btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        btnAdd.setText("Add");
 
         javax.swing.GroupLayout panelSelectIngredientLayout = new javax.swing.GroupLayout(panelSelectIngredient);
         panelSelectIngredient.setLayout(panelSelectIngredientLayout);
@@ -366,53 +368,62 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
             panelSelectIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSelectIngredientLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelSelectIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelSelectIngredientLayout.createSequentialGroup()
-                        .addComponent(labelIngredientName)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(combName, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(labelIngredientUnit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(combUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(labelIngredientAmount)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(spinnerAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addComponent(labelIngredientName)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(combName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(labelIngredientUnit)
+                .addGap(5, 5, 5)
+                .addComponent(combUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelIngredientAmount)
+                .addGap(5, 5, 5)
+                .addComponent(spinnerAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelSelectIngredientLayout.setVerticalGroup(
             panelSelectIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSelectIngredientLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(panelSelectIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelSelectIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(labelIngredientUnit)
-                        .addComponent(combUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelSelectIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(labelIngredientName)
-                        .addComponent(labelIngredientAmount)
-                        .addComponent(combName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(spinnerAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30)
-                .addComponent(btnAdd)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelSelectIngredientLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(panelSelectIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(combName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelIngredientName)))
+                    .addGroup(panelSelectIngredientLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(labelIngredientUnit))
+                    .addGroup(panelSelectIngredientLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(panelSelectIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelSelectIngredientLayout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(labelIngredientAmount))
+                            .addComponent(spinnerAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(combUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(8, 8, 8))
         );
+
+        btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Add_30px.png"))); // NOI18N
+        btnAdd.setText("Add");
+        btnAdd.setPreferredSize(new java.awt.Dimension(100, 46));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 921, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelSelectIngredient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scrpaneIngredientSelected)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrpaneIngredientSelected, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(panelSelectIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 265, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(labelIngredientOfProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -421,13 +432,18 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelSelectIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(panelSelectIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelIngredientOfProduct)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrpaneIngredientSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
