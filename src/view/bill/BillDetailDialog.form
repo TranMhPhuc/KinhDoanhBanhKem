@@ -79,12 +79,25 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Component id="labelMainTitle" min="-2" max="-2" attributes="0"/>
+<<<<<<< HEAD
               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="labelTitleBillID" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="labelTitlePayment" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="currencyTotalMoney" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="textfBillID" alignment="3" min="-2" max="-2" attributes="0"/>
+=======
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="labelBillID" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelTitleBillID" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="labelTotalMoney" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelTitlePayment" min="-2" max="-2" attributes="0"/>
+                  </Group>
+>>>>>>> f6e28f1b844619dfae0d8105f8ca5aba61493c08
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">

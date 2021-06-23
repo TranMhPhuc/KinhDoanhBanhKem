@@ -59,6 +59,8 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
             this.controller.requestLogin("baohtp@gmail.com", "Nvbh123@");
 //            this.controller.requestLogin("nhantd@gmail.com", "Nvbh345@");
 //            this.controller.requestLogin("ngocnhu@gmail.com", "Nvbh456@");
+
+
         } else if (source == btnForgotPassword) {
             this.controller.requestRecoverPassword();
         }

@@ -1,5 +1,9 @@
 package model.bill;
 
+import com.itextpdf.text.DocumentException;
+import control.bill.create.BillPDF;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,6 +15,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 import me.xdrop.fuzzywuzzy.model.BoundExtractedResult;
 import model.bill.detail.ProductDetailModel;
@@ -21,8 +28,10 @@ import model.ingredient.IngredientManageModel;
 import model.product.ProductSimpleModel;
 import model.product.ProductSimpleModelInterface;
 import model.user.UserModel;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import util.constant.AppConstant;
+import util.messages.Messages;
 import view.bill.BillInsertedObserver;
 
 public class BillCreateModel implements BillCreateModelInterface {
@@ -185,6 +194,53 @@ public class BillCreateModel implements BillCreateModelInterface {
         for (ProductDetailModelInterface productDetail : selectedProducts) {
             productDetail.setBill(bill);
             productDetail.insertToDatabase();
+        }
+        
+        JFileChooser pdfFileChooser = new JFileChooser() {
+            @Override
+            public void approveSelection() {
+                File f = getSelectedFile();
+
+                if (f.exists() && getDialogType() == JFileChooser.CUSTOM_DIALOG) {
+                    String notify = f.getName() + Messages.getInstance().OTHERS_REPLACE_EXCEL;
+                    int result = JOptionPane.showConfirmDialog(null, notify,
+                            "BakeryMS", JOptionPane.YES_NO_OPTION);
+                    switch (result) {
+                        case JOptionPane.YES_OPTION:
+                            super.approveSelection();
+                            return;
+                        case JOptionPane.NO_OPTION:
+                            return;
+                        case JOptionPane.CLOSED_OPTION:
+                            return;
+                        case JOptionPane.CANCEL_OPTION:
+                            cancelSelection();
+                            return;
+                    }
+                }
+                super.approveSelection();
+            }
+        };
+        pdfFileChooser.setDialogTitle("Export bill to pdf file");
+        FileNameExtensionFilter excelFilter = new FileNameExtensionFilter(
+                "PDF file (.pdf)", "pdf", "PDF");
+        pdfFileChooser.setFileFilter(excelFilter);
+        int choose = pdfFileChooser.showDialog(null, "Export");
+        if (choose == JFileChooser.APPROVE_OPTION) {
+            String absolutePath = pdfFileChooser.getSelectedFile()
+                    .getAbsolutePath();
+            String filePath = absolutePath.substring(0, absolutePath
+                    .lastIndexOf(File.separator)) + File.separator;
+            String fileName = FilenameUtils.removeExtension(pdfFileChooser
+                    .getSelectedFile().getName());
+            String result = filePath + fileName + ".pdf";
+            try {
+                BillPDF.exportBill(bill, selectedProducts.iterator(), result);
+            } catch (DocumentException ex) {
+                Logger.getLogger(BillCreateModel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(BillCreateModel.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         selectedProducts.clear();

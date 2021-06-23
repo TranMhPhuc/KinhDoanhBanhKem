@@ -1,9 +1,14 @@
 package control.bill.create;
 
+import com.itextpdf.text.DocumentException;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import model.bill.detail.ProductDetailModelInterface;
 import model.product.ProductSimpleModelInterface;
 import view.bill.BillExportDialog;
@@ -11,6 +16,7 @@ import view.bill.BillCreatePanel;
 import view.bill.AmountDialog;
 import model.bill.BillCreateModelInterface;
 import model.setting.AppSetting;
+import org.apache.commons.io.FilenameUtils;
 import util.messages.Messages;
 
 public class BillCreateController implements BillCreateControllerInterface {
@@ -111,35 +117,35 @@ public class BillCreateController implements BillCreateControllerInterface {
             dialogAmount = new AmountDialog(billCreatePanel.getMaiFrame(), true, this);
             AppSetting.getInstance().registerObserver(dialogAmount);
         }
-        
+
         int selectedProductedAmount = billManageModel.getSelectedProductByIndex(rowID).getAmount();
-        
+
         dialogAmount.setAmountInput(selectedProductedAmount);
-        
+
         dialogAmount.setVisible(true);
     }
 
     @Override
     public void validateAmountInputFromDialog() {
         int newAmount = dialogAmount.getAmountInput();
-        
+
         int rowID = billCreatePanel.getSelectedProductTableSelectedRowIndex();
-        
+
         ProductDetailModelInterface selectedProduct = billManageModel.getSelectedProductByIndex(rowID);
-        
+
         int originAmount = billManageModel.getOriginAmountOfProduct(selectedProduct);
-        
+
         if (newAmount > originAmount) {
             String messageFormat = Messages.getInstance().BILL_NOT_ENOUGH_AMOUNT;
             ProductSimpleModelInterface offeredProduct = selectedProduct.getProduct();
-            JOptionPane.showMessageDialog(dialogAmount, 
-                    String.format(messageFormat, offeredProduct.getName(), offeredProduct.getSize().toString()), 
+            JOptionPane.showMessageDialog(dialogAmount,
+                    String.format(messageFormat, offeredProduct.getName(), offeredProduct.getSize().toString()),
                     null, JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
             return;
         }
-        
+
         this.billManageModel.updateAmountOfSelectedProduct(rowID, newAmount);
-        
+
         dialogAmount.dispose();
     }
 
