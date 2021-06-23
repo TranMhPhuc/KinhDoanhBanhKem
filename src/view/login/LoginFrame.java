@@ -60,8 +60,8 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
         if (source == btnSignIn) {
             String emailInput = textfEmail.getText().trim();
             String passwordInput = String.valueOf(passfPassword.getPassword());
-            this.controller.requestLogin(emailInput, passwordInput);
-//            this.controller.requestLogin("baohtp@gmail.com", "Nvbh123@");
+//            this.controller.requestLogin(emailInput, passwordInput);
+            this.controller.requestLogin("baohtp@gmail.com", "Nvbh123@");
 //            this.controller.requestLogin("nhantd@gmail.com", "Nvbh345@");
 //            this.controller.requestLogin("dv@gmail.com", "Nvbh234@");
         } else if (source == btnForgotPassword) {

@@ -26,9 +26,6 @@ public class MainFrameController implements MainFrameControllerInterface {
 
     private PasswordChangeDialog dialogPasswordChange;
     
-    private static final String FC_GET_SALT_FROM_EMAIL 
-            = "{? = call get_salt_from_email(?)}";
-
     public MainFrameController(UserModelInterface userModel) {
         this.userModel = userModel;
         switch (userModel.getUserType()) {

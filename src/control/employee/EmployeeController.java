@@ -67,7 +67,7 @@ public class EmployeeController implements EmployeeControllerInterface {
                 return false;
             }
             case INVALLID: {
-                employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_PID_DIGITS_1
+                employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_PHONE_NUMBER_DIGITS_1
                         + PhoneValidator.getPhoneNumValid() + Messages.getInstance().EMPLOYEE_PHONE_NUMBER_DIGITS_2);
                 return false;
             }
