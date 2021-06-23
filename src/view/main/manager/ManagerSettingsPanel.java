@@ -43,7 +43,6 @@ public class ManagerSettingsPanel extends javax.swing.JPanel implements SettingU
         }
         this.appSettingModel = appSettingModel;
         appSettingModel.registerObserver(this);
-        loadSettingData();
     }
 
     public void setManagerSettingController(ManagerSettingController managerSettingController) {
@@ -107,19 +106,14 @@ public class ManagerSettingsPanel extends javax.swing.JPanel implements SettingU
         return ckbShowWarning.isSelected();
     }
 
-    private void loadSettingData() {
-        updateSettingObserver();
-        AppSetting.Language appLanguage = appSettingModel.getAppLanguage();
-        combLanguage.setSelectedItem(appLanguage.toString());
-        ckbConfirmSignOut.setSelected(appSettingModel.getConfirmSignOutFlag());
-        ckbConfirmExit.setSelected(appSettingModel.getConfirmExitFlag());
-    }
-
     @Override
     public void updateSettingObserver() {
-        ckbShowWarning.setSelected(appSettingModel.getDiagnosticFlag());
-
         AppSetting.Language appLanguage = appSettingModel.getAppLanguage();
+        combLanguage.setSelectedItem(appLanguage.toString());
+        ckbShowWarning.setSelected(appSettingModel.getDiagnosticFlag());
+        ckbConfirmSignOut.setSelected(appSettingModel.getConfirmSignOutFlag());
+        ckbConfirmExit.setSelected(appSettingModel.getConfirmExitFlag());
+
         switch (appLanguage) {
             case ENGLISH: {
                 labelOption.setText("Options");

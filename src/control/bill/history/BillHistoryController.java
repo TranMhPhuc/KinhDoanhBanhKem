@@ -1,24 +1,15 @@
 package control.bill.history;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.bill.BillHistoryModelInterface;
-import model.bill.BillModel;
-import model.bill.detail.ProductDetailModel;
-import util.db.SQLServerConnection;
 import view.bill.BillDetailDialog;
 import view.bill.BillHistoryPanel;
 import model.bill.detail.ProductDetailModelInterface;
 import model.bill.BillModelInterface;
+import model.setting.AppSetting;
 import util.excel.ExcelTransfer;
 import util.messages.Messages;
 
@@ -52,7 +43,7 @@ public class BillHistoryController implements BillHistoryControllerInterface {
             billHistoryPanel.showErrorMessage(Messages.getInstance().BILLH_LIST_EMPTY);
             return;
         }
-        
+
         ExcelTransfer.exportTableToExcel(billHistoryPanel.getTableBillInfo());
     }
 
@@ -93,24 +84,25 @@ public class BillHistoryController implements BillHistoryControllerInterface {
     @Override
     public void requestShowBillDetail() {
         int rowID = billHistoryPanel.getTableBillSelectedRowIndex();
-        
+
         if (rowID == -1) {
             billHistoryPanel.showErrorMessage(Messages.getInstance().BILLH_NO_BILL_CHOSEN);
             return;
         }
-        
+
         if (dialogBillDetail == null) {
             dialogBillDetail = new BillDetailDialog(billHistoryPanel.getMainFrame(), true, this);
+            AppSetting.getInstance().registerObserver(dialogBillDetail);
         }
-        
+
         BillModelInterface selectedBill = searchList.get(rowID);
-        
+
         dialogBillDetail.setBillInfo(selectedBill);
-        
+
         Iterator<ProductDetailModelInterface> iterator = billHistoryModel.getBillDetail(selectedBill);
-        
+
         dialogBillDetail.setTableBillDetail(iterator);
-        
+
         dialogBillDetail.setVisible(true);
     }
 
@@ -132,6 +124,11 @@ public class BillHistoryController implements BillHistoryControllerInterface {
         billHistoryModel.loadTodayBillData();
         billHistoryPanel.setDateFromInput(LocalDate.now());
         billHistoryPanel.setDateToInput(LocalDate.now());
+    }
+
+    @Override
+    public void updateInsertedBillObserver() {
+        requestShowBillFromDateRange();
     }
 
 }

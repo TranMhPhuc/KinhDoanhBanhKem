@@ -52,7 +52,7 @@ public class BillPreviewDialog extends javax.swing.JDialog {
     }
 
     private static Font RECORD_FONT = new Font("Segoe UI", 0, 15);
-
+    
     private void exportBill(JPanel panel) {
         PrinterJob printerJob = PrinterJob.getPrinterJob();
         printerJob.setJobName("Print Record");

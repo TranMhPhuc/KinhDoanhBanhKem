@@ -67,7 +67,7 @@ public class EmployeeController implements EmployeeControllerInterface {
                 return false;
             }
             case INVALLID: {
-                employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_PID_DIGITS_1
+                employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_PHONE_NUMBER_DIGITS_1
                         + PhoneValidator.getPhoneNumValid() + Messages.getInstance().EMPLOYEE_PHONE_NUMBER_DIGITS_2);
                 return false;
             }
@@ -295,13 +295,13 @@ public class EmployeeController implements EmployeeControllerInterface {
             employee.setEndDate(new java.sql.Date(endDate.getTime()));
         }
 
-        employee.randomPassword();
-
+        String randomPlaintextPassword = employee.randomPassword();
+        
         this.employeeManageModel.addEmployee(employee);
 
         // if save to data successfully, then notify employee generated password sent to email
-        MailUtility.sendPasswordNewEmployee(employeeEmail, employee.getPassword());
-
+        MailUtility.sendPasswordNewEmployee(employeeEmail, randomPlaintextPassword);
+        randomPlaintextPassword = "";
         for (int i = 0; i < shiftNameSelected.size(); i++) {
             ShiftDetailModelInterface shiftDetail = new ShiftDetailModel();
             shiftDetail.setEmployee(employee);

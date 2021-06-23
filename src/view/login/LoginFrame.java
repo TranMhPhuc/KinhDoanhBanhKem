@@ -9,8 +9,10 @@ import control.login.LoginControllerInterface;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.UIManager;
+import model.setting.SettingUpdateObserver;
 
-public class LoginFrame extends javax.swing.JFrame implements MessageShowing, ActionListener {
+public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
+        ActionListener {
 
     private UserModelInterface model;
     private LoginControllerInterface controller;
@@ -61,7 +63,7 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing, Ac
 //            this.controller.requestLogin(emailInput, passwordInput);
 //            this.controller.requestLogin("baohtp@gmail.com", "Nvbh123@");
 //            this.controller.requestLogin("nhantd@gmail.com", "Nvbh345@");
-            this.controller.requestLogin("dv@gmail.com", "Nvbh234@");
+            this.controller.requestLogin("ngocnhu@gmail.com", "Nvbh456@");
         } else if (source == btnForgotPassword) {
             this.controller.requestRecoverPassword();
         }
@@ -107,10 +109,10 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing, Ac
         jLabel1 = new javax.swing.JLabel();
         jLabel_dashLine = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        label_email = new javax.swing.JLabel();
+        labelEmail = new javax.swing.JLabel();
         ckbShowPassword = new javax.swing.JCheckBox();
         btnSignIn = new javax.swing.JButton();
-        label_password = new javax.swing.JLabel();
+        labelPassword = new javax.swing.JLabel();
         btnForgotPassword = new javax.swing.JButton();
         passfPassword = new javax.swing.JPasswordField();
         textfEmail = new javax.swing.JTextField();
@@ -150,10 +152,10 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing, Ac
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        label_email.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_email.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_email.setText("Email:");
-        label_email.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        labelEmail.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelEmail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelEmail.setText("Email:");
+        labelEmail.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         ckbShowPassword.setBackground(new java.awt.Color(255, 255, 255));
         ckbShowPassword.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -166,10 +168,10 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing, Ac
         btnSignIn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSignIn.setFocusPainted(false);
 
-        label_password.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        label_password.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_password.setText("Password:");
-        label_password.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        labelPassword.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelPassword.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelPassword.setText("Password:");
+        labelPassword.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         btnForgotPassword.setBackground(new java.awt.Color(51, 102, 255));
         btnForgotPassword.setFont(new java.awt.Font("Segoe UI", 2, 15)); // NOI18N
@@ -194,8 +196,8 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing, Ac
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label_email)
-                            .addComponent(label_password))
+                            .addComponent(labelEmail)
+                            .addComponent(labelPassword))
                         .addGap(331, 331, 331))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -212,11 +214,11 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing, Ac
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(label_email)
+                .addComponent(labelEmail)
                 .addGap(3, 3, 3)
                 .addComponent(textfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(label_password)
+                .addComponent(labelPassword)
                 .addGap(12, 12, 12)
                 .addComponent(passfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -253,8 +255,8 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing, Ac
     private javax.swing.JLabel jLabel_dashLine;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel label_email;
-    private javax.swing.JLabel label_password;
+    private javax.swing.JLabel labelEmail;
+    private javax.swing.JLabel labelPassword;
     private javax.swing.JLabel label_signIn;
     private javax.swing.JPanel panelLogin;
     private javax.swing.JPasswordField passfPassword;

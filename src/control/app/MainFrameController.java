@@ -24,8 +24,8 @@ public class MainFrameController implements MainFrameControllerInterface {
     private ProfilePanel profilePanel;
     private UserModelInterface userModel;
 
-    private PasswordChangeDialog passwordChangeDialog;
-
+    private PasswordChangeDialog dialogPasswordChange;
+    
     public MainFrameController(UserModelInterface userModel) {
         this.userModel = userModel;
         switch (userModel.getUserType()) {
@@ -104,40 +104,39 @@ public class MainFrameController implements MainFrameControllerInterface {
 
     @Override
     public void requestChangePassword() {
-        if (passwordChangeDialog == null) {
-            passwordChangeDialog = new PasswordChangeDialog(mainFrame, true, this);
+        if (dialogPasswordChange == null) {
+            dialogPasswordChange = new PasswordChangeDialog(mainFrame, true, this);
+            AppSetting.getInstance().registerObserver(dialogPasswordChange);
         }
-        passwordChangeDialog.setVisible(true);
+        dialogPasswordChange.setVisible(true);
     }
 
     @Override
     public void checkPasswordUpdateInput() {
-        if (passwordChangeDialog == null) {
+        if (dialogPasswordChange == null) {
             throw new NullPointerException();
         }
 
-        String oldPasswordInput = passwordChangeDialog.getOldPasswordInput();
+        String oldPasswordInput = dialogPasswordChange.getOldPasswordInput();
 
         if (oldPasswordInput.isEmpty()) {
             ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_OLD_PASSWORD_EMPTY);
             return;
         }
 
-        String userPassword = userModel.getImpl().getPassword();
-
-        if (!oldPasswordInput.equals(userPassword)) {
+        if (!userModel.getImpl().isCorrectPassword(oldPasswordInput)) {
             ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_OLD_PASSWORD_INCORRECT);
             return;
         }
 
-        String newPasswordInput = passwordChangeDialog.getNewPasswordInput();
+        String newPasswordInput = dialogPasswordChange.getNewPasswordInput();
 
         if (newPasswordInput.isEmpty()) {
             ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_NEW_PASSWORD_EMPTY);
             return;
         }
 
-        String verifyPasswordInput = passwordChangeDialog.getVerifyPasswordInput();
+        String verifyPasswordInput = dialogPasswordChange.getVerifyPasswordInput();
 
         if (verifyPasswordInput.isEmpty()) {
             ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_NEW_PASSWORD_VERIFICATION_EMPTY);
@@ -153,7 +152,7 @@ public class MainFrameController implements MainFrameControllerInterface {
 
         ((MessageShowing) mainFrame).showInfoMessage(Messages.getInstance().PROFILE_CHANGE_PASSWORD_SUCCESSFULLY);
 
-        passwordChangeDialog.dispose();
+        dialogPasswordChange.dispose();
     }
 
     @Override

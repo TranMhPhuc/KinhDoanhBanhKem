@@ -1,10 +1,6 @@
 package control.setting;
 
-import java.io.File;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import model.setting.AppSetting;
-import view.PathInputState;
 import view.main.manager.ManagerSettingsPanel;
 
 public class ManagerSettingController extends SettingController {

@@ -8,23 +8,33 @@ import javax.swing.table.DefaultTableModel;
 import util.swing.UIControl;
 import view.MessageShowing;
 import control.bill.create.BillCreateControllerInterface;
+import java.text.DecimalFormat;
 import java.util.Iterator;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.table.TableColumnModel;
 import model.bill.BillModelInterface;
 import model.bill.detail.ProductDetailModelInterface;
 import model.product.ProductSimpleModelInterface;
 import model.bill.BillCreateModelInterface;
+import model.setting.AppSetting;
+import model.setting.SettingUpdateObserver;
+import util.constant.AppConstant;
 import util.swing.CurrencyTextField;
 import util.swing.NumberRenderer;
 
 public class BillCreatePanel extends javax.swing.JPanel implements ActionListener,
-        MessageShowing, BillUpdateObserver {
+        MessageShowing, BillUpdateObserver, SettingUpdateObserver {
 
     public static final int PRODUCT_OFFER_ID_COLUMN_INDEX = 0;
+    public static final int PRODUCT_OFFER_NAME_COLUMN_INDEX = 1;
+    public static final int PRODUCT_OFFER_SIZE_COLUMN_INDEX = 2;
+    public static final int PRODUCT_OFFER_UNIT_PRICE_COLUMN_INDEX = 3;
     public static final int PRODUCT_OFFER_LEFT_AMOUNT_COLUMN_INDEX = 4;
 
     public static final int PRODUCT_SELECT_ID_COLUMN_INDEX = 0;
+    public static final int PRODUCT_SELECT_NAME_COLUMN_INDEX = 1;
+    public static final int PRODUCT_SELECT_SIZE_COLUMN_INDEX = 2;
     public static final int PRODUCT_SELECT_AMOUNT_COLUMN_INDEX = 3;
     public static final int PRODUCT_SELECT_PRICE_COLUMN_INDEX = 4;
 
@@ -78,10 +88,14 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         textfSearchProductName.setText("");
         clearTableProductSelect();
 
-        tableOfferedProduct.getColumnModel().getColumn(3).setCellRenderer(NumberRenderer.getCurrencyRenderer());
-        tableSelectedProduct.getColumnModel().getColumn(4).setCellRenderer(NumberRenderer.getCurrencyRenderer());
-        UIControl.setHorizontalAlignmentForColumn(tableOfferedProduct, 2, JLabel.CENTER);
-        UIControl.setHorizontalAlignmentForColumn(tableSelectedProduct, 2, JLabel.CENTER);
+        tableOfferedProduct.getColumnModel().getColumn(PRODUCT_OFFER_UNIT_PRICE_COLUMN_INDEX)
+                .setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        tableSelectedProduct.getColumnModel().getColumn(PRODUCT_SELECT_PRICE_COLUMN_INDEX)
+                .setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        UIControl.setHorizontalAlignmentForColumn(tableOfferedProduct, 
+                PRODUCT_OFFER_SIZE_COLUMN_INDEX, JLabel.CENTER);
+        UIControl.setHorizontalAlignmentForColumn(tableSelectedProduct, 
+                PRODUCT_SELECT_SIZE_COLUMN_INDEX, JLabel.CENTER);
     }
 
     private void createControl() {
@@ -248,6 +262,70 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
     }
 
     @Override
+    public void updateSettingObserver() {
+        AppSetting.Language appLanguage = AppSetting.getInstance().getAppLanguage();
+        
+        switch (appLanguage) {
+            case ENGLISH: {
+                labelProductList.setText("Product list");
+                labelChosenProduct.setText("Bill detail");
+                labelSearchProduct.setText("Search name:");
+                labelBillID.setText("Bill ID:");
+                labelTotalMoney.setText("Total money:");
+                btnClear.setText("Clear");
+                btnExport.setText("Export");
+                btnSelect.setText("Select");
+                btnEditAmount.setText("Edit amount");
+                btnRemove.setText("Remove");
+                btnClear.setText("Clear");
+                
+                TableColumnModel tableColumnModel = tableOfferedProduct.getColumnModel();
+                tableColumnModel.getColumn(PRODUCT_OFFER_NAME_COLUMN_INDEX).setHeaderValue("Name");
+                tableColumnModel.getColumn(PRODUCT_OFFER_SIZE_COLUMN_INDEX).setHeaderValue("Size");
+                tableColumnModel.getColumn(PRODUCT_OFFER_UNIT_PRICE_COLUMN_INDEX).setHeaderValue("Unit price");
+                tableColumnModel.getColumn(PRODUCT_OFFER_LEFT_AMOUNT_COLUMN_INDEX).setHeaderValue("Left amount");
+                
+                tableColumnModel = tableSelectedProduct.getColumnModel();
+                tableColumnModel.getColumn(PRODUCT_SELECT_NAME_COLUMN_INDEX).setHeaderValue("Name");
+                tableColumnModel.getColumn(PRODUCT_SELECT_SIZE_COLUMN_INDEX).setHeaderValue("Size");
+                tableColumnModel.getColumn(PRODUCT_SELECT_AMOUNT_COLUMN_INDEX).setHeaderValue("Amount");
+                tableColumnModel.getColumn(PRODUCT_SELECT_PRICE_COLUMN_INDEX).setHeaderValue("Price");
+                
+                break;
+            }
+            case VIETNAMESE: {
+                labelProductList.setText("Danh sách sản phẩm");
+                labelChosenProduct.setText("Chi tiết hóa đơn");
+                labelSearchProduct.setText("Tìm theo tên:");
+                labelBillID.setText("Số hóa đơn:");
+                labelTotalMoney.setText("Tổng tiền:");
+                btnClear.setText("Xóa");
+                btnExport.setText("Xuất");
+                btnSelect.setText("Chọn");
+                btnEditAmount.setText("Chỉnh sửa số lượng");
+                btnRemove.setText("Bỏ sản phẩm");
+                btnClear.setText("Xóa danh sách");
+                
+                TableColumnModel tableColumnModel = tableOfferedProduct.getColumnModel();
+                tableColumnModel.getColumn(PRODUCT_OFFER_NAME_COLUMN_INDEX).setHeaderValue("Tên");
+                tableColumnModel.getColumn(PRODUCT_OFFER_SIZE_COLUMN_INDEX).setHeaderValue("Kích thước");
+                tableColumnModel.getColumn(PRODUCT_OFFER_UNIT_PRICE_COLUMN_INDEX).setHeaderValue("Đơn giá");
+                tableColumnModel.getColumn(PRODUCT_OFFER_LEFT_AMOUNT_COLUMN_INDEX).setHeaderValue("Số lượng còn lại");
+                
+                tableColumnModel = tableSelectedProduct.getColumnModel();
+                tableColumnModel.getColumn(PRODUCT_SELECT_NAME_COLUMN_INDEX).setHeaderValue("Tên");
+                tableColumnModel.getColumn(PRODUCT_SELECT_SIZE_COLUMN_INDEX).setHeaderValue("Kích thước");
+                tableColumnModel.getColumn(PRODUCT_SELECT_AMOUNT_COLUMN_INDEX).setHeaderValue("Số lượng");
+                tableColumnModel.getColumn(PRODUCT_SELECT_PRICE_COLUMN_INDEX).setHeaderValue("Giá");
+                
+                break;
+            }
+        }
+        
+        repaint();
+    }
+
+    @Override
     public void showErrorMessage(String message) {
         ((MessageShowing) mainFrame).showErrorMessage(message);
     }
@@ -284,12 +362,12 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         jScrollPane8 = new javax.swing.JScrollPane();
         tableSelectedProduct = new javax.swing.JTable();
         labelTotalMoney = new javax.swing.JLabel();
-        label_prodChoose = new javax.swing.JLabel();
+        labelChosenProduct = new javax.swing.JLabel();
         textfBillID = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         btnEditAmount = new javax.swing.JButton();
-        btnClear = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
         btnExport = new javax.swing.JButton();
         textfTotalMoney = new CurrencyTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -298,10 +376,14 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         setName("BillCreate"); // NOI18N
         setLayout(new java.awt.BorderLayout());
 
+        jSplitPane1.setResizeWeight(0.5);
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMinimumSize(new java.awt.Dimension(600, 639));
         jPanel1.setName("BillCreate"); // NOI18N
-        jPanel1.setPreferredSize(new java.awt.Dimension(900, 639));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 639));
+
+        jScrollPane7.setPreferredSize(new java.awt.Dimension(700, 402));
 
         tableOfferedProduct.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         tableOfferedProduct.setModel(new javax.swing.table.DefaultTableModel(
@@ -327,6 +409,10 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
                 return canEdit [columnIndex];
             }
         });
+        tableOfferedProduct.setIntercellSpacing(new java.awt.Dimension(5, 5));
+        tableOfferedProduct.setRowHeight(25);
+        tableOfferedProduct.setSelectionBackground(new java.awt.Color(113, 168, 255));
+        tableOfferedProduct.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableOfferedProduct.getTableHeader().setReorderingAllowed(false);
         jScrollPane7.setViewportView(tableOfferedProduct);
 
@@ -360,7 +446,7 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         btnSelect.setForeground(new java.awt.Color(51, 51, 51));
         btnSelect.setText("Select");
         btnSelect.setFocusPainted(false);
-        btnSelect.setPreferredSize(new java.awt.Dimension(120, 30));
+        btnSelect.setPreferredSize(new java.awt.Dimension(150, 30));
         jPanel5.add(btnSelect);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -371,12 +457,12 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane7)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelProductList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(labelProductList, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 117, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -426,15 +512,19 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
                 return canEdit [columnIndex];
             }
         });
+        tableSelectedProduct.setIntercellSpacing(new java.awt.Dimension(5, 5));
+        tableSelectedProduct.setRowHeight(25);
+        tableSelectedProduct.setSelectionBackground(new java.awt.Color(113, 168, 255));
+        tableSelectedProduct.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableSelectedProduct.getTableHeader().setReorderingAllowed(false);
         jScrollPane8.setViewportView(tableSelectedProduct);
 
         labelTotalMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelTotalMoney.setText("Total Money");
 
-        label_prodChoose.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
-        label_prodChoose.setText("Chosen products");
-        label_prodChoose.setPreferredSize(new java.awt.Dimension(133, 30));
+        labelChosenProduct.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        labelChosenProduct.setText("Chosen products");
+        labelChosenProduct.setPreferredSize(new java.awt.Dimension(133, 30));
 
         textfBillID.setEditable(false);
         textfBillID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -446,22 +536,22 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
         btnEditAmount.setForeground(new java.awt.Color(51, 51, 51));
         btnEditAmount.setText("Edit amount");
         btnEditAmount.setFocusPainted(false);
-        btnEditAmount.setPreferredSize(new java.awt.Dimension(120, 30));
+        btnEditAmount.setPreferredSize(new java.awt.Dimension(170, 30));
         jPanel4.add(btnEditAmount);
-
-        btnClear.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        btnClear.setForeground(new java.awt.Color(51, 51, 51));
-        btnClear.setText("Clear");
-        btnClear.setFocusPainted(false);
-        btnClear.setPreferredSize(new java.awt.Dimension(120, 30));
-        jPanel4.add(btnClear);
 
         btnRemove.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnRemove.setForeground(new java.awt.Color(51, 51, 51));
         btnRemove.setText("Remove");
         btnRemove.setFocusPainted(false);
-        btnRemove.setPreferredSize(new java.awt.Dimension(120, 30));
+        btnRemove.setPreferredSize(new java.awt.Dimension(150, 30));
         jPanel4.add(btnRemove);
+
+        btnClear.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnClear.setForeground(new java.awt.Color(51, 51, 51));
+        btnClear.setText("Clear");
+        btnClear.setFocusPainted(false);
+        btnClear.setPreferredSize(new java.awt.Dimension(150, 30));
+        jPanel4.add(btnClear);
 
         btnExport.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnExport.setText("Export");
@@ -480,41 +570,42 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 803, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(label_prodChoose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 796, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(labelBillID)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textfBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(labelTotalMoney)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textfTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textfBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addComponent(labelTotalMoney)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textfTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(labelChosenProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(label_prodChoose, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addComponent(labelChosenProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(labelTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textfBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelTotalMoney)
                         .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(textfTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(textfBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textfTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -542,10 +633,10 @@ public class BillCreatePanel extends javax.swing.JPanel implements ActionListene
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JLabel labelBillID;
+    private javax.swing.JLabel labelChosenProduct;
     private javax.swing.JLabel labelProductList;
     private javax.swing.JLabel labelSearchProduct;
     private javax.swing.JLabel labelTotalMoney;
-    private javax.swing.JLabel label_prodChoose;
     private javax.swing.JTable tableOfferedProduct;
     private javax.swing.JTable tableSelectedProduct;
     private javax.swing.JTextField textfBillID;

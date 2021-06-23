@@ -21,6 +21,7 @@ import model.product.ProductSimpleModel;
 import model.product.ProductSize;
 import model.product.ingredientDetail.IngredientDetailModel;
 import model.product.ingredientDetail.IngredientDetailModelInterface;
+import model.setting.AppSetting;
 import org.junit.Assert;
 import util.common.string.StringUtil;
 import util.constant.AppConstant;
@@ -482,6 +483,7 @@ public class ProductController implements ProductControllerInterface {
         if (dialogProductProduce == null) {
             dialogProductProduce = new ProductProduceDialog(productPanel
                     .getMainFrame(), true, this);
+            AppSetting.getInstance().registerObserver(dialogProductProduce);
         }
 
         dialogProductProduce.setProuductIDText(product.getProductIDText());
@@ -583,6 +585,7 @@ public class ProductController implements ProductControllerInterface {
     public void requestEditIngredient() {
         if (dialogIngredientEditing == null) {
             dialogIngredientEditing = new IngredientEditDialog(productPanel.getMainFrame(), true, productManageModel, this);
+            AppSetting.getInstance().registerObserver(dialogIngredientEditing);
         }
         dialogIngredientEditing.setVisible(true);
     }

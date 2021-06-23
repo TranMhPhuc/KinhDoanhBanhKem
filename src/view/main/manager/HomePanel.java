@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -23,7 +24,6 @@ import model.ingredient.IngredientModel;
 import model.ingredient.IngredientModelInterface;
 import model.ingredient.type.IngredientTypeModel;
 import model.ingredient.type.IngredientTypeModelInterface;
-import model.product.ProductModel;
 import model.product.ProductModelInterface;
 import model.product.ProductSimpleModel;
 import model.provider.ProviderModel;
@@ -34,10 +34,12 @@ import org.knowm.xchart.CategoryChart;
 import org.knowm.xchart.CategoryChartBuilder;
 import org.knowm.xchart.PieChart;
 import org.knowm.xchart.PieChartBuilder;
+import org.knowm.xchart.PieSeries;
 import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.style.CategoryStyler;
 import org.knowm.xchart.style.PieStyler;
 import org.knowm.xchart.style.Styler;
+import util.constant.AppConstant;
 import util.db.SQLServerConnection;
 import view.employee.InsertedEmployeeObserver;
 import view.employee.ModifiedEmployeeObserver;
@@ -218,9 +220,18 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
         categoryChartProviderState.setYAxisTitle("Number of ingredient");
 
         CategoryStyler categoryChartProviderStateStyle = categoryChartProviderState.getStyler();
+
+        categoryChartProviderStateStyle.setHasAnnotations(true);
+        categoryChartProviderStateStyle.setChartPadding(30);
+
         categoryChartProviderStateStyle.setLegendVisible(false);
         categoryChartProviderStateStyle.setPlotBorderVisible(false);
         categoryChartProviderStateStyle.setSeriesColors(CATEGORYCHART_PROVIDER_SIDE_COLORS);
+        categoryChartProviderStateStyle.setAvailableSpaceFill(0.4);
+//        categoryChartProviderStateStyle.setXAxisTicksVisible(false);
+
+        categoryChartProviderStateStyle.setAxisTitleFont(AppConstant.AXIS_TITLE_FONT);
+        categoryChartProviderStateStyle.setAxisTickLabelsFont(AppConstant.AXIS_TICK_TITLE_FONT);
 
         panelStateProvider.setLayout(new BorderLayout());
         panelStateProvider.add(new XChartPanel<CategoryChart>(categoryChartProviderState));
@@ -232,7 +243,10 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
         pieChartProductState.setTitle("Product size statistics");
 
         PieStyler pieChartProductStateStyle = pieChartProductState.getStyler();
-        pieChartProductStateStyle.setLegendVisible(false);
+
+        pieChartProductStateStyle.setDrawAllAnnotations(true);
+        pieChartProductStateStyle.setAnnotationType(PieStyler.AnnotationType.Percentage);
+        pieChartProductStateStyle.setLegendVisible(true);
         pieChartProductStateStyle.setPlotBorderVisible(false);
         pieChartProductStateStyle.setSeriesColors(PIECHART_PRODUCT_SIDE_COLORS);
 
@@ -246,6 +260,9 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
         pieChartIngredientState.setTitle("Ingredient type statistics");
 
         PieStyler pieChartIngredientStateStyle = pieChartIngredientState.getStyler();
+
+        pieChartIngredientStateStyle.setDrawAllAnnotations(true);
+        pieChartIngredientStateStyle.setAnnotationType(PieStyler.AnnotationType.Percentage);
         pieChartIngredientStateStyle.setLegendVisible(true);
         pieChartIngredientStateStyle.setPlotBorderVisible(false);
         pieChartIngredientStateStyle.setSeriesColors(PIECHART_INGREDIENT_SIDE_COLORS);
@@ -260,6 +277,9 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
         pieChartEmployeePositionState.setTitle("Employee position statistics");
 
         PieStyler pieChartEmployeePositionStateStyle = pieChartEmployeePositionState.getStyler();
+
+        pieChartEmployeePositionStateStyle.setDrawAllAnnotations(true);
+        pieChartEmployeePositionStateStyle.setAnnotationType(PieStyler.AnnotationType.Percentage);
         pieChartEmployeePositionStateStyle.setLegendVisible(true);
         pieChartEmployeePositionStateStyle.setPlotBorderVisible(false);
         pieChartEmployeePositionStateStyle.setSeriesColors(PIECHART_EMPLOYEE_POSITION_SIDE_COLORS);
@@ -274,13 +294,15 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
         pieChartEmployeeStatusState.setTitle("Employee working status statistics");
 
         PieStyler pieChartEmployeeStatusStateStyle = pieChartEmployeeStatusState.getStyler();
+
+        pieChartEmployeeStatusStateStyle.setDrawAllAnnotations(true);
+        pieChartEmployeeStatusStateStyle.setAnnotationType(PieStyler.AnnotationType.Percentage);
         pieChartEmployeeStatusStateStyle.setLegendVisible(true);
         pieChartEmployeeStatusStateStyle.setPlotBorderVisible(false);
         pieChartEmployeeStatusStateStyle.setSeriesColors(PIECHART_EMPLOYEE_STATUS_SIDE_COLORS);
 
         panelStateEmployeeStatus.setLayout(new BorderLayout());
         panelStateEmployeeStatus.add(new XChartPanel<PieChart>(pieChartEmployeeStatusState));
-
     }
 
     private void loadProviderState() {
@@ -292,20 +314,20 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
 
             ResultSet resultSet = callableStatement.executeQuery();
 
-            List<String> providerNames = new ArrayList<>();
+            List<String> providerIDs = new ArrayList<>();
             List<Integer> importedAmounts = new ArrayList<>();
 
             while (resultSet.next()) {
-                String providerName = resultSet.getString(ProviderModel.NAME_HEADER);
+                String providerID = resultSet.getString(ProviderModel.ID_HEADER);
                 int importedAmount = resultSet.getInt(2);
-                providerNames.add(providerName);
+                providerIDs.add(providerID);
                 importedAmounts.add(importedAmount);
             }
 
             resultSet.close();
             callableStatement.close();
 
-            categoryChartProviderState.addSeries("Data", providerNames, importedAmounts);
+            categoryChartProviderState.addSeries("Data", providerIDs, importedAmounts);
 
         } catch (SQLException ex) {
             Logger.getLogger(HomePanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -313,20 +335,19 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
     }
 
     public void loadProductState() {
-        for (String seriesName : pieChartProductStateSeriesNames) {
-            pieChartProductState.removeSeries(seriesName);
+        Map<String, PieSeries> seriesMap = pieChartProductState.getSeriesMap();
+
+        Object[] seriesNames = seriesMap.keySet().toArray();
+        for (int i = 0; i < seriesNames.length; i++) {
+            pieChartProductState.removeSeries((String) seriesNames[i]);
         }
 
-        pieChartProductStateSeriesNames.clear();
-
         try {
-            CallableStatement callableStatement;
+            CallableStatement callableStatement = dbConnection
+                    .prepareCall(FT_GET_PRODUCT_RECORD_COUNT);
 
-            callableStatement = dbConnection.prepareCall(FT_GET_PRODUCT_RECORD_COUNT);
             callableStatement.registerOutParameter(1, Types.INTEGER);
             callableStatement.execute();
-
-            int totalProductAmount = callableStatement.getInt(1);
 
             callableStatement = dbConnection
                     .prepareCall(SP_GET_PRODUCT_SIZE_STATISTICS);
@@ -336,10 +357,7 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
             while (resultSet.next()) {
                 String productSize = resultSet.getString(ProductSimpleModel.SIZE_HEADER);
                 int productAmount = resultSet.getInt(2);
-                float percent = (float) productAmount / totalProductAmount * 100;
-                String seriesName = String.format("Size %s (%.2f%%)", productSize, percent);
-                pieChartProductState.addSeries(seriesName, productAmount);
-                pieChartProductStateSeriesNames.add(seriesName);
+                pieChartProductState.addSeries("Size " + productSize, productAmount);
             }
 
             resultSet.close();
@@ -351,11 +369,12 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
     }
 
     private void loadIngredientState() {
-        for (String seriesName : pieChartIngredientStateSeriesNames) {
-            pieChartIngredientState.removeSeries(seriesName);
-        }
+        Map<String, PieSeries> seriesMap = pieChartIngredientState.getSeriesMap();
 
-        pieChartIngredientStateSeriesNames.clear();
+        Object[] seriesNames = seriesMap.keySet().toArray();
+        for (int i = 0; i < seriesNames.length; i++) {
+            pieChartIngredientState.removeSeries((String) seriesNames[i]);
+        }
 
         try {
             CallableStatement callableStatement;
@@ -363,8 +382,6 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
             callableStatement = dbConnection.prepareCall(FT_GET_INGREDIENT_RECORD_COUNT);
             callableStatement.registerOutParameter(1, Types.INTEGER);
             callableStatement.execute();
-
-            int totalIngredientAmount = callableStatement.getInt(1);
 
             callableStatement = dbConnection
                     .prepareCall(SP_GET_INGREDIENT_TYPE_STATISTICS);
@@ -374,10 +391,7 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
             while (resultSet.next()) {
                 String ingredientTypeName = resultSet.getString(IngredientTypeModel.NAME_HEADER);
                 int amount = resultSet.getInt(2);
-                float percent = (float) amount / totalIngredientAmount * 100;
-                String seriesName = String.format("%s \n(%.2f%%)", ingredientTypeName, percent);
-                pieChartIngredientState.addSeries(seriesName, amount);
-                pieChartIngredientStateSeriesNames.add(seriesName);
+                pieChartIngredientState.addSeries(ingredientTypeName, amount);
             }
 
             resultSet.close();
@@ -388,11 +402,12 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
     }
 
     private void loadEmployeePositionState() {
-        for (String seriesName : pieChartEmployeePositionStateSeriesNames) {
-            pieChartEmployeePositionState.removeSeries(seriesName);
-        }
+        Map<String, PieSeries> seriesMap = pieChartEmployeePositionState.getSeriesMap();
 
-        pieChartEmployeePositionStateSeriesNames.clear();
+        Object[] seriesNames = seriesMap.keySet().toArray();
+        for (int i = 0; i < seriesNames.length; i++) {
+            pieChartEmployeePositionState.removeSeries((String) seriesNames[i]);
+        }
 
         try {
             CallableStatement callableStatement;
@@ -400,8 +415,6 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
             callableStatement = dbConnection.prepareCall(FT_GET_EMPLOYEE_RECORD_COUNT);
             callableStatement.registerOutParameter(1, Types.INTEGER);
             callableStatement.execute();
-
-            int totalEmployeeAmount = callableStatement.getInt(1);
 
             callableStatement = dbConnection
                     .prepareCall(SP_GET_EMPLOYEE_POSITION_STATISTICS);
@@ -411,9 +424,7 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
             while (resultSet.next()) {
                 String positionName = resultSet.getString(EmployeeModel.POSITION_NAME_HEADER);
                 int amount = resultSet.getInt(2);
-                String seriesName = String.format("%s \n(%d/%d)", positionName, amount, totalEmployeeAmount);
-                pieChartEmployeePositionState.addSeries(seriesName, amount);
-                pieChartEmployeePositionStateSeriesNames.add(seriesName);
+                pieChartEmployeePositionState.addSeries(positionName, amount);
             }
 
             resultSet.close();
@@ -424,11 +435,12 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
     }
 
     private void loadEmployeeStatusState() {
-        for (String seriesName : pieChartEmployeeStatusStateSeriesNames) {
-            pieChartEmployeeStatusState.removeSeries(seriesName);
-        }
+        Map<String, PieSeries> seriesMap = pieChartEmployeeStatusState.getSeriesMap();
 
-        pieChartEmployeeStatusStateSeriesNames.clear();
+        Object[] seriesNames = seriesMap.keySet().toArray();
+        for (int i = 0; i < seriesNames.length; i++) {
+            pieChartEmployeeStatusState.removeSeries((String) seriesNames[i]);
+        }
 
         try {
             CallableStatement callableStatement;
@@ -448,9 +460,7 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
                 boolean employeeStatus = resultSet.getBoolean(EmployeeModel.STATUS_HEADER);
                 String statusName = employeeStatus ? "Working" : "No-working";
                 int amount = resultSet.getInt(2);
-                String seriesName = String.format("%s \n(%d/%d)", statusName, amount, totalEmployeeAmount);
-                pieChartEmployeeStatusState.addSeries(seriesName, amount);
-                pieChartEmployeeStatusStateSeriesNames.add(seriesName);
+                pieChartEmployeeStatusState.addSeries(statusName, amount);
             }
 
             resultSet.close();
@@ -605,7 +615,7 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
                 pieChartEmployeeStatusState.setTitle("Số lượng nhân viên theo trạng thái");
                 categoryChartProviderState.setTitle("Số lượng nguyên liệu thuộc mỗi nhà cung cấp");
                 categoryChartProviderState.setXAxisTitle("Nhà cung cấp");
-                categoryChartProviderState.setYAxisTitle("Số lượng nguyên liệu nhập");
+                categoryChartProviderState.setYAxisTitle("Số lượng nguyên liệu");
                 break;
             }
         }
