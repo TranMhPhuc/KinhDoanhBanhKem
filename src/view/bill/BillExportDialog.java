@@ -1,28 +1,22 @@
 package view.bill;
 
-import com.itextpdf.text.DocumentException;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import control.bill.create.BillCreateControllerInterface;
-import control.bill.create.BillPDF;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import model.bill.BillModelInterface;
 import model.bill.detail.ProductDetailModelInterface;
 import view.MessageShowing;
 import model.bill.BillCreateModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
-import org.apache.commons.io.FilenameUtils;
-import util.messages.Messages;
+import util.swing.CurrencyTextField;
 
 public class BillExportDialog extends javax.swing.JDialog implements ActionListener,
         BillUpdateObserver, MessageShowing, SettingUpdateObserver {
@@ -58,7 +52,12 @@ public class BillExportDialog extends javax.swing.JDialog implements ActionListe
         this.textfGuestMoney.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent event) {
-                billCreateController.validateGuestMoney();
+                try {
+                    ((CurrencyTextField) textfGuestMoney).commitEdit();
+                    billCreateController.validateGuestMoney();
+                } catch (ParseException ex) {
+                    Logger.getLogger(BillExportDialog.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
             @Override
@@ -78,7 +77,12 @@ public class BillExportDialog extends javax.swing.JDialog implements ActionListe
     }
 
     public void setBillTotalMoney(String totalMoney) {
-        this.textfTotalMoney.setText(totalMoney);
+        if (totalMoney.equals("")) {
+            this.textfTotalMoney.setValue(null);
+        } else {
+            this.textfTotalMoney.setValue(Integer.parseInt(totalMoney));
+        }
+
     }
 
     public void setBtnContinueEnable(boolean enable) {
@@ -90,15 +94,24 @@ public class BillExportDialog extends javax.swing.JDialog implements ActionListe
     }
 
     public void setGuestMoneyText(String guestMoney) {
-        this.textfGuestMoney.setText(guestMoney);
+        if (guestMoney.equals("")) {
+            this.textfGuestMoney.setValue(null);
+        } else {
+            this.textfGuestMoney.setValue(Integer.parseInt(guestMoney));
+        }
     }
 
     public void setChangeMoneyText(String text) {
-        this.textfChangeMoney.setText(text);
+        if (text.equals("")) {
+            textfChangeMoney.setValue(null);
+        } else {
+            this.textfChangeMoney.setValue(text);
+        }
+
     }
 
     public String getGuestMoneyInput() {
-        return textfGuestMoney.getText().trim();
+        return String.valueOf(textfGuestMoney.getValue());
     }
 
     @Override
@@ -119,7 +132,7 @@ public class BillExportDialog extends javax.swing.JDialog implements ActionListe
     @Override
     public void updateFromBillState() {
         long changeMoney = billManageModel.getChangeMoney();
-        textfChangeMoney.setText(String.valueOf(changeMoney));
+        textfChangeMoney.setValue(changeMoney);
     }
 
     @Override
@@ -182,17 +195,17 @@ public class BillExportDialog extends javax.swing.JDialog implements ActionListe
     private void initComponents() {
 
         labelMainTitle = new javax.swing.JLabel();
-        textfChangeMoney = new javax.swing.JTextField();
-        textfGuestMoney = new javax.swing.JTextField();
         labelGuestMoney = new javax.swing.JLabel();
         labelChangeMoney = new javax.swing.JLabel();
         btnContinue = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         labelError = new javax.swing.JLabel();
         labelTotalMoney = new javax.swing.JLabel();
-        textfTotalMoney = new javax.swing.JTextField();
         labelBillID = new javax.swing.JLabel();
         textfBillID = new javax.swing.JTextField();
+        textfTotalMoney = new CurrencyTextField();
+        textfGuestMoney = new CurrencyTextField();
+        textfChangeMoney = new CurrencyTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -200,8 +213,6 @@ public class BillExportDialog extends javax.swing.JDialog implements ActionListe
 
         labelMainTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         labelMainTitle.setText("Export Bill");
-
-        textfChangeMoney.setEditable(false);
 
         labelGuestMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelGuestMoney.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -227,81 +238,85 @@ public class BillExportDialog extends javax.swing.JDialog implements ActionListe
         labelTotalMoney.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelTotalMoney.setText("Total money:");
 
-        textfTotalMoney.setEditable(false);
-
         labelBillID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelBillID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelBillID.setText("Bill ID:");
 
         textfBillID.setEditable(false);
 
+        textfTotalMoney.setEditable(false);
+        textfTotalMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        textfGuestMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        textfChangeMoney.setEditable(false);
+        textfChangeMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(159, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(labelMainTitle)
-                .addContainerGap(159, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(labelError, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(labelChangeMoney)
-                                    .addGap(20, 20, 20)
-                                    .addComponent(textfChangeMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(labelGuestMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(textfGuestMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnContinue)
-                            .addGap(78, 78, 78)
-                            .addComponent(btnCancel)
-                            .addGap(52, 52, 52)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelBillID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(textfBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(labelTotalMoney, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(textfTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(36, 36, 36))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelTotalMoney, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelBillID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(labelChangeMoney)
+                                    .addComponent(labelGuestMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textfBillID, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                            .addComponent(textfGuestMoney)
+                            .addComponent(textfChangeMoney)
+                            .addComponent(textfTotalMoney, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(labelError, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnContinue)
+                .addGap(78, 78, 78)
+                .addComponent(btnCancel)
+                .addGap(84, 84, 84))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(labelMainTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textfBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textfBillID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelBillID))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textfTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelTotalMoney))
+                    .addComponent(labelTotalMoney)
+                    .addComponent(textfTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelGuestMoney)
-                    .addComponent(textfGuestMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textfGuestMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textfChangeMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelChangeMoney))
+                    .addComponent(labelChangeMoney)
+                    .addComponent(textfChangeMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(labelError)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnContinue)
                     .addComponent(btnCancel))
-                .addGap(44, 44, 44))
+                .addContainerGap())
         );
 
         pack();
@@ -317,8 +332,8 @@ public class BillExportDialog extends javax.swing.JDialog implements ActionListe
     private javax.swing.JLabel labelMainTitle;
     private javax.swing.JLabel labelTotalMoney;
     private javax.swing.JTextField textfBillID;
-    private javax.swing.JTextField textfChangeMoney;
-    private javax.swing.JTextField textfGuestMoney;
-    private javax.swing.JTextField textfTotalMoney;
+    private javax.swing.JFormattedTextField textfChangeMoney;
+    private javax.swing.JFormattedTextField textfGuestMoney;
+    private javax.swing.JFormattedTextField textfTotalMoney;
     // End of variables declaration//GEN-END:variables
 }

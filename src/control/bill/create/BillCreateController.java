@@ -179,7 +179,7 @@ public class BillCreateController implements BillCreateControllerInterface {
     @Override
     public void validateGuestMoney() {
         String guestMoneyTextInput = dialogBillExport.getGuestMoneyInput();
-
+        System.out.println(guestMoneyTextInput);
         if (guestMoneyTextInput.isEmpty()) {
             dialogBillExport.setBtnContinueEnable(false);
             dialogBillExport.setChangeMoneyText("");
