@@ -213,7 +213,7 @@ public class AccountantMainFrame extends javax.swing.JFrame implements MessageSh
         panelProfile = new view.profile.ProfilePanel();
         panelProfit = new view.main.accountant.ProfitStatisticPanel();
         panelProduct = new view.main.accountant.ProductStatisticPanel();
-        panelIngredient = new view.main.accountant.IngredientStatisticPanel();
+        panelIngredient = new view.main.accountant.IngredientCostStatisticPanel();
         paneltSetting = new view.main.accountant.AccountantSettingsPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -505,7 +505,7 @@ public class AccountantMainFrame extends javax.swing.JFrame implements MessageSh
     private javax.swing.JLabel labelSettings;
     private javax.swing.JLabel labelSignOut;
     private javax.swing.JPanel panelCenter;
-    private view.main.accountant.IngredientStatisticPanel panelIngredient;
+    private view.main.accountant.IngredientCostStatisticPanel panelIngredient;
     private view.main.accountant.ProductStatisticPanel panelProduct;
     private view.profile.ProfilePanel panelProfile;
     private view.main.accountant.ProfitStatisticPanel panelProfit;

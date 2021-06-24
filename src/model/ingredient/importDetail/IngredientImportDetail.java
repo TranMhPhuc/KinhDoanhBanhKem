@@ -9,7 +9,6 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.ingredient.IngredientModel;
-import model.ingredient.IngredientModelInterface;
 
 public class IngredientImportDetail implements IngredientImportDetailInterface {
 

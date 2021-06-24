@@ -22,12 +22,6 @@ public interface EmployeeManageModelInterface extends DatabaseUpdate {
     
     //=========================================================================
     
-    void exportEmployeeData();
-    
-    void importEmployeeData();
-    
-    //=========================================================================
-    
     void addEmployee(EmployeeModelInterface employee);
     
     boolean updateEmployee(EmployeeModelInterface employee);

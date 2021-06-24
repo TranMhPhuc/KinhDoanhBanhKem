@@ -14,15 +14,15 @@ import model.setting.SettingUpdateObserver;
 public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
         ActionListener {
 
-    private UserModelInterface model;
-    private LoginControllerInterface controller;
+    private UserModelInterface userModel;
+    private LoginControllerInterface loginController;
 
     public LoginFrame(UserModelInterface model, LoginControllerInterface controller) {
         initComponents();
 
-        this.model = model;
-        this.model.setLoginFrame(this);
-        this.controller = controller;
+        this.userModel = model;
+        this.userModel.setLoginFrame(this);
+        this.loginController = controller;
 
         btnSignIn.addActionListener(this);
         btnForgotPassword.addActionListener(this);
@@ -60,12 +60,12 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
         if (source == btnSignIn) {
             String emailInput = textfEmail.getText().trim();
             String passwordInput = String.valueOf(passfPassword.getPassword());
-//            this.controller.requestLogin(emailInput, passwordInput);
-//            this.controller.requestLogin("baohtp@gmail.com", "Nvbh123@");
-//            this.controller.requestLogin("nhantd@gmail.com", "Nvbh345@");
-            this.controller.requestLogin("dv@gmail.com", "Nvbh234@");
+//            this.loginController.requestLogin(emailInput, passwordInput);
+//            this.loginController.requestLogin("baohtp@gmail.com", "Nvbh123@");
+//            this.loginController.requestLogin("nhantd@gmail.com", "Nvbh345@");
+            this.loginController.requestLogin("dv@gmail.com", "Nvbh234@");
         } else if (source == btnForgotPassword) {
-            this.controller.requestRecoverPassword();
+            this.loginController.requestRecoverPassword();
         }
     }
 

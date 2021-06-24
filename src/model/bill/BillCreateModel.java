@@ -29,7 +29,6 @@ import model.product.ProductSimpleModel;
 import model.product.ProductSimpleModelInterface;
 import model.user.UserModel;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.tuple.Pair;
 import util.constant.AppConstant;
 import util.messages.Messages;
 import view.bill.BillInsertedObserver;

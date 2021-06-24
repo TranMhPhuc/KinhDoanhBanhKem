@@ -158,16 +158,6 @@ public class EmployeeManageModel implements EmployeeManageModelInterface {
     }
 
     @Override
-    public void exportEmployeeData() {
-        // XXX
-    }
-
-    @Override
-    public void importEmployeeData() {
-        // XXX
-    }
-
-    @Override
     public Iterator<EmployeeModelInterface> getAllEmployeeData() {
         return employees.iterator();
     }
