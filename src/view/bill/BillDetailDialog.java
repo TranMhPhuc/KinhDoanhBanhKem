@@ -12,6 +12,7 @@ import model.bill.BillModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
 import util.constant.AppConstant;
+import util.swing.CurrencyTextField;
 import util.swing.NumberRenderer;
 
 public class BillDetailDialog extends javax.swing.JDialog implements SettingUpdateObserver {
@@ -46,7 +47,7 @@ public class BillDetailDialog extends javax.swing.JDialog implements SettingUpda
     }
 
     public void setLabelBillID(String text) {
-        this.labelBillID.setText(text);
+        this.textfBillID.setText(text);
     }
 
     public void setTableBillDetail(Iterator<ProductDetailModelInterface> iterator) {
@@ -80,12 +81,12 @@ public class BillDetailDialog extends javax.swing.JDialog implements SettingUpda
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
-        this.labelExportDate.setText(dateTimeFormatter.format(bill.getDateTimeExport().toLocalDateTime()));
-        this.labelTotalMoney.setText(AppConstant.GLOBAL_VIE_CURRENCY_FORMATTER.format(bill.getPayment()));
-        this.labelGuestMoney.setText(AppConstant.GLOBAL_VIE_CURRENCY_FORMATTER.format(bill.getGuestMoney()));
-        this.labelChangeMoney.setText(AppConstant.GLOBAL_VIE_CURRENCY_FORMATTER.format(bill.getChangeMoney()));
-        this.labelEmployeeID.setText(bill.getEmployee().getEmployeeIDText());
-        this.labelEmployeeName.setText(bill.getEmployee().getName());
+        this.textfExportDate.setText(dateTimeFormatter.format(bill.getDateTimeExport().toLocalDateTime()));
+        this.currencyTotalMoney.setText(AppConstant.GLOBAL_VIE_CURRENCY_FORMATTER.format(bill.getPayment()));
+        this.currencyGuestMoney.setText(AppConstant.GLOBAL_VIE_CURRENCY_FORMATTER.format(bill.getGuestMoney()));
+        this.currencyChangeMoney.setText(AppConstant.GLOBAL_VIE_CURRENCY_FORMATTER.format(bill.getChangeMoney()));
+        this.textfEmployeeID.setText(bill.getEmployee().getEmployeeIDText());
+        this.textfEmployeeName.setText(bill.getEmployee().getName());
     }
 
     @Override
@@ -148,19 +149,19 @@ public class BillDetailDialog extends javax.swing.JDialog implements SettingUpda
         scrpane = new javax.swing.JScrollPane();
         tableProductDetail = new javax.swing.JTable();
         labelMainTitle = new javax.swing.JLabel();
-        labelBillID = new javax.swing.JLabel();
         labelTitleBillDate = new javax.swing.JLabel();
         labelTitlePayment = new javax.swing.JLabel();
         labelTitleGuestMoney = new javax.swing.JLabel();
         labelTitleChangeMoney = new javax.swing.JLabel();
-        labelExportDate = new javax.swing.JLabel();
-        labelTotalMoney = new javax.swing.JLabel();
-        labelGuestMoney = new javax.swing.JLabel();
-        labelChangeMoney = new javax.swing.JLabel();
         labelTitleEmployeeID = new javax.swing.JLabel();
-        labelEmployeeID = new javax.swing.JLabel();
         labelTitleEmployeeName = new javax.swing.JLabel();
-        labelEmployeeName = new javax.swing.JLabel();
+        currencyTotalMoney = new CurrencyTextField();
+        currencyGuestMoney = new CurrencyTextField();
+        currencyChangeMoney = new CurrencyTextField();
+        textfBillID = new javax.swing.JTextField();
+        textfEmployeeID = new javax.swing.JTextField();
+        textfEmployeeName = new javax.swing.JTextField();
+        textfExportDate = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -168,7 +169,7 @@ public class BillDetailDialog extends javax.swing.JDialog implements SettingUpda
 
         labelTitleBillID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelTitleBillID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        labelTitleBillID.setText("Bill ID: ");
+        labelTitleBillID.setText("Bill ID:");
 
         tableProductDetail.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         tableProductDetail.setModel(new javax.swing.table.DefaultTableModel(
@@ -202,9 +203,6 @@ public class BillDetailDialog extends javax.swing.JDialog implements SettingUpda
         labelMainTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelMainTitle.setText("Bill Detail");
 
-        labelBillID.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        labelBillID.setText("1");
-
         labelTitleBillDate.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelTitleBillDate.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         labelTitleBillDate.setText("Bill date:");
@@ -221,37 +219,27 @@ public class BillDetailDialog extends javax.swing.JDialog implements SettingUpda
         labelTitleChangeMoney.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         labelTitleChangeMoney.setText("Change:");
 
-        labelExportDate.setBackground(new java.awt.Color(153, 153, 153));
-        labelExportDate.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        labelExportDate.setText("6/9/1969");
-
-        labelTotalMoney.setBackground(new java.awt.Color(153, 153, 153));
-        labelTotalMoney.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        labelTotalMoney.setText("499 000 VND");
-
-        labelGuestMoney.setBackground(new java.awt.Color(153, 153, 153));
-        labelGuestMoney.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        labelGuestMoney.setText("500 000 VND");
-
-        labelChangeMoney.setBackground(new java.awt.Color(153, 153, 153));
-        labelChangeMoney.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        labelChangeMoney.setText("1000 VND");
-
         labelTitleEmployeeID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelTitleEmployeeID.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         labelTitleEmployeeID.setText("Employee ID:");
-
-        labelEmployeeID.setBackground(new java.awt.Color(153, 153, 153));
-        labelEmployeeID.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        labelEmployeeID.setText("15");
 
         labelTitleEmployeeName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelTitleEmployeeName.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         labelTitleEmployeeName.setText("Employee name:");
 
-        labelEmployeeName.setBackground(new java.awt.Color(153, 153, 153));
-        labelEmployeeName.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        labelEmployeeName.setText("15");
+        currencyTotalMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        currencyGuestMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        currencyChangeMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        textfBillID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        textfEmployeeID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        textfEmployeeName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        textfExportDate.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -261,36 +249,34 @@ public class BillDetailDialog extends javax.swing.JDialog implements SettingUpda
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelMainTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scrpane, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(scrpane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(labelTitleEmployeeName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(labelTitleEmployeeID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelTitleBillID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelTitleBillDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(labelTitleBillDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelTitleBillID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelExportDate, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                                    .addComponent(labelBillID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(labelEmployeeID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(textfEmployeeID, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                                        .addComponent(textfBillID))
+                                    .addComponent(textfExportDate, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(labelTitleGuestMoney, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(labelTitleChangeMoney, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(labelGuestMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(labelChangeMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(labelTitlePayment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(labelTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(labelTitleGuestMoney, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(labelTitleChangeMoney, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(labelTitlePayment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(currencyTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(currencyGuestMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(currencyChangeMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(54, 54, 54))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textfEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
@@ -299,48 +285,45 @@ public class BillDetailDialog extends javax.swing.JDialog implements SettingUpda
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(labelMainTitle)
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(labelBillID, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(labelTitleBillID))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(labelTotalMoney)
-                        .addComponent(labelTitlePayment)))
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelTitleBillID)
+                    .addComponent(labelTitlePayment)
+                    .addComponent(currencyTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textfBillID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelTitleBillDate)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(labelTitleGuestMoney)
-                                .addComponent(labelGuestMoney))
-                            .addComponent(labelExportDate, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textfEmployeeID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelTitleEmployeeID))
                         .addGap(18, 18, 18)
+                        .addComponent(labelTitleBillDate))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelTitleGuestMoney)
+                            .addComponent(currencyGuestMoney, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelTitleChangeMoney)
-                            .addComponent(labelChangeMoney)
-                            .addComponent(labelTitleEmployeeID)
-                            .addComponent(labelEmployeeID))))
+                            .addComponent(currencyChangeMoney, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textfExportDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelTitleEmployeeName)
-                    .addComponent(labelEmployeeName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(textfEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(scrpane, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel labelBillID;
-    private javax.swing.JLabel labelChangeMoney;
-    private javax.swing.JLabel labelEmployeeID;
-    private javax.swing.JLabel labelEmployeeName;
-    private javax.swing.JLabel labelExportDate;
-    private javax.swing.JLabel labelGuestMoney;
+    private javax.swing.JFormattedTextField currencyChangeMoney;
+    private javax.swing.JFormattedTextField currencyGuestMoney;
+    private javax.swing.JFormattedTextField currencyTotalMoney;
     private javax.swing.JLabel labelMainTitle;
     private javax.swing.JLabel labelTitleBillDate;
     private javax.swing.JLabel labelTitleBillID;
@@ -349,8 +332,11 @@ public class BillDetailDialog extends javax.swing.JDialog implements SettingUpda
     private javax.swing.JLabel labelTitleEmployeeName;
     private javax.swing.JLabel labelTitleGuestMoney;
     private javax.swing.JLabel labelTitlePayment;
-    private javax.swing.JLabel labelTotalMoney;
     private javax.swing.JScrollPane scrpane;
     private javax.swing.JTable tableProductDetail;
+    private javax.swing.JTextField textfBillID;
+    private javax.swing.JTextField textfEmployeeID;
+    private javax.swing.JTextField textfEmployeeName;
+    private javax.swing.JTextField textfExportDate;
     // End of variables declaration//GEN-END:variables
 }

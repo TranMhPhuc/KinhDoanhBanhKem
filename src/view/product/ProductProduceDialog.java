@@ -54,7 +54,12 @@ public class ProductProduceDialog extends javax.swing.JDialog implements Message
     }
 
     public void setTotalCost(String totalCost) {
-        this.textfTotalCost.setText(totalCost);
+        if(totalCost.equals("")){
+            this.textfTotalCost.setValue(null);
+        }else{
+            this.textfTotalCost.setText(String.valueOf(totalCost));
+        }
+        
     }
 
     public int getProduceAmountInput() {
@@ -111,9 +116,9 @@ public class ProductProduceDialog extends javax.swing.JDialog implements Message
         labelAmount = new javax.swing.JLabel();
         labelCost = new javax.swing.JLabel();
         textfProductName = new javax.swing.JTextField();
-        textfTotalCost = new javax.swing.JTextField();
         labelProductID = new javax.swing.JLabel();
         textfProductID = new javax.swing.JTextField();
+        textfTotalCost = new javax.swing.JFormattedTextField();
         jPanel2 = new javax.swing.JPanel();
         btnContinue = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(40, 0), new java.awt.Dimension(40, 0), new java.awt.Dimension(40, 32767));
@@ -152,15 +157,14 @@ public class ProductProduceDialog extends javax.swing.JDialog implements Message
         textfProductName.setEditable(false);
         textfProductName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        textfTotalCost.setEditable(false);
-        textfTotalCost.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-
         labelProductID.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labelProductID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelProductID.setText("Product ID:");
 
         textfProductID.setEditable(false);
         textfProductID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        textfTotalCost.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         javax.swing.GroupLayout panelInfoLayout = new javax.swing.GroupLayout(panelInfo);
         panelInfo.setLayout(panelInfoLayout);
@@ -171,18 +175,19 @@ public class ProductProduceDialog extends javax.swing.JDialog implements Message
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelInfoLayout.createSequentialGroup()
                         .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelProductName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelProductName, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
                             .addComponent(labelAmount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(labelCost, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textfProductName)
-                            .addComponent(spinnerAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textfTotalCost, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(textfProductName, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                            .addComponent(textfTotalCost)
+                            .addComponent(spinnerAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelInfoLayout.createSequentialGroup()
                         .addComponent(labelProductID, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textfProductID, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(textfProductID, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(86, 86, 86))
         );
         panelInfoLayout.setVerticalGroup(
@@ -245,6 +250,6 @@ public class ProductProduceDialog extends javax.swing.JDialog implements Message
     private javax.swing.JSpinner spinnerAmount;
     private javax.swing.JTextField textfProductID;
     private javax.swing.JTextField textfProductName;
-    private javax.swing.JTextField textfTotalCost;
+    private javax.swing.JFormattedTextField textfTotalCost;
     // End of variables declaration//GEN-END:variables
 }

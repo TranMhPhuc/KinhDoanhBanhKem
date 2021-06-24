@@ -611,6 +611,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
         labelPrice.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelPrice.setText("Price");
 
+        panelIngredientDetail.setBackground(new java.awt.Color(255, 255, 255));
         panelIngredientDetail.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ingredient List", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(153, 153, 153))); // NOI18N
         panelIngredientDetail.setMaximumSize(new java.awt.Dimension(2147483647, 188));
         panelIngredientDetail.setMinimumSize(new java.awt.Dimension(549, 188));
