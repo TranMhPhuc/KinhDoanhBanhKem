@@ -82,9 +82,9 @@ public class BillDetailDialog extends javax.swing.JDialog implements SettingUpda
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
         this.textfExportDate.setText(dateTimeFormatter.format(bill.getDateTimeExport().toLocalDateTime()));
-        this.textfTotalMoney.setText(AppConstant.GLOBAL_VIE_CURRENCY_FORMATTER.format(bill.getPayment()));
-        this.textfGuestMoney.setText(AppConstant.GLOBAL_VIE_CURRENCY_FORMATTER.format(bill.getGuestMoney()));
-        this.textfChangeMoney.setText(AppConstant.GLOBAL_VIE_CURRENCY_FORMATTER.format(bill.getChangeMoney()));
+        this.textfTotalMoney.setValue(bill.getPayment());
+        this.textfGuestMoney.setValue(bill.getGuestMoney());
+        this.textfChangeMoney.setValue(bill.getChangeMoney());
         this.textfEmployeeID.setText(bill.getEmployee().getEmployeeIDText());
         this.textfEmployeeName.setText(bill.getEmployee().getName());
     }
