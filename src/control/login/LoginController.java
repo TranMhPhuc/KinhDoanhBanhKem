@@ -65,17 +65,17 @@ public class LoginController implements LoginControllerInterface {
 
         switch (emailValidateResult) {
             case EMPTY: {
-                this.loginFrame.showErrorMessage(Messages.getInstance().LOGIN_EMAIL_EMPTY);
+                this.loginFrame.showErrorMessage("Please enter your email");
                 return;
             }
             case INVALLID: {
-                this.loginFrame.showErrorMessage(Messages.getInstance().LOGIN_EMAIL_INVALID);
+                this.loginFrame.showErrorMessage("Email format is invalid");
                 return;
             }
         }
 
         if (plaintextPassword.isEmpty()) {
-            this.loginFrame.showErrorMessage(Messages.getInstance().LOGIN_PASSWORD_EMPTY);
+            this.loginFrame.showErrorMessage("Please enter your password");
             return;
         }
         
@@ -89,7 +89,7 @@ public class LoginController implements LoginControllerInterface {
             callableStatement.execute();
             byte[] salt = callableStatement.getBytes(1);
             if (salt == null) {
-                loginFrame.showErrorMessage(Messages.getInstance().LOGIN_EMAIL_PASSWORD_INCORRECT);
+                loginFrame.showErrorMessage("Email or password is incorrect, please try again!");
                 return;
             }
             
@@ -102,7 +102,7 @@ public class LoginController implements LoginControllerInterface {
             ResultSet resultSet = callableStatement.executeQuery();
             
             if (!resultSet.next()) {
-                loginFrame.showErrorMessage(Messages.getInstance().LOGIN_EMAIL_PASSWORD_INCORRECT);
+                loginFrame.showErrorMessage("Email or password is incorrect, please try again!");
                 return;
             }
 
@@ -111,7 +111,7 @@ public class LoginController implements LoginControllerInterface {
 
             resultSet.close();
             callableStatement.close();
-
+            
             this.userModel.setImpl(impl);
 
         } catch (SQLException ex) {
@@ -137,11 +137,11 @@ public class LoginController implements LoginControllerInterface {
         
         switch (emailValidateResult) {
             case EMPTY: {
-                this.loginFrame.showErrorMessage(Messages.getInstance().LOGIN_EMAIL_EMPTY);
+                this.loginFrame.showErrorMessage("Please enter your email");
                 return;
             }
             case INVALLID: {
-                this.loginFrame.showErrorMessage(Messages.getInstance().LOGIN_EMAIL_INVALID);
+                this.loginFrame.showErrorMessage("Email format is invalid");
                 return;
             }
         }
@@ -152,7 +152,7 @@ public class LoginController implements LoginControllerInterface {
             ResultSet resultSet = callableStatement.executeQuery();
 
             if (resultSet.next() == false) {
-                loginFrame.showErrorMessage(Messages.getInstance().LOGIN_EMAIL_NOT_AVILABLE);
+                loginFrame.showErrorMessage("This is email is not linked to the database, please try again");
                 return;
             }
             EmployeeModelInterface impl = new EmployeeModel();
@@ -170,7 +170,7 @@ public class LoginController implements LoginControllerInterface {
         }
 
         
-        this.passwordRecoveryDialog.showInfoMessage(Messages.getInstance().LOGIN_SENT_PASSWORD_SUCCESSFULLY);
+        this.passwordRecoveryDialog.showInfoMessage("Your password has been sent to email successfully");
 
         this.passwordRecoveryDialog.dispose();
 

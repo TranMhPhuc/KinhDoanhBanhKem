@@ -60,7 +60,7 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
     }
 
     private void createView() {
-        UIControl.setDefaultTableHeader(tableIngredient);
+        UIControl.setDefaultTableHeader2(tableIngredient);
         this.getContentPane().setBackground(Color.WHITE);
         reloadIngredientInputData();
     }
@@ -314,13 +314,15 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnSave.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnSave.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/save.png"))); // NOI18N
         btnSave.setText("Save");
         btnSave.setPreferredSize(new java.awt.Dimension(150, 40));
         jPanel3.add(btnSave);
         jPanel3.add(filler2);
 
-        btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cancel.png"))); // NOI18N
         btnCancel.setText("Cancel");
         btnCancel.setPreferredSize(new java.awt.Dimension(150, 40));
         jPanel3.add(btnCancel);

@@ -56,10 +56,10 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel3" max="-2" attributes="0"/>
-                  <Component id="panelCard" min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="panelCard" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="scrollpane" pref="525" max="32767" attributes="0"/>
+              <Component id="scrollpane" pref="528" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -195,13 +195,11 @@
                       <Component id="labelPersonalID" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="textfPhoneNum" pref="280" max="32767" attributes="0"/>
-                          <Component id="textfEmployeeName" alignment="1" pref="280" max="32767" attributes="0"/>
-                          <Component id="textfEmployeeID" alignment="0" pref="280" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="textfPersonalID" min="-2" pref="280" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="textfEmployeeName" alignment="1" pref="280" max="32767" attributes="0"/>
+                      <Component id="textfEmployeeID" alignment="0" pref="280" max="32767" attributes="0"/>
+                      <Component id="textfPhoneNum" alignment="1" max="32767" attributes="0"/>
+                      <Component id="textfPersonalID" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -295,15 +293,23 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="labelSettingPhoneNum" alignment="1" pref="31" max="32767" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="textfPhoneNum" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="labelMobile" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                                  <Component id="labelPosition" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="combPositionName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="textfPhoneNum" alignment="3" max="32767" attributes="0"/>
+                                                      <Component id="labelMobile" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Component id="labelSettingPhoneNum" alignment="1" max="32767" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="labelPosition" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="combPositionName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="labelSettingPersonalID" alignment="0" max="32767" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
@@ -368,16 +374,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="textfEmployeeName">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="15" style="0"/>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[160, 30]"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="textfPhoneNum">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="0"/>
@@ -460,7 +456,7 @@
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">
                 <StringItem index="0" value="Working"/>
-                <StringItem index="1" value="No-working"/>
+                <StringItem index="1" value="Non-working"/>
               </StringArray>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -591,6 +587,19 @@
               <Image iconType="3" name="/img/Slider_20px_1.png"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="textfPhoneNum">
+          <Properties>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+              <Format format="####-###-###" subtype="-1" type="5"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="15" style="0"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="((DefaultFormatter)textfPhoneNum.getFormatter()).setAllowsInvalid(false);"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

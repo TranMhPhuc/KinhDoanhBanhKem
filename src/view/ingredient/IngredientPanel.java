@@ -4,6 +4,8 @@ import control.ingredient.IngredientControllerInterface;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
@@ -14,6 +16,8 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import model.ingredient.IngredientManageModelInterface;
@@ -25,7 +29,6 @@ import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
 import util.messages.Messages;
 import util.swing.CurrencyTextField;
-import util.swing.NumberRenderer;
 import util.swing.UIControl;
 import view.MessageShowing;
 import view.product.ModifiedProductObserver;
@@ -108,10 +111,11 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         textfIngredientID.setEditable(false);
         resetIngredientInput();
         setIngredientInputEditable(false);
-        UIControl.setDefaultTableHeader(tableIngredient);
-        
-         TableColumnModel m = tableIngredient.getColumnModel();
-        m.getColumn(5).setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        UIControl.setDefaultTableHeader(tableIngredient);     
+        UIControl.setCurrencyCellRenderer(tableIngredient, new int[]{5});
+        UIControl.setColumnWidth(tableIngredient, 0, 70);
+        UIControl.setColumnWidth(tableIngredient, 4, 500);
+        UIControl.setColumnWidth(tableIngredient, 3, 120);
     }
 
     private void createControl() {
@@ -127,9 +131,8 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         btnCancel.addActionListener(this);
         btnReset.addActionListener(this);
 
-        tableIngredient.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
+        tableIngredient.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
                 ingredientController.requestShowIngredientInfo();
             }
         });
@@ -720,7 +723,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         combIngredientUnitName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kilôgam", "Lít", "Quả" }));
         combIngredientUnitName.setPreferredSize(new java.awt.Dimension(160, 30));
 
-        btnCreateIngredientType.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnCreateIngredientType.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnCreateIngredientType.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Sugar_cubes_20px_1.png"))); // NOI18N
         btnCreateIngredientType.setText("New type");
 
@@ -756,7 +759,6 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelInfoLayout.createSequentialGroup()
-                        .addGap(5, 5, 5)
                         .addComponent(labelUnit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(combIngredientUnitName, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))

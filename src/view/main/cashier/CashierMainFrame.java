@@ -232,7 +232,7 @@ public class CashierMainFrame extends javax.swing.JFrame implements MessageShowi
         panelSetting = new view.main.cashier.CashierSettingsPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(800, 800));
+        setMinimumSize(new java.awt.Dimension(1600, 1020));
 
         panelTitle.setBackground(new java.awt.Color(62, 120, 207));
         panelTitle.setPreferredSize(new java.awt.Dimension(1194, 100));

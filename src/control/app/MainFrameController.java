@@ -163,7 +163,7 @@ public class MainFrameController implements MainFrameControllerInterface {
         }
 
         int ret = JOptionPane.showConfirmDialog(this.mainFrame, Messages.getInstance().PROFILE_SIGN_OUT_CONFIRMATION,
-                "BakeryMS", JOptionPane.YES_NO_OPTION);
+                "BakeryMS", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/question.png")));
         if (ret == JOptionPane.YES_OPTION) {
             this.userModel.clearSession();
         }

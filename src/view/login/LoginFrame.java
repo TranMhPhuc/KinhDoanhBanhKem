@@ -7,11 +7,16 @@ import model.user.UserModelInterface;
 import view.MessageShowing;
 import control.login.LoginControllerInterface;
 import java.awt.Color;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.UIManager;
+import listener.PasswordListener;
+import util.constant.AppConstant;
+import util.swing.UIControl;
 
 public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
         ActionListener {
@@ -31,7 +36,7 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
 
         btnSignIn.addActionListener(this);
         btnForgotPassword.addActionListener(this);
-
+        passwordShow.addMouseListener(new PasswordListener(passwordShow, passfPassword, showPW));
         setAppLookAndFeel();
     }
 
@@ -56,10 +61,9 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
             String emailInput = textfEmail.getText().trim();
             String passwordInput = String.valueOf(passfPassword.getPassword());
 //            this.controller.requestLogin(emailInput, passwordInput);
-            this.controller.requestLogin("baohtp@gmail.com", "Nvbh123@");
+//            this.controller.requestLogin("baohtp@gmail.com", "Nvbh123@");
 //            this.controller.requestLogin("nhantd@gmail.com", "Nvbh345@");
-//            this.controller.requestLogin("ngocnhu@gmail.com", "Nvbh456@");
-
+            this.controller.requestLogin("ngocnhu@gmail.com", "Nvbh456@");
 
         } else if (source == btnForgotPassword) {
             this.controller.requestRecoverPassword();
@@ -164,6 +168,14 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
         btnSignIn.setContentAreaFilled(false);
         btnSignIn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSignIn.setFocusPainted(false);
+        btnSignIn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSignInMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSignInMouseExited(evt);
+            }
+        });
 
         panelLoginInfo.setBackground(new java.awt.Color(255, 255, 255));
         panelLoginInfo.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 5));
@@ -208,20 +220,9 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
 
         passwordShow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/hidePW_24px.png"))); // NOI18N
         passwordShow.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        passwordShow.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                passwordShowMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                passwordShowMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                passwordShowMouseExited(evt);
-            }
-        });
         panelLoginInfo.add(passwordShow);
 
-        btnForgotPassword.setBackground(new java.awt.Color(51, 102, 255));
+        btnForgotPassword.setBackground(new java.awt.Color(113, 168, 255));
         btnForgotPassword.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         btnForgotPassword.setForeground(new java.awt.Color(113, 168, 255));
         btnForgotPassword.setText("Forgot password?");
@@ -231,6 +232,14 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
         btnForgotPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnForgotPassword.setFocusPainted(false);
         btnForgotPassword.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        btnForgotPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnForgotPasswordMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnForgotPasswordMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelLoginLayout = new javax.swing.GroupLayout(panelLogin);
         panelLogin.setLayout(panelLoginLayout);
@@ -292,35 +301,21 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
         passfPassword.setBorder(BorderFactory.createLineBorder(UNSELECTED, 1));
     }//GEN-LAST:event_passfPasswordFocusLost
 
-    private void passwordShowMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordShowMouseEntered
-        if (showPW) {
-            passwordShow.setIcon(new ImageIcon(getClass().getResource("/img/selected_showPW_24px.png")));
-        } else {
-            passwordShow.setIcon(new ImageIcon(getClass().getResource("/img/selected_hidePW_24px.png")));
-        }
-    }//GEN-LAST:event_passwordShowMouseEntered
+    private void btnSignInMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSignInMouseEntered
+        btnSignIn.setIcon(new ImageIcon(getClass().getResource("/img/selected_button_sign-in.png")));
+    }//GEN-LAST:event_btnSignInMouseEntered
 
-    private void passwordShowMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordShowMouseExited
-        if (showPW) {
-            passwordShow.setIcon(new ImageIcon(getClass().getResource("/img/showPW_24px.png")));
-        } else {
-            passwordShow.setIcon(new ImageIcon(getClass().getResource("/img/hidePW_24px.png")));
-        }
-    }//GEN-LAST:event_passwordShowMouseExited
+    private void btnSignInMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSignInMouseExited
+        btnSignIn.setIcon(new ImageIcon(getClass().getResource("/img/button_sign-in.png")));
+    }//GEN-LAST:event_btnSignInMouseExited
 
-    private void passwordShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordShowMouseClicked
-        if (showPW) {
-            showPW = false;
-            passwordShow.setIcon(new ImageIcon(getClass().getResource("/img/selected_hidePW_24px.png")));
-            passfPassword.setEchoChar((Character) UIManager.get("PasswordField.echoChar"));
-        } else {
-            showPW = true;
-            passwordShow.setIcon(new ImageIcon(getClass().getResource("/img/selected_showPW_24px.png")));
-            passfPassword.setEchoChar('\u0000');
-        }
+    private void btnForgotPasswordMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnForgotPasswordMouseEntered
+        btnForgotPassword.setForeground(AppConstant.COLOR_MENU_MOUSE_PRESS);
+    }//GEN-LAST:event_btnForgotPasswordMouseEntered
 
-
-    }//GEN-LAST:event_passwordShowMouseClicked
+    private void btnForgotPasswordMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnForgotPasswordMouseExited
+        btnForgotPassword.setForeground(AppConstant.COLOR_MENU_MOUSE_EXIT);
+    }//GEN-LAST:event_btnForgotPasswordMouseExited
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnForgotPassword;

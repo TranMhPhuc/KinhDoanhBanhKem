@@ -1,10 +1,12 @@
 package view.profile;
 
 import control.app.MainFrameControllerInterface;
+import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Date;
 import javax.swing.JLabel;
+import javax.swing.text.DefaultFormatter;
 import model.employee.EmployeeModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
@@ -20,6 +22,21 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
         initComponents();
         createView();
         createControl();
+        addPhoneNumListener();
+
+    }
+
+    private void addPhoneNumListener() {
+        textfPhoneNum.addKeyListener(new KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                int len = textfPhoneNum.getText().length();
+                char keyChar = evt.getKeyChar();
+                if ((keyChar == 8 || keyChar == 127) && (len == 1 || textfPhoneNum.getText().equals(textfPhoneNum.getSelectedText()))) {
+                    textfPhoneNum.setValue(null);
+                }
+
+            }
+        });
     }
 
     public void setUserModel(UserModelInterface userModel) {
@@ -164,13 +181,13 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
         dateChooserBirthday = new com.toedter.calendar.JDateChooser();
         textfEmail = new javax.swing.JTextField();
         textfName = new javax.swing.JTextField();
-        textfPhoneNum = new javax.swing.JTextField();
         labelPhoneNum = new javax.swing.JLabel();
         labelName = new javax.swing.JLabel();
         textfPosition = new javax.swing.JTextField();
         labelBirthday = new javax.swing.JLabel();
         labelEditProfile = new javax.swing.JLabel();
         labelChangePassword = new javax.swing.JLabel();
+        textfPhoneNum = new javax.swing.JFormattedTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setName("Profile"); // NOI18N
@@ -199,8 +216,6 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
         textfEmail.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textfName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-
-        textfPhoneNum.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         labelPhoneNum.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelPhoneNum.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -231,6 +246,14 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
         labelChangePassword.setText("Change password");
         labelChangePassword.setOpaque(true);
 
+        try {
+            textfPhoneNum.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-###-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        textfPhoneNum.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        ((DefaultFormatter)textfPhoneNum.getFormatter()).setAllowsInvalid(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -250,12 +273,12 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
                             .addComponent(labelPosition, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textfPhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textfPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textfName, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dateChooserBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textfEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+                            .addComponent(textfPosition, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+                            .addComponent(textfName, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+                            .addComponent(dateChooserBirthday, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+                            .addComponent(textfPhoneNum))))
                 .addContainerGap(257, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -279,13 +302,13 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
                     .addComponent(labelBirthday, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textfPhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelPhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelPhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textfPhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -304,7 +327,7 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
     private javax.swing.JLabel labelPosition;
     private javax.swing.JTextField textfEmail;
     private javax.swing.JTextField textfName;
-    private javax.swing.JTextField textfPhoneNum;
+    private javax.swing.JFormattedTextField textfPhoneNum;
     private javax.swing.JTextField textfPosition;
     // End of variables declaration//GEN-END:variables
 }

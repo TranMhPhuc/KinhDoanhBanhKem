@@ -33,7 +33,7 @@
               <Component id="panelTop" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="panelBottom" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="17" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -76,11 +76,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="labelMonthTop" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                      <Component id="combMonthTop" alignment="3" pref="40" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="labelMonthTop" pref="29" max="32767" attributes="0"/>
+                      <Component id="combMonthTop" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" pref="29" max="32767" attributes="0"/>
                   <Component id="panelBestSales" min="-2" pref="318" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -218,8 +218,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="labelMonthBottom" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                      <Component id="combMonthBottom" alignment="3" pref="40" max="32767" attributes="0"/>
+                      <Component id="labelMonthBottom" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="combMonthBottom" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="panelSlowSales" min="-2" pref="318" max="-2" attributes="0"/>

@@ -4,6 +4,8 @@ import control.product.ProductControllerInterface;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
@@ -14,6 +16,8 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.text.NumberFormatter;
@@ -100,10 +104,8 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
         UIControl.setDefaultTableHeader(tableProduct);
         UIControl.setDefaultTableHeader2(tableIngredientDetail);
         UIControl.setHorizontalAlignmentForColumn(tableProduct, 2, JLabel.CENTER);
-        
-        TableColumnModel m = tableProduct.getColumnModel();
-        m.getColumn(3).setCellRenderer(NumberRenderer.getCurrencyRenderer());
-        m.getColumn(4).setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        UIControl.setCurrencyCellRenderer(tableProduct, new int[]{3, 4});
+        UIControl.setColumnWidth(tableProduct, 0, 70);
     }
 
     private void createControl() {
@@ -118,13 +120,12 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
         btnCancel.addActionListener(this);
         btnReset.addActionListener(this);
 
-        tableProduct.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
+        tableProduct.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
                 productController.requestShowProductInfo();
             }
         });
-
+        
         textfSearchName.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent event) {
@@ -651,7 +652,8 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
 
         jPanel2.setPreferredSize(new java.awt.Dimension(463, 40));
 
-        btnEditIngredient.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnEditIngredient.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnEditIngredient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit2.png"))); // NOI18N
         btnEditIngredient.setText("Edit");
         btnEditIngredient.setPreferredSize(new java.awt.Dimension(100, 30));
         jPanel2.add(btnEditIngredient);

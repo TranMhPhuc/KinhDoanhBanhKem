@@ -114,7 +114,9 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
         pieChartBestSalesCurrYearStyle.setLegendBorderColor(Color.WHITE);
         pieChartBestSalesCurrYearStyle.setPlotBorderVisible(false);
         pieChartBestSalesCurrYearStyle.setSeriesColors(PIECHART_BEST_SALES_SIDE_COLORS);
-
+        
+        pieChartBestSalesCurrYearStyle.setToolTipsEnabled(true);
+        pieChartBestSalesCurrYearStyle.setToolTipFont(AppConstant.TOOL_TIP_FONT);
         panelTopRight.setLayout(new BorderLayout());
         panelTopRight.add(new XChartPanel<PieChart>(pieChartBestSalesCurrYear));
 
@@ -133,6 +135,8 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
         pieChartBestSalesPreviousYearStyle.setPlotBorderVisible(false);
         pieChartBestSalesPreviousYearStyle.setSeriesColors(PIECHART_BEST_SALES_SIDE_COLORS);
 
+        pieChartBestSalesPreviousYearStyle.setToolTipsEnabled(true);
+        pieChartBestSalesPreviousYearStyle.setToolTipFont(AppConstant.TOOL_TIP_FONT);
         panelTopLeft.setLayout(new BorderLayout());
         panelTopLeft.add(new XChartPanel<PieChart>(pieChartBestSalesPreviousYear));
     }
@@ -152,6 +156,8 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
         pieChartSlowSalesCurrYearStyle.setPlotBorderVisible(false);
         pieChartSlowSalesCurrYearStyle.setSeriesColors(PIECHART_SLOW_SALES_SIDE_COLORS);
 
+        pieChartSlowSalesCurrYearStyle.setToolTipsEnabled(true);
+        pieChartSlowSalesCurrYearStyle.setToolTipFont(AppConstant.TOOL_TIP_FONT);
         panelBottomRight.setLayout(new BorderLayout());
         panelBottomRight.add(new XChartPanel<PieChart>(pieChartSlowSalesCurrYear));
 
@@ -169,7 +175,9 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
         pieChartSlowSalesPreviousYearStyle.setLegendBorderColor(Color.WHITE);
         pieChartSlowSalesPreviousYearStyle.setPlotBorderVisible(false);
         pieChartSlowSalesPreviousYearStyle.setSeriesColors(PIECHART_SLOW_SALES_SIDE_COLORS);
-
+        
+        pieChartSlowSalesPreviousYearStyle.setToolTipsEnabled(true);
+        pieChartSlowSalesPreviousYearStyle.setToolTipFont(AppConstant.TOOL_TIP_FONT);
         panelBottomLeft.setLayout(new BorderLayout());
         panelBottomLeft.add(new XChartPanel<PieChart>(pieChartSlowSalesPreviousYear));
     }
@@ -599,10 +607,10 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
             panelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTopLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelMonthTop, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(combMonthTop, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addGroup(panelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(labelMonthTop, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                    .addComponent(combMonthTop, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 29, Short.MAX_VALUE)
                 .addComponent(panelBestSales, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -670,8 +678,8 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
             .addGroup(panelBottomLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelMonthBottom, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(combMonthBottom, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+                    .addComponent(labelMonthBottom, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combMonthBottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(panelSlowSales, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -695,7 +703,7 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
                 .addComponent(panelTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelBottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

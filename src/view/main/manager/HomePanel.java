@@ -233,6 +233,8 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
         categoryChartProviderStateStyle.setAxisTitleFont(AppConstant.AXIS_TITLE_FONT);
         categoryChartProviderStateStyle.setAxisTickLabelsFont(AppConstant.AXIS_TICK_TITLE_FONT);
 
+        categoryChartProviderStateStyle.setAnnotationsFont(AppConstant.ANNO_FONT);
+        categoryChartProviderStateStyle.setLegendFont(AppConstant.LEGEND_FONT);
         panelStateProvider.setLayout(new BorderLayout());
         panelStateProvider.add(new XChartPanel<CategoryChart>(categoryChartProviderState));
 
@@ -249,7 +251,8 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
         pieChartProductStateStyle.setLegendVisible(true);
         pieChartProductStateStyle.setPlotBorderVisible(false);
         pieChartProductStateStyle.setSeriesColors(PIECHART_PRODUCT_SIDE_COLORS);
-
+        pieChartProductStateStyle.setAnnotationsFont(AppConstant.ANNO_FONT);
+        pieChartProductStateStyle.setLegendFont(AppConstant.LEGEND_FONT);
         panelStateProduct.setLayout(new BorderLayout());
         panelStateProduct.add(new XChartPanel<PieChart>(pieChartProductState));
 
@@ -266,7 +269,8 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
         pieChartIngredientStateStyle.setLegendVisible(true);
         pieChartIngredientStateStyle.setPlotBorderVisible(false);
         pieChartIngredientStateStyle.setSeriesColors(PIECHART_INGREDIENT_SIDE_COLORS);
-
+        pieChartIngredientStateStyle.setLegendFont(AppConstant.LEGEND_FONT);
+        pieChartIngredientStateStyle.setAnnotationsFont(AppConstant.ANNO_FONT);
         panelStateIngredient.setLayout(new BorderLayout());
         panelStateIngredient.add(new XChartPanel<PieChart>(pieChartIngredientState));
 
@@ -283,7 +287,8 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
         pieChartEmployeePositionStateStyle.setLegendVisible(true);
         pieChartEmployeePositionStateStyle.setPlotBorderVisible(false);
         pieChartEmployeePositionStateStyle.setSeriesColors(PIECHART_EMPLOYEE_POSITION_SIDE_COLORS);
-
+        pieChartEmployeePositionStateStyle.setLegendFont(AppConstant.LEGEND_FONT);
+        pieChartEmployeePositionStateStyle.setAnnotationsFont(AppConstant.ANNO_FONT);
         panelStateEmployeePosition.setLayout(new BorderLayout());
         panelStateEmployeePosition.add(new XChartPanel<PieChart>(pieChartEmployeePositionState));
 
@@ -300,7 +305,8 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
         pieChartEmployeeStatusStateStyle.setLegendVisible(true);
         pieChartEmployeeStatusStateStyle.setPlotBorderVisible(false);
         pieChartEmployeeStatusStateStyle.setSeriesColors(PIECHART_EMPLOYEE_STATUS_SIDE_COLORS);
-
+        pieChartEmployeeStatusStateStyle.setLegendFont(AppConstant.LEGEND_FONT);
+        pieChartEmployeeStatusStateStyle.setAnnotationsFont(AppConstant.ANNO_FONT);
         panelStateEmployeeStatus.setLayout(new BorderLayout());
         panelStateEmployeeStatus.add(new XChartPanel<PieChart>(pieChartEmployeeStatusState));
     }
@@ -1021,8 +1027,8 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
+            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
+            .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

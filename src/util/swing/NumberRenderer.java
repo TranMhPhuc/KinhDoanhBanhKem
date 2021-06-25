@@ -14,6 +14,7 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.Locale;
 import javax.swing.SwingConstants;
+import util.constant.AppConstant;
 
 public class NumberRenderer extends FormatRenderer {
 
@@ -24,16 +25,19 @@ public class NumberRenderer extends FormatRenderer {
         super(formatter);
         setHorizontalAlignment(SwingConstants.RIGHT);
     }
-    private static String pattern = "###,### VNĐ";
+    private static String pattern = "###,### VND";
 
     /*
 	 *  Use the default currency formatter for the default locale
      */
     public static NumberRenderer getCurrencyRenderer() {
 
-        return new NumberRenderer(new DecimalFormat(pattern));
+        return new NumberRenderer(AppConstant.GLOBAL_VIE_CURRENCY_FORMATTER);
     }
-
+    
+    public static NumberRenderer getNumberRenderer(){
+        return new NumberRenderer(AppConstant.NUMBER_FORMAT);
+    }
     /*
 	 *  Use the default integer formatter for the default locale
      */

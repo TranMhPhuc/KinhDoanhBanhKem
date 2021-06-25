@@ -9,6 +9,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
+import util.swing.CurrencyTextField;
 import view.MessageShowing;
 
 public class IngredientImportDialog extends javax.swing.JDialog implements
@@ -52,7 +53,12 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
     }
 
     public void setIngredientTotalCost(String totalCost) {
-        this.textfTotalCost.setText(totalCost);
+        if(totalCost.equals("")){
+            this.textfTotalCost.setValue(null);
+        }else{
+            this.textfTotalCost.setValue(Integer.parseInt(totalCost));
+        }
+        
     }
 
     public void setIngredientIDText(String ingredientIDText) {
@@ -138,12 +144,13 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
         spinnerAmount = new javax.swing.JSpinner();
         labelAmount = new javax.swing.JLabel();
         labelCost = new javax.swing.JLabel();
-        textfTotalCost = new javax.swing.JTextField();
         dateChooserImportDate = new com.toedter.calendar.JDateChooser();
         textfIngredientID = new javax.swing.JTextField();
         labelUnit = new javax.swing.JLabel();
         textfIngredientName = new javax.swing.JTextField();
         labelName = new javax.swing.JLabel();
+        textfTotalCost = new CurrencyTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -160,15 +167,17 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(371, 60));
 
-        btnContinue.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnContinue.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnContinue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/continue.png"))); // NOI18N
         btnContinue.setText("Continue");
-        btnContinue.setPreferredSize(new java.awt.Dimension(100, 40));
+        btnContinue.setPreferredSize(new java.awt.Dimension(150, 40));
         jPanel1.add(btnContinue);
         jPanel1.add(filler1);
 
-        btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cancel.png"))); // NOI18N
         btnCancel.setText("Cancel");
-        btnCancel.setPreferredSize(new java.awt.Dimension(100, 40));
+        btnCancel.setPreferredSize(new java.awt.Dimension(150, 40));
         jPanel1.add(btnCancel);
 
         jPanel2.add(jPanel1, java.awt.BorderLayout.SOUTH);
@@ -195,9 +204,6 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
         labelCost.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelCost.setText("Cost");
 
-        textfTotalCost.setEditable(false);
-        textfTotalCost.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
         dateChooserImportDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         textfIngredientID.setEditable(false);
@@ -213,6 +219,12 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
         labelName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labelName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelName.setText("Name:");
+
+        textfTotalCost.setEditable(false);
+        textfTotalCost.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel1.setText("VND");
 
         javax.swing.GroupLayout panelInfoLayout = new javax.swing.GroupLayout(panelInfo);
         panelInfo.setLayout(panelInfoLayout);
@@ -240,7 +252,9 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
                         .addComponent(labelIngredientID, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(textfIngredientID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(60, 60, 60))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addContainerGap())
         );
         panelInfoLayout.setVerticalGroup(
             panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,9 +278,10 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
                             .addComponent(labelUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(dateChooserImportDate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelCost, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textfTotalCost, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textfTotalCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGap(16, 16, 16))
         );
 
@@ -282,6 +297,7 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
     private javax.swing.JButton btnContinue;
     private com.toedter.calendar.JDateChooser dateChooserImportDate;
     private javax.swing.Box.Filler filler1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel labelAmount;
@@ -295,7 +311,7 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
     private javax.swing.JSpinner spinnerAmount;
     private javax.swing.JTextField textfIngredientID;
     private javax.swing.JTextField textfIngredientName;
-    private javax.swing.JTextField textfTotalCost;
+    private javax.swing.JFormattedTextField textfTotalCost;
     // End of variables declaration//GEN-END:variables
 
 }
