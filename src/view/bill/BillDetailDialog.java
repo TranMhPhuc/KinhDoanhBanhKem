@@ -174,7 +174,7 @@ public class BillDetailDialog extends javax.swing.JDialog implements SettingUpda
         labelTitleBillID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelTitleBillID.setText("Bill ID: ");
 
-        tableProductDetail.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        tableProductDetail.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         tableProductDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
