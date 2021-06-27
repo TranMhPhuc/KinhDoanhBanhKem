@@ -263,7 +263,7 @@ public class Messages implements SettingUpdateObserver {
                 LOGIN_PASSWORD_EMPTY = "Please enter your password";
                 LOGIN_EMAIL_PASSWORD_INCORRECT = "Email or password is incorrect. Please try again!";
                 LOGIN_SENT_PASSWORD_SUCCESSFULLY = "Your password has been sent to email successfully";
-                LOGIN_EMAIL_NOT_AVILABLE = "This email is not linked to the database, please try again";
+                LOGIN_EMAIL_NOT_AVILABLE = "This email is not linked to the database, please try again!";
                 LOGIN_NO_PERMISSON = "You don't have permisson to login the program";
 
                 PRODUCT_NAME_EMPTY = "Product name is required";
@@ -293,7 +293,7 @@ public class Messages implements SettingUpdateObserver {
                 PRODUCT_NO_INGR_CHOSEN = "You should choose one ingredient first";
                 PRODUCT_NO_UNIT_CHOSEN = "ERROR: No unit chosen";
                 PRODUCT_AMOUNT_AL_1 = "Amount must be at least 1";
-                PRODUCT_CANEL_EDITING = "Cancel editing?";
+                PRODUCT_CANEL_EDITING = "Cancel editing product?";
                 PRODUCT_DISCARD_CHANGE = "Discard your change?";
 
                 PROVIDER_NAME_EMPTY = "Provider name is required";

@@ -189,7 +189,7 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
         labelMainTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelMainTitle.setText("Ingredient Import History");
 
-        tableImportHistory.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        tableImportHistory.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         tableImportHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -227,7 +227,11 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
         labelDateTo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelDateTo.setText("Date to:");
 
-        btnApply.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        dateChooserdateFrom.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        dateChooserdateTo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        btnApply.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnApply.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tick3.png"))); // NOI18N
         btnApply.setText("Apply");
 
@@ -245,7 +249,7 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dateChooserdateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(btnApply, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnApply, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelDateInputLayout.setVerticalGroup(

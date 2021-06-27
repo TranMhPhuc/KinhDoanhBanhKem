@@ -2,6 +2,8 @@ package view.main.accountant;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import model.setting.AppSetting;
@@ -27,6 +30,7 @@ import org.knowm.xchart.style.Styler;
 import org.knowm.xchart.style.XYStyler;
 import util.constant.AppConstant;
 import util.db.SQLServerConnection;
+import util.swing.UIControl;
 
 public class ProfitStatisticPanel extends javax.swing.JPanel implements SettingUpdateObserver {
 
@@ -67,6 +71,13 @@ public class ProfitStatisticPanel extends javax.swing.JPanel implements SettingU
         configChartProfitByYear();
         loadProfitByMonth();
         loadProfitByYear();
+        createView();
+    }
+
+    private void createView() {
+        UIControl.setDefaultTableHeader(tableProfitByMonth);
+        UIControl.setDefaultTableHeader(tableProfitByYear);
+        UIControl.setNumberCellRenderer(tableProfitByMonth, new int[]{1, 2});
     }
 
     private void configChartProfitByMonth() {
@@ -95,7 +106,7 @@ public class ProfitStatisticPanel extends javax.swing.JPanel implements SettingU
 
         xyChartStyler.setSeriesColors(XYCHART_PROFIT_MONTH_COLORS);
         xyChartStyler.setYAxisDecimalPattern("###,###,###");
-        xyChartStyler.setYAxisMax(1e6);
+        //  xyChartStyler.setYAxisMax(1e6);
 
         panelRevenueMonth.setLayout(new BorderLayout());
         panelRevenueMonth.add(new XChartPanel<XYChart>(xyChartProfitMonth));
@@ -121,7 +132,7 @@ public class ProfitStatisticPanel extends javax.swing.JPanel implements SettingU
 
         categoryStylerProfitYear.setAxisTitleFont(AppConstant.AXIS_TITLE_FONT);
         categoryStylerProfitYear.setAxisTickLabelsFont(AppConstant.AXIS_TICK_TITLE_FONT);
-        categoryStylerProfitYear.setYAxisMax(1e7);
+        //  categoryStylerProfitYear.setYAxisMax(1e7);
         categoryStylerProfitYear.setDecimalPattern("###,###,###");
 
         panelRevenueYear.setLayout(new BorderLayout());
@@ -132,8 +143,9 @@ public class ProfitStatisticPanel extends javax.swing.JPanel implements SettingU
         Map<String, XYSeries> seriersMap = xyChartProfitMonth.getSeriesMap();
 
         Object[] seriesNames = seriersMap.keySet().toArray();
-
+        System.out.println("length: " + seriesNames.length);
         for (int i = 0; i < seriesNames.length; i++) {
+
             xyChartProfitMonth.removeSeries((String) seriesNames[i]);
         }
 
@@ -274,11 +286,13 @@ public class ProfitStatisticPanel extends javax.swing.JPanel implements SettingU
                 xyChartProfitMonth.setYAxisTitle("Profit");
 
                 chartTitle = "Profit statistics chart of year from %d to %d";
-                categoryChartProfitYear.setTitle(String.format(chartTitle, 
+                categoryChartProfitYear.setTitle(String.format(chartTitle,
                         currYear - NUMBER_OF_YEAR_PROFIT_STATISTIC + 1, currYear));
                 categoryChartProfitYear.setXAxisTitle("Year");
                 categoryChartProfitYear.setYAxisTitle("Profit");
 
+                labelProfitByYearsTable.setText("Profit by years Table (VND)");
+                labelProfitByMonthsTable.setText("Profit by months Table (VND)");
                 break;
             }
             case VIETNAMESE: {
@@ -301,6 +315,8 @@ public class ProfitStatisticPanel extends javax.swing.JPanel implements SettingU
                 categoryChartProfitYear.setXAxisTitle("Năm");
                 categoryChartProfitYear.setYAxisTitle("Lợi nhuận");
 
+                labelProfitByYearsTable.setText("Bảng lợi nhuận theo năm (VND)");
+                labelProfitByMonthsTable.setText("Bảng lợi nhuận theo tháng (VND)");
                 break;
             }
         }
@@ -314,29 +330,31 @@ public class ProfitStatisticPanel extends javax.swing.JPanel implements SettingU
         panelRevenueMonth = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableProfitByMonth = new javax.swing.JTable();
+        labelProfitByMonthsTable = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         panelRevenueYear = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableProfitByYear = new javax.swing.JTable();
+        labelProfitByYearsTable = new javax.swing.JLabel();
 
         setLayout(new java.awt.GridLayout(2, 0, 0, 5));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        panelRevenueMonth.setBackground(new java.awt.Color(255, 255, 255));
+        panelRevenueMonth.setBackground(new java.awt.Color(255, 51, 51));
 
         javax.swing.GroupLayout panelRevenueMonthLayout = new javax.swing.GroupLayout(panelRevenueMonth);
         panelRevenueMonth.setLayout(panelRevenueMonthLayout);
         panelRevenueMonthLayout.setHorizontalGroup(
             panelRevenueMonthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 511, Short.MAX_VALUE)
+            .addGap(0, 535, Short.MAX_VALUE)
         );
         panelRevenueMonthLayout.setVerticalGroup(
             panelRevenueMonthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 262, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        tableProfitByMonth.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        tableProfitByMonth.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         tableProfitByMonth.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -366,13 +384,20 @@ public class ProfitStatisticPanel extends javax.swing.JPanel implements SettingU
         tableProfitByMonth.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tableProfitByMonth);
 
+        labelProfitByMonthsTable.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelProfitByMonthsTable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelProfitByMonthsTable.setText("Bảng lợi nhuận theo tháng (VND)");
+        labelProfitByMonthsTable.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelProfitByMonthsTable, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelRevenueMonth, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -382,8 +407,11 @@ public class ProfitStatisticPanel extends javax.swing.JPanel implements SettingU
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(panelRevenueMonth, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(labelProfitByMonthsTable, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE))
+                    .addComponent(panelRevenueMonth, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -391,20 +419,20 @@ public class ProfitStatisticPanel extends javax.swing.JPanel implements SettingU
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        panelRevenueYear.setBackground(new java.awt.Color(255, 255, 255));
+        panelRevenueYear.setBackground(new java.awt.Color(255, 51, 51));
 
         javax.swing.GroupLayout panelRevenueYearLayout = new javax.swing.GroupLayout(panelRevenueYear);
         panelRevenueYear.setLayout(panelRevenueYearLayout);
         panelRevenueYearLayout.setHorizontalGroup(
             panelRevenueYearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 513, Short.MAX_VALUE)
+            .addGap(0, 537, Short.MAX_VALUE)
         );
         panelRevenueYearLayout.setVerticalGroup(
             panelRevenueYearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 262, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        tableProfitByYear.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        tableProfitByYear.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         tableProfitByYear.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -433,13 +461,20 @@ public class ProfitStatisticPanel extends javax.swing.JPanel implements SettingU
         tableProfitByYear.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tableProfitByYear);
 
+        labelProfitByYearsTable.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelProfitByYearsTable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelProfitByYearsTable.setText("Bảng lợi nhuận theo tháng (VND)");
+        labelProfitByYearsTable.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelProfitByYearsTable, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelRevenueYear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -448,9 +483,12 @@ public class ProfitStatisticPanel extends javax.swing.JPanel implements SettingU
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelRevenueYear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(labelProfitByYearsTable, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
+                    .addComponent(panelRevenueYear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -463,6 +501,8 @@ public class ProfitStatisticPanel extends javax.swing.JPanel implements SettingU
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel labelProfitByMonthsTable;
+    private javax.swing.JLabel labelProfitByYearsTable;
     private javax.swing.JPanel panelRevenueMonth;
     private javax.swing.JPanel panelRevenueYear;
     private javax.swing.JTable tableProfitByMonth;

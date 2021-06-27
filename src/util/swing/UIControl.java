@@ -3,10 +3,16 @@ package util.swing;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 public class UIControl {
 
@@ -24,6 +30,7 @@ public class UIControl {
         defaultTableCellRenderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
         defaultTableCellRenderer.setHorizontalAlignment(0);
         table.getTableHeader().setFont(new Font("Segoe UI", 1, 15));
+
         setHorizontalAlignmentForColumn(table, 0, JLabel.CENTER);
     }
 
@@ -42,4 +49,22 @@ public class UIControl {
         //JLabel.CENTER
     }
 
+    public static void setCurrencyCellRenderer(JTable table, int[] columns) {
+        TableColumnModel m = table.getColumnModel();
+        for (int i = 0; i < columns.length; i++) {
+            m.getColumn(columns[i]).setCellRenderer(NumberRenderer.getCurrencyRenderer());
+        }
+    }
+
+    public static void setNumberCellRenderer(JTable table, int[] columns) {
+        TableColumnModel m = table.getColumnModel();
+        for (int i = 0; i < columns.length; i++) {
+            m.getColumn(columns[i]).setCellRenderer(NumberRenderer.getNumberRenderer());
+        }
+    }
+
+    public static void setColumnWidth(JTable table,int column, int width) {
+        table.getColumnModel().getColumn(column).setMinWidth(width);
+        table.getColumnModel().getColumn(column).setMaxWidth(width);
+    }
 }

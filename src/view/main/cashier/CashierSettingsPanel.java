@@ -206,11 +206,11 @@ public class CashierSettingsPanel extends javax.swing.JPanel implements SettingU
         );
 
         ckbConfirmSignOut.setBackground(new java.awt.Color(255, 255, 255));
-        ckbConfirmSignOut.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ckbConfirmSignOut.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         ckbConfirmSignOut.setText("Confirm when sign out");
 
         ckbConfirmExit.setBackground(new java.awt.Color(255, 255, 255));
-        ckbConfirmExit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ckbConfirmExit.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         ckbConfirmExit.setText("Confirm when exit");
 
         combLanguage.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -252,7 +252,7 @@ public class CashierSettingsPanel extends javax.swing.JPanel implements SettingU
                 .addComponent(ckbConfirmSignOut)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ckbConfirmExit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 364, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 362, Short.MAX_VALUE)
                 .addComponent(panelAbout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

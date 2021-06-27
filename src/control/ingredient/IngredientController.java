@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -145,7 +146,6 @@ public class IngredientController implements IngredientControllerInterface {
         dialogIngredientImport.setIngredientName(ingredient.getName());
         dialogIngredientImport.setLabelIngredientUnit(ingredient.getUnitName());
         dialogIngredientImport.setIngredientTotalCost(String.valueOf(ingredient.getCost()));
-        dialogIngredientImport.setImportDate(Date.from(Instant.now()));
         dialogIngredientImport.setVisible(true);
     }
 
@@ -170,14 +170,7 @@ public class IngredientController implements IngredientControllerInterface {
 
         IngredientModelInterface ingredient = this.searchList.get(rowID);
 
-        Date importDate = dialogIngredientImport.getImportDateInput();
-
-        LocalDate importDateLocal = importDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-        if (importDateLocal.isBefore(LocalDate.now())) {
-            dialogIngredientImport.showErrorMessage(Messages.getInstance().INGR_IMPORT_DATE_INVALID);
-            return;
-        }
+        Date importDate = Date.from(Instant.now());
 
         ingredientManageModel.importIngredient(ingredient, importDate, importAmount,
                 ingredient.getUnitName());

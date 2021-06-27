@@ -24,5 +24,5 @@ public class AccountantSettingController extends SettingController {
     public void requestChangeDiagnosticState() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
+    
 }

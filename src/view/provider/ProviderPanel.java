@@ -13,6 +13,8 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import model.provider.ProviderManageModelInterface;
@@ -29,8 +31,8 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
 
     public static final int PROVIDER_ID_COLUMN_INDEX = 0;
     public static final int PROVIDER_NAME_COLUMN_INDEX = 1;
-    public static final int PROVIDER_PHONE_NUM_COLUMN_INDEX = 2;
-    public static final int PROVIDER_EMAIL_COLUMN_INDEX = 3;
+    public static final int PROVIDER_PHONE_NUM_COLUMN_INDEX = 3;
+    public static final int PROVIDER_EMAIL_COLUMN_INDEX = 2;
     public static final int PROVIDER_ADDRESS_COLUMN_INDEX = 4;
 
     public enum EditState {
@@ -81,6 +83,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
         resetProviderInput();
         setProviderInputEditable(false);
         UIControl.setDefaultTableHeader(tableProvider);
+        UIControl.setColumnWidth(tableProvider, 0, 110);
     }
 
     private void createControl() {
@@ -93,9 +96,8 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
         btnCancel.addActionListener(this);
         btnReset.addActionListener(this);
 
-        tableProvider.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
+        tableProvider.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
                 providerController.requestShowProviderInfo();
             }
         });
@@ -419,7 +421,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
 
                 TitledBorder titledBorder = (TitledBorder) panelInfo.getBorder();
                 titledBorder.setTitle("Provider information");
-                
+
                 break;
             }
             case VIETNAMESE: {

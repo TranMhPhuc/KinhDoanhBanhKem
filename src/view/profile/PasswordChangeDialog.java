@@ -4,6 +4,7 @@ import control.app.MainFrameControllerInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import listener.PasswordListener;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
 import view.MessageShowing;
@@ -11,6 +12,7 @@ import view.MessageShowing;
 public class PasswordChangeDialog extends javax.swing.JDialog implements MessageShowing,
         SettingUpdateObserver {
 
+    private boolean showOldPW = false, showNewPW = false, showConfirmNewPW = false;
     private MainFrameControllerInterface mainFrameController;
 
     public PasswordChangeDialog(java.awt.Frame parent, boolean modal,
@@ -26,6 +28,9 @@ public class PasswordChangeDialog extends javax.swing.JDialog implements Message
                 mainFrameController.checkPasswordUpdateInput();
             }
         });
+        iconOldPWShow.addMouseListener(new PasswordListener(iconOldPWShow, passfOldPassword,showOldPW));
+        iconNewPWShow.addMouseListener(new PasswordListener(iconNewPWShow, passfNewPassword,showNewPW));
+        iconConfirmPWShow.addMouseListener(new PasswordListener(iconConfirmPWShow, passfVerifyPassword,showConfirmNewPW));
     }
 
     public String getOldPasswordInput() {
@@ -98,6 +103,9 @@ public class PasswordChangeDialog extends javax.swing.JDialog implements Message
         passfOldPassword = new javax.swing.JPasswordField();
         passfVerifyPassword = new javax.swing.JPasswordField();
         labelVerifyPassword = new javax.swing.JLabel();
+        iconOldPWShow = new javax.swing.JLabel();
+        iconNewPWShow = new javax.swing.JLabel();
+        iconConfirmPWShow = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -138,6 +146,12 @@ public class PasswordChangeDialog extends javax.swing.JDialog implements Message
         labelVerifyPassword.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelVerifyPassword.setText("Verify New Password");
 
+        iconOldPWShow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/hidePW_24px.png"))); // NOI18N
+
+        iconNewPWShow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/hidePW_24px.png"))); // NOI18N
+
+        iconConfirmPWShow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/hidePW_24px.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -145,13 +159,22 @@ public class PasswordChangeDialog extends javax.swing.JDialog implements Message
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(passfVerifyPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(passfVerifyPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(iconConfirmPWShow))
                     .addComponent(labelVerifyPassword)
-                    .addComponent(passfNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(passfNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(iconNewPWShow))
                     .addComponent(labelNewPassword)
-                    .addComponent(passfOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(passfOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(iconOldPWShow))
                     .addComponent(labelOldPassword))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,15 +182,22 @@ public class PasswordChangeDialog extends javax.swing.JDialog implements Message
                 .addContainerGap()
                 .addComponent(labelOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(passfOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(passfOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(iconOldPWShow))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelNewPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(passfNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(passfNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(iconNewPWShow))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelVerifyPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(passfVerifyPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(labelVerifyPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(passfVerifyPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(iconConfirmPWShow))
                 .addContainerGap())
         );
 
@@ -180,6 +210,9 @@ public class PasswordChangeDialog extends javax.swing.JDialog implements Message
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChangePassword;
+    private javax.swing.JLabel iconConfirmPWShow;
+    private javax.swing.JLabel iconNewPWShow;
+    private javax.swing.JLabel iconOldPWShow;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
