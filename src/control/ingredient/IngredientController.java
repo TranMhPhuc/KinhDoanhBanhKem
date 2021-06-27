@@ -35,10 +35,13 @@ import view.ingredient.IngredientPanel;
 
 public class IngredientController implements IngredientControllerInterface {
 
-    private static final String SP_CHECK_DELETE_CONDITION_INGREDIENT
+    private static final String FC_CHECK_INGREDIENT_IN_PRODUCT
             = "{? = call check_if_ingredient_exists_in_any_product(?)}";
+    
+    private static final String FC_CHECK_INGREDIENT_IMPORTED
+            = "{? = call check_if_ingredient_imported(?)}";
 
-    private static final String SP_CHECK_INGREDIENT_TYPE_NAME_EXISTED
+    private static final String FC_CHECK_INGREDIENT_TYPE_NAME_EXISTED
             = "{? = call check_if_ingredient_type_name_exist(?)}";
 
     private static Connection dbConnection;
@@ -398,7 +401,7 @@ public class IngredientController implements IngredientControllerInterface {
 
         try {
             CallableStatement callableStatement = dbConnection
-                    .prepareCall(SP_CHECK_DELETE_CONDITION_INGREDIENT);
+                    .prepareCall(FC_CHECK_INGREDIENT_IN_PRODUCT);
             callableStatement.registerOutParameter(1, Types.BOOLEAN);
             ingredient.setKeyArg(2, IngredientModel.ID_HEADER, callableStatement);
             callableStatement.execute();
@@ -425,7 +428,7 @@ public class IngredientController implements IngredientControllerInterface {
 
         try {
             CallableStatement callableStatement = dbConnection
-                    .prepareCall(SP_CHECK_DELETE_CONDITION_INGREDIENT);
+                    .prepareCall(FC_CHECK_INGREDIENT_IN_PRODUCT);
             callableStatement.registerOutParameter(1, Types.BOOLEAN);
             ingredient.setKeyArg(2, IngredientModel.ID_HEADER, callableStatement);
             callableStatement.execute();
@@ -433,7 +436,19 @@ public class IngredientController implements IngredientControllerInterface {
             boolean isIncludedInProduct = callableStatement.getBoolean(1);
 
             if (isIncludedInProduct) {
-                this.ingredientPanel.showErrorMessage(Messages.getInstance().INGR_CANT_REMOVE);
+                this.ingredientPanel.showErrorMessage(Messages.getInstance().INGR_CANT_REMOVE_1);
+                return;
+            }
+            
+            callableStatement = dbConnection.prepareCall(FC_CHECK_INGREDIENT_IMPORTED);
+            callableStatement.registerOutParameter(1, Types.BOOLEAN);
+            ingredient.setKeyArg(2, IngredientModel.ID_HEADER, callableStatement);
+            callableStatement.execute();
+            
+            boolean isImported = callableStatement.getBoolean(1);
+            
+            if (isImported) {
+                this.ingredientPanel.showErrorMessage(Messages.getInstance().INGR_CANT_REMOVE_2);
                 return;
             }
 
@@ -457,7 +472,7 @@ public class IngredientController implements IngredientControllerInterface {
 
         try {
             CallableStatement callableStatement = dbConnection
-                    .prepareCall(SP_CHECK_INGREDIENT_TYPE_NAME_EXISTED);
+                    .prepareCall(FC_CHECK_INGREDIENT_TYPE_NAME_EXISTED);
             callableStatement.registerOutParameter(1, Types.BOOLEAN);
             callableStatement.setString(2, ingredientTypeName);
             callableStatement.execute();

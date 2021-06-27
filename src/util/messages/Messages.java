@@ -94,7 +94,8 @@ public class Messages implements SettingUpdateObserver {
     public String INGR_COST_FORMAT;
     public String INGR_INSERTED_SUCCESSFULLY;
     public String INGR_UPDATED_SUCCESSFULLY;
-    public String INGR_CANT_REMOVE;
+    public String INGR_CANT_REMOVE_1;
+    public String INGR_CANT_REMOVE_2;
     public String INGR_REMOVE_SUCCESSFULLY;
     public String INGR_TYPE_EMPTY;
     public String INGR_TYPE_EXISTS;
@@ -251,7 +252,8 @@ public class Messages implements SettingUpdateObserver {
                 INGR_COST_FORMAT = "Ingredient cost format is not a number";
                 INGR_INSERTED_SUCCESSFULLY = "Inserted new ingredient successfully";
                 INGR_UPDATED_SUCCESSFULLY = "Updated the ingredient successfully";
-                INGR_CANT_REMOVE = "Can't remove the ingredient already included in product";
+                INGR_CANT_REMOVE_1 = "Can't remove the ingredient already included in product";
+                INGR_CANT_REMOVE_2 = "Can't remove the ingredient having been imported";
                 INGR_REMOVE_SUCCESSFULLY = "Removed the ingredient successfully";
                 INGR_TYPE_EMPTY = "Ingredient type is required";
                 INGR_TYPE_EXISTS = "Ingredient type already exists";
@@ -399,7 +401,8 @@ public class Messages implements SettingUpdateObserver {
                 INGR_COST_FORMAT = "Giá nguyên liệu không phải là số";
                 INGR_INSERTED_SUCCESSFULLY = "Thêm nguyên liệu mới thành công";
                 INGR_UPDATED_SUCCESSFULLY = "Cập nhật nguyên liệu thành công";
-                INGR_CANT_REMOVE = "Không thể xóa nguyên liệu đã xuất hiện trong sản phẩm";
+                INGR_CANT_REMOVE_1 = "Không thể xóa nguyên liệu đã xuất hiện trong sản phẩm";
+                INGR_CANT_REMOVE_2 = "Không thể xóa nguyên liệu đã nhập trước đó";
                 INGR_REMOVE_SUCCESSFULLY = "Xóa nguyên liệu thành công";
                 INGR_TYPE_EMPTY = "Cần nhập loại nguyên liệu";
                 INGR_TYPE_EXISTS = "Loại nguyên liệu đã tồn tại";
