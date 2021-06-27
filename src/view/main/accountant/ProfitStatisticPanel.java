@@ -2,8 +2,6 @@ package view.main.accountant;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import model.setting.AppSetting;
@@ -143,9 +140,7 @@ public class ProfitStatisticPanel extends javax.swing.JPanel implements SettingU
         Map<String, XYSeries> seriersMap = xyChartProfitMonth.getSeriesMap();
 
         Object[] seriesNames = seriersMap.keySet().toArray();
-        System.out.println("length: " + seriesNames.length);
         for (int i = 0; i < seriesNames.length; i++) {
-
             xyChartProfitMonth.removeSeries((String) seriesNames[i]);
         }
 
@@ -167,7 +162,7 @@ public class ProfitStatisticPanel extends javax.swing.JPanel implements SettingU
 
             ResultSet resultSet = null;
 
-            for (int i = 0; i < 12; i++) {
+            for (int i = 1; i <= 12; i++) {
                 callableStatement.setInt(1, i);
                 callableStatement.setInt(2, previousYear);
 
@@ -180,7 +175,7 @@ public class ProfitStatisticPanel extends javax.swing.JPanel implements SettingU
                 }
             }
 
-            for (int i = 0; i < 12; i++) {
+            for (int i = 1; i <= 12; i++) {
                 callableStatement.setInt(1, i);
                 callableStatement.setInt(2, currYear);
 
