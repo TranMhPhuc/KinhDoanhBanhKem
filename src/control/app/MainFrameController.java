@@ -151,7 +151,7 @@ public class MainFrameController implements MainFrameControllerInterface {
         userModel.updatePassword(newPasswordInput);
 
         ((MessageShowing) mainFrame).showInfoMessage(Messages.getInstance().PROFILE_CHANGE_PASSWORD_SUCCESSFULLY);
-
+        
         dialogPasswordChange.dispose();
     }
 

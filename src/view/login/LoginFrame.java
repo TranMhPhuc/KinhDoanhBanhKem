@@ -7,8 +7,6 @@ import model.user.UserModelInterface;
 import view.MessageShowing;
 import control.login.LoginControllerInterface;
 import java.awt.Color;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
@@ -16,16 +14,11 @@ import javax.swing.UIManager;
 public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
         ActionListener {
 
-<<<<<<< HEAD
     private UserModelInterface userModel;
     private LoginControllerInterface loginController;
-=======
-    private UserModelInterface model;
-    private LoginControllerInterface controller;
     private static Color SELECTED = new Color(107, 162, 249);
     private static Color UNSELECTED = new Color(173, 173, 173);
     private boolean showPW = false;
->>>>>>> 661425ae8d23b966a8e99ff32e84a39dbb44b4d0
 
     public LoginFrame(UserModelInterface model, LoginControllerInterface controller) {
         initComponents();
@@ -60,10 +53,10 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
         if (source == btnSignIn) {
             String emailInput = textfEmail.getText().trim();
             String passwordInput = String.valueOf(passfPassword.getPassword());
-//            this.controller.requestLogin(emailInput, passwordInput);
-            this.controller.requestLogin("baohtp@gmail.com", "Nvbh123@");
-//            this.controller.requestLogin("nhantd@gmail.com", "Nvbh345@");
-//            this.controller.requestLogin("ngocnhu@gmail.com", "Nvbh456@");
+//            this.loginController.requestLogin(emailInput, passwordInput);
+//            this.loginController.requestLogin("baohtp@gmail.com", "Nvbh123@");
+//            this.loginController.requestLogin("nhantd@gmail.com", "Nvbh345@");
+            this.loginController.requestLogin("ngocnhu@gmail.com", "Nvbh456@");
         } else if (source == btnForgotPassword) {
             this.loginController.requestRecoverPassword();
         }
