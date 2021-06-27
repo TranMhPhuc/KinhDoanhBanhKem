@@ -243,6 +243,7 @@ public class BillCreateModel implements BillCreateModelInterface {
         }
 
         selectedProducts.clear();
+        totalMoneyOfBill = 0L;
 
         updateNextBillID();
 
