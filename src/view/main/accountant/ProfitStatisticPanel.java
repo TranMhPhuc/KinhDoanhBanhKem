@@ -92,7 +92,7 @@ public class ProfitStatisticPanel extends javax.swing.JPanel implements SettingU
 //        xyChartStyler.setHasAnnotations(true);
 
         xyChartStyler.setLegendVisible(true);
-        xyChartStyler.setLegendFont(AppConstant.LEGEND_FONT);
+        xyChartStyler.setLegendFont(AppConstant.CHART_LEGEND_FONT);
         xyChartStyler.setLegendPosition(Styler.LegendPosition.OutsideS);
         xyChartStyler.setLegendLayout(Styler.LegendLayout.Horizontal);
         xyChartStyler.setLegendBorderColor(Color.WHITE);

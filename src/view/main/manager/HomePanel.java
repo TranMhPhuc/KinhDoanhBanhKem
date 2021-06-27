@@ -228,13 +228,12 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
         categoryChartProviderStateStyle.setPlotBorderVisible(false);
         categoryChartProviderStateStyle.setSeriesColors(CATEGORYCHART_PROVIDER_SIDE_COLORS);
         categoryChartProviderStateStyle.setAvailableSpaceFill(0.4);
-//        categoryChartProviderStateStyle.setXAxisTicksVisible(false);
 
         categoryChartProviderStateStyle.setAxisTitleFont(AppConstant.AXIS_TITLE_FONT);
         categoryChartProviderStateStyle.setAxisTickLabelsFont(AppConstant.AXIS_TICK_TITLE_FONT);
 
-        categoryChartProviderStateStyle.setAnnotationsFont(AppConstant.ANNO_FONT);
-        categoryChartProviderStateStyle.setLegendFont(AppConstant.LEGEND_FONT);
+        categoryChartProviderStateStyle.setAnnotationsFont(AppConstant.CHART_ANNOTAION_FONT);
+        categoryChartProviderStateStyle.setLegendFont(AppConstant.CHART_LEGEND_FONT);
         panelStateProvider.setLayout(new BorderLayout());
         panelStateProvider.add(new XChartPanel<CategoryChart>(categoryChartProviderState));
 
@@ -251,8 +250,8 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
         pieChartProductStateStyle.setLegendVisible(true);
         pieChartProductStateStyle.setPlotBorderVisible(false);
         pieChartProductStateStyle.setSeriesColors(PIECHART_PRODUCT_SIDE_COLORS);
-        pieChartProductStateStyle.setAnnotationsFont(AppConstant.ANNO_FONT);
-        pieChartProductStateStyle.setLegendFont(AppConstant.LEGEND_FONT);
+        pieChartProductStateStyle.setAnnotationsFont(AppConstant.CHART_ANNOTAION_FONT);
+        pieChartProductStateStyle.setLegendFont(AppConstant.CHART_LEGEND_FONT);
         panelStateProduct.setLayout(new BorderLayout());
         panelStateProduct.add(new XChartPanel<PieChart>(pieChartProductState));
 
@@ -269,8 +268,8 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
         pieChartIngredientStateStyle.setLegendVisible(true);
         pieChartIngredientStateStyle.setPlotBorderVisible(false);
         pieChartIngredientStateStyle.setSeriesColors(PIECHART_INGREDIENT_SIDE_COLORS);
-        pieChartIngredientStateStyle.setLegendFont(AppConstant.LEGEND_FONT);
-        pieChartIngredientStateStyle.setAnnotationsFont(AppConstant.ANNO_FONT);
+        pieChartIngredientStateStyle.setLegendFont(AppConstant.CHART_LEGEND_FONT);
+        pieChartIngredientStateStyle.setAnnotationsFont(AppConstant.CHART_ANNOTAION_FONT);
         panelStateIngredient.setLayout(new BorderLayout());
         panelStateIngredient.add(new XChartPanel<PieChart>(pieChartIngredientState));
 
@@ -287,8 +286,8 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
         pieChartEmployeePositionStateStyle.setLegendVisible(true);
         pieChartEmployeePositionStateStyle.setPlotBorderVisible(false);
         pieChartEmployeePositionStateStyle.setSeriesColors(PIECHART_EMPLOYEE_POSITION_SIDE_COLORS);
-        pieChartEmployeePositionStateStyle.setLegendFont(AppConstant.LEGEND_FONT);
-        pieChartEmployeePositionStateStyle.setAnnotationsFont(AppConstant.ANNO_FONT);
+        pieChartEmployeePositionStateStyle.setLegendFont(AppConstant.CHART_LEGEND_FONT);
+        pieChartEmployeePositionStateStyle.setAnnotationsFont(AppConstant.CHART_ANNOTAION_FONT);
         panelStateEmployeePosition.setLayout(new BorderLayout());
         panelStateEmployeePosition.add(new XChartPanel<PieChart>(pieChartEmployeePositionState));
 
@@ -305,8 +304,8 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
         pieChartEmployeeStatusStateStyle.setLegendVisible(true);
         pieChartEmployeeStatusStateStyle.setPlotBorderVisible(false);
         pieChartEmployeeStatusStateStyle.setSeriesColors(PIECHART_EMPLOYEE_STATUS_SIDE_COLORS);
-        pieChartEmployeeStatusStateStyle.setLegendFont(AppConstant.LEGEND_FONT);
-        pieChartEmployeeStatusStateStyle.setAnnotationsFont(AppConstant.ANNO_FONT);
+        pieChartEmployeeStatusStateStyle.setLegendFont(AppConstant.CHART_LEGEND_FONT);
+        pieChartEmployeeStatusStateStyle.setAnnotationsFont(AppConstant.CHART_ANNOTAION_FONT);
         panelStateEmployeeStatus.setLayout(new BorderLayout());
         panelStateEmployeeStatus.add(new XChartPanel<PieChart>(pieChartEmployeeStatusState));
     }

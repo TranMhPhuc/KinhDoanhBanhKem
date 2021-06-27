@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -101,83 +102,70 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
     }
 
     private void configChartBestSales() {
-        pieChartBestSalesCurrYear = new PieChartBuilder().width(350).height(200)
-                .theme(Styler.ChartTheme.Matlab).build();
-
-        PieStyler pieChartBestSalesCurrYearStyle = pieChartBestSalesCurrYear.getStyler();
-        pieChartBestSalesCurrYearStyle.setChartPadding(30);
-        pieChartBestSalesCurrYearStyle.setHasAnnotations(true);
-
-        pieChartBestSalesCurrYearStyle.setLegendVisible(true);
-        pieChartBestSalesCurrYearStyle.setLegendFont(AppConstant.LEGEND_FONT);
-        pieChartBestSalesCurrYearStyle.setLegendPosition(Styler.LegendPosition.OutsideE);
-        pieChartBestSalesCurrYearStyle.setLegendBorderColor(Color.WHITE);
-        pieChartBestSalesCurrYearStyle.setPlotBorderVisible(false);
-        pieChartBestSalesCurrYearStyle.setSeriesColors(PIECHART_BEST_SALES_SIDE_COLORS);
-        
-        pieChartBestSalesCurrYearStyle.setToolTipsEnabled(true);
-        pieChartBestSalesCurrYearStyle.setToolTipFont(AppConstant.TOOL_TIP_FONT);
-        panelTopRight.setLayout(new BorderLayout());
-        panelTopRight.add(new XChartPanel<PieChart>(pieChartBestSalesCurrYear));
-
-        //
         pieChartBestSalesPreviousYear = new PieChartBuilder().width(350).height(200)
                 .theme(Styler.ChartTheme.Matlab).build();
 
-        PieStyler pieChartBestSalesPreviousYearStyle = pieChartBestSalesPreviousYear.getStyler();
-        pieChartBestSalesPreviousYearStyle.setChartPadding(30);
-        pieChartBestSalesPreviousYearStyle.setHasAnnotations(true);
+        pieChartBestSalesCurrYear = new PieChartBuilder().width(350).height(200)
+                .theme(Styler.ChartTheme.Matlab).build();
 
-        pieChartBestSalesPreviousYearStyle.setLegendVisible(true);
-        pieChartBestSalesPreviousYearStyle.setLegendFont(AppConstant.LEGEND_FONT);
-        pieChartBestSalesPreviousYearStyle.setLegendPosition(Styler.LegendPosition.OutsideE);
-        pieChartBestSalesPreviousYearStyle.setLegendBorderColor(Color.WHITE);
-        pieChartBestSalesPreviousYearStyle.setPlotBorderVisible(false);
-        pieChartBestSalesPreviousYearStyle.setSeriesColors(PIECHART_BEST_SALES_SIDE_COLORS);
+        PieChart charts[] = new PieChart[]{
+            pieChartBestSalesPreviousYear,
+            pieChartBestSalesCurrYear
+        };
 
-        pieChartBestSalesPreviousYearStyle.setToolTipsEnabled(true);
-        pieChartBestSalesPreviousYearStyle.setToolTipFont(AppConstant.TOOL_TIP_FONT);
+        for (PieChart chart : charts) {
+            PieStyler chartStyler = chart.getStyler();
+            chartStyler.setDrawAllAnnotations(true);
+            chartStyler.setAnnotationType(PieStyler.AnnotationType.Percentage);
+            chartStyler.setChartPadding(30);
+            chartStyler.setHasAnnotations(true);
+            chartStyler.setAnnotationsFont(AppConstant.CHART_ANNOTAION_FONT);
+
+            chartStyler.setLegendVisible(true);
+            chartStyler.setLegendFont(AppConstant.CHART_LEGEND_FONT);
+            chartStyler.setLegendPosition(Styler.LegendPosition.OutsideE);
+            chartStyler.setLegendBorderColor(Color.WHITE);
+            chartStyler.setPlotBorderVisible(false);
+            chartStyler.setSeriesColors(PIECHART_BEST_SALES_SIDE_COLORS);
+        }
+
+        panelTopRight.setLayout(new BorderLayout());
+        panelTopRight.add(new XChartPanel<PieChart>(pieChartBestSalesCurrYear));
+
         panelTopLeft.setLayout(new BorderLayout());
         panelTopLeft.add(new XChartPanel<PieChart>(pieChartBestSalesPreviousYear));
     }
 
     private void configChartSlowSales() {
+        pieChartSlowSalesPreviousYear = new PieChartBuilder().width(350).height(200)
+                .theme(Styler.ChartTheme.Matlab).build();
         pieChartSlowSalesCurrYear = new PieChartBuilder().width(350).height(200)
                 .theme(Styler.ChartTheme.Matlab).build();
+        
+        PieChart[] charts = new PieChart[]{
+            pieChartSlowSalesPreviousYear,
+            pieChartSlowSalesCurrYear
+        };
 
-        PieStyler pieChartSlowSalesCurrYearStyle = pieChartSlowSalesCurrYear.getStyler();
-        pieChartSlowSalesCurrYearStyle.setChartPadding(30);
-        pieChartSlowSalesCurrYearStyle.setHasAnnotations(true);
+        for (PieChart chart : charts) {
+            PieStyler chartStyler = chart.getStyler();
+            chartStyler.setDrawAllAnnotations(true);
+            chartStyler.setAnnotationType(PieStyler.AnnotationType.Percentage);
+            chartStyler.setChartPadding(30);
+            chartStyler.setHasAnnotations(true);
+            chartStyler.setAnnotationsFont(AppConstant.CHART_ANNOTAION_FONT);
 
-        pieChartSlowSalesCurrYearStyle.setLegendVisible(true);
-        pieChartSlowSalesCurrYearStyle.setLegendFont(AppConstant.LEGEND_FONT);
-        pieChartSlowSalesCurrYearStyle.setLegendPosition(Styler.LegendPosition.OutsideE);
-        pieChartSlowSalesCurrYearStyle.setLegendBorderColor(Color.WHITE);
-        pieChartSlowSalesCurrYearStyle.setPlotBorderVisible(false);
-        pieChartSlowSalesCurrYearStyle.setSeriesColors(PIECHART_SLOW_SALES_SIDE_COLORS);
+            chartStyler.setLegendVisible(true);
+            chartStyler.setLegendFont(AppConstant.CHART_LEGEND_FONT);
+            chartStyler.setLegendPosition(Styler.LegendPosition.OutsideE);
+            chartStyler.setLegendBorderColor(Color.WHITE);
+            chartStyler.setPlotBorderVisible(false);
+            chartStyler.setSeriesColors(PIECHART_SLOW_SALES_SIDE_COLORS);
+        }
 
-        pieChartSlowSalesCurrYearStyle.setToolTipsEnabled(true);
-        pieChartSlowSalesCurrYearStyle.setToolTipFont(AppConstant.TOOL_TIP_FONT);
         panelBottomRight.setLayout(new BorderLayout());
         panelBottomRight.add(new XChartPanel<PieChart>(pieChartSlowSalesCurrYear));
 
-        //
-        pieChartSlowSalesPreviousYear = new PieChartBuilder().width(350).height(200)
-                .theme(Styler.ChartTheme.Matlab).build();
-
-        PieStyler pieChartSlowSalesPreviousYearStyle = pieChartSlowSalesPreviousYear.getStyler();
-        pieChartSlowSalesPreviousYearStyle.setChartPadding(30);
-        pieChartSlowSalesPreviousYearStyle.setHasAnnotations(true);
-
-        pieChartSlowSalesPreviousYearStyle.setLegendVisible(true);
-        pieChartSlowSalesPreviousYearStyle.setLegendFont(AppConstant.LEGEND_FONT);
-        pieChartSlowSalesPreviousYearStyle.setLegendPosition(Styler.LegendPosition.OutsideE);
-        pieChartSlowSalesPreviousYearStyle.setLegendBorderColor(Color.WHITE);
-        pieChartSlowSalesPreviousYearStyle.setPlotBorderVisible(false);
-        pieChartSlowSalesPreviousYearStyle.setSeriesColors(PIECHART_SLOW_SALES_SIDE_COLORS);
-        
-        pieChartSlowSalesPreviousYearStyle.setToolTipsEnabled(true);
-        pieChartSlowSalesPreviousYearStyle.setToolTipFont(AppConstant.TOOL_TIP_FONT);
         panelBottomLeft.setLayout(new BorderLayout());
         panelBottomLeft.add(new XChartPanel<PieChart>(pieChartSlowSalesPreviousYear));
     }
@@ -198,7 +186,7 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
             pieChartBestSalesCurrYear.setTitle(
                     String.format(VIE_STRING_FORMAT_BEST_SALES_OF_YEAR, selectedMonth, currYear));
         }
-        
+
         Map<String, PieSeries> seriesMap = pieChartBestSalesCurrYear.getSeriesMap();
 
         Object[] seriesNames = seriesMap.keySet().toArray();
@@ -238,15 +226,11 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
                 String productSize = resultSet.getString(ProductSimpleModel.SIZE_HEADER);
                 int sellAmount = resultSet.getInt("SoLuongBan");
                 remainProductSell -= sellAmount;
-                float percent = (float) sellAmount / totalProductSell * 100;
-                String seriesName = String.format("%s - %s \n(%.2f%%)",
-                        productName, productSize, percent);
+                String seriesName = String.format("%s - %s", productName, productSize);
                 pieChartBestSalesCurrYear.addSeries(seriesName, sellAmount);
             }
 
-            float percent = (float) remainProductSell / totalProductSell * 100;
-            String seriesName = String.format("Other (%.2f%%)", percent);
-            pieChartBestSalesCurrYear.addSeries(seriesName, remainProductSell);
+            pieChartBestSalesCurrYear.addSeries("Other", remainProductSell);
 
         } catch (SQLException ex) {
             Logger.getLogger(ProductStatisticPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -269,7 +253,7 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
             pieChartBestSalesPreviousYear.setTitle(
                     String.format(VIE_STRING_FORMAT_BEST_SALES_OF_YEAR, selectedMonth, previousYear));
         }
-        
+
         Map<String, PieSeries> seriesMap = pieChartBestSalesPreviousYear.getSeriesMap();
 
         Object[] seriesNames = seriesMap.keySet().toArray();
@@ -309,15 +293,11 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
                 String productSize = resultSet.getString(ProductSimpleModel.SIZE_HEADER);
                 int sellAmount = resultSet.getInt("SoLuongBan");
                 remainProductSell -= sellAmount;
-                float percent = (float) sellAmount / totalProductSell * 100;
-                String seriesName = String.format("%s - %s \n(%.2f%%)",
-                        productName, productSize, percent);
+                String seriesName = String.format("%s - %s", productName, productSize);
                 pieChartBestSalesPreviousYear.addSeries(seriesName, sellAmount);
             }
 
-            float percent = (float) remainProductSell / totalProductSell * 100;
-            String seriesName = String.format("Other (%.2f%%)", percent);
-            pieChartBestSalesPreviousYear.addSeries(seriesName, remainProductSell);
+            pieChartBestSalesPreviousYear.addSeries("Other", remainProductSell);
 
         } catch (SQLException ex) {
             Logger.getLogger(ProductStatisticPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -340,7 +320,7 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
             pieChartSlowSalesCurrYear.setTitle(
                     String.format(VIE_STRING_FORMAT_SLOW_SALES_OF_YEAR, selectedMonth, currYear));
         }
-        
+
         Map<String, PieSeries> seriesMap = pieChartSlowSalesCurrYear.getSeriesMap();
 
         Object[] seriesNames = seriesMap.keySet().toArray();
@@ -380,15 +360,11 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
                 String productSize = resultSet.getString(ProductSimpleModel.SIZE_HEADER);
                 int sellAmount = resultSet.getInt("SoLuongBan");
                 remainProductSell -= sellAmount;
-                float percent = (float) sellAmount / totalProductSell * 100;
-                String seriesName = String.format("%s - %s \n(%.2f%%)",
-                        productName, productSize, percent);
+                String seriesName = String.format("%s - %s", productName, productSize);
                 pieChartSlowSalesCurrYear.addSeries(seriesName, sellAmount);
             }
 
-            float percent = (float) remainProductSell / totalProductSell * 100;
-            String seriesName = String.format("Other (%.2f%%)", percent);
-            pieChartSlowSalesCurrYear.addSeries(seriesName, remainProductSell);
+            pieChartSlowSalesCurrYear.addSeries("Other", remainProductSell);
 
         } catch (SQLException ex) {
             Logger.getLogger(ProductStatisticPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -411,7 +387,7 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
             pieChartSlowSalesPreviousYear.setTitle(
                     String.format(VIE_STRING_FORMAT_SLOW_SALES_OF_YEAR, selectedMonth, previousYear));
         }
-        
+
         Map<String, PieSeries> seriesMap = pieChartSlowSalesPreviousYear.getSeriesMap();
 
         Object[] seriesNames = seriesMap.keySet().toArray();
@@ -451,15 +427,11 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
                 String productSize = resultSet.getString(ProductSimpleModel.SIZE_HEADER);
                 int sellAmount = resultSet.getInt("SoLuongBan");
                 remainProductSell -= sellAmount;
-                float percent = (float) sellAmount / totalProductSell * 100;
-                String seriesName = String.format("%s - %s \n(%.2f%%)",
-                        productName, productSize, percent);
+                String seriesName = String.format("%s - %s", productName, productSize);
                 pieChartSlowSalesPreviousYear.addSeries(seriesName, sellAmount);
             }
 
-            float percent = (float) remainProductSell / totalProductSell * 100;
-            String seriesName = String.format("Other (%.2f%%)", percent);
-            pieChartSlowSalesPreviousYear.addSeries(seriesName, remainProductSell);
+            pieChartSlowSalesPreviousYear.addSeries("Other", remainProductSell);
         } catch (SQLException ex) {
             Logger.getLogger(ProductStatisticPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -479,8 +451,8 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
                 titledBorder = (TitledBorder) panelBottom.getBorder();
                 titledBorder.setTitle("Slow sales");
 
-                labelMonthTop.setText("Month");
-                labelMonthBottom.setText("Month");
+                labelMonthTop.setText("Month:");
+                labelMonthBottom.setText("Month:");
 
                 String selectedMonth = (String) combMonthTop.getSelectedItem();
 
@@ -505,8 +477,8 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
                 titledBorder = (TitledBorder) panelBottom.getBorder();
                 titledBorder.setTitle("Hàng bán chậm");
 
-                labelMonthTop.setText("Tháng");
-                labelMonthBottom.setText("Tháng");
+                labelMonthTop.setText("Tháng:");
+                labelMonthBottom.setText("Tháng:");
 
                 String selectedMonth = (String) combMonthTop.getSelectedItem();
 

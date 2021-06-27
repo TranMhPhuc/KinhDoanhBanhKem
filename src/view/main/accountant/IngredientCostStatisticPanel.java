@@ -56,7 +56,7 @@ public class IngredientCostStatisticPanel extends javax.swing.JPanel implements 
         xyChartStyler.setChartPadding(30);
 
         xyChartStyler.setLegendVisible(true);
-        xyChartStyler.setLegendFont(AppConstant.LEGEND_FONT);
+        xyChartStyler.setLegendFont(AppConstant.CHART_LEGEND_FONT);
         xyChartStyler.setLegendPosition(Styler.LegendPosition.OutsideS);
         xyChartStyler.setLegendLayout(Styler.LegendLayout.Horizontal);
         xyChartStyler.setLegendBorderColor(Color.WHITE);
