@@ -67,7 +67,6 @@ public class IngredientCostStatisticPanel extends javax.swing.JPanel implements 
         xyChartStyler.setAxisTickLabelsFont(AppConstant.AXIS_TICK_TITLE_FONT);
 
         xyChartStyler.setYAxisDecimalPattern("###,###,###");
-     //   xyChartStyler.setYAxisMax(1e6);
         xyChartStyler.setToolTipsEnabled(true);
         xyChartStyler.setToolTipFont(AppConstant.TOOL_TIP_FONT);
 
@@ -102,7 +101,7 @@ public class IngredientCostStatisticPanel extends javax.swing.JPanel implements 
 
             ResultSet resultSet = null;
 
-            for (int i = 0; i < 12; i++) {
+            for (int i = 1; i <= 12; i++) {
                 callableStatement.setInt(1, i);
                 callableStatement.setInt(2, previousYear);
 
@@ -115,7 +114,7 @@ public class IngredientCostStatisticPanel extends javax.swing.JPanel implements 
                 }
             }
 
-            for (int i = 0; i < 12; i++) {
+            for (int i = 1; i <= 12; i++) {
                 callableStatement.setInt(1, i);
                 callableStatement.setInt(2, currYear);
 
@@ -135,16 +134,15 @@ public class IngredientCostStatisticPanel extends javax.swing.JPanel implements 
             Logger.getLogger(IngredientCostStatisticPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        xyChartIngredientCost.addSeries(String.valueOf(previousYear), months, ingredientCostOfMonthCurrYear);
-        xyChartIngredientCost.addSeries(String.valueOf(currYear), months, ingredientCostOfMonthPreviousYear);
+        xyChartIngredientCost.addSeries(String.valueOf(previousYear), months, ingredientCostOfMonthPreviousYear);
+        xyChartIngredientCost.addSeries(String.valueOf(currYear), months, ingredientCostOfMonthCurrYear);
     }
 
     @Override
     public void updateSettingObserver() {
         AppSetting.Language language = AppSetting.getInstance().getAppLanguage();
 
-        LocalDate nowLocal = LocalDate.now();
-        int currYear = nowLocal.getYear();
+        int currYear = LocalDate.now().getYear();
 
         switch (language) {
             case ENGLISH: {

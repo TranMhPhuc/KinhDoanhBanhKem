@@ -18,6 +18,7 @@ import javax.swing.border.TitledBorder;
 import model.product.ProductSimpleModel;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
+import org.junit.Assert;
 import org.knowm.xchart.PieChart;
 import org.knowm.xchart.PieChartBuilder;
 import org.knowm.xchart.PieSeries;
@@ -108,7 +109,7 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
         pieChartBestSalesCurrYear = new PieChartBuilder().width(350).height(200)
                 .theme(Styler.ChartTheme.Matlab).build();
 
-        PieChart charts[] = new PieChart[]{
+        PieChart charts[] = {
             pieChartBestSalesPreviousYear,
             pieChartBestSalesCurrYear
         };
@@ -141,7 +142,7 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
                 .theme(Styler.ChartTheme.Matlab).build();
         pieChartSlowSalesCurrYear = new PieChartBuilder().width(350).height(200)
                 .theme(Styler.ChartTheme.Matlab).build();
-        
+
         PieChart[] charts = new PieChart[]{
             pieChartSlowSalesPreviousYear,
             pieChartSlowSalesCurrYear
