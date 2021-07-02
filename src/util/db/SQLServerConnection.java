@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+    
 public class SQLServerConnection {
 
-    private static final String DB_URL = "jdbc:sqlserver://;databaseName=BANHKEM_BLN";
+    private static final String DB_URL = "jdbc:sqlserver://;databaseName=BANHKEM";
 
     private static final String USERNAME = "Admin";
 

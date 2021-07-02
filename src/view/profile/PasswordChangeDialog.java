@@ -57,7 +57,7 @@ public class PasswordChangeDialog extends javax.swing.JDialog implements Message
     @Override
     public void updateSettingObserver() {
         if (AppSetting.getInstance().getAppLanguage() == AppSetting.Language.ENGLISH) {
-            setTitle("Change password dialog");
+            setTitle("Change password");
             labelMainTitle.setText("Change Your Password");
             labelOldPassword.setText("Old password");
             labelNewPassword.setText("New password");

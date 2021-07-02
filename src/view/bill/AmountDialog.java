@@ -38,7 +38,7 @@ public class AmountDialog extends javax.swing.JDialog implements SettingUpdateOb
     @Override
     public void updateSettingObserver() {
         if (AppSetting.getInstance().getAppLanguage() == AppSetting.Language.ENGLISH) {
-            setTitle("Product amount input dialog");
+            setTitle("Product amount input");
             labelAmount.setText("Amount:");
         } else {
             setTitle("Nhập số lượng sản phẩm");

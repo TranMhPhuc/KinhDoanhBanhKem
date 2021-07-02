@@ -8,6 +8,9 @@ import java.time.format.DateTimeFormatter;
 public interface AppConstant {
 
     public static int SEARCH_SCORE_CUT_OFF = 60;
+    public static String MAIN_FRAME_TITLE_MANAGER = "Bakery Management System - Manager";
+    public static String MAIN_FRAME_TITLE_CASHIER = "Bakery Management System - Cashier";
+    public static String MAIN_FRAME_TITLE_ACCOUNTANT = "Bakery Management System - Accountant";
 
     //==========================================================================
     public static final Color COLOR_MENU_MOUSE_ENTER = new Color(107, 162, 249);

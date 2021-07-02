@@ -95,7 +95,7 @@ public class BillDetailDialog extends javax.swing.JDialog implements SettingUpda
 
         switch (language) {
             case ENGLISH: {
-                setTitle("Bill detail dialog");
+                setTitle("Bill detail");
                 
                 labelMainTitle.setText("Bill Detail");
 

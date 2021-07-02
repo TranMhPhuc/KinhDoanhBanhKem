@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 import model.ingredient.IngredientModelInterface;
 import model.product.ProductManageModelInterface;
@@ -263,7 +261,6 @@ public class ProductController implements ProductControllerInterface {
             return;
         }
 
-
         if (productManageModel.getBufferedIngredientDetailList().isEmpty()) {
             this.productPanel.showErrorMessage(Messages.getInstance().PRODUCT_SAVE_INGR_LIST_EMPTY);
             return;
@@ -367,7 +364,7 @@ public class ProductController implements ProductControllerInterface {
         if (!isProductCostAndPriceVallid(productSize, preSize, nextSize, productCost, productPrice)) {
             return;
         }
-        
+
         if (productManageModel.getBufferedIngredientDetailList().isEmpty()) {
             this.productPanel.showErrorMessage(Messages.getInstance().PRODUCT_SAVE_INGR_LIST_EMPTY);
             return;
@@ -587,7 +584,21 @@ public class ProductController implements ProductControllerInterface {
             dialogIngredientEditing = new IngredientEditDialog(productPanel.getMainFrame(), true, productManageModel, this);
             AppSetting.getInstance().registerObserver(dialogIngredientEditing);
         }
+        int rowID = productPanel.getSelectedRow();
+        Assert.assertNotEquals(rowID, -1);
+        ProductModelInterface product = this.searchList.get(rowID);
+        String name = product.getName();
+        String size = product.getSize().name();
+        
+        boolean isNewProduct;
+        if(productPanel.getEditState() == ProductPanel.EditState.MODIFY){
+            isNewProduct = false;
+        }else{
+            isNewProduct = true;
+        }
+        dialogIngredientEditing.setNameAndSizeText(name, size, isNewProduct);
         dialogIngredientEditing.setVisible(true);
+        
     }
 
     @Override
@@ -780,7 +791,7 @@ public class ProductController implements ProductControllerInterface {
         products.forEachRemaining(product -> {
             product.reloadIngredientDetailList();
         });
-        
+
         String productIDText = productPanel.getProductIDText();
 
         if (productIDText.isEmpty()) {

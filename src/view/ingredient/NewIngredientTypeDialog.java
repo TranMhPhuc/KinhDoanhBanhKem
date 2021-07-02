@@ -66,7 +66,7 @@ public class NewIngredientTypeDialog extends javax.swing.JDialog implements
     @Override
     public void updateSettingObserver() {
         if (AppSetting.getInstance().getAppLanguage() == AppSetting.Language.ENGLISH) {
-            setTitle("Create new ingredient type dialog");
+            setTitle("Create new ingredient type");
 
             labelMainTitle.setText("New Ingredient Type");
             labelTypeID.setText("Type ID:");

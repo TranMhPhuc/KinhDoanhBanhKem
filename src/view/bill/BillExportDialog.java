@@ -150,7 +150,7 @@ public class BillExportDialog extends javax.swing.JDialog implements ActionListe
     @Override
     public void updateSettingObserver() {
         if (AppSetting.getInstance().getAppLanguage() == AppSetting.Language.ENGLISH) {
-            setTitle("Export bill dialog");
+            setTitle("Export bill");
 
             labelMainTitle.setText("Export Bill");
             labelBillID.setText("Bill ID:");
@@ -208,6 +208,7 @@ public class BillExportDialog extends javax.swing.JDialog implements ActionListe
         textfChangeMoney = new CurrencyTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -264,6 +265,9 @@ public class BillExportDialog extends javax.swing.JDialog implements ActionListe
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel2.setText("VND");
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel3.setText("VND");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -303,7 +307,8 @@ public class BillExportDialog extends javax.swing.JDialog implements ActionListe
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -318,12 +323,13 @@ public class BillExportDialog extends javax.swing.JDialog implements ActionListe
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelTotalMoney)
-                    .addComponent(textfTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textfTotalMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelGuestMoney)
                     .addComponent(textfGuestMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelChangeMoney)
@@ -346,6 +352,7 @@ public class BillExportDialog extends javax.swing.JDialog implements ActionListe
     private javax.swing.JButton btnContinue;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel labelBillID;
     private javax.swing.JLabel labelChangeMoney;
     private javax.swing.JLabel labelError;

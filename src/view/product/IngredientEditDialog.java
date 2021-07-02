@@ -13,6 +13,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import model.product.ProductManageModelInterface;
+import model.product.ProductModelInterface;
 import model.product.ingredientDetail.IngredientDetailModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
@@ -32,6 +33,9 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
 
     private DefaultTableModel tableIngredientModel;
     private SpinnerNumberModel spinnerAmountFloatModel;
+    private String productNameText;
+    private String productSizeText;
+    private boolean isNewProduct;
 
     public IngredientEditDialog(java.awt.Frame parent, boolean modal,
             ProductManageModelInterface productManageModel,
@@ -56,6 +60,12 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
             addRowTableIngredient(e);
         });
         this.productManageModel.setBufferListModifiedFlag(false);
+
+        String labelName = " " + "New name" + " - " + "New size" + " ";
+        if (!isNewProduct) {
+            labelName = " " + this.productNameText + " - " + this.productSizeText + " ";
+        }
+        labelProductName.setText(labelName);
         super.setVisible(b);
     }
 
@@ -189,7 +199,7 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
     @Override
     public void updateSettingObserver() {
         if (AppSetting.getInstance().getAppLanguage() == AppSetting.Language.ENGLISH) {
-            setTitle("Edit ingredient detail of product dialog");
+            setTitle("Edit ingredient detail of product");
 
             TitledBorder titledBorder = (TitledBorder) panelSelectIngredient.getBorder();
             titledBorder.setTitle("Select ingredient");
@@ -251,6 +261,12 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
                 JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
     }
 
+    public void setNameAndSizeText(String productName, String size, boolean isNewProduct) {
+        this.productNameText = productName;
+        this.productSizeText = size;
+        this.isNewProduct = isNewProduct;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -274,6 +290,7 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
         labelIngredientAmount = new javax.swing.JLabel();
         spinnerAmount = new javax.swing.JSpinner();
         btnAdd = new javax.swing.JButton();
+        labelProductName = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
@@ -411,6 +428,12 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
         btnAdd.setText("Add");
         btnAdd.setPreferredSize(new java.awt.Dimension(100, 46));
 
+        labelProductName.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        labelProductName.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        labelProductName.setText(" Product Name - M ");
+        labelProductName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
+        labelProductName.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -423,8 +446,13 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(panelSelectIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 265, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 203, Short.MAX_VALUE)
+                                .addComponent(labelProductName))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(labelIngredientOfProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -436,11 +464,13 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(panelSelectIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelProductName)
+                            .addComponent(panelSelectIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelIngredientOfProduct)
@@ -473,6 +503,7 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
     private javax.swing.JLabel labelIngredientName;
     private javax.swing.JLabel labelIngredientOfProduct;
     private javax.swing.JLabel labelIngredientUnit;
+    private javax.swing.JLabel labelProductName;
     private javax.swing.JPanel panelSelectIngredient;
     private javax.swing.JScrollPane scrpaneIngredientSelected;
     private javax.swing.JSpinner spinnerAmount;

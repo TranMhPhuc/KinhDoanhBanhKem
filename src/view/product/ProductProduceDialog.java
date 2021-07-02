@@ -70,7 +70,7 @@ public class ProductProduceDialog extends javax.swing.JDialog implements Message
     @Override
     public void updateSettingObserver() {
         if (AppSetting.getInstance().getAppLanguage() == AppSetting.Language.ENGLISH) {
-            setTitle("Produce product dialog");
+            setTitle("Produce product");
             labelMainTitle.setText("Produce Product");
             labelProductID.setText("Product ID:");
             labelProductName.setText("Product name:");

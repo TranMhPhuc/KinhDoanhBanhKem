@@ -349,8 +349,10 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
         labelDateTo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelDateTo.setText("To");
 
+        datechooserDateFrom.setDateFormatString("dd - MM - yyyy");
         datechooserDateFrom.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
+        datechooserDateTo.setDateFormatString("dd - MM - yyyy");
         datechooserDateTo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         btnApply.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -371,8 +373,8 @@ public class BillHistoryPanel extends javax.swing.JPanel implements ActionListen
                 .addGap(30, 30, 30)
                 .addComponent(labelDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(datechooserDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addComponent(datechooserDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnApply, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(517, Short.MAX_VALUE))
         );

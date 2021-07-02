@@ -121,7 +121,8 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
             chartStyler.setChartPadding(30);
             chartStyler.setHasAnnotations(true);
             chartStyler.setAnnotationsFont(AppConstant.CHART_ANNOTAION_FONT);
-
+            
+            chartStyler.setDecimalPattern("#.##");
             chartStyler.setLegendVisible(true);
             chartStyler.setLegendFont(AppConstant.CHART_LEGEND_FONT);
             chartStyler.setLegendPosition(Styler.LegendPosition.OutsideE);
@@ -155,7 +156,11 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
             chartStyler.setChartPadding(30);
             chartStyler.setHasAnnotations(true);
             chartStyler.setAnnotationsFont(AppConstant.CHART_ANNOTAION_FONT);
-
+            
+           // chartStyler.setClockwiseDirectionType(PieStyler.ClockwiseDirectionType.COUNTER_CLOCKWISE);
+            chartStyler.setAnnotationDistance(1.3);
+            chartStyler.setStartAngleInDegrees(280);
+            chartStyler.setDecimalPattern("#.##");
             chartStyler.setLegendVisible(true);
             chartStyler.setLegendFont(AppConstant.CHART_LEGEND_FONT);
             chartStyler.setLegendPosition(Styler.LegendPosition.OutsideE);
@@ -221,7 +226,7 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
             callableStatement.setInt(2, currYear);
 
             ResultSet resultSet = callableStatement.executeQuery();
-
+                        
             while (resultSet.next()) {
                 String productName = resultSet.getString(ProductSimpleModel.NAME_HEADER);
                 String productSize = resultSet.getString(ProductSimpleModel.SIZE_HEADER);
@@ -230,7 +235,7 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
                 String seriesName = String.format("%s - %s", productName, productSize);
                 pieChartBestSalesCurrYear.addSeries(seriesName, sellAmount);
             }
-
+            
             pieChartBestSalesCurrYear.addSeries("Other", remainProductSell);
 
         } catch (SQLException ex) {
@@ -537,7 +542,7 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
         );
         panelTopLeftLayout.setVerticalGroup(
             panelTopLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 318, Short.MAX_VALUE)
+            .addGap(0, 341, Short.MAX_VALUE)
         );
 
         panelBestSales.add(panelTopLeft);
@@ -583,8 +588,8 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
                 .addGroup(panelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(labelMonthTop, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                     .addComponent(combMonthTop, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 29, Short.MAX_VALUE)
-                .addComponent(panelBestSales, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelBestSales, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -607,7 +612,7 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
         );
         panelBottomLeftLayout.setVerticalGroup(
             panelBottomLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 318, Short.MAX_VALUE)
+            .addGap(0, 330, Short.MAX_VALUE)
         );
 
         panelSlowSales.add(panelBottomLeft);
@@ -653,8 +658,8 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
                 .addGroup(panelBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelMonthBottom, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(combMonthBottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(panelSlowSales, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelSlowSales, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 

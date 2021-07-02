@@ -121,6 +121,7 @@ public class LoginController implements LoginControllerInterface {
     @Override
     public void requestRecoverPassword() {
         this.passwordRecoveryDialog = new PasswordRecoveryDialog(this.loginFrame, true, this);
+        this.passwordRecoveryDialog.setTitle("Forgot password");
         this.passwordRecoveryDialog.setVisible(true);
     }
 

@@ -84,8 +84,8 @@
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="labelDateTo" min="-2" pref="45" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="datechooserDateTo" min="-2" pref="166" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="datechooserDateTo" min="-2" pref="178" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnApply" min="-2" pref="115" max="-2" attributes="0"/>
                   <EmptySpace pref="517" max="32767" attributes="0"/>
               </Group>
@@ -135,6 +135,7 @@
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="datechooserDateFrom">
           <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="dd - MM - yyyy"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="0"/>
             </Property>
@@ -142,6 +143,7 @@
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="datechooserDateTo">
           <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="dd - MM - yyyy"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="0"/>
             </Property>

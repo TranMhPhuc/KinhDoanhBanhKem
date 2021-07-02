@@ -107,7 +107,7 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
     @Override
     public void updateSettingObserver() {
         if (AppSetting.getInstance().getAppLanguage() == AppSetting.Language.ENGLISH) {
-            setTitle("Ingredient import history dialog");
+            setTitle("Ingredient import history");
 
             labelMainTitle.setText("Ingredient Import History");
 
@@ -227,8 +227,10 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
         labelDateTo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelDateTo.setText("Date to:");
 
+        dateChooserdateFrom.setDateFormatString("dd - MM - yyyy");
         dateChooserdateFrom.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
+        dateChooserdateTo.setDateFormatString("dd - MM - yyyy");
         dateChooserdateTo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         btnApply.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N

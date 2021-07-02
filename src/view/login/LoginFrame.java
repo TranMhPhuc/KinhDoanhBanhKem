@@ -7,9 +7,12 @@ import model.user.UserModelInterface;
 import view.MessageShowing;
 import control.login.LoginControllerInterface;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
+import util.constant.AppConstant;
 
 public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
         ActionListener {
@@ -29,7 +32,8 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
 
         btnSignIn.addActionListener(this);
         btnForgotPassword.addActionListener(this);
-
+        ImageIcon img = new ImageIcon(getClass().getResource("/img/shop70px.png"));
+        this.setIconImage(img.getImage());
         setAppLookAndFeel();
     }
 
@@ -54,9 +58,11 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
             String emailInput = textfEmail.getText().trim();
             String passwordInput = String.valueOf(passfPassword.getPassword());
 //            this.loginController.requestLogin(emailInput, passwordInput);
-//            this.loginController.requestLogin("baohtp@gmail.com", "Nvbh123@");
-            this.loginController.requestLogin("nhantd@gmail.com", "Nvbh345@");
-//            this.loginController.requestLogin("ngocnhu@gmail.com", "Nvbh456@");
+
+            this.loginController.requestLogin("mt10tmt@gmail.com", "Nvbh123@");
+//            this.loginController.requestLogin("minhtu1392000@gmail.com", "Nvbh345@");
+//            this.loginController.requestLogin("tranmhphuc@gmail.com", "123456");
+
         } else if (source == btnForgotPassword) {
             this.loginController.requestRecoverPassword();
         }
@@ -155,11 +161,22 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnSignIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_sign-in.png"))); // NOI18N
+        btnSignIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/button_sign-in_exit.png"))); // NOI18N
         btnSignIn.setBorderPainted(false);
         btnSignIn.setContentAreaFilled(false);
         btnSignIn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSignIn.setFocusPainted(false);
+        btnSignIn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSignInMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSignInMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSignInMouseExited(evt);
+            }
+        });
 
         panelLoginInfo.setBackground(new java.awt.Color(255, 255, 255));
         panelLoginInfo.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 5));
@@ -181,6 +198,11 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
                 textfEmailFocusLost(evt);
             }
         });
+        textfEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textfEmailKeyPressed(evt);
+            }
+        });
         panelLoginInfo.add(textfEmail);
 
         labelPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -200,6 +222,11 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
                 passfPasswordFocusLost(evt);
             }
         });
+        passfPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passfPasswordKeyPressed(evt);
+            }
+        });
         panelLoginInfo.add(passfPassword);
 
         passwordShow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/hidePW_24px.png"))); // NOI18N
@@ -217,7 +244,7 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
         });
         panelLoginInfo.add(passwordShow);
 
-        btnForgotPassword.setBackground(new java.awt.Color(51, 102, 255));
+        btnForgotPassword.setBackground(new java.awt.Color(113, 168, 255));
         btnForgotPassword.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         btnForgotPassword.setForeground(new java.awt.Color(113, 168, 255));
         btnForgotPassword.setText("Forgot password?");
@@ -227,6 +254,17 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
         btnForgotPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnForgotPassword.setFocusPainted(false);
         btnForgotPassword.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        btnForgotPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnForgotPasswordMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnForgotPasswordMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnForgotPasswordMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelLoginLayout = new javax.swing.GroupLayout(panelLogin);
         panelLogin.setLayout(panelLoginLayout);
@@ -234,14 +272,16 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
             panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLoginLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelLoginInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSignIn, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(panelLoginInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
             .addGroup(panelLoginLayout.createSequentialGroup()
-                .addGap(134, 134, 134)
-                .addComponent(btnForgotPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(152, 152, 152)
+                .addComponent(btnForgotPassword)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelLoginLayout.createSequentialGroup()
+                .addGap(122, 122, 122)
+                .addComponent(btnSignIn, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelLoginLayout.setVerticalGroup(
@@ -250,9 +290,9 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelLoginInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addComponent(btnSignIn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnForgotPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -317,6 +357,47 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
 
 
     }//GEN-LAST:event_passwordShowMouseClicked
+
+    private void btnSignInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSignInMouseClicked
+        btnSignIn.setIcon(new ImageIcon(getClass().getResource("/img/button_sign-in_press.png")));
+    }//GEN-LAST:event_btnSignInMouseClicked
+
+    private void btnSignInMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSignInMouseEntered
+        btnSignIn.setIcon(new ImageIcon(getClass().getResource("/img/button_sign-in_press.png")));
+    }//GEN-LAST:event_btnSignInMouseEntered
+
+    private void btnSignInMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSignInMouseExited
+        btnSignIn.setIcon(new ImageIcon(getClass().getResource("/img/button_sign-in_exit.png")));
+    }//GEN-LAST:event_btnSignInMouseExited
+
+    private void btnForgotPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnForgotPasswordMouseClicked
+        btnForgotPassword.setForeground(AppConstant.COLOR_MENU_MOUSE_PRESS);
+    }//GEN-LAST:event_btnForgotPasswordMouseClicked
+
+    private void btnForgotPasswordMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnForgotPasswordMouseEntered
+        btnForgotPassword.setForeground(AppConstant.COLOR_MENU_MOUSE_PRESS);
+    }//GEN-LAST:event_btnForgotPasswordMouseEntered
+
+    private void btnForgotPasswordMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnForgotPasswordMouseExited
+        btnForgotPassword.setForeground(AppConstant.COLOR_MENU_MOUSE_EXIT);
+    }//GEN-LAST:event_btnForgotPasswordMouseExited
+
+    private void textfEmailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textfEmailKeyPressed
+        if (evt.getKeyChar() == 10) {
+            String emailInput = textfEmail.getText().trim();
+            String passwordInput = String.valueOf(passfPassword.getPassword());
+            this.loginController.requestLogin(emailInput, passwordInput);
+        }
+    }//GEN-LAST:event_textfEmailKeyPressed
+
+    private void passfPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passfPasswordKeyPressed
+        if (evt.getKeyChar() == 10) {
+            String emailInput = textfEmail.getText().trim();
+            String passwordInput = String.valueOf(passfPassword.getPassword());
+            System.out.println(emailInput + " " + passwordInput);
+            this.loginController.requestLogin(emailInput, passwordInput);
+        }
+    }//GEN-LAST:event_passfPasswordKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnForgotPassword;

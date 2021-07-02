@@ -814,12 +814,15 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
 
         textfEmployeeEmail.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
+        dateChooserStartDate.setDateFormatString("dd - MM - yyyy");
         dateChooserStartDate.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
+        dateChooserBirthday.setDateFormatString("dd - MM - yyyy");
         dateChooserBirthday.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         combEmployeeShift.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
+        dateChooserEndDate.setDateFormatString("dd - MM - yyyy");
         dateChooserEndDate.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         labelEndDate.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N

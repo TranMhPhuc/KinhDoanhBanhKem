@@ -79,7 +79,7 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
     @Override
     public void updateSettingObserver() {
         if (AppSetting.getInstance().getAppLanguage() == AppSetting.Language.ENGLISH) {
-            setTitle("Import ingredient dialog");
+            setTitle("Import ingredient");
             
             labelMainTitle.setText("Import Ingredient");
             labelIngredientID.setText("Ingredient ID:");
