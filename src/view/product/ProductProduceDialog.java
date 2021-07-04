@@ -55,12 +55,12 @@ public class ProductProduceDialog extends javax.swing.JDialog implements Message
     }
 
     public void setTotalCost(String totalCost) {
-        if(totalCost.equals("")){
+        if (totalCost.equals("")) {
             this.textfTotalCost.setValue(null);
-        }else{
+        } else {
             this.textfTotalCost.setText(String.valueOf(totalCost));
         }
-        
+
     }
 
     public int getProduceAmountInput() {
@@ -103,6 +103,12 @@ public class ProductProduceDialog extends javax.swing.JDialog implements Message
     @Override
     public void showWarningMessage(String message) {
         JOptionPane.showMessageDialog(this, message, getTitle(), JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
+    }
+
+    @Override
+    public void dispose() {
+        spinnerAmount.getModel().setValue(1);
+        super.dispose();
     }
 
     @SuppressWarnings("unchecked")

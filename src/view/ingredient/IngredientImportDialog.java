@@ -71,6 +71,7 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
 
         if (source == btnContinue) {
             ingredientController.importIngredient();
+            dispose();
         } else if (source == btnCancel) {
             dispose();
         }
@@ -116,6 +117,11 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
     @Override
     public void showWarningMessage(String message) {
         JOptionPane.showMessageDialog(this, message, getTitle(), JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
+    }
+    @Override
+    public void dispose(){
+        spinnerAmount.getModel().setValue(1);
+        super.dispose();
     }
 
     @SuppressWarnings("unchecked")

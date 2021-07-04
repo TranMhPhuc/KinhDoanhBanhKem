@@ -266,6 +266,11 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
         this.productSizeText = size;
         this.isNewProduct = isNewProduct;
     }
+    @Override
+    public void dispose(){
+        spinnerAmount.getModel().setValue(1);
+        super.dispose();
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

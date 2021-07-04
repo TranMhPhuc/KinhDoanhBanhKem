@@ -45,6 +45,11 @@ public class AmountDialog extends javax.swing.JDialog implements SettingUpdateOb
             labelAmount.setText("Số lượng:");
         }
     }
+    @Override
+    public void dispose(){
+        spinnerAmount.getModel().setValue(1);
+        super.dispose();
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -58,7 +63,7 @@ public class AmountDialog extends javax.swing.JDialog implements SettingUpdateOb
         setResizable(false);
 
         spinnerAmount.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        spinnerAmount.setModel(new javax.swing.SpinnerNumberModel());
+        spinnerAmount.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         labelAmount.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelAmount.setText("Amount");
