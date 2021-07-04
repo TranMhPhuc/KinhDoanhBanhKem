@@ -4,6 +4,8 @@ import control.product.ProductControllerInterface;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
@@ -13,7 +15,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import model.product.ProductManageModelInterface;
-import model.product.ProductModelInterface;
 import model.product.ingredientDetail.IngredientDetailModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
@@ -49,6 +50,7 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
         this.spinnerAmountFloatModel = (SpinnerNumberModel) spinnerAmount.getModel();
         createView();
         createControl();
+        addQuantitiesSpinnerKeyListener();
     }
 
     @Override
@@ -266,12 +268,28 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
         this.productSizeText = size;
         this.isNewProduct = isNewProduct;
     }
+
     @Override
-    public void dispose(){
-        spinnerAmount.getModel().setValue(1);
+    public void dispose() {
+        spinnerAmount.getModel().setValue(1.0f);
         super.dispose();
     }
-
+    private void addQuantitiesSpinnerKeyListener() {
+        spinnerAmount.getEditor().getComponent(0).addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (Character.isDigit(e.getKeyChar()) == false && e.getKeyChar() != 8 && e.getKeyChar() != 127) {
+                    e.consume();
+                }
+            }
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (Character.isDigit(e.getKeyChar()) == false && e.getKeyChar() != 8 && e.getKeyChar() != 127) {
+                    e.consume();
+                }
+            }
+        });
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -402,8 +420,8 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelIngredientAmount)
                 .addGap(5, 5, 5)
-                .addComponent(spinnerAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(spinnerAmount, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelSelectIngredientLayout.setVerticalGroup(
             panelSelectIngredientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -451,13 +469,9 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(panelSelectIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 203, Short.MAX_VALUE)
-                                .addComponent(labelProductName))))
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                        .addComponent(labelProductName))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(labelIngredientOfProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -469,13 +483,13 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelProductName)
-                            .addComponent(panelSelectIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(panelSelectIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelIngredientOfProduct)

@@ -65,7 +65,7 @@ public class IngredientCostStatisticPanel extends javax.swing.JPanel implements 
 
         xyChartStyler.setAxisTitleFont(AppConstant.AXIS_TITLE_FONT);
         xyChartStyler.setAxisTickLabelsFont(AppConstant.AXIS_TICK_TITLE_FONT);
-
+        
         xyChartStyler.setYAxisDecimalPattern("###,###,###");
         xyChartStyler.setToolTipsEnabled(true);
         xyChartStyler.setToolTipFont(AppConstant.TOOL_TIP_FONT);

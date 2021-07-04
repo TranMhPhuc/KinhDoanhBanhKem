@@ -24,7 +24,7 @@ public class CurrencyTextField extends JFormattedTextField {
         NumberFormatter format = new NumberFormatter();
         format.setAllowsInvalid(false);
         this.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(format));
-
+        
         this.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {

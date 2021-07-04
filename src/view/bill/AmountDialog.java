@@ -4,6 +4,8 @@ import control.bill.create.BillCreateControllerInterface;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
 
@@ -18,7 +20,7 @@ public class AmountDialog extends javax.swing.JDialog implements SettingUpdateOb
         this.getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(parent);
         this.billCreateController = billCreateController;
-
+        addQuantitiesSpinnerKeyListener();
         btnOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -45,10 +47,29 @@ public class AmountDialog extends javax.swing.JDialog implements SettingUpdateOb
             labelAmount.setText("Số lượng:");
         }
     }
+
     @Override
-    public void dispose(){
+    public void dispose() {
         spinnerAmount.getModel().setValue(1);
         super.dispose();
+    }
+
+    private void addQuantitiesSpinnerKeyListener() {
+        spinnerAmount.getEditor().getComponent(0).addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (Character.isDigit(e.getKeyChar()) == false && e.getKeyChar() != 8 && e.getKeyChar() != 127) {
+                    e.consume();
+                }
+            }
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (Character.isDigit(e.getKeyChar()) == false && e.getKeyChar() != 8 && e.getKeyChar() != 127) {
+                    e.consume();
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -76,16 +97,17 @@ public class AmountDialog extends javax.swing.JDialog implements SettingUpdateOb
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(75, Short.MAX_VALUE)
-                .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87))
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(labelAmount)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(spinnerAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(labelAmount)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(spinnerAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,9 +116,9 @@ public class AmountDialog extends javax.swing.JDialog implements SettingUpdateOb
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelAmount)
                     .addComponent(spinnerAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnOK)
-                .addContainerGap())
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         pack();

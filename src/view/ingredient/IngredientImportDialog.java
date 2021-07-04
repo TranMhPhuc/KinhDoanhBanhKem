@@ -3,6 +3,8 @@ package view.ingredient;
 import control.ingredient.IngredientControllerInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
@@ -23,6 +25,7 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
         initComponents();
         setLocationRelativeTo(parent);
         
+        addQuantitiesSpinnerKeyListener();
         this.ingredientController = ingredientController;
 
         createControl();
@@ -122,6 +125,22 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
     public void dispose(){
         spinnerAmount.getModel().setValue(1);
         super.dispose();
+    }
+    private void addQuantitiesSpinnerKeyListener() {
+        spinnerAmount.getEditor().getComponent(0).addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (Character.isDigit(e.getKeyChar()) == false && e.getKeyChar() != 8 && e.getKeyChar() != 127) {
+                    e.consume();
+                }
+            }
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (Character.isDigit(e.getKeyChar()) == false && e.getKeyChar() != 8 && e.getKeyChar() != 127) {
+                    e.consume();
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")

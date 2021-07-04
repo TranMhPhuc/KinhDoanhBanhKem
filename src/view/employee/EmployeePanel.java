@@ -15,8 +15,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
@@ -386,7 +389,13 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
     }
 
     public String getEmployeePhoneNumInput() {
-        return this.textfPhoneNum.getText();
+        try {
+            textfPhoneNum.commitEdit();
+        } catch (ParseException ex) {
+            Logger.getLogger(EmployeePanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String phoneNum = String.valueOf(this.textfPhoneNum.getValue());
+        return phoneNum.replaceAll("-", "");
     }
 
     public String getEmployeePersonalIDInput() {

@@ -3,12 +3,18 @@ package view.product;
 import control.product.ProductControllerInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
 import util.swing.CurrencyTextField;
+import util.swing.SpinnerField;
 import view.MessageShowing;
 
 public class ProductProduceDialog extends javax.swing.JDialog implements MessageShowing,
@@ -22,6 +28,7 @@ public class ProductProduceDialog extends javax.swing.JDialog implements Message
         initComponents();
         setLocationRelativeTo(parent);
         this.productController = productController;
+        addQuantitiesSpinnerKeyListener();
         createControl();
     }
 
@@ -111,6 +118,24 @@ public class ProductProduceDialog extends javax.swing.JDialog implements Message
         super.dispose();
     }
 
+    private void addQuantitiesSpinnerKeyListener() {
+        spinnerAmount.getEditor().getComponent(0).addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (Character.isDigit(e.getKeyChar()) == false && e.getKeyChar() != 8 && e.getKeyChar() != 127) {
+                    e.consume();
+                }
+            }
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (Character.isDigit(e.getKeyChar()) == false && e.getKeyChar() != 8 && e.getKeyChar() != 127) {
+                    e.consume();
+                }
+            }
+        });
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -119,7 +144,7 @@ public class ProductProduceDialog extends javax.swing.JDialog implements Message
         labelMainTitle = new javax.swing.JLabel();
         panelInfo = new javax.swing.JPanel();
         labelProductName = new javax.swing.JLabel();
-        spinnerAmount = new javax.swing.JSpinner();
+        spinnerAmount = new SpinnerField();
         labelAmount = new javax.swing.JLabel();
         labelCost = new javax.swing.JLabel();
         textfProductName = new javax.swing.JTextField();

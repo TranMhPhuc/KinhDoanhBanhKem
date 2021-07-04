@@ -4,7 +4,10 @@ import control.app.MainFrameControllerInterface;
 import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.text.DefaultFormatter;
 import model.employee.EmployeeModelInterface;
@@ -12,6 +15,7 @@ import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
 import model.user.UserModelInterface;
 import util.constant.AppConstant;
+import view.employee.EmployeePanel;
 
 public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObserver {
 
@@ -140,7 +144,13 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
     }
 
     public String getUserPhoneNumInput() {
-        return this.textfPhoneNum.getText().trim();
+        try {
+            textfPhoneNum.commitEdit();
+        } catch (ParseException ex) {
+            Logger.getLogger(EmployeePanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String phoneNum = String.valueOf(this.textfPhoneNum.getValue());
+        return phoneNum.replaceAll("-", "");
     }
 
     @Override
