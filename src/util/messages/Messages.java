@@ -221,7 +221,7 @@ public class Messages implements SettingUpdateObserver {
                 EMPLOYEE_BIRTHDAY_EMPTY = "Employee birthday is required";
                 EMPLOYEE_UNDER_18 = "Employee age is not enough 18";
                 EMPLOYEE_START_DATE_EMPTY = "Employee start date is required";
-                EMPLOYEE_START_DATE_INVALID = "Employee start date format is invalid";
+                EMPLOYEE_START_DATE_INVALID = "Employee start date input is invalid";
                 EMPLOYEE_END_DATE_INVALID = "Employee end date format is invalid";
                 EMPLOYEE_SHIFT_EMPTY = "Employee shift is required";
                 EMPLOYEE_INSERTED_SUCCESSFULLY = "Inserted new employee successfully";

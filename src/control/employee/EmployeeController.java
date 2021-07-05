@@ -187,7 +187,7 @@ public class EmployeeController implements EmployeeControllerInterface {
 
         return true;
     }
-
+    
     private boolean isEmployeeEndDateValid(Date employeeStartDate, Date employeeEndDate) {
         if (employeeEndDate == null) {
             return true;
@@ -366,10 +366,19 @@ public class EmployeeController implements EmployeeControllerInterface {
 
         Date startDate = employeePanel.getEmployeeStartDateInput();
 
-        if (!isEmployeeStartDateValid(startDate)) {
+        if (startDate == null) {
+            employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_START_DATE_EMPTY);
             return;
         }
 
+        LocalDate startDateLocal = startDate.toInstant().atZone(ZoneId
+                .systemDefault()).toLocalDate();
+
+        if (startDateLocal.isBefore(employee.getStartDate().toLocalDate())) {
+            employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_START_DATE_INVALID);
+            return;
+        }
+        
         Date endDate = employeePanel.getEmployeeEndDateInput();
 
         if (!isEmployeeEndDateValid(startDate, endDate)) {
