@@ -7,15 +7,16 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.setting.AppSetting;
 import model.user.UserModelInterface;
+import util.constant.AppConstant;
 import util.db.SQLServerConnection;
 import util.messages.Messages;
 import util.validator.EmailValidator;
 import util.validator.PhoneValidator;
 import view.MessageShowing;
-import view.profile.PasswordChangeDialog;
 import view.main.accountant.AccountantMainFrame;
 import view.main.cashier.CashierMainFrame;
 import view.main.manager.ManagerMainFrame;
+import view.profile.PasswordChangeDialog;
 import view.profile.ProfilePanel;
 
 public class MainFrameController implements MainFrameControllerInterface {
@@ -184,7 +185,7 @@ public class MainFrameController implements MainFrameControllerInterface {
 
         // Confirm exit, if exit then close database connection
         int ret = JOptionPane.showConfirmDialog(this.mainFrame, Messages.getInstance().PROFILE_EXIT_CONFIRMATION,
-                "BakeryMS", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
+                "BakeryMS", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_WARNING);
         if (ret == JOptionPane.YES_OPTION) {
             try {
                 AppSetting.getInstance().writeProperty();
@@ -203,7 +204,7 @@ public class MainFrameController implements MainFrameControllerInterface {
             int ret = JOptionPane.showConfirmDialog(mainFrame,
                     Messages.getInstance().PROFILE_CANCEL_EDITING,
                     "BakeryMS",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_WARNING);
             if (ret == JOptionPane.YES_OPTION) {
                 this.profilePanel.resetProfileEditing();
                 this.profilePanel.setInputEnable(false);

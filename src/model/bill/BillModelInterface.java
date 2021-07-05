@@ -2,7 +2,6 @@ package model.bill;
 
 import java.sql.Timestamp;
 import model.DatabaseModel;
-import model.bill.detail.ProductDetailModelInterface;
 import model.employee.EmployeeModelInterface;
 
 public interface BillModelInterface extends DatabaseModel {

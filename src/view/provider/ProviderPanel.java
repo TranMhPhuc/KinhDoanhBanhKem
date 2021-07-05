@@ -5,8 +5,6 @@ import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.util.Iterator;
 import java.util.logging.Level;
@@ -25,6 +23,7 @@ import model.provider.ProviderManageModelInterface;
 import model.provider.ProviderModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
+import util.constant.AppConstant;
 import util.messages.Messages;
 import util.swing.UIControl;
 import view.MessageShowing;
@@ -339,7 +338,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
             } else {
                 int ret = JOptionPane.showConfirmDialog(mainFrame,
                         Messages.getInstance().OTHERS_REMOVE_PROVIDER, "BakeryMS", JOptionPane.YES_NO_OPTION,
-                        JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
+                        JOptionPane.WARNING_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_WARNING);
                 if (ret == JOptionPane.YES_OPTION) {
                     this.providerController.requestRemoveProvider();
                 }
@@ -584,13 +583,14 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
             panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textfProviderID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_provID4)
-                    .addComponent(labelPhoneNum)
-                    .addComponent(labelEmail)
-                    .addComponent(textfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textfPhoneNum, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textfPhoneNum, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(textfProviderID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label_provID4)
+                        .addComponent(labelPhoneNum)
+                        .addComponent(labelEmail)
+                        .addComponent(textfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelName)

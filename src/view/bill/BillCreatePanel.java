@@ -1,27 +1,25 @@
 package view.bill;
 
+import control.bill.create.BillCreateControllerInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableModel;
-import util.swing.UIControl;
-import view.MessageShowing;
-import control.bill.create.BillCreateControllerInterface;
-import java.text.DecimalFormat;
 import java.util.Iterator;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import model.bill.BillCreateModelInterface;
 import model.bill.BillModelInterface;
 import model.bill.detail.ProductDetailModelInterface;
 import model.product.ProductSimpleModelInterface;
-import model.bill.BillCreateModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
-import util.constant.AppConstant;
 import util.swing.CurrencyTextField;
 import util.swing.NumberRenderer;
+import util.swing.UIControl;
+import view.MessageShowing;
 
 public class BillCreatePanel extends javax.swing.JPanel implements ActionListener,
         MessageShowing, BillUpdateObserver, SettingUpdateObserver {

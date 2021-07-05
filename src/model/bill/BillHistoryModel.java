@@ -1,6 +1,5 @@
 package model.bill;
 
-import control.bill.history.BillHistoryControllerInterface;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;

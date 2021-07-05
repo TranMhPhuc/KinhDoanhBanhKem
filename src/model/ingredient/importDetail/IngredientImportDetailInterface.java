@@ -2,7 +2,6 @@ package model.ingredient.importDetail;
 
 import java.sql.Timestamp;
 import model.DatabaseModel;
-import model.ingredient.IngredientModelInterface;
 
 public interface IngredientImportDetailInterface extends DatabaseModel {
 

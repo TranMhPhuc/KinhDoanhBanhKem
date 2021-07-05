@@ -9,10 +9,7 @@ package util.swing;
  *
  * @author Minh Tu
  */
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
-import java.util.Locale;
 import javax.swing.SwingConstants;
 import util.constant.AppConstant;
 

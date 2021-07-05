@@ -1,9 +1,7 @@
 package util.validator;
 
-import java.sql.Connection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import util.db.SQLServerConnection;
 
 public class EmailValidator {
 

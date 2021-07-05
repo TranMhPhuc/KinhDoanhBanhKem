@@ -6,14 +6,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import util.swing.UIControl;
-import model.bill.detail.ProductDetailModelInterface;
 import model.bill.BillModelInterface;
+import model.bill.detail.ProductDetailModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
-import util.constant.AppConstant;
 import util.swing.CurrencyTextField;
 import util.swing.NumberRenderer;
+import util.swing.UIControl;
 
 public class BillDetailDialog extends javax.swing.JDialog implements SettingUpdateObserver {
 

@@ -1,12 +1,10 @@
 package util.swing;
 
-import java.awt.Color;
 import java.awt.Component;
 import javax.swing.BorderFactory;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 public class SpinnerTableRenderer extends JSpinner implements TableCellRenderer {

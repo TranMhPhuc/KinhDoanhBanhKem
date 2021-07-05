@@ -8,9 +8,7 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.bill.BillModel;
-import model.product.ProductModelInterface;
 import model.bill.BillModelInterface;
-import model.product.ProductManageModelInterface;
 import model.product.ProductSimpleModel;
 import model.product.ProductSimpleModelInterface;
 

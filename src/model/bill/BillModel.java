@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.employee.EmployeeManageModelInterface;
 import model.employee.EmployeeModel;
 import model.employee.EmployeeModelInterface;
 

@@ -1,9 +1,9 @@
 package model.user;
 
 import control.app.MainFrameController;
+import control.app.MainFrameControllerInterface;
 import javax.swing.JFrame;
 import model.employee.EmployeeModelInterface;
-import control.app.MainFrameControllerInterface;
 import util.messages.Messages;
 import view.MessageShowing;
 import view.login.LoginFrame;

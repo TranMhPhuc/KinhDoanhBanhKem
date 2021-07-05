@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.ingredient.IngredientModel;
-import model.product.ProductModel;
 import model.product.ProductModelInterface;
 import model.product.ProductSimpleModel;
 

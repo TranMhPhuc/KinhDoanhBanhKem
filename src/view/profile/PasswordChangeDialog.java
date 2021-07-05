@@ -3,14 +3,11 @@ package view.profile;
 import control.app.MainFrameControllerInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
 import listener.PasswordListener;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
-import view.MessageShowing;
 
-public class PasswordChangeDialog extends javax.swing.JDialog implements MessageShowing,
-        SettingUpdateObserver {
+public class PasswordChangeDialog extends javax.swing.JDialog implements SettingUpdateObserver {
 
     private boolean showOldPW = false, showNewPW = false, showConfirmNewPW = false;
     private MainFrameControllerInterface mainFrameController;
@@ -71,21 +68,6 @@ public class PasswordChangeDialog extends javax.swing.JDialog implements Message
             labelVerifyPassword.setText("Xác thực mật khẩu mới");
             btnChangePassword.setText("Cập nhật mật khẩu");
         }
-    }
-
-    @Override
-    public void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, getTitle(), JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
-    }
-
-    @Override
-    public void showInfoMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, getTitle(), JOptionPane.INFORMATION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/infor.png")));
-    }
-
-    @Override
-    public void showWarningMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, getTitle(), JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
     }
 
     @SuppressWarnings("unchecked")

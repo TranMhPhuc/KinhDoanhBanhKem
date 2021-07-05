@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,8 +29,8 @@ import util.excel.ExcelTransfer;
 import util.messages.Messages;
 import view.ingredient.ImportHistoryDialog;
 import view.ingredient.IngredientImportDialog;
-import view.ingredient.NewIngredientTypeDialog;
 import view.ingredient.IngredientPanel;
+import view.ingredient.NewIngredientTypeDialog;
 
 public class IngredientController implements IngredientControllerInterface {
 
@@ -558,7 +557,7 @@ public class IngredientController implements IngredientControllerInterface {
             int ret = JOptionPane.showConfirmDialog(ingredientPanel.getMainFrame(),
                     "Cancel editing ingredient?",
                     "Cancel editing ingredient confirm dialog",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_WARNING);
             if (ret == JOptionPane.YES_OPTION) {
                 ingredientPanel.exitEditState();
                 return true;

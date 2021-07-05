@@ -9,8 +9,8 @@ package util.swing;
  *
  * @author Minh Tu
  */
-import java.text.Format;
 import java.text.DateFormat;
+import java.text.Format;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /*
