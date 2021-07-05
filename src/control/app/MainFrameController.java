@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import model.employee.EmployeeModelInterface;
 import model.setting.AppSetting;
 import model.user.UserModelInterface;
 import util.constant.AppConstant;
@@ -26,7 +27,7 @@ public class MainFrameController implements MainFrameControllerInterface {
     private UserModelInterface userModel;
 
     private PasswordChangeDialog dialogPasswordChange;
-    
+
     public MainFrameController(UserModelInterface userModel) {
         this.userModel = userModel;
         switch (userModel.getUserType()) {
@@ -72,11 +73,11 @@ public class MainFrameController implements MainFrameControllerInterface {
 
         switch (emailValidateResult) {
             case EMPTY: {
-               ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_EMAIL_EMPTY);
+                ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_EMAIL_EMPTY);
                 return;
             }
             case INVALLID: {
-               ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_EMAIL_INVALID);
+                ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_EMAIL_INVALID);
                 return;
             }
         }
@@ -101,6 +102,18 @@ public class MainFrameController implements MainFrameControllerInterface {
         }
 
         userModel.updateProfile(updatedEmail, updatedPhoneNum);
+        
+        profilePanel.setProfileOption(ProfilePanel.ProfileOption.CHANGE_PASSWORD_MODE);
+    }
+
+    @Override
+    public void requestCancelEditProfile() {
+        EmployeeModelInterface impl = userModel.getImpl();
+
+        profilePanel.setUserEmail(impl.getEmail());
+        profilePanel.setUserPhoneNum(impl.getPhoneNum());
+        profilePanel.setInputEnable(false);
+        profilePanel.setProfileOption(ProfilePanel.ProfileOption.CHANGE_PASSWORD_MODE);
     }
 
     @Override
@@ -152,7 +165,7 @@ public class MainFrameController implements MainFrameControllerInterface {
         userModel.updatePassword(newPasswordInput);
 
         ((MessageShowing) mainFrame).showInfoMessage(Messages.getInstance().PROFILE_CHANGE_PASSWORD_SUCCESSFULLY);
-        
+
         dialogPasswordChange.dispose();
     }
 
@@ -164,7 +177,7 @@ public class MainFrameController implements MainFrameControllerInterface {
         }
 
         int ret = JOptionPane.showConfirmDialog(this.mainFrame, Messages.getInstance().PROFILE_SIGN_OUT_CONFIRMATION,
-                "BakeryMS", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/question.png")));
+                "BakeryMS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/question.png")));
         if (ret == JOptionPane.YES_OPTION) {
             this.userModel.clearSession();
         }

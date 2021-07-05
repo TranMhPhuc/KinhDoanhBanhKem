@@ -11,6 +11,8 @@ public interface MainFrameControllerInterface {
     
     void requestUpdateProfile();
     
+    void requestCancelEditProfile();
+    
     void requestChangePassword();
     
     void checkPasswordUpdateInput();
