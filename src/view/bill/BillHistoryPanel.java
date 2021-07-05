@@ -1,6 +1,5 @@
 package view.bill;
 
-import util.swing.UIControl;
 import control.bill.history.BillHistoryControllerInterface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,12 +18,13 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import model.bill.BillHistoryModelInterface;
-import view.MessageShowing;
 import model.bill.BillModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
 import util.constant.AppConstant;
 import util.swing.NumberRenderer;
+import util.swing.UIControl;
+import view.MessageShowing;
 
 public class BillHistoryPanel extends javax.swing.JPanel implements ActionListener,
         MessageShowing, SettingUpdateObserver {

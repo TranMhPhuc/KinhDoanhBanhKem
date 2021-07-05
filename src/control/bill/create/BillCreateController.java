@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
+import model.bill.BillCreateModelInterface;
 import model.bill.detail.ProductDetailModelInterface;
 import model.product.ProductSimpleModelInterface;
-import view.bill.BillExportDialog;
-import view.bill.BillCreatePanel;
-import view.bill.AmountDialog;
-import model.bill.BillCreateModelInterface;
 import model.setting.AppSetting;
+import util.constant.AppConstant;
 import util.messages.Messages;
+import view.bill.AmountDialog;
+import view.bill.BillCreatePanel;
+import view.bill.BillExportDialog;
 
 public class BillCreateController implements BillCreateControllerInterface {
 
@@ -134,7 +135,7 @@ public class BillCreateController implements BillCreateControllerInterface {
             ProductSimpleModelInterface offeredProduct = selectedProduct.getProduct();
             JOptionPane.showMessageDialog(dialogAmount,
                     String.format(messageFormat, offeredProduct.getName(), offeredProduct.getSize().toString()),
-                    null, JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
+                    null, JOptionPane.ERROR_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_ERROR);
             return;
         }
 

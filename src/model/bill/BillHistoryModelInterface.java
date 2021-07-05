@@ -1,6 +1,5 @@
 package model.bill;
 
-import control.bill.history.BillHistoryControllerInterface;
 import java.time.LocalDate;
 import java.util.Iterator;
 import model.bill.detail.ProductDetailModelInterface;

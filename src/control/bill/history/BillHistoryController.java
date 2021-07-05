@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import model.bill.BillHistoryModelInterface;
-import view.bill.BillDetailDialog;
-import view.bill.BillHistoryPanel;
-import model.bill.detail.ProductDetailModelInterface;
 import model.bill.BillModelInterface;
+import model.bill.detail.ProductDetailModelInterface;
 import model.setting.AppSetting;
 import util.excel.ExcelTransfer;
 import util.messages.Messages;
+import view.bill.BillDetailDialog;
+import view.bill.BillHistoryPanel;
 
 public class BillHistoryController implements BillHistoryControllerInterface {
 

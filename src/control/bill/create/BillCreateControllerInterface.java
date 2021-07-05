@@ -1,11 +1,8 @@
 package control.bill.create;
 
 import java.util.Iterator;
-import java.util.List;
 import model.bill.OfferedProductUpdateObserver;
-import model.product.ProductModelInterface;
 import model.product.ProductSimpleModelInterface;
-import org.apache.commons.lang3.tuple.Pair;
 import view.bill.BillCreatePanel;
 
 public interface BillCreateControllerInterface extends OfferedProductUpdateObserver {

@@ -271,12 +271,12 @@ public class ManagerMainFrame extends javax.swing.JFrame implements MessageShowi
 
     @Override
     public void showInfoMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Application message" , JOptionPane.INFORMATION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/infor.png")));
+        JOptionPane.showMessageDialog(this, message, "Application message" , JOptionPane.INFORMATION_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_INFO);
     }
 
     @Override
     public void showWarningMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Application message" , JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
+        JOptionPane.showMessageDialog(this, message, "Application message" , JOptionPane.WARNING_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_WARNING);
     }
 
     @SuppressWarnings("unchecked")

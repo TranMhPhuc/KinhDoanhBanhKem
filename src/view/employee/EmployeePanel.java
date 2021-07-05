@@ -1,26 +1,22 @@
 package view.employee;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Date;
-import java.util.Iterator;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JTable;
-import static util.swing.UIControl.setDefaultTableHeader;
-import util.swing.checkcombobox.CheckableItem;
 import control.employee.EmployeeControllerInterface;
 import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -34,9 +30,11 @@ import model.employee.EmployeeModelInterface;
 import model.employee.shift.detail.ShiftDetailModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
-import util.messages.Messages;
 import util.constant.AppConstant;
+import util.messages.Messages;
 import util.swing.UIControl;
+import static util.swing.UIControl.setDefaultTableHeader;
+import util.swing.checkcombobox.CheckableItem;
 import view.MessageShowing;
 
 public class EmployeePanel extends javax.swing.JPanel implements ActionListener,

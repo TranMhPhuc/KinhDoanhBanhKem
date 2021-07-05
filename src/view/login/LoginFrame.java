@@ -1,16 +1,16 @@
 package view.login;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
-import model.user.UserModelInterface;
-import view.MessageShowing;
 import control.login.LoginControllerInterface;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import model.user.UserModelInterface;
 import util.constant.AppConstant;
+import view.MessageShowing;
 
 public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
         ActionListener {
@@ -72,12 +72,12 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
 
     @Override
     public void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Login error", JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
+        JOptionPane.showMessageDialog(this, message, "Login error", JOptionPane.ERROR_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_ERROR);
     }
 
     @Override
     public void showInfoMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Information", JOptionPane.INFORMATION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/infor.png")));
+        JOptionPane.showMessageDialog(this, message, "Information", JOptionPane.INFORMATION_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_INFO);
     }
 
     @Override

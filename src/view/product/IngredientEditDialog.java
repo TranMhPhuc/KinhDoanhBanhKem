@@ -18,6 +18,7 @@ import model.product.ProductManageModelInterface;
 import model.product.ingredientDetail.IngredientDetailModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
+import util.constant.AppConstant;
 import util.swing.UIControl;
 import view.MessageShowing;
 
@@ -248,19 +249,19 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
     @Override
     public void showErrorMessage(String message) {
         JOptionPane.showMessageDialog(this, message, getTitle(),
-                JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
+                JOptionPane.ERROR_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_ERROR);
     }
 
     @Override
     public void showInfoMessage(String message) {
         JOptionPane.showMessageDialog(this, message, getTitle(),
-                JOptionPane.INFORMATION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/infor.png")));
+                JOptionPane.INFORMATION_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_INFO);
     }
 
     @Override
     public void showWarningMessage(String message) {
         JOptionPane.showMessageDialog(this, message, getTitle(),
-                JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
+                JOptionPane.WARNING_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_WARNING);
     }
 
     public void setNameAndSizeText(String productName, String size, boolean isNewProduct) {

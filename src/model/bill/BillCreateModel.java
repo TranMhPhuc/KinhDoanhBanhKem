@@ -21,8 +21,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 import me.xdrop.fuzzywuzzy.model.BoundExtractedResult;
 import model.bill.detail.ProductDetailModel;
-import util.db.SQLServerConnection;
-import view.bill.BillUpdateObserver;
 import model.bill.detail.ProductDetailModelInterface;
 import model.ingredient.IngredientManageModel;
 import model.product.ProductSimpleModel;
@@ -30,8 +28,10 @@ import model.product.ProductSimpleModelInterface;
 import model.user.UserModel;
 import org.apache.commons.io.FilenameUtils;
 import util.constant.AppConstant;
+import util.db.SQLServerConnection;
 import util.messages.Messages;
 import view.bill.BillInsertedObserver;
+import view.bill.BillUpdateObserver;
 
 public class BillCreateModel implements BillCreateModelInterface {
 

@@ -16,15 +16,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import model.bill.BillCreateModel;
-import model.user.UserModelInterface;
-import util.constant.AppConstant;
-import view.MessageShowing;
 import model.bill.BillCreateModelInterface;
 import model.bill.BillHistoryModel;
 import model.bill.BillHistoryModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
+import model.user.UserModelInterface;
+import util.constant.AppConstant;
 import util.messages.Messages;
+import view.MessageShowing;
 
 public class CashierMainFrame extends javax.swing.JFrame implements MessageShowing,
         SettingUpdateObserver {
@@ -189,17 +189,17 @@ public class CashierMainFrame extends javax.swing.JFrame implements MessageShowi
 
     @Override
     public void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Application message" , JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
+        JOptionPane.showMessageDialog(this, message, "Application message" , JOptionPane.ERROR_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_ERROR);
     }
 
     @Override
     public void showInfoMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Application message" , JOptionPane.INFORMATION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/infor.png")));
+        JOptionPane.showMessageDialog(this, message, "Application message" , JOptionPane.INFORMATION_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_INFO);
     }
 
     @Override
     public void showWarningMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Application message" , JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
+        JOptionPane.showMessageDialog(this, message, "Application message" , JOptionPane.WARNING_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_WARNING);
     }
 
     @SuppressWarnings("unchecked")

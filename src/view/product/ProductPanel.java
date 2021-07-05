@@ -20,6 +20,7 @@ import model.product.ProductManageModelInterface;
 import model.product.ProductModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
+import util.constant.AppConstant;
 import util.messages.Messages;
 import util.swing.CurrencyTextField;
 import util.swing.UIControl;
@@ -320,7 +321,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
             } else {
                 int ret = JOptionPane.showConfirmDialog(mainFrame,
                         Messages.getInstance().OTHERS_REMOVE_PRODUCT, "BakeryMS", JOptionPane.YES_NO_OPTION,
-                        JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
+                        JOptionPane.WARNING_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_WARNING);
                 if (ret == JOptionPane.YES_OPTION) {
                     this.productController.requestRemoveProduct();
                 }

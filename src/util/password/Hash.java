@@ -14,12 +14,12 @@ package util.password;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import java.security.SecureRandom;
-import java.util.Base64;
-import javax.crypto.spec.PBEKeySpec;
-import javax.crypto.SecretKeyFactory;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Base64;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 
 /**
  *

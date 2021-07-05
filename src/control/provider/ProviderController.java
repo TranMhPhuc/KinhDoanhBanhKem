@@ -363,7 +363,7 @@ public class ProviderController implements ProviderControllerInterface {
             int ret = JOptionPane.showConfirmDialog(providerPanel.getMainFrame(),
                     Messages.getInstance().PROVIDER_CANCEL_EDITING,
                     "BakeryMS",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_WARNING);
             if (ret == JOptionPane.YES_OPTION) {
                 providerPanel.exitEditState();
                 return true;

@@ -3,7 +3,6 @@ package control.ingredient;
 import java.util.Iterator;
 import model.ingredient.IngredientModelInterface;
 import view.ingredient.IngredientPanel;
-import view.product.ModifiedProductObserver;
 
 public interface IngredientControllerInterface {
     

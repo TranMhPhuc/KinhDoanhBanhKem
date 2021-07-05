@@ -1,9 +1,9 @@
 package view;
 
 import control.login.LoginController;
+import control.login.LoginControllerInterface;
 import model.user.UserModel;
 import model.user.UserModelInterface;
-import control.login.LoginControllerInterface;
 
 public class AppMain {
 

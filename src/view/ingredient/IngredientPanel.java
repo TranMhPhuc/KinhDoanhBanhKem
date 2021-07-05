@@ -23,6 +23,7 @@ import model.product.ProductModelInterface;
 import model.provider.ProviderModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
+import util.constant.AppConstant;
 import util.messages.Messages;
 import util.swing.CurrencyTextField;
 import util.swing.UIControl;
@@ -352,7 +353,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
             } else {
                 int ret = JOptionPane.showConfirmDialog(getParent(),
                         Messages.getInstance().OTHERS_REMOVE_INGR, "BakeryMS", JOptionPane.YES_NO_OPTION,
-                        JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
+                        JOptionPane.WARNING_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_WARNING);
                 if (ret == JOptionPane.YES_OPTION) {
                     this.ingredientController.requestRemoveIngredient();
                 }
