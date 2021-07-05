@@ -373,6 +373,7 @@ public class ProductController implements ProductControllerInterface {
         product.setName(productNameInput);
         product.setCost(productCost);
         product.setPrice(productPrice);
+        product.setSize(ProductSize.getProductSizeFromString(productSize));
 
         this.productManageModel.updateProduct(product);
 
@@ -401,7 +402,7 @@ public class ProductController implements ProductControllerInterface {
         });
 
         tempList.clear();
-
+        
         // Find updated and inserted ingredient detail
         for (int i = 0; i < bufferedIngredientDetailList.size(); i++) {
             IngredientDetailModelInterface ingredientDetail = bufferedIngredientDetailList.get(i);
@@ -585,20 +586,24 @@ public class ProductController implements ProductControllerInterface {
             AppSetting.getInstance().registerObserver(dialogIngredientEditing);
         }
         int rowID = productPanel.getSelectedRow();
-        Assert.assertNotEquals(rowID, -1);
-        ProductModelInterface product = this.searchList.get(rowID);
-        String name = product.getName();
-        String size = product.getSize().name();
-        
+
+        String name = "";
+        String size = "";
+        if (rowID != -1) {
+            ProductModelInterface product = this.searchList.get(rowID);
+            name = product.getName();
+            size = product.getSize().name();
+        }
+
         boolean isNewProduct;
-        if(productPanel.getEditState() == ProductPanel.EditState.MODIFY){
+        if (productPanel.getEditState() == ProductPanel.EditState.MODIFY) {
             isNewProduct = false;
-        }else{
+        } else {
             isNewProduct = true;
         }
         dialogIngredientEditing.setNameAndSizeText(name, size, isNewProduct);
         dialogIngredientEditing.setVisible(true);
-        
+
     }
 
     @Override

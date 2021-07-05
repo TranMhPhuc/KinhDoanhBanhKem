@@ -14,7 +14,6 @@ import javax.swing.event.ChangeListener;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
 import util.swing.CurrencyTextField;
-import util.swing.SpinnerField;
 import view.MessageShowing;
 
 public class ProductProduceDialog extends javax.swing.JDialog implements MessageShowing,
@@ -144,7 +143,7 @@ public class ProductProduceDialog extends javax.swing.JDialog implements Message
         labelMainTitle = new javax.swing.JLabel();
         panelInfo = new javax.swing.JPanel();
         labelProductName = new javax.swing.JLabel();
-        spinnerAmount = new SpinnerField();
+        spinnerAmount = new javax.swing.JSpinner();
         labelAmount = new javax.swing.JLabel();
         labelCost = new javax.swing.JLabel();
         textfProductName = new javax.swing.JTextField();

@@ -151,9 +151,6 @@
                   <SpinnerModel initial="1" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
                 </Property>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new SpinnerField()"/>
-              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="labelAmount">
               <Properties>
