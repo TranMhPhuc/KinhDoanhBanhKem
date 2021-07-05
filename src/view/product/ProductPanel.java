@@ -4,10 +4,6 @@ import control.product.ProductControllerInterface;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.Iterator;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,14 +16,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import javax.swing.text.NumberFormatter;
 import model.product.ProductManageModelInterface;
 import model.product.ProductModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
 import util.messages.Messages;
 import util.swing.CurrencyTextField;
-import util.swing.NumberRenderer;
 import util.swing.UIControl;
 import view.MessageShowing;
 
@@ -713,7 +707,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
                 .addGroup(panelProductInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(30, 30, 30)
                 .addComponent(panelIngredientDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
