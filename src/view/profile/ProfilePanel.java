@@ -189,6 +189,7 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
                 labelPhoneNum.setText("Phone number");
                 labelEditProfile.setText("Edit profile");
                 labelChangePassword.setText("Change password");
+                labelCancelEditProfile.setText("Cancel");
                 break;
             }
             case VIETNAMESE: {
@@ -198,6 +199,7 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
                 labelPhoneNum.setText("Số điện thoại");
                 labelEditProfile.setText("Chỉnh sửa");
                 labelChangePassword.setText("Đổi mật khẩu");
+                labelCancelEditProfile.setText("Thoát");
                 break;
             }
         }
