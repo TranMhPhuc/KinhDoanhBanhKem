@@ -223,9 +223,6 @@ public class IngredientDetailModel implements IngredientDetailModelInterface {
             throw new IllegalArgumentException("Two comparing ingredient detail having not same id.");
         }
         
-        System.out.println("this: " + this.amount + ", " + this.unitName);
-        System.out.println("o: " + o.getAmount() + ", " + o.getUnitName());
-        
         if ((this.amount != o.getAmount())
                 || !this.unitName.equals(o.getUnitName())) {
             return 1;
