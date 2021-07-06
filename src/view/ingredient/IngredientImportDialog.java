@@ -250,6 +250,9 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
 
         textfProviderName.setEditable(false);
         textfProviderName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        textfProviderName.setAutoscrolls(false);
+        textfProviderName.setDoubleBuffered(true);
+        textfProviderName.setFocusCycleRoot(true);
 
         javax.swing.GroupLayout panelInfoLayout = new javax.swing.GroupLayout(panelInfo);
         panelInfo.setLayout(panelInfoLayout);

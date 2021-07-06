@@ -7,6 +7,8 @@ public interface IngredientImportDetailInterface extends DatabaseModel {
 
     void setIngredientName(String ingredientName);
     
+    void setProviderName(String providerName);
+    
     void setDate(Timestamp date);
     
     void setAmount(int amount);
@@ -16,6 +18,8 @@ public interface IngredientImportDetailInterface extends DatabaseModel {
     void setImportUnitName(String importUnitName);
     
     String getIngredientName();
+    
+    String getProviderName();
     
     Timestamp getDate();
     

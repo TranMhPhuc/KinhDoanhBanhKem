@@ -183,6 +183,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         for (int i = 0; i < this.combProviderName.getItemCount(); i++) {
             if (this.combProviderName.getItemAt(i).equals(providerName)) {
                 this.combProviderName.setSelectedIndex(i);
+                this.combProviderName.setToolTipText(providerName);
                 break;
             }
         }
@@ -215,12 +216,14 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
 
     public void loadProviderNameInput() {
         combProviderName.removeAllItems();
+        combProviderName.setToolTipText("");
         List<String> providerNames = this.ingredientManageModel.getAllProviderName();
         providerNames.forEach(name -> {
             combProviderName.addItem(name);
         });
         if (combProviderName.getItemCount() != 0) {
             combProviderName.setSelectedIndex(0);
+            combProviderName.setToolTipText((String) combProviderName.getSelectedItem());
         }
     }
 
@@ -462,6 +465,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         textfIngredientName.setText("");
         if (combProviderName.getItemCount() != 0) {
             combProviderName.setSelectedIndex(0);
+            combProviderName.setToolTipText((String) combProviderName.getSelectedItem());
         }
         if (combIngredientTypeName.getItemCount() != 0) {
             combIngredientTypeName.setSelectedIndex(0);
@@ -533,6 +537,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
 
         loadProviderNameInput();
         combProviderName.setSelectedIndex(combNameSelectedIndex);
+        combProviderName.setToolTipText((String) combProviderName.getSelectedItem());
 
         // Update provider name in table
         ingredientManageModel.updateProviderNameOfIngredientData();
@@ -711,6 +716,9 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
         textfIngredientName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         combProviderName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        combProviderName.setAutoscrolls(true);
+        combProviderName.setDoubleBuffered(true);
+        combProviderName.setFocusCycleRoot(true);
 
         labelUnit.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelUnit.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -741,18 +749,15 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textfIngredientID, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textfIngredientName, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textfIngredientName, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(labelProvider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelCost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelInfoLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(combProviderName, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(textfIngredientCost, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12)
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(textfIngredientCost, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combProviderName, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelInfoLayout.createSequentialGroup()
