@@ -24,7 +24,7 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
-        
+
         addQuantitiesSpinnerKeyListener();
         this.ingredientController = ingredientController;
 
@@ -48,12 +48,12 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
     }
 
     public void setIngredientTotalCost(String totalCost) {
-        if(totalCost.equals("")){
+        if (totalCost.equals("")) {
             this.textfTotalCost.setValue(null);
-        }else{
+        } else {
             this.textfTotalCost.setValue(Integer.parseInt(totalCost));
         }
-        
+
     }
 
     public void setIngredientIDText(String ingredientIDText) {
@@ -62,6 +62,10 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
 
     public void setIngredientName(String ingredientName) {
         this.textfIngredientName.setText(ingredientName);
+    }
+    
+    public void setProviderName(String providerName) {
+        this.textfProviderName.setText(providerName);
     }
 
     public void setLabelIngredientUnit(String ingredientUnitName) {
@@ -84,24 +88,26 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
     public void updateSettingObserver() {
         if (AppSetting.getInstance().getAppLanguage() == AppSetting.Language.ENGLISH) {
             setTitle("Import ingredient");
-            
+
             labelMainTitle.setText("Import Ingredient");
             labelIngredientID.setText("Ingredient ID:");
             labelName.setText("Name:");
+            labelProviderName.setText("Provider name:");
             labelAmount.setText("Amount:");
             labelCost.setText("Total Cost:");
-            
+
             btnContinue.setText("Continue");
             btnCancel.setText("Cancel");
-            
+
         } else {
             setTitle("Hộp thoại nhập nguyên liệu");
             labelMainTitle.setText("Nhập Nguyên Liệu");
             labelIngredientID.setText("Mã nguyên liệu:");
             labelName.setText("Tên:");
+            labelProviderName.setText("Tên nhà cung cấp:");
             labelAmount.setText("Số lượng:");
             labelCost.setText("Tổng chi phí:");
-            
+
             btnContinue.setText("Tiếp tục");
             btnCancel.setText("Thoát");
         }
@@ -121,11 +127,13 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
     public void showWarningMessage(String message) {
         JOptionPane.showMessageDialog(this, message, getTitle(), JOptionPane.WARNING_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_WARNING);
     }
+
     @Override
-    public void dispose(){
+    public void dispose() {
         spinnerAmount.getModel().setValue(1);
         super.dispose();
     }
+
     private void addQuantitiesSpinnerKeyListener() {
         spinnerAmount.getEditor().getComponent(0).addKeyListener(new KeyAdapter() {
             @Override
@@ -134,6 +142,7 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
                     e.consume();
                 }
             }
+
             @Override
             public void keyTyped(KeyEvent e) {
                 if (Character.isDigit(e.getKeyChar()) == false && e.getKeyChar() != 8 && e.getKeyChar() != 127) {
@@ -164,6 +173,8 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
         labelName = new javax.swing.JLabel();
         textfTotalCost = new CurrencyTextField();
         jLabel1 = new javax.swing.JLabel();
+        labelProviderName = new javax.swing.JLabel();
+        textfProviderName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -233,13 +244,24 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel1.setText("VND");
 
+        labelProviderName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelProviderName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelProviderName.setText("Provider name:");
+
+        textfProviderName.setEditable(false);
+        textfProviderName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
         javax.swing.GroupLayout panelInfoLayout = new javax.swing.GroupLayout(panelInfo);
         panelInfo.setLayout(panelInfoLayout);
         panelInfoLayout.setHorizontalGroup(
-            panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(panelInfoLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(27, 27, 27)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelInfoLayout.createSequentialGroup()
+                        .addComponent(labelProviderName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textfProviderName, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelInfoLayout.createSequentialGroup()
                         .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(labelName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -268,16 +290,20 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textfIngredientID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelIngredientID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textfIngredientName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textfProviderName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelProviderName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spinnerAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelCost, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textfTotalCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -304,11 +330,13 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
     private javax.swing.JLabel labelIngredientID;
     private javax.swing.JLabel labelMainTitle;
     private javax.swing.JLabel labelName;
+    private javax.swing.JLabel labelProviderName;
     private javax.swing.JLabel labelUnit;
     private javax.swing.JPanel panelInfo;
     private javax.swing.JSpinner spinnerAmount;
     private javax.swing.JTextField textfIngredientID;
     private javax.swing.JTextField textfIngredientName;
+    private javax.swing.JTextField textfProviderName;
     private javax.swing.JFormattedTextField textfTotalCost;
     // End of variables declaration//GEN-END:variables
 
