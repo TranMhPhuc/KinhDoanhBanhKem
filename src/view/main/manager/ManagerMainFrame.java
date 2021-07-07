@@ -63,7 +63,7 @@ public class ManagerMainFrame extends javax.swing.JFrame implements MessageShowi
         this.mainFrameController = mainFrameController;
         this.userModel = userModel;
         this.userModel.setMainFrame(this);
-
+        
         initComponents();
         this.cardLayoutPanelCenter = (CardLayout) panelCenter.getLayout();
         setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);

@@ -157,7 +157,7 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
             
            // chartStyler.setClockwiseDirectionType(PieStyler.ClockwiseDirectionType.COUNTER_CLOCKWISE);
             chartStyler.setAnnotationDistance(1.3);
-            chartStyler.setStartAngleInDegrees(280);
+            chartStyler.setStartAngleInDegrees(250);
             chartStyler.setDecimalPattern("#.##");
             chartStyler.setLegendVisible(true);
             chartStyler.setLegendFont(AppConstant.CHART_LEGEND_FONT);

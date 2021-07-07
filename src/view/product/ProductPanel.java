@@ -650,7 +650,7 @@ public class ProductPanel extends javax.swing.JPanel implements ActionListener,
         btnEditIngredient.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnEditIngredient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit2.png"))); // NOI18N
         btnEditIngredient.setText("Edit");
-        btnEditIngredient.setPreferredSize(new java.awt.Dimension(100, 30));
+        btnEditIngredient.setPreferredSize(new java.awt.Dimension(150, 30));
         jPanel2.add(btnEditIngredient);
 
         javax.swing.GroupLayout panelIngredientDetailLayout = new javax.swing.GroupLayout(panelIngredientDetail);

@@ -29,6 +29,7 @@ import model.product.ProductSimpleModel;
 import model.provider.ProviderModel;
 import model.provider.ProviderModelInterface;
 import model.setting.AppSetting;
+import model.setting.AppSetting.Language;
 import model.setting.SettingUpdateObserver;
 import org.knowm.xchart.CategoryChart;
 import org.knowm.xchart.CategoryChartBuilder;
@@ -100,16 +101,16 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
     private static final String SP_GET_PROVIDER_NO_INGREDIENT
             = "{call get_provider_no_ingredient}";
 
-    private static final String DIAGNOSTIC_ROOT_STRING_FORMAT
+    private static String DIAGNOSTIC_ROOT_STRING_FORMAT
             = "%d total problem(s) found";
 
-    private static final String DIAGNOSTIC_PRODUCT_PROBLEM_SUMMARY_STRING_FORMAT
+    private static String DIAGNOSTIC_PRODUCT_PROBLEM_SUMMARY_STRING_FORMAT
             = "%d product(s) having zero amount";
 
-    private static final String DIAGNOSTIC_INGREDIENT_PROBLEM_SUMMARY_STRING_FORMAT
+    private static String DIAGNOSTIC_INGREDIENT_PROBLEM_SUMMARY_STRING_FORMAT
             = "%d ingredient(s) having zero amount";
 
-    private static final String DIAGNOSTIC_PROVIDER_PROBLEM_SUMMARY_STRING_FORMAT
+    private static String DIAGNOSTIC_PROVIDER_PROBLEM_SUMMARY_STRING_FORMAT
             = "%d provider(s) having no ingredient belongs to";
 
     private CategoryChart categoryChartProviderState;
@@ -478,6 +479,22 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
     private void loadDiagnostics() {
         diagnosticTree.removeAll();
 
+        Language language = AppSetting.getInstance().getAppLanguage();
+        switch (language) {
+            case VIETNAMESE: {
+                DIAGNOSTIC_ROOT_STRING_FORMAT = "Tổng cộng %d vấn đề được tìm thấy";
+                DIAGNOSTIC_PRODUCT_PROBLEM_SUMMARY_STRING_FORMAT = "%d sản phẩm không có số lượng";
+                DIAGNOSTIC_INGREDIENT_PROBLEM_SUMMARY_STRING_FORMAT = "%d nguyên liệu không có số lượng";
+                DIAGNOSTIC_PROVIDER_PROBLEM_SUMMARY_STRING_FORMAT = "%d nhà cung cấp không cung cấp nguyên liệu nào";
+                break;
+            }
+            case ENGLISH: {
+                DIAGNOSTIC_ROOT_STRING_FORMAT = "%d total problem(s) found";
+                DIAGNOSTIC_PRODUCT_PROBLEM_SUMMARY_STRING_FORMAT = "%d product(s) having zero amount";
+                DIAGNOSTIC_INGREDIENT_PROBLEM_SUMMARY_STRING_FORMAT = "%d ingredient(s) having zero amount";
+                DIAGNOSTIC_PROVIDER_PROBLEM_SUMMARY_STRING_FORMAT = "%d provider(s) having no ingredient belongs to";
+            }
+        }
         List<String> productProblems = new ArrayList<>();
         List<String> ingredientProblems = new ArrayList<>();
         List<String> providerProblems = new ArrayList<>();
@@ -582,7 +599,7 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
     @Override
     public void updateSettingObserver() {
         AppSetting appSetting = AppSetting.getInstance();
-
+        loadDiagnostics();
         AppSetting.Language language = appSetting.getAppLanguage();
 
         switch (language) {

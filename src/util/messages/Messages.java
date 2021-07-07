@@ -17,6 +17,7 @@ public class Messages implements SettingUpdateObserver {
 
     //=============Employee=============
     public String EMPLOYEE_NAME_EMPTY;
+    public String EMPLOYEE_NAME_INVALID;
     public String EMPLOYEE_PHONE_NUMBER_EMPTY;
     public String EMPLOYEE_PHONE_NUMBER_FORMAT;
     public String EMPLOYEE_PHONE_NUMBER_DIGITS_1;
@@ -171,6 +172,11 @@ public class Messages implements SettingUpdateObserver {
     public String OTHERS_REMOVE_PRODUCT;
     public String OTHERS_REMOVE_PROVIDER;
 
+    public String DIAGNOSTIC_ROOT_STRING_FORMAT;
+    public String DIAGNOSTIC_PRODUCT_PROBLEM_SUMMARY_STRING_FORMAT;
+    public String DIAGNOSTIC_INGREDIENT_PROBLEM_SUMMARY_STRING_FORMAT;
+    public String DIAGNOSTIC_PROVIDER_PROBLEM_SUMMARY_STRING_FORMAT;
+
     private volatile static Messages uniqueInstance;
 
     @Override
@@ -242,6 +248,7 @@ public class Messages implements SettingUpdateObserver {
                 EMPLOYEE_INVALID_CUSTOM_PHONE_NUMBER_CONS_NUM = "Input value is invalid";
                 EMPLOYEE_UPDATED_SUCCESSFULLY = "Updated the employee successfully";
                 EMPLOYEE_NO_EMPLOYEE_CHOSEN = "You should choose one employee first";
+                EMPLOYEE_NAME_INVALID = "Employee name can't contain digit(s)";
 
                 BILLH_LIST_EMPTY = "Bill list is empty";
                 BILLH_NO_BILL_CHOSEN = "You should choose one bill first";
@@ -334,6 +341,11 @@ public class Messages implements SettingUpdateObserver {
                 OTHERS_REMOVE_INGR = "Remove ingredient?";
                 OTHERS_REMOVE_PRODUCT = "Remove product?";
                 OTHERS_REMOVE_PROVIDER = "Remove provider?";
+
+                DIAGNOSTIC_ROOT_STRING_FORMAT = "%d total problem(s) found";
+                DIAGNOSTIC_PRODUCT_PROBLEM_SUMMARY_STRING_FORMAT = "%d product(s) having zero amount";
+                DIAGNOSTIC_INGREDIENT_PROBLEM_SUMMARY_STRING_FORMAT = "%d ingredient(s) having zero amount";
+                DIAGNOSTIC_PROVIDER_PROBLEM_SUMMARY_STRING_FORMAT = "%d provider(s) having no ingredient belongs to";
                 break;
             }
             case VIETNAMESE: {
@@ -401,6 +413,7 @@ public class Messages implements SettingUpdateObserver {
                 EMPLOYEE_INVALID_CUSTOM_PHONE_NUMBER_CONS_NUM = "Giá trị nhập vào không hợp lệ";
                 EMPLOYEE_UPDATED_SUCCESSFULLY = "Cập nhật nhân viên đã chọn thành công";
                 EMPLOYEE_NO_EMPLOYEE_CHOSEN = "Bạn nên chọn một nhân viên trước";
+                EMPLOYEE_NAME_INVALID = "Tên nhân viên không thể chứa số";
 
                 BILLH_LIST_EMPTY = "Danh sách hóa đơn trống";
                 BILLH_NO_BILL_CHOSEN = "Bạn nên chọn một hóa đơn trước";
@@ -493,12 +506,18 @@ public class Messages implements SettingUpdateObserver {
                 OTHERS_REMOVE_INGR = "Xóa nguyên liệu?";
                 OTHERS_REMOVE_PRODUCT = "Xóa sản phẩm?";
                 OTHERS_REMOVE_PROVIDER = "Xóa nhà cung cấp?";
+
+                DIAGNOSTIC_ROOT_STRING_FORMAT = "Tổng cộng %d vấn đề được tìm thấy";
+                DIAGNOSTIC_PRODUCT_PROBLEM_SUMMARY_STRING_FORMAT = "%d sản phẩm không có số lượng";
+                DIAGNOSTIC_INGREDIENT_PROBLEM_SUMMARY_STRING_FORMAT = "%d nguyên liệu không có số lượng";
+                DIAGNOSTIC_PROVIDER_PROBLEM_SUMMARY_STRING_FORMAT = "%d nhà cung cấp không cung cấp nguyên liệu nào";
                 break;
             }
         }
     }
 
-    public static Messages getInstance() {
+    public static Messages
+            getInstance() {
         if (uniqueInstance == null) {
             synchronized (Messages.class) {
                 if (uniqueInstance == null) {
