@@ -507,7 +507,7 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
         showCardFunction();
         employeeController.requestShowEmployeeInfo();
         PhoneValidator.setValidDigitNum(10);
-        PersonalIDValidator.setValidDigitNum(10);
+        PersonalIDValidator.setValidDigitNum(12);
     }
 
     public void showCardOption() {
