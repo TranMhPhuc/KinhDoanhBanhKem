@@ -23,4 +23,6 @@ public interface MainFrameControllerInterface {
     
     boolean canCloseProfilePanel();
     
+     void requestChangePhoneNumConstraint();
+    
 }

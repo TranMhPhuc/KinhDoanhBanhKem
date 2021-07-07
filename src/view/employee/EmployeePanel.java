@@ -38,6 +38,8 @@ import util.swing.CustomizedMaskFormatter;
 import util.swing.UIControl;
 import static util.swing.UIControl.setDefaultTableHeader;
 import util.swing.checkcombobox.CheckableItem;
+import util.validator.PersonalIDValidator;
+import util.validator.PhoneValidator;
 import view.MessageShowing;
 
 public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
@@ -78,20 +80,7 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
         this.editState = null;
         createView();
         createControl();
-        addPhoneNumListener();
-    }
 
-    private void addPhoneNumListener() {
-        textfPhoneNum.addKeyListener(new KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                int len = textfPhoneNum.getText().length();
-                char keyChar = evt.getKeyChar();
-                if ((keyChar == 8 || keyChar == 127) && (len == 1 || textfPhoneNum.getText().equals(textfPhoneNum.getSelectedText()))) {
-                    textfPhoneNum.setValue(null);
-                }
-
-            }
-        });
     }
 
     public void setEmployeeManageModel(EmployeeManageModelInterface model) {
@@ -176,14 +165,18 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
         labelSettingPersonalID.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                employeeController.requestChangePersonalIDConstraint();
+                if (labelSettingPersonalID.isEnabled()) {
+                    employeeController.requestChangePersonalIDConstraint();
+                }
             }
         });
 
         labelSettingPhoneNum.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                employeeController.requestChangePhoneNumConstraint();
+                if (labelSettingPhoneNum.isEnabled()) {
+                    employeeController.requestChangePhoneNumConstraint();
+                }
             }
         });
     }
@@ -328,7 +321,7 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
     public void resetEmployeeInput() {
         textfEmployeeName.setText("");
         //textfPhoneNum.setText("");
-        textfPhoneNum.setValue(null);
+        textfPhoneNum.setText(null);
         textfPersonalID.setText("");
         textfEmployeeEmail.setText("");
 
@@ -367,6 +360,8 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
         textfPhoneNum.setEditable(editable);
         textfPersonalID.setEditable(editable);
         textfEmployeeEmail.setEditable(editable);
+        labelSettingPhoneNum.setEnabled(editable);
+        labelSettingPersonalID.setEnabled(editable);
 
         rbtGenderFemale.setEnabled(editable);
         rbtGenderMale.setEnabled(editable);
@@ -511,6 +506,8 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
         setEmployeeInputEditable(false);
         showCardFunction();
         employeeController.requestShowEmployeeInfo();
+        PhoneValidator.setValidDigitNum(10);
+        PersonalIDValidator.setValidDigitNum(10);
     }
 
     public void showCardOption() {
@@ -676,7 +673,7 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
         labelEndDate = new javax.swing.JLabel();
         labelSettingPersonalID = new javax.swing.JLabel();
         labelSettingPhoneNum = new javax.swing.JLabel();
-        textfPhoneNum = new javax.swing.JFormattedTextField();
+        textfPhoneNum = new javax.swing.JTextField();
         panelCard = new javax.swing.JPanel();
         panelBtnFunction = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
@@ -841,16 +838,12 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
         labelEndDate.setText("End date");
 
         labelSettingPersonalID.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Slider_20px_1.png"))); // NOI18N
+        labelSettingPersonalID.setEnabled(false);
 
         labelSettingPhoneNum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Slider_20px_1.png"))); // NOI18N
+        labelSettingPhoneNum.setEnabled(false);
 
-        try {
-            textfPhoneNum.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##########")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
         textfPhoneNum.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        ((DefaultFormatter)textfPhoneNum.getFormatter()).setAllowsInvalid(false);
 
         javax.swing.GroupLayout panelInfoLayout = new javax.swing.GroupLayout(panelInfo);
         panelInfo.setLayout(panelInfoLayout);
@@ -867,8 +860,8 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(textfEmployeeName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                     .addComponent(textfEmployeeID, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                    .addComponent(textfPhoneNum, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(textfPersonalID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(textfPersonalID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textfPhoneNum))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelSettingPersonalID, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -942,16 +935,16 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
                                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoLayout.createSequentialGroup()
                                         .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(panelInfoLayout.createSequentialGroup()
-                                                .addGap(4, 4, 4)
-                                                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                    .addComponent(textfPhoneNum)
-                                                    .addComponent(labelMobile, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                             .addComponent(labelSettingPhoneNum, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(textfPhoneNum)
                                             .addGroup(panelInfoLayout.createSequentialGroup()
-                                                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                    .addComponent(labelPosition)
-                                                    .addComponent(combPositionName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(panelInfoLayout.createSequentialGroup()
+                                                        .addGap(4, 4, 4)
+                                                        .addComponent(labelMobile, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(labelPosition)
+                                                        .addComponent(combPositionName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                 .addGap(0, 0, Short.MAX_VALUE)))
                                         .addGap(18, 18, 18)
                                         .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1123,7 +1116,7 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
     private javax.swing.JTextField textfEmployeeID;
     private javax.swing.JTextField textfEmployeeName;
     private javax.swing.JTextField textfPersonalID;
-    private javax.swing.JFormattedTextField textfPhoneNum;
+    private javax.swing.JTextField textfPhoneNum;
     private javax.swing.JTextField textfSearchName;
     // End of variables declaration//GEN-END:variables
 

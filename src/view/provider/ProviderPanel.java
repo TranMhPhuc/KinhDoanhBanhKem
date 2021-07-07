@@ -5,6 +5,8 @@ import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.util.Iterator;
 import java.util.logging.Level;
@@ -26,6 +28,7 @@ import model.setting.SettingUpdateObserver;
 import util.constant.AppConstant;
 import util.messages.Messages;
 import util.swing.UIControl;
+import util.validator.PhoneValidator;
 import view.MessageShowing;
 import view.employee.EmployeePanel;
 
@@ -61,22 +64,21 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
 
         createView();
         createControl();
-        addPhoneNumListener();
+        addPhoneNumConstraint();
     }
 
-    private void addPhoneNumListener() {
-        textfPhoneNum.addKeyListener(new KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                int len = textfPhoneNum.getText().length();
-                char keyChar = evt.getKeyChar();
-                if ((keyChar == 8 || keyChar == 127) && (len == 1 || textfPhoneNum.getText().equals(textfPhoneNum.getSelectedText()))) {
-                    textfPhoneNum.setValue(null);
-                }
-
-            }
-        });
-    }
-
+//    private void addPhoneNumListener() {
+//        textfPhoneNum.addKeyListener(new KeyAdapter() {
+//            public void keyPressed(java.awt.event.KeyEvent evt) {
+//                int len = textfPhoneNum.getText().length();
+//                char keyChar = evt.getKeyChar();
+//                if ((keyChar == 8 || keyChar == 127) && (len == 1 || textfPhoneNum.getText().equals(textfPhoneNum.getSelectedText()))) {
+//                    textfPhoneNum.setValue(null);
+//                }
+//
+//            }
+//        });
+//    }
     public void setProviderManageModel(ProviderManageModelInterface model) {
         if (model == null) {
             throw new NullPointerException("Provider model is null object.");
@@ -216,6 +218,17 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
         }
     }
 
+    private void addPhoneNumConstraint() {
+        labelSettingPhoneNum.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (labelSettingPhoneNum.isEnabled()) {
+                    providerController.requestChangePhoneNumConstraint();
+                }
+            }
+        });
+    }
+
     public void setTextfSearch(String text) {
         this.textfSearchName.setText(text);
     }
@@ -267,7 +280,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
 //        }
 //        String phoneNum = String.valueOf(this.textfPhoneNum.getValue());
 //        return phoneNum.replaceAll("-", "");
-        return textfPhoneNum.getText();
+        return textfPhoneNum.getText().trim();
     }
 
     public int getSelectedRow() {
@@ -289,6 +302,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
         textfEmail.setEditable(editable);
         textfProviderName.setEditable(editable);
         textfPhoneNum.setEditable(editable);
+        labelSettingPhoneNum.setEnabled(editable);
     }
 
     public void resetProviderList() {
@@ -373,6 +387,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
         setProviderInputEditable(false);
         showCardFunction();
         this.providerController.requestShowProviderInfo();
+        PhoneValidator.setValidDigitNum(10);
     }
 
     public void setEditState(EditState editState) {
@@ -491,7 +506,8 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
         textfProviderName = new javax.swing.JTextField();
         textfEmail = new javax.swing.JTextField();
         textfAddress = new javax.swing.JTextField();
-        textfPhoneNum = new javax.swing.JFormattedTextField();
+        textfPhoneNum = new javax.swing.JTextField();
+        labelSettingPhoneNum = new javax.swing.JLabel();
         scrpaneTable = new javax.swing.JScrollPane();
         tableProvider = new javax.swing.JTable();
         panelCard = new javax.swing.JPanel();
@@ -546,12 +562,10 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
 
         textfAddress.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
-        try {
-            textfPhoneNum.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##########")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
         textfPhoneNum.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        labelSettingPhoneNum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Slider_20px_1.png"))); // NOI18N
+        labelSettingPhoneNum.setEnabled(false);
 
         javax.swing.GroupLayout panelInfoLayout = new javax.swing.GroupLayout(panelInfo);
         panelInfo.setLayout(panelInfoLayout);
@@ -568,10 +582,12 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
                         .addComponent(textfProviderID, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
                         .addComponent(labelPhoneNum)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(textfPhoneNum))
                     .addComponent(textfProviderName, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelSettingPhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(labelAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -585,14 +601,14 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
             panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textfPhoneNum, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(textfProviderID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(label_provID4)
-                        .addComponent(labelPhoneNum)
-                        .addComponent(labelEmail)
-                        .addComponent(textfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textfProviderID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_provID4)
+                    .addComponent(labelPhoneNum)
+                    .addComponent(labelEmail)
+                    .addComponent(textfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textfPhoneNum)
+                    .addComponent(labelSettingPhoneNum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(panelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelName)
@@ -773,6 +789,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
     private javax.swing.JLabel labelName;
     private javax.swing.JLabel labelPhoneNum;
     private javax.swing.JLabel labelSearchProvider;
+    private javax.swing.JLabel labelSettingPhoneNum;
     private javax.swing.JLabel label_provID4;
     private javax.swing.JPanel panelBtnFunction;
     private javax.swing.JPanel panelBtnOption;
@@ -782,7 +799,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
     private javax.swing.JTable tableProvider;
     private javax.swing.JTextField textfAddress;
     private javax.swing.JTextField textfEmail;
-    private javax.swing.JFormattedTextField textfPhoneNum;
+    private javax.swing.JTextField textfPhoneNum;
     private javax.swing.JTextField textfProviderID;
     private javax.swing.JTextField textfProviderName;
     private javax.swing.JTextField textfSearchName;

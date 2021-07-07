@@ -76,7 +76,8 @@ public class ProviderController implements ProviderControllerInterface {
                 return false;
             }
             case INVALLID: {
-                this.providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_PHONE_NUMBER_DIGITS);
+                this.providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_PHONE_NUMBER_DIGITS_1 + PhoneValidator.getPhoneNumValid()
+                        + Messages.getInstance().PROVIDER_PHONE_NUMBER_DIGITS_2);
                 return false;
             }
         }
@@ -177,6 +178,7 @@ public class ProviderController implements ProviderControllerInterface {
 
         this.providerPanel.exitEditState();
         this.providerPanel.showInfoMessage(Messages.getInstance().PROVIDER_INSERTED_SUCCESSFULLY);
+        PhoneValidator.setValidDigitNum(10);
     }
 
     @Override
@@ -214,10 +216,8 @@ public class ProviderController implements ProviderControllerInterface {
 
         String providerPhoneNum = this.providerPanel.getProviderPhoneNum();
 
-        if (!provider.getPhoneNum().equals(providerPhoneNum)) {
-            if (!isProviderPhoneNumValid(providerPhoneNum)) {
-                return;
-            }
+        if (!isProviderPhoneNumValid(providerPhoneNum)) {
+            return;
         }
 
         provider.setName(providerName);
@@ -229,6 +229,7 @@ public class ProviderController implements ProviderControllerInterface {
 
         this.providerPanel.exitEditState();
         this.providerPanel.showInfoMessage(Messages.getInstance().PROVIDER_UPDATED_SUCCESSFULLY);
+        PhoneValidator.setValidDigitNum(10);
     }
 
     @Override
@@ -372,6 +373,25 @@ public class ProviderController implements ProviderControllerInterface {
             }
         }
         return true;
+    }
+
+    public void requestChangePhoneNumConstraint() {
+        String inputText = (String) JOptionPane.showInputDialog(providerPanel
+                .getMainFrame(), Messages.getInstance().EMPLOYEE_CUSTOM_PHONE_NUMBER_CONS,
+                "BakeryMS", JOptionPane.PLAIN_MESSAGE, null, null, null);
+        if (inputText != null && !inputText.isEmpty()) {
+            int num;
+            try {
+                num = Integer.parseInt(inputText);
+                if (num < 0) {
+                    throw new NumberFormatException("Input value is invalid");
+                }
+            } catch (NumberFormatException ex) {
+                providerPanel.showErrorMessage(Messages.getInstance().EMPLOYEE_INVALID_CUSTOM_PHONE_NUMBER_CONS_NUM);
+                return;
+            }
+            PhoneValidator.setValidDigitNum(num);
+        }
     }
 
 }

@@ -15,9 +15,14 @@ public class PersonalIDValidator {
     }
 
     public static void setValidDigitNum(int num) {
-        PERSONAL_ID_DIGIT_NUM_VALID = num;
+        if (num < 20) {
+            PERSONAL_ID_DIGIT_NUM_VALID = num;
+        } else {
+            PERSONAL_ID_DIGIT_NUM_VALID = 20;
+        }
+
     }
-    
+
     public static int getPhoneNumValid() {
         return PERSONAL_ID_DIGIT_NUM_VALID;
     }

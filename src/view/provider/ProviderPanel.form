@@ -85,12 +85,14 @@
                           <Component id="textfProviderID" min="-2" pref="103" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="labelPhoneNum" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="textfPhoneNum" max="32767" attributes="0"/>
                       </Group>
                       <Component id="textfProviderName" min="-2" pref="342" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="labelSettingPhoneNum" min="-2" pref="23" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="labelAddress" max="32767" attributes="0"/>
                       <Component id="labelEmail" max="32767" attributes="0"/>
@@ -108,15 +110,14 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="textfProviderID" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="label_provID4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelPhoneNum" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textfEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="textfPhoneNum" alignment="1" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="textfProviderID" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="label_provID4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelPhoneNum" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelEmail" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfEmail" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="labelSettingPhoneNum" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -209,14 +210,19 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="textfPhoneNum">
+        <Component class="javax.swing.JTextField" name="textfPhoneNum">
           <Properties>
-            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-              <Format format="##########" subtype="-1" type="5"/>
-            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="0"/>
             </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelSettingPhoneNum">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/img/Slider_20px_1.png"/>
+            </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>

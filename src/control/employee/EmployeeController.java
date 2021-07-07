@@ -187,7 +187,7 @@ public class EmployeeController implements EmployeeControllerInterface {
 
         return true;
     }
-    
+
     private boolean isEmployeeEndDateValid(Date employeeStartDate, Date employeeEndDate) {
         if (employeeEndDate == null) {
             return true;
@@ -296,7 +296,7 @@ public class EmployeeController implements EmployeeControllerInterface {
         }
 
         String randomPlaintextPassword = employee.randomPassword();
-        
+
         this.employeeManageModel.addEmployee(employee);
 
         // if save to data successfully, then notify employee generated password sent to email
@@ -311,6 +311,8 @@ public class EmployeeController implements EmployeeControllerInterface {
 
         employeePanel.exitEditState();
         employeePanel.showInfoMessage(Messages.getInstance().EMPLOYEE_INSERTED_SUCCESSFULLY);
+        PhoneValidator.setValidDigitNum(10);
+        PersonalIDValidator.setValidDigitNum(10);
     }
 
     @Override
@@ -337,10 +339,8 @@ public class EmployeeController implements EmployeeControllerInterface {
         String employeePersonalID = employeePanel.getEmployeePersonalIDInput();
         employeePersonalID = employeePersonalID.trim();
 
-        if (!employee.getPersonalID().equals(employeePersonalID)) {
-            if (!isEmployeePersonalIDValid(employeePersonalID)) {
-                return;
-            }
+        if (!isEmployeePersonalIDValid(employeePersonalID)) {
+            return;
         }
 
         String employeeEmail = employeePanel.getEmployeeEmailInput();
@@ -378,7 +378,7 @@ public class EmployeeController implements EmployeeControllerInterface {
             employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_START_DATE_INVALID);
             return;
         }
-        
+
         Date endDate = employeePanel.getEmployeeEndDateInput();
 
         if (!isEmployeeEndDateValid(startDate, endDate)) {
@@ -452,6 +452,8 @@ public class EmployeeController implements EmployeeControllerInterface {
 
         employeePanel.exitEditState();
         employeePanel.showInfoMessage(Messages.getInstance().EMPLOYEE_UPDATED_SUCCESSFULLY);
+        PhoneValidator.setValidDigitNum(10);
+        PersonalIDValidator.setValidDigitNum(10);
     }
 
     @Override
@@ -565,6 +567,9 @@ public class EmployeeController implements EmployeeControllerInterface {
             int num;
             try {
                 num = Integer.parseInt(inputText);
+                if (num < 0) {
+                    throw new NumberFormatException("Input value is invalid");
+                }
             } catch (NumberFormatException ex) {
                 employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_INVALID_CUSTOM_PID_CONS_NUM);
                 return;
@@ -582,6 +587,9 @@ public class EmployeeController implements EmployeeControllerInterface {
             int num;
             try {
                 num = Integer.parseInt(inputText);
+                if (num < 0) {
+                    throw new NumberFormatException("Input value is invalid");
+                }
             } catch (NumberFormatException ex) {
                 employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_INVALID_CUSTOM_PHONE_NUMBER_CONS_NUM);
                 return;
