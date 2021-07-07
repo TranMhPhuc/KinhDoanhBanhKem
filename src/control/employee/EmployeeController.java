@@ -402,7 +402,7 @@ public class EmployeeController implements EmployeeControllerInterface {
         employee.setGender(isMale);
         employee.setPositionName(employeePositionName);
         employee.setStatus(status);
-        
+             
         employee.setBirthday(new java.sql.Date(birthday.getTime()));
         
         employee.setStartDate(new java.sql.Date(startDate.getTime()));

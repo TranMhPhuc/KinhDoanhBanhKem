@@ -81,7 +81,7 @@ public class EmployeeModel implements EmployeeModelInterface {
             this.personalID = resultSet.getString(PERSONAL_ID_HEADER);
             this.password = resultSet.getString(PASSWORD_HEADER);
             this.isMale = resultSet.getBoolean(GENDER_HEADER);
-            this.positionName = resultSet.getString(POSITION_NAME_HEADER);
+            this.positionName = resultSet.getString(POSITION_NAME_HEADER);//aaa
             this.isActive = resultSet.getBoolean(STATUS_HEADER);
             this.startDate = resultSet.getDate(START_DATE_HEADER);
             this.endDate = resultSet.getDate(END_DATE_HEADER);
@@ -261,6 +261,7 @@ public class EmployeeModel implements EmployeeModelInterface {
             CallableStatement callableStatement = dbConnection.prepareCall(SP_INSERT);
 
             callableStatement.setString(1, this.name);
+            System.out.println(phoneNum);
             callableStatement.setString(2, this.phoneNum);
             callableStatement.setDate(3, this.birthday);
             callableStatement.setString(4, this.email);

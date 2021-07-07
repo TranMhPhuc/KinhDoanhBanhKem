@@ -87,6 +87,7 @@ public class EmployeeManageModel implements EmployeeManageModelInterface {
         if (index == -1) {
             return false;
         }
+        
         employee.updateInDatabase();
         notifyModifiedEmployeeObserver(employee);
         return true;

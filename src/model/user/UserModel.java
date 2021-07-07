@@ -65,7 +65,7 @@ public class UserModel implements UserModelInterface {
             MainFrameControllerInterface mainFrameController = new MainFrameController(this);
             loginFrame.dispose();
         } else {
-            loginFrame.showErrorMessage(Messages.getInstance().LOGIN_NO_PERMISSON);
+            loginFrame.showErrorMessage("You don't have permisson to login the program");
         }
     }
 
