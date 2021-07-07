@@ -66,6 +66,7 @@ public class IngredientImportDialog extends javax.swing.JDialog implements
     
     public void setProviderName(String providerName) {
         this.textfProviderName.setText(providerName);
+        this.textfProviderName.setCaretPosition(0);
     }
 
     public void setLabelIngredientUnit(String ingredientUnitName) {

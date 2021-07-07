@@ -9,6 +9,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
@@ -43,19 +44,33 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
-        UIControl.setDefaultTableHeader(tableImportHistory);
 
         this.ingredientController = ingredientController;
         this.ingredientManageModel = ingredientManageModel;
 
         this.tableImportHistoryModel = (DefaultTableModel) tableImportHistory.getModel();
-
+        createView();
         btnApply.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ingredientController.viewImportHistory();
             }
         });
+    }
+
+    private void createView() {
+        UIControl.setColumnWidth(tableImportHistory, 0, 200);
+        UIControl.setDefaultTableHeader(tableImportHistory);
+        UIControl.setColumnWidth(tableImportHistory, 1, 400);
+        UIControl.setColumnWidth(tableImportHistory, 6, 125);
+        UIControl.setColumnWidth(tableImportHistory, 4, 70);
+        UIControl.setColumnWidth(tableImportHistory, 3, 75);
+        UIControl.setColumnWidth(tableImportHistory, 5, 100);
+        UIControl.setHorizontalAlignmentForColumn(tableImportHistory, 3, JLabel.CENTER);
+        UIControl.setHorizontalAlignmentForColumn(tableImportHistory, 2, JLabel.CENTER);
+        UIControl.setHorizontalAlignmentForColumn(tableImportHistory, 4, JLabel.CENTER);
+        UIControl.setHorizontalAlignmentForColumn(tableImportHistory, 0, JLabel.LEFT);
+
     }
 
     public Date getDateFromInput() {
@@ -151,7 +166,7 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
             tableColumnModel.getColumn(UNIT_COLUMN_INDEX).setHeaderValue("Đơn vị");
             tableColumnModel.getColumn(COST_COLUMN_INDEX).setHeaderValue("Giá");
         }
-        
+
         repaint();
     }
 
@@ -186,6 +201,7 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
         btnApply = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
