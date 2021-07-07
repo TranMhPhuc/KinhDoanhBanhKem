@@ -198,8 +198,8 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="textfEmployeeName" alignment="1" pref="280" max="32767" attributes="0"/>
                       <Component id="textfEmployeeID" alignment="0" pref="280" max="32767" attributes="0"/>
-                      <Component id="textfPhoneNum" alignment="1" max="32767" attributes="0"/>
                       <Component id="textfPersonalID" alignment="1" max="32767" attributes="0"/>
+                      <Component id="textfPhoneNum" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -293,18 +293,18 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="textfPhoneNum" alignment="3" max="32767" attributes="0"/>
-                                                      <Component id="labelMobile" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
                                               <Component id="labelSettingPhoneNum" alignment="1" max="32767" attributes="0"/>
+                                              <Component id="textfPhoneNum" max="32767" attributes="0"/>
                                               <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="labelPosition" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="combPositionName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" attributes="0">
+                                                          <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
+                                                          <Component id="labelMobile" min="-2" pref="25" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="labelPosition" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="combPositionName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
                                                   </Group>
                                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                               </Group>
@@ -582,6 +582,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/img/Slider_20px_1.png"/>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="labelSettingPhoneNum">
@@ -589,20 +590,15 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/img/Slider_20px_1.png"/>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="textfPhoneNum">
+        <Component class="javax.swing.JTextField" name="textfPhoneNum">
           <Properties>
-            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-              <Format format="####-###-###" subtype="-1" type="5"/>
-            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="0"/>
             </Property>
           </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="((DefaultFormatter)textfPhoneNum.getFormatter()).setAllowsInvalid(false);"/>
-          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

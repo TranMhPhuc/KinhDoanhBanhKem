@@ -96,14 +96,16 @@ public class MainFrameController implements MainFrameControllerInterface {
                 return;
             }
             case INVALLID: {
-                ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_PHONE_NUMBER_DIGITS);
+                ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_PHONE_NUMBER_DIGITS_1 + PhoneValidator.getPhoneNumValid()
+                        + Messages.getInstance().PROFILE_PHONE_NUMBER_DIGITS_2);
                 return;
             }
         }
 
         userModel.updateProfile(updatedEmail, updatedPhoneNum);
-        
+
         profilePanel.setProfileOption(ProfilePanel.ProfileOption.CHANGE_PASSWORD_MODE);
+        PhoneValidator.setValidDigitNum(10);
     }
 
     @Override
@@ -114,6 +116,7 @@ public class MainFrameController implements MainFrameControllerInterface {
         profilePanel.setUserPhoneNum(impl.getPhoneNum());
         profilePanel.setInputEnable(false);
         profilePanel.setProfileOption(ProfilePanel.ProfileOption.CHANGE_PASSWORD_MODE);
+        PhoneValidator.setValidDigitNum(10);
     }
 
     @Override
@@ -229,4 +232,20 @@ public class MainFrameController implements MainFrameControllerInterface {
         return true;
     }
 
+    public void requestChangePhoneNumConstraint() {
+        String inputText = (String) JOptionPane.showInputDialog(this.mainFrame,
+                Messages.getInstance().EMPLOYEE_CUSTOM_PHONE_NUMBER_CONS,
+                "BakeryMS", JOptionPane.PLAIN_MESSAGE, null, null, null);
+        if (inputText != null && !inputText.isEmpty()) {
+            int num;
+            try {
+                num = Integer.parseInt(inputText);
+                if(num < 0) throw new NumberFormatException("Input value is invalid");
+            } catch (NumberFormatException ex) {
+                ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().EMPLOYEE_INVALID_CUSTOM_PHONE_NUMBER_CONS_NUM);
+                return;
+            }
+            PhoneValidator.setValidDigitNum(num);
+        }
+    }
 }

@@ -15,7 +15,11 @@ public class PhoneValidator {
     }
 
     public static void setValidDigitNum(int num) {
-        PHONE_NUM_VALID = num;
+        if (num < 20) {
+            PHONE_NUM_VALID = num;
+        } else {
+            PHONE_NUM_VALID = 20;
+        }
     }
 
     public static int getPhoneNumValid() {

@@ -29,4 +29,6 @@ public interface ProviderControllerInterface {
     Iterator<ProviderModelInterface> getProviderBySearchName(String searchText);
     
     boolean canCloseProviderManagePanel();
+    
+    void requestChangePhoneNumConstraint();
 }

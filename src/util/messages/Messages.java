@@ -49,7 +49,8 @@ public class Messages implements SettingUpdateObserver {
     public String PROFILE_EMAIL_INVALID;
     public String PROFILE_PHONE_NUMBER_EMPTY;
     public String PROFILE_PHONE_NUMBER_FORMAT;
-    public String PROFILE_PHONE_NUMBER_DIGITS;
+    public String PROFILE_PHONE_NUMBER_DIGITS_1;
+    public String PROFILE_PHONE_NUMBER_DIGITS_2;
     public String PROFILE_OLD_PASSWORD_EMPTY;
     public String PROFILE_OLD_PASSWORD_INCORRECT;
     public String PROFILE_NEW_PASSWORD_EMPTY;
@@ -147,7 +148,8 @@ public class Messages implements SettingUpdateObserver {
     public String PROVIDER_NAME_EXISTS;
     public String PROVIDER_PHONE_NUMBER_EMPTY;
     public String PROVIDER_PHONE_NUMBER_FORMAT;
-    public String PROVIDER_PHONE_NUMBER_DIGITS;
+    public String PROVIDER_PHONE_NUMBER_DIGITS_1;
+    public String PROVIDER_PHONE_NUMBER_DIGITS_2;
     public String PROVIDER_PHONE_NUMBER_EXISTS;
     public String PROVIDER_EMAIL_EMPTY;
     public String PROVIDER_EMAIL_INVALID;
@@ -182,7 +184,10 @@ public class Messages implements SettingUpdateObserver {
                 PROFILE_EMAIL_INVALID = "Email is invalid";
                 PROFILE_PHONE_NUMBER_EMPTY = "Phone number can't be empty";
                 PROFILE_PHONE_NUMBER_FORMAT = "Phone number format is invalid";
-                PROFILE_PHONE_NUMBER_DIGITS = "Phone number must have exactly 10 digits";
+                PROFILE_PHONE_NUMBER_DIGITS_1 = "Phone number must have exactly ";
+                PROFILE_PHONE_NUMBER_DIGITS_2 = " digits. Default number of digits is 10, max is 20. You can "
+                        + "change this constraint by clicking on the icon next to the text field. \n Note: It counts"
+                        + " your constraint input as an exception for this time only.";
                 PROFILE_OLD_PASSWORD_EMPTY = "Old password is required";
                 PROFILE_OLD_PASSWORD_INCORRECT = "Old password is incorrect";
                 PROFILE_NEW_PASSWORD_EMPTY = "New password is required";
@@ -209,11 +214,15 @@ public class Messages implements SettingUpdateObserver {
                 EMPLOYEE_PHONE_NUMBER_EMPTY = "Employee phone number is required";
                 EMPLOYEE_PHONE_NUMBER_FORMAT = "Employee phone number format is invalid";
                 EMPLOYEE_PHONE_NUMBER_DIGITS_1 = "Employee phone number must have exactly ";
-                EMPLOYEE_PHONE_NUMBER_DIGITS_2 = " digits";
+                EMPLOYEE_PHONE_NUMBER_DIGITS_2 = " digits. Default number of digits is 10, max is 20. You can "
+                        + "change this constraint by clicking on the icon next to the text field. \n Note: It counts"
+                        + " your constraint input as an exception for this time only.";
                 EMPLOYEE_PID_EMPTY = "Employee personal ID is required";
                 EMPLOYEE_PID_FORMAT = "Employee personal ID format is invalid";
                 EMPLOYEE_PID_DIGITS_1 = "Employee personal ID must have exactly ";
-                EMPLOYEE_PID_DIGITS_2 = " digits";
+                EMPLOYEE_PID_DIGITS_2 = " digits. Default number of digits is 12, max is 20. You can "
+                        + "change this constraint by clicking on the icon next to the text field. \n Note: It counts"
+                        + " your constraint input as an exception for this time only.";
                 EMPLOYEE_PID_EXISTS = "Employee personal ID already exists";
                 EMPLOYEE_EMAIL_EMPTY = "Employee email is required";
                 EMPLOYEE_EMAIL_INVALID = "Employee email format is invalid";
@@ -302,7 +311,10 @@ public class Messages implements SettingUpdateObserver {
                 PROVIDER_NAME_EXISTS = "Provider name already exists";
                 PROVIDER_PHONE_NUMBER_EMPTY = "Provider phone number is required";
                 PROVIDER_PHONE_NUMBER_FORMAT = "Provider phone number format is invalid";
-                PROVIDER_PHONE_NUMBER_DIGITS = "Provider phone number must have exactly 10 digits";
+                PROVIDER_PHONE_NUMBER_DIGITS_1 = "Provider phone number must have exactly ";
+                PROVIDER_PHONE_NUMBER_DIGITS_2 = " digits. Default number of digits is 10, max is 20. You can "
+                        + "change this constraint by clicking on the icon next to the text field. \n Note: It counts"
+                        + " your constraint input as an exception for this time only.";
                 PROVIDER_PHONE_NUMBER_EXISTS = "Provider phone number already exists";
                 PROVIDER_EMAIL_EMPTY = "Provider email is required";
                 PROVIDER_EMAIL_INVALID = "Provider email is invalid";
@@ -331,7 +343,10 @@ public class Messages implements SettingUpdateObserver {
                 PROFILE_EMAIL_INVALID = "Email không hợp lệ";
                 PROFILE_PHONE_NUMBER_EMPTY = "Không được bỏ trống SDT";
                 PROFILE_PHONE_NUMBER_FORMAT = "SDT không hợp lệ";
-                PROFILE_PHONE_NUMBER_DIGITS = "SDT cần có đúng 10 chữ số";
+                PROFILE_PHONE_NUMBER_DIGITS_1 = "SDT cần có đúng ";
+                PROFILE_PHONE_NUMBER_DIGITS_2 = " chữ số. Ràng buộc mặc định là 10 chữ số, tối đa là 20. Bạn có thể thay đổi"
+                        + " ràng buộc này bằng cách nhấn vào biểu tượng cạnh ô nhập liệu.\nLưu ý: Ràng buộc"
+                        + " bạn nhập sẽ được tính là ngoại lệ, áp dụng duy nhất cho lần nhập liệu này.";
                 PROFILE_OLD_PASSWORD_EMPTY = "Cần nhập mật khẩu cũ";
                 PROFILE_OLD_PASSWORD_INCORRECT = "Mật khẩu cũ không đúng";
                 PROFILE_NEW_PASSWORD_EMPTY = "Cần nhập mật khẩu mới";
@@ -358,11 +373,15 @@ public class Messages implements SettingUpdateObserver {
                 EMPLOYEE_PHONE_NUMBER_EMPTY = "Cần nhập SDT của nhân viên";
                 EMPLOYEE_PHONE_NUMBER_FORMAT = "SDT nhân viên không hợp lệ";
                 EMPLOYEE_PHONE_NUMBER_DIGITS_1 = "SDT nhân viên cần có đúng ";
-                EMPLOYEE_PHONE_NUMBER_DIGITS_2 = " chữ số";
+                EMPLOYEE_PHONE_NUMBER_DIGITS_2 = " chữ số. Ràng buộc mặc định là 10 chữ số, tối đa là 20. Bạn có thể thay đổi"
+                        + " ràng buộc này bằng cách nhấn vào biểu tượng cạnh ô nhập liệu.\nLưu ý: Ràng buộc"
+                        + " bạn nhập sẽ được tính là ngoại lệ, áp dụng duy nhất cho lần nhập liệu này.";
                 EMPLOYEE_PID_EMPTY = "Cần nhập CCCD của nhân viên";
                 EMPLOYEE_PID_FORMAT = "CCCD của nhân viên không hợp lệ";
                 EMPLOYEE_PID_DIGITS_1 = "CCCD của nhân viên cần có đúng  ";
-                EMPLOYEE_PID_DIGITS_2 = " chữ số";
+                EMPLOYEE_PID_DIGITS_2 = " chữ số. Ràng buộc mặc định là 12 chữ số, tối đa là 20. Bạn có thể thay đổi"
+                        + " ràng buộc này bằng cách nhấn vào biểu tượng cạnh ô nhập liệu.\nLưu ý: Ràng buộc"
+                        + " bạn nhập sẽ được tính là ngoại lệ, áp dụng duy nhất cho lần nhập liệu này.";
                 EMPLOYEE_PID_EXISTS = "CCCD của nhân viên đã tồn tại";
                 EMPLOYEE_EMAIL_EMPTY = "Cần nhập email của nhân viên";
                 EMPLOYEE_EMAIL_INVALID = "Email của nhân viên không hợp lệ";
@@ -451,7 +470,10 @@ public class Messages implements SettingUpdateObserver {
                 PROVIDER_NAME_EXISTS = "Tên nhà cung cấp đã tồn tại";
                 PROVIDER_PHONE_NUMBER_EMPTY = "Cần nhập SDT nhà cung cấp";
                 PROVIDER_PHONE_NUMBER_FORMAT = "SDT nhà cung cấp không hợp lệ";
-                PROVIDER_PHONE_NUMBER_DIGITS = "SDT nhà cung cấp cần có đúng 10 chữ số";
+                PROVIDER_PHONE_NUMBER_DIGITS_1 = "SDT nhà cung cấp cần có đúng ";
+                PROVIDER_PHONE_NUMBER_DIGITS_2 = " chữ số. Ràng buộc mặc định là 10 chữ số, tối đa là 20. Bạn có thể thay đổi"
+                        + " ràng buộc này bằng cách nhấn vào biểu tượng cạnh ô nhập liệu.\nLưu ý: Ràng buộc"
+                        + " bạn nhập sẽ được tính là ngoại lệ, áp dụng duy nhất cho lần nhập liệu này.";
                 PROVIDER_PHONE_NUMBER_EXISTS = "SDT nhà cung cấp đã tồn tại";
                 PROVIDER_EMAIL_EMPTY = "Cần nhập email nhà cung cấp";
                 PROVIDER_EMAIL_INVALID = "Email nhà cung cấp không hợp lệ";
