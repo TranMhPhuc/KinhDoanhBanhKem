@@ -25,6 +25,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.text.DefaultFormatter;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 import model.employee.EmployeeManageModelInterface;
 import model.employee.EmployeeModelInterface;
 import model.employee.shift.detail.ShiftDetailModelInterface;
@@ -32,6 +34,7 @@ import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
 import util.constant.AppConstant;
 import util.messages.Messages;
+import util.swing.CustomizedMaskFormatter;
 import util.swing.UIControl;
 import static util.swing.UIControl.setDefaultTableHeader;
 import util.swing.checkcombobox.CheckableItem;
@@ -387,13 +390,14 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
     }
 
     public String getEmployeePhoneNumInput() {
-        try {
-            textfPhoneNum.commitEdit();
-        } catch (ParseException ex) {
-            Logger.getLogger(EmployeePanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String phoneNum = String.valueOf(this.textfPhoneNum.getValue());
-        return phoneNum.replaceAll("-", "");
+//        try {
+//            textfPhoneNum.commitEdit();
+//        } catch (ParseException ex) {
+//            Logger.getLogger(EmployeePanel.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        String phoneNum = String.valueOf(this.textfPhoneNum.getText());
+//        return phoneNum.replaceAll("-", "");
+        return textfPhoneNum.getText();
     }
 
     public String getEmployeePersonalIDInput() {
@@ -841,7 +845,7 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
         labelSettingPhoneNum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Slider_20px_1.png"))); // NOI18N
 
         try {
-            textfPhoneNum.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-###-###")));
+            textfPhoneNum.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##########")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }

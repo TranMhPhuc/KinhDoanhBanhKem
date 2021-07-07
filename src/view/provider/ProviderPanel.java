@@ -260,13 +260,14 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
     }
 
     public String getProviderPhoneNum() {
-        try {
-            textfPhoneNum.commitEdit();
-        } catch (ParseException ex) {
-            Logger.getLogger(EmployeePanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String phoneNum = String.valueOf(this.textfPhoneNum.getValue());
-        return phoneNum.replaceAll("-", "");
+//        try {
+//            textfPhoneNum.commitEdit();
+//        } catch (ParseException ex) {
+//            Logger.getLogger(EmployeePanel.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        String phoneNum = String.valueOf(this.textfPhoneNum.getValue());
+//        return phoneNum.replaceAll("-", "");
+        return textfPhoneNum.getText();
     }
 
     public int getSelectedRow() {
@@ -546,10 +547,11 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
         textfAddress.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         try {
-            textfPhoneNum.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-###-###")));
+            textfPhoneNum.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##########")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        textfPhoneNum.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         javax.swing.GroupLayout panelInfoLayout = new javax.swing.GroupLayout(panelInfo);
         panelInfo.setLayout(panelInfoLayout);

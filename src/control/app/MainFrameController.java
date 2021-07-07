@@ -96,7 +96,8 @@ public class MainFrameController implements MainFrameControllerInterface {
                 return;
             }
             case INVALLID: {
-                ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_PHONE_NUMBER_DIGITS);
+                ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().PROFILE_PHONE_NUMBER_DIGITS_1 + PhoneValidator.getPhoneNumValid()
+                +Messages.getInstance().PROFILE_PHONE_NUMBER_DIGITS_2);
                 return;
             }
         }

@@ -168,13 +168,14 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
     }
 
     public String getUserPhoneNumInput() {
-        try {
-            textfPhoneNum.commitEdit();
-        } catch (ParseException ex) {
-            Logger.getLogger(EmployeePanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String phoneNum = String.valueOf(this.textfPhoneNum.getValue());
-        return phoneNum.replaceAll("-", "");
+//        try {
+//            textfPhoneNum.commitEdit();
+//        } catch (ParseException ex) {
+//            Logger.getLogger(EmployeePanel.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        String phoneNum = String.valueOf(this.textfPhoneNum.getValue());
+//        return phoneNum.replaceAll("-", "");
+        return textfPhoneNum.getText();
     }
 
     @Override
@@ -278,7 +279,7 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
         labelEditProfile.setPreferredSize(new java.awt.Dimension(117, 21));
 
         try {
-            textfPhoneNum.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-###-###")));
+            textfPhoneNum.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##########")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }

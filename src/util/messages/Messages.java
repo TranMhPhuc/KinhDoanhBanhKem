@@ -49,7 +49,8 @@ public class Messages implements SettingUpdateObserver {
     public String PROFILE_EMAIL_INVALID;
     public String PROFILE_PHONE_NUMBER_EMPTY;
     public String PROFILE_PHONE_NUMBER_FORMAT;
-    public String PROFILE_PHONE_NUMBER_DIGITS;
+    public String PROFILE_PHONE_NUMBER_DIGITS_1;
+    public String PROFILE_PHONE_NUMBER_DIGITS_2;     
     public String PROFILE_OLD_PASSWORD_EMPTY;
     public String PROFILE_OLD_PASSWORD_INCORRECT;
     public String PROFILE_NEW_PASSWORD_EMPTY;
@@ -182,7 +183,8 @@ public class Messages implements SettingUpdateObserver {
                 PROFILE_EMAIL_INVALID = "Email is invalid";
                 PROFILE_PHONE_NUMBER_EMPTY = "Phone number can't be empty";
                 PROFILE_PHONE_NUMBER_FORMAT = "Phone number format is invalid";
-                PROFILE_PHONE_NUMBER_DIGITS = "Phone number must have exactly 10 digits";
+                PROFILE_PHONE_NUMBER_DIGITS_1 = "Phone number must have exactly ";
+                PROFILE_PHONE_NUMBER_DIGITS_2 = " digits";
                 PROFILE_OLD_PASSWORD_EMPTY = "Old password is required";
                 PROFILE_OLD_PASSWORD_INCORRECT = "Old password is incorrect";
                 PROFILE_NEW_PASSWORD_EMPTY = "New password is required";
@@ -331,7 +333,8 @@ public class Messages implements SettingUpdateObserver {
                 PROFILE_EMAIL_INVALID = "Email không hợp lệ";
                 PROFILE_PHONE_NUMBER_EMPTY = "Không được bỏ trống SDT";
                 PROFILE_PHONE_NUMBER_FORMAT = "SDT không hợp lệ";
-                PROFILE_PHONE_NUMBER_DIGITS = "SDT cần có đúng 10 chữ số";
+                PROFILE_PHONE_NUMBER_DIGITS_1 = "SDT cần có đúng ";
+                PROFILE_PHONE_NUMBER_DIGITS_2 = " chữ số";
                 PROFILE_OLD_PASSWORD_EMPTY = "Cần nhập mật khẩu cũ";
                 PROFILE_OLD_PASSWORD_INCORRECT = "Mật khẩu cũ không đúng";
                 PROFILE_NEW_PASSWORD_EMPTY = "Cần nhập mật khẩu mới";
