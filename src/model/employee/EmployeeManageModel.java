@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 import me.xdrop.fuzzywuzzy.model.BoundExtractedResult;
+import model.user.UserModel;
 import util.AppLog;
 import util.constant.AppConstant;
 import view.employee.InsertedEmployeeObserver;
@@ -26,7 +27,7 @@ public class EmployeeManageModel implements EmployeeManageModelInterface {
 
     private static final String SP_FIND_ALL_POSITION_NAME
             = "{call get_all_position_name}";
-    
+
     private static final String SP_FIND_ALL_SHIFT_NAME
             = "{call get_all_shift_name}";
 
@@ -37,10 +38,10 @@ public class EmployeeManageModel implements EmployeeManageModelInterface {
 
     public EmployeeManageModel() {
         employees = new ArrayList<>();
-        
+
         insertedEmployeeObservers = new ArrayList<>();
         modifiedEmployeeObservers = new ArrayList<>();
-        
+
         updateFromDB();
     }
 
@@ -89,6 +90,7 @@ public class EmployeeManageModel implements EmployeeManageModelInterface {
         }
         employee.updateInDatabase();
         notifyModifiedEmployeeObserver(employee);
+
         return true;
     }
 
@@ -174,6 +176,9 @@ public class EmployeeManageModel implements EmployeeManageModelInterface {
             while (resultSet.next()) {
                 EmployeeModelInterface employee = new EmployeeModel();
                 employee.setProperty(resultSet);
+                if (employee.getPositionName().equals("Quản lý")) {
+                    continue;
+                }
                 employees.add(employee);
             }
 
