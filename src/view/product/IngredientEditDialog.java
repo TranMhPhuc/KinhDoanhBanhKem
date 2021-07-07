@@ -18,6 +18,7 @@ import model.product.ProductManageModelInterface;
 import model.product.ingredientDetail.IngredientDetailModelInterface;
 import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import util.constant.AppConstant;
 import util.swing.UIControl;
 import view.MessageShowing;
@@ -52,6 +53,7 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
         createView();
         createControl();
         addQuantitiesSpinnerKeyListener();
+        AutoCompleteDecorator.decorate(combName);
     }
 
     @Override
@@ -470,8 +472,8 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(panelSelectIngredient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                         .addComponent(labelProductName))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(labelIngredientOfProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)

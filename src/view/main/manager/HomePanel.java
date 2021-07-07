@@ -253,6 +253,7 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
         pieChartProductStateStyle.setSeriesColors(PIECHART_PRODUCT_SIDE_COLORS);
         pieChartProductStateStyle.setAnnotationsFont(AppConstant.CHART_ANNOTAION_FONT);
         pieChartProductStateStyle.setLegendFont(AppConstant.CHART_LEGEND_FONT);
+        //pieChartProductStateStyle.setToolTipsEnabled(true);//here lies the bug
         panelStateProduct.setLayout(new BorderLayout());
         panelStateProduct.add(new XChartPanel<PieChart>(pieChartProductState));
 

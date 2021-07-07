@@ -185,7 +185,7 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
                 labelName.setText("Name");
                 labelPosition.setText("Position");
                 labelBirthday.setText("Birthday");
-                labelPhoneNum.setText("Phone number");
+                labelPhoneNum.setText("Mobile");
                 labelEditProfile.setText("Edit profile");
                 labelChangePassword.setText("Change password");
                 labelCancelEditProfile.setText("Cancel");
@@ -249,6 +249,7 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
         labelEmail.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         labelEmail.setText("Email:");
 
+        dateChooserBirthday.setDateFormatString("dd - MM - yyyy");
         dateChooserBirthday.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         textfEmail.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -257,7 +258,7 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
 
         labelPhoneNum.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelPhoneNum.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        labelPhoneNum.setText("Phone number:");
+        labelPhoneNum.setText("Mobile");
 
         labelName.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelName.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
