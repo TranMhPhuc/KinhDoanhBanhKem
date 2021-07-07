@@ -392,7 +392,6 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
         if (evt.getKeyChar() == 10) {
             String emailInput = textfEmail.getText().trim();
             String passwordInput = String.valueOf(passfPassword.getPassword());
-            System.out.println(emailInput + " " + passwordInput);
             this.loginController.requestLogin(emailInput, passwordInput);
         }
     }//GEN-LAST:event_passfPasswordKeyPressed

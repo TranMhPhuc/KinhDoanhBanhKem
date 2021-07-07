@@ -1,6 +1,7 @@
 package view.profile;
 
 import control.app.MainFrameControllerInterface;
+import java.awt.CardLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -19,6 +20,11 @@ import view.employee.EmployeePanel;
 
 public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObserver {
 
+    public enum ProfileOption {
+        PROFILE_EDIT_MODE,
+        CHANGE_PASSWORD_MODE
+    }
+
     private UserModelInterface userModel;
     private MainFrameControllerInterface mainFrameController;
 
@@ -27,7 +33,6 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
         createView();
         createControl();
         addPhoneNumListener();
-
     }
 
     private void addPhoneNumListener() {
@@ -35,7 +40,8 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 int len = textfPhoneNum.getText().length();
                 char keyChar = evt.getKeyChar();
-                if ((keyChar == 8 || keyChar == 127) && (len == 1 || textfPhoneNum.getText().equals(textfPhoneNum.getSelectedText()))) {
+                if ((keyChar == 8 || keyChar == 127) && (len == 1
+                        || textfPhoneNum.getText().equals(textfPhoneNum.getSelectedText()))) {
                     textfPhoneNum.setValue(null);
                 }
 
@@ -69,11 +75,12 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
         this.textfEmail.setEnabled(false);
         this.dateChooserBirthday.setEnabled(false);
         this.textfPhoneNum.setEnabled(false);
+        setProfileOption(ProfileOption.CHANGE_PASSWORD_MODE);
     }
 
     private void createControl() {
         JLabel[] labels = new JLabel[]{
-            labelEditProfile, labelChangePassword
+            labelEditProfile, labelChangePassword, labelCancelEditProfile
         };
         for (JLabel label : labels) {
             label.addMouseListener(new MouseAdapter() {
@@ -94,12 +101,29 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
                             mainFrameController.requestUpdateProfile();
                         } else {
                             setInputEnable(true);
+                            setProfileOption(ProfileOption.PROFILE_EDIT_MODE);
                         }
+                    } else if (label == labelCancelEditProfile) {
+                        mainFrameController.requestCancelEditProfile();
                     } else if (label == labelChangePassword) {
                         mainFrameController.requestChangePassword();
                     }
                 }
             });
+        }
+    }
+
+    public void setProfileOption(ProfileOption editProfileOption) {
+        CardLayout cardLayout = (CardLayout) panelOption.getLayout();
+        switch (editProfileOption) {
+            case PROFILE_EDIT_MODE: {
+                cardLayout.show(panelOption, labelCancelEditProfile.getName());
+                break;
+            }
+            case CHANGE_PASSWORD_MODE: {
+                cardLayout.show(panelOption, labelChangePassword.getName());
+                break;
+            }
         }
     }
 
@@ -125,7 +149,7 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
         this.dateChooserBirthday.setDate(date);
     }
 
-    public void setPhoneNum(String phoneNum) {
+    public void setUserPhoneNum(String phoneNum) {
         this.textfPhoneNum.setText(phoneNum);
     }
 
@@ -165,6 +189,7 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
                 labelPhoneNum.setText("Phone number");
                 labelEditProfile.setText("Edit profile");
                 labelChangePassword.setText("Change password");
+                labelCancelEditProfile.setText("Cancel");
                 break;
             }
             case VIETNAMESE: {
@@ -174,6 +199,7 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
                 labelPhoneNum.setText("Số điện thoại");
                 labelEditProfile.setText("Chỉnh sửa");
                 labelChangePassword.setText("Đổi mật khẩu");
+                labelCancelEditProfile.setText("Thoát");
                 break;
             }
         }
@@ -196,8 +222,10 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
         textfPosition = new javax.swing.JTextField();
         labelBirthday = new javax.swing.JLabel();
         labelEditProfile = new javax.swing.JLabel();
-        labelChangePassword = new javax.swing.JLabel();
         textfPhoneNum = new javax.swing.JFormattedTextField();
+        panelOption = new javax.swing.JPanel();
+        labelChangePassword = new javax.swing.JLabel();
+        labelCancelEditProfile = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setName("Profile"); // NOI18N
@@ -249,13 +277,6 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
         labelEditProfile.setOpaque(true);
         labelEditProfile.setPreferredSize(new java.awt.Dimension(117, 21));
 
-        labelChangePassword.setBackground(new java.awt.Color(113, 168, 255));
-        labelChangePassword.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        labelChangePassword.setForeground(new java.awt.Color(255, 255, 255));
-        labelChangePassword.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelChangePassword.setText("Change password");
-        labelChangePassword.setOpaque(true);
-
         try {
             textfPhoneNum.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-###-###")));
         } catch (java.text.ParseException ex) {
@@ -264,18 +285,41 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
         textfPhoneNum.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         ((DefaultFormatter)textfPhoneNum.getFormatter()).setAllowsInvalid(false);
 
+        panelOption.setLayout(new java.awt.CardLayout());
+
+        labelChangePassword.setBackground(new java.awt.Color(113, 168, 255));
+        labelChangePassword.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelChangePassword.setForeground(new java.awt.Color(255, 255, 255));
+        labelChangePassword.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelChangePassword.setText("Change password");
+        labelChangePassword.setName("ChangePassword"); // NOI18N
+        labelChangePassword.setOpaque(true);
+        labelChangePassword.setPreferredSize(new java.awt.Dimension(150, 40));
+        panelOption.add(labelChangePassword, "ChangePassword");
+
+        labelCancelEditProfile.setBackground(new java.awt.Color(113, 168, 255));
+        labelCancelEditProfile.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        labelCancelEditProfile.setForeground(new java.awt.Color(255, 255, 255));
+        labelCancelEditProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelCancelEditProfile.setText("Cancel");
+        labelCancelEditProfile.setName("CancelEditProfile"); // NOI18N
+        labelCancelEditProfile.setOpaque(true);
+        labelCancelEditProfile.setPreferredSize(new java.awt.Dimension(150, 40));
+        labelCancelEditProfile.setVerifyInputWhenFocusTarget(false);
+        panelOption.add(labelCancelEditProfile, "CancelEditProfile");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(192, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(labelEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(58, 58, 58)
-                        .addComponent(labelChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(panelOption, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelPhoneNum, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelBirthday, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -315,10 +359,10 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
                     .addComponent(labelPhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textfPhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelEditProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                    .addComponent(panelOption, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -329,12 +373,14 @@ public class ProfilePanel extends javax.swing.JPanel implements SettingUpdateObs
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelBirthday;
+    private javax.swing.JLabel labelCancelEditProfile;
     private javax.swing.JLabel labelChangePassword;
     private javax.swing.JLabel labelEditProfile;
     private javax.swing.JLabel labelEmail;
     private javax.swing.JLabel labelName;
     private javax.swing.JLabel labelPhoneNum;
     private javax.swing.JLabel labelPosition;
+    private javax.swing.JPanel panelOption;
     private javax.swing.JTextField textfEmail;
     private javax.swing.JTextField textfName;
     private javax.swing.JFormattedTextField textfPhoneNum;

@@ -14,6 +14,7 @@ public class IngredientImportDetail implements IngredientImportDetailInterface {
 
     public static final String TABLE_NAME = "ChiTietNhapNL";
     public static final String INGREDIENT_NAME_HEADER = IngredientModel.NAME_HEADER;
+    public static final String PROVIDER_NAME_HEADER = IngredientModel.PROVIDER_NAME_HEADER;
     public static final String DATE_HEADER = "NgayGioNhap";
     public static final String AMOUNT_HEADER = "SoLuong";
     public static final String TOTAL_COST_HEADER = "GiaNhap";
@@ -22,6 +23,7 @@ public class IngredientImportDetail implements IngredientImportDetailInterface {
     private static final String SP_INSERT = "{call insert_ChiTietNhapNL(?, ?, ?, ?)}";
 
     private String ingredientName;
+    private String providerName;
     private Timestamp date;
     private int amount;
     private long totalCost;
@@ -34,6 +36,7 @@ public class IngredientImportDetail implements IngredientImportDetailInterface {
     public void setProperty(ResultSet resultSet) {
         try {
             this.ingredientName = resultSet.getString(INGREDIENT_NAME_HEADER);
+            this.providerName = resultSet.getString(PROVIDER_NAME_HEADER);
             this.date = resultSet.getTimestamp(DATE_HEADER);
             this.amount = resultSet.getInt(AMOUNT_HEADER);
             this.totalCost = resultSet.getLong(TOTAL_COST_HEADER);
@@ -47,7 +50,7 @@ public class IngredientImportDetail implements IngredientImportDetailInterface {
     public void insertToDatabase() {
         try {
             CallableStatement callableStatement = dbConnection.prepareCall(SP_INSERT);
-            
+
             callableStatement.setString(1, this.ingredientName);
             callableStatement.setTimestamp(2, this.date);
             callableStatement.setInt(3, this.amount);
@@ -92,6 +95,11 @@ public class IngredientImportDetail implements IngredientImportDetailInterface {
     }
 
     @Override
+    public void setProviderName(String providerName) {
+        this.providerName = providerName;
+    }
+
+    @Override
     public void setDate(Timestamp date) {
         if (date == null) {
             throw new NullPointerException();
@@ -117,6 +125,11 @@ public class IngredientImportDetail implements IngredientImportDetailInterface {
     @Override
     public String getIngredientName() {
         return this.ingredientName;
+    }
+
+    @Override
+    public String getProviderName() {
+        return this.providerName;
     }
 
     @Override

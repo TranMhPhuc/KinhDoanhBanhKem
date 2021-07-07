@@ -146,6 +146,7 @@ public class IngredientController implements IngredientControllerInterface {
 
         dialogIngredientImport.setIngredientIDText(ingredient.getIngredientIDText());
         dialogIngredientImport.setIngredientName(ingredient.getName());
+        dialogIngredientImport.setProviderName(ingredient.getProviderName());
         dialogIngredientImport.setLabelIngredientUnit(ingredient.getUnitName());
         dialogIngredientImport.setIngredientTotalCost(String.valueOf(ingredient.getCost()));
         dialogIngredientImport.setVisible(true);

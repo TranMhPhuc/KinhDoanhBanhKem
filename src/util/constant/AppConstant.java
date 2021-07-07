@@ -41,6 +41,8 @@ public interface AppConstant {
     // Icon message dialog
     public static final ImageIcon IMAGE_ICON_MESSAGE_DIALOG_ERROR = new ImageIcon(new File("").getAbsolutePath()
             + "/src/img/error.png");
-    public static final ImageIcon IMAGE_ICON_MESSAGE_DIALOG_WARNING = new ImageIcon("/img/warning.png");
-    public static final ImageIcon IMAGE_ICON_MESSAGE_DIALOG_INFO = new ImageIcon("/img/infor.png");
+    public static final ImageIcon IMAGE_ICON_MESSAGE_DIALOG_WARNING = new ImageIcon(new File("").getAbsolutePath()
+            + "/src/img/warning.png");
+    public static final ImageIcon IMAGE_ICON_MESSAGE_DIALOG_INFO = new ImageIcon(new File("").getAbsolutePath()
+            + "/src/img/infor.png");
 }

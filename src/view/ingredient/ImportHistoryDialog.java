@@ -25,11 +25,12 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
         SettingUpdateObserver {
 
     private static final int INGREDIENT_NAME_COLUMN_INDEX = 0;
-    private static final int INGREDIENT_IMPORT_DATE_COLUMN_INDEX = 1;
-    private static final int INGREDIENT_TIME_COLUMN_INDEX = 2;
-    private static final int INGREDIENT_AMOUNT_COLUMN_INDEX = 3;
-    private static final int INGREDIENT_UNIT_COLUMN_INDEX = 4;
-    private static final int INGREDIENT_COST_COLUMN_INDEX = 5;
+    private static final int PROVIDER_NAME_COLUMN_INDEX = 1;
+    private static final int IMPORT_DATE_COLUMN_INDEX = 2;
+    private static final int TIME_COLUMN_INDEX = 3;
+    private static final int AMOUNT_COLUMN_INDEX = 4;
+    private static final int UNIT_COLUMN_INDEX = 5;
+    private static final int COST_COLUMN_INDEX = 6;
 
     private IngredientControllerInterface ingredientController;
     private IngredientManageModelInterface ingredientManageModel;
@@ -94,6 +95,7 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
 
             Object[] record = new Object[]{
                 ingredientImportDetail.getIngredientName(),
+                ingredientImportDetail.getProviderName(),
                 visualDate.format(AppConstant.GLOBAL_DATE_FORMATTER),
                 visualTime.format(AppConstant.GLOBAL_TIME_FORMATTER),
                 ingredientImportDetail.getAmount(),
@@ -121,11 +123,12 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
 
             TableColumnModel tableColumnModel = tableImportHistory.getColumnModel();
             tableColumnModel.getColumn(INGREDIENT_NAME_COLUMN_INDEX).setHeaderValue("Ingredient name");
-            tableColumnModel.getColumn(INGREDIENT_IMPORT_DATE_COLUMN_INDEX).setHeaderValue("Import date");
-            tableColumnModel.getColumn(INGREDIENT_TIME_COLUMN_INDEX).setHeaderValue("Time");
-            tableColumnModel.getColumn(INGREDIENT_AMOUNT_COLUMN_INDEX).setHeaderValue("Amount");
-            tableColumnModel.getColumn(INGREDIENT_UNIT_COLUMN_INDEX).setHeaderValue("Unit");
-            tableColumnModel.getColumn(INGREDIENT_COST_COLUMN_INDEX).setHeaderValue("Cost");
+            tableColumnModel.getColumn(PROVIDER_NAME_COLUMN_INDEX).setHeaderValue("Provider name");
+            tableColumnModel.getColumn(IMPORT_DATE_COLUMN_INDEX).setHeaderValue("Import date");
+            tableColumnModel.getColumn(TIME_COLUMN_INDEX).setHeaderValue("Time");
+            tableColumnModel.getColumn(AMOUNT_COLUMN_INDEX).setHeaderValue("Amount");
+            tableColumnModel.getColumn(UNIT_COLUMN_INDEX).setHeaderValue("Unit");
+            tableColumnModel.getColumn(COST_COLUMN_INDEX).setHeaderValue("Cost");
         } else {
             setTitle("Hộp thoại xem lịch sử nhập nguyên liệu");
 
@@ -141,11 +144,12 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
 
             TableColumnModel tableColumnModel = tableImportHistory.getColumnModel();
             tableColumnModel.getColumn(INGREDIENT_NAME_COLUMN_INDEX).setHeaderValue("Tên nguyên liệu");
-            tableColumnModel.getColumn(INGREDIENT_IMPORT_DATE_COLUMN_INDEX).setHeaderValue("Ngày nhập");
-            tableColumnModel.getColumn(INGREDIENT_TIME_COLUMN_INDEX).setHeaderValue("Thời gian");
-            tableColumnModel.getColumn(INGREDIENT_AMOUNT_COLUMN_INDEX).setHeaderValue("Số lượng");
-            tableColumnModel.getColumn(INGREDIENT_UNIT_COLUMN_INDEX).setHeaderValue("Đơn vị");
-            tableColumnModel.getColumn(INGREDIENT_COST_COLUMN_INDEX).setHeaderValue("Giá");
+            tableColumnModel.getColumn(PROVIDER_NAME_COLUMN_INDEX).setHeaderValue("Tên nhà cung cấp");
+            tableColumnModel.getColumn(IMPORT_DATE_COLUMN_INDEX).setHeaderValue("Ngày nhập");
+            tableColumnModel.getColumn(TIME_COLUMN_INDEX).setHeaderValue("Thời gian");
+            tableColumnModel.getColumn(AMOUNT_COLUMN_INDEX).setHeaderValue("Số lượng");
+            tableColumnModel.getColumn(UNIT_COLUMN_INDEX).setHeaderValue("Đơn vị");
+            tableColumnModel.getColumn(COST_COLUMN_INDEX).setHeaderValue("Giá");
         }
         
         repaint();
@@ -195,14 +199,14 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
 
             },
             new String [] {
-                "Ingredient name", "Import date", "Time", "Amount", "Unit", "Cost"
+                "Ingredient name", "Provider", "Import date", "Time", "Amount", "Unit", "Cost"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Long.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Long.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -215,6 +219,7 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
         });
         tableImportHistory.setSelectionBackground(new java.awt.Color(113, 168, 255));
         tableImportHistory.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tableImportHistory.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tableImportHistory);
 
         panelDateInput.setBackground(new java.awt.Color(255, 255, 255));
@@ -276,7 +281,7 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelMainTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 855, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1095, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(panelDateInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -287,10 +292,10 @@ public class ImportHistoryDialog extends javax.swing.JDialog implements MessageS
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelMainTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(panelDateInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
