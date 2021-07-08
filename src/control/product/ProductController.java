@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -87,7 +88,7 @@ public class ProductController implements ProductControllerInterface {
         while (iterator.hasNext()) {
             ProductModelInterface element = iterator.next();
             if (element.getName().equals(productName)
-                    && element.getSize().equals(productSize)) {
+                    && element.getSize().name().equals(productSize)) {
                 productPanel.showErrorMessage(Messages.getInstance().PRODUCT_EXISTS);
                 return false;
             }
@@ -119,22 +120,21 @@ public class ProductController implements ProductControllerInterface {
 
     private boolean isProductCostAndPriceVallid(String productName, int preSize, int nextSize, long productCost, long productPrice) {
         ProductSize[] productSizes = ProductSize.values();
-
         if (preSize != -1) {
             ProductModelInterface preSizeProduct = this.productManageModel
                     .getProductByNameAndSize(productName, productSizes[preSize].name());
             if (preSizeProduct != null) {
                 if (preSizeProduct.getCost() > productCost) {
                     productPanel.showErrorMessage(Messages.getInstance().PRODUCT_COST_LESS_SMALLER_SIZE
-                            + productSizes[preSize].name() + " (" + preSizeProduct.getCost()
-                            + " > " + productCost + ").");
+                            + " - " + productSizes[preSize].name() + " (" + NumberFormat.getInstance().format(preSizeProduct.getCost())
+                            + " > " + NumberFormat.getInstance().format(productCost) + ").");
                     return false;
                 }
 
                 if (preSizeProduct.getPrice() > productPrice) {
                     productPanel.showErrorMessage(Messages.getInstance().PRODUCT_PRICE_LESS_SMALLER_SIZE
-                            + productSizes[preSize].name() + " (" + preSizeProduct.getPrice()
-                            + " > " + productPrice + ").");
+                            + " - " + productSizes[preSize].name() + " (" + NumberFormat.getInstance().format(preSizeProduct.getPrice())
+                            + " > " + NumberFormat.getInstance().format(productPrice) + ").");
                     return false;
                 }
             }
@@ -146,15 +146,15 @@ public class ProductController implements ProductControllerInterface {
             if (nextSizeProduct != null) {
                 if (nextSizeProduct.getCost() < productCost) {
                     productPanel.showErrorMessage(Messages.getInstance().PRODUCT_COST_GREATER_BIGGER_SIZE
-                            + productSizes[nextSize].name() + " (" + nextSizeProduct.getCost()
-                            + " < " + productCost + ").");
+                            + " - " + productSizes[nextSize].name() + " (" + NumberFormat.getInstance().format(nextSizeProduct.getCost())
+                            + " < " + NumberFormat.getInstance().format(productCost) + ").");
                     return false;
                 }
 
                 if (nextSizeProduct.getPrice() < productPrice) {
                     productPanel.showErrorMessage(Messages.getInstance().PRODUCT_PRICE_GREATER_BIGGER_SIZE
-                            + productSizes[nextSize].name() + " (" + nextSizeProduct.getPrice()
-                            + " < " + productPrice + ").");
+                            + " - " + productSizes[nextSize].name() + " (" + NumberFormat.getInstance().format(nextSizeProduct.getPrice())
+                            + " < " + NumberFormat.getInstance().format(productPrice) + ").");
                     return false;
                 }
 
@@ -257,7 +257,7 @@ public class ProductController implements ProductControllerInterface {
             }
         }
 
-        if (!isProductCostAndPriceVallid(productSize, preSize, nextSize, productCost, productPrice)) {
+        if (!isProductCostAndPriceVallid(productNameInput, preSize, nextSize, productCost, productPrice)) {
             return;
         }
 
@@ -302,7 +302,7 @@ public class ProductController implements ProductControllerInterface {
         String productSize = this.productPanel.getProductSize();
 
         if (!product.getName().equals(productNameInput)
-                || !product.getSize().equals(productSize)) {
+                || !product.getSize().name().equals(productSize)) {
             if (!isProductNameAndSizeInputVallid(productNameInput, productSize)) {
                 return;
             }
@@ -350,7 +350,7 @@ public class ProductController implements ProductControllerInterface {
 
         int preSize = -1, nextSize = -1;
         for (int i = 0; i < productSizes.length; i++) {
-            if (productSizes[i].toString().equals(product.getSize())) {
+            if (productSizes[i].equals(product.getSize())) {
                 if (i > 0) {
                     preSize = i - 1;
                 }
@@ -361,7 +361,7 @@ public class ProductController implements ProductControllerInterface {
             }
         }
 
-        if (!isProductCostAndPriceVallid(productSize, preSize, nextSize, productCost, productPrice)) {
+        if (!isProductCostAndPriceVallid(productNameInput, preSize, nextSize, productCost, productPrice)) {
             return;
         }
 
@@ -384,7 +384,7 @@ public class ProductController implements ProductControllerInterface {
             ingredientDetail.setProduct(product);
         });
 
-        // Find deleted ingredient detail
+        // Find deleted ingredient detail (compare current buffer to default list)
         Iterator<IngredientDetailModelInterface> iterator = product.getAllIngredientDetail();
 
         List<IngredientDetailModelInterface> tempList = new ArrayList<>();
@@ -401,9 +401,9 @@ public class ProductController implements ProductControllerInterface {
             product.removeIngredientDetail(ingredientDetail);
         });
 
-        tempList.clear();
-        
-        // Find updated and inserted ingredient detail
+        tempList.clear();//reset, ready to use again
+
+        // Find updated and inserted ingredient detail (compare buffer to default list)
         for (int i = 0; i < bufferedIngredientDetailList.size(); i++) {
             IngredientDetailModelInterface ingredientDetail = bufferedIngredientDetailList.get(i);
             boolean found = false;
@@ -411,13 +411,13 @@ public class ProductController implements ProductControllerInterface {
             while (iterator.hasNext()) {
                 if (ingredientDetail.equals(iterator.next())) {
                     product.updateIngredientDetail(ingredientDetail);
-                    found = true;
+                    found = true;//exists => found = true => update
                     break;
                 }
             }
 
             if (!found) {
-                tempList.add(ingredientDetail);
+                tempList.add(ingredientDetail);//doesn't exist => add
             }
         }
 
@@ -508,7 +508,7 @@ public class ProductController implements ProductControllerInterface {
 
             callableStatement.registerOutParameter(1, Types.BOOLEAN);
             product.setKeyArg(2, ProductSimpleModel.ID_HEADER, callableStatement);
-
+            //check each ingredient detail, if one of them is not enough => SP won't proceduce product => show erorr message
             while (iterator.hasNext()) {
                 IngredientDetailModelInterface ingredientDetail = iterator.next();
 
@@ -802,7 +802,7 @@ public class ProductController implements ProductControllerInterface {
         if (productIDText.isEmpty()) {
             return;
         }
-
+        //if product has a seclected row => reload ingredient detail list
         ProductModelInterface product = productManageModel.getProductByID(productIDText);
 
         this.productManageModel.setIngredientDetailBufferList(product);

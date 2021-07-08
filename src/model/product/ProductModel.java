@@ -246,6 +246,7 @@ public class ProductModel implements ProductModelInterface {
         if (id == -1) {
             throw new IllegalArgumentException("Ingredient detail doesn't exist.");
         }
+        //nếu như khác thì set lại
         if (ingredientDetails.get(id).compareTo(ingredientDetail) != 0) {
             ingredientDetails.set(id, ingredientDetail);
             ingredientDetail.updateInDatabase();
@@ -256,7 +257,7 @@ public class ProductModel implements ProductModelInterface {
     public void removeIngredientDetail(IngredientDetailModelInterface ingredientDetail) {
         if (ingredientDetail == null) {
             throw new NullPointerException();
-        }
+        }//check existence
         int id = this.ingredientDetails.indexOf(ingredientDetail);
         if (id == -1) {
             throw new IllegalArgumentException("Ingredient detail doesn't exist.");

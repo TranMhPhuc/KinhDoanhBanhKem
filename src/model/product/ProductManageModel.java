@@ -252,7 +252,7 @@ public class ProductManageModel implements ProductManageModelInterface {
     public ProductModelInterface getProductByNameAndSize(String productName, String productSize) {
         for (ProductModelInterface product : products) {
             if (product.getName().equals(productName)
-                    && product.getSize().equals(productSize)) {
+                    && product.getSize().name().equals(productSize)) {
                 return product;
             }
         }

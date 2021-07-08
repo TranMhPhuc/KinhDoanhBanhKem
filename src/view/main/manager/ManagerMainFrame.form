@@ -664,18 +664,6 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="view.main.manager.HomePanel" name="panelHome">
-              <AccessibilityProperties>
-                <Property name="AccessibleContext.accessibleParent" type="javax.accessibility.Accessible" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                  <ComponentRef name="Form"/>
-                </Property>
-              </AccessibilityProperties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-                  <CardConstraints cardName="Home"/>
-                </Constraint>
-              </Constraints>
-            </Component>
             <Component class="view.product.ProductPanel" name="panelProduct">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
@@ -728,6 +716,18 @@
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                   <CardConstraints cardName="Settings"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="view.main.manager.HomePanel" name="panelHome">
+              <AccessibilityProperties>
+                <Property name="AccessibleContext.accessibleParent" type="javax.accessibility.Accessible" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="Form"/>
+                </Property>
+              </AccessibilityProperties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="Home"/>
                 </Constraint>
               </Constraints>
             </Component>

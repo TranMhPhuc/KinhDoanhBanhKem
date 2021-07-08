@@ -318,12 +318,12 @@ public class ManagerMainFrame extends javax.swing.JFrame implements MessageShowi
         labelSignOut = new javax.swing.JLabel();
         panelCenter = new javax.swing.JPanel();
         panelProfile = new view.profile.ProfilePanel();
-        panelHome = new view.main.manager.HomePanel();
         panelProduct = new view.product.ProductPanel();
         panelIngredient = new view.ingredient.IngredientPanel();
         panelProvider = new view.provider.ProviderPanel();
         panelEmployee = new view.employee.EmployeePanel();
         panelSettings = new view.main.manager.ManagerSettingsPanel();
+        panelHome = new view.main.manager.HomePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1600, 1020));
@@ -633,9 +633,6 @@ public class ManagerMainFrame extends javax.swing.JFrame implements MessageShowi
         panelCenter.add(panelProfile, "Profile");
         panelProfile.getAccessibleContext().setAccessibleParent(this);
 
-        panelCenter.add(panelHome, "Home");
-        panelHome.getAccessibleContext().setAccessibleParent(this);
-
         panelCenter.add(panelProduct, "Product");
         panelCenter.add(panelIngredient, "Ingredient");
         panelIngredient.getAccessibleContext().setAccessibleParent(this);
@@ -648,6 +645,9 @@ public class ManagerMainFrame extends javax.swing.JFrame implements MessageShowi
 
         panelCenter.add(panelSettings, "Settings");
         panelSettings.getAccessibleContext().setAccessibleParent(this);
+
+        panelCenter.add(panelHome, "Home");
+        panelHome.getAccessibleContext().setAccessibleParent(this);
 
         jPanel1.add(panelCenter, java.awt.BorderLayout.CENTER);
 
