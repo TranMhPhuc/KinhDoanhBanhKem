@@ -215,24 +215,15 @@ public class EmployeeController implements EmployeeControllerInterface {
         return true;
     }
 
-    private boolean haveDigitsInName(String name) {
-        for (int i = 0; i < name.length(); i++) {
-            if (Character.isDigit(name.charAt(i))) {
-                employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_NAME_INVALID);
-                return true;
-            }
-        }
-        return false;
-    }
-
     @Override
     public void requestCreateEmployee() {
         String employeeIDText = employeePanel.getEmployeeIDText();
 
         String employeeName = employeePanel.getEmployeeNameInput();
-        employeeName = StringUtil.getCapitalizeWord(employeeName.trim());
+        employeeName = StringUtil.standardizeName(employeeName.trim());
 
-        if (haveDigitsInName(employeeName)) {
+        if (StringUtil.haveNonLetterInName(employeeName)) {
+            employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_NAME_INVALID_FORMAT);
             return;
         }
         if (!isEmployeeNameValid(employeeName)) {
@@ -336,9 +327,10 @@ public class EmployeeController implements EmployeeControllerInterface {
                 .getEmployeeByID(employeeIDText);
 
         String employeeName = employeePanel.getEmployeeNameInput();
-        employeeName = StringUtil.getCapitalizeWord(employeeName.trim());
+        employeeName = StringUtil.standardizeName(employeeName.trim());
 
-        if (haveDigitsInName(employeeName)) {
+        if (StringUtil.haveNonLetterInName(employeeName)) {
+            employeePanel.showErrorMessage(Messages.getInstance().EMPLOYEE_NAME_INVALID_FORMAT);
             return;
         }
 
@@ -582,8 +574,8 @@ public class EmployeeController implements EmployeeControllerInterface {
     @Override
     public void requestChangePersonalIDConstraint() {
         String inputText = (String) JOptionPane.showInputDialog(employeePanel
-                .getMainFrame(), Messages.getInstance().EMPLOYEE_CUSTOM_PID_CONS,
-                "BakeryMS", JOptionPane.PLAIN_MESSAGE, null, null, null);
+                .getMainFrame(), Messages.getInstance().CONS_ANNOUNCEMENT,
+                Messages.getInstance().PID_CONS, JOptionPane.PLAIN_MESSAGE, null, null, null);
         if (inputText != null && !inputText.isEmpty()) {
             int num;
             try {
@@ -602,8 +594,8 @@ public class EmployeeController implements EmployeeControllerInterface {
     @Override
     public void requestChangePhoneNumConstraint() {
         String inputText = (String) JOptionPane.showInputDialog(employeePanel
-                .getMainFrame(), Messages.getInstance().EMPLOYEE_CUSTOM_PHONE_NUMBER_CONS,
-                "BakeryMS", JOptionPane.PLAIN_MESSAGE, null, null, null);
+                .getMainFrame(), Messages.getInstance().CONS_ANNOUNCEMENT,
+                Messages.getInstance().PHONE_CONS, JOptionPane.PLAIN_MESSAGE, null, null, null);
         if (inputText != null && !inputText.isEmpty()) {
             int num;
             try {

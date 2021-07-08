@@ -234,13 +234,15 @@ public class MainFrameController implements MainFrameControllerInterface {
 
     public void requestChangePhoneNumConstraint() {
         String inputText = (String) JOptionPane.showInputDialog(this.mainFrame,
-                Messages.getInstance().EMPLOYEE_CUSTOM_PHONE_NUMBER_CONS,
-                "BakeryMS", JOptionPane.PLAIN_MESSAGE, null, null, null);
+                Messages.getInstance().CONS_ANNOUNCEMENT,
+                Messages.getInstance().PHONE_CONS, JOptionPane.PLAIN_MESSAGE, null, null, null);
         if (inputText != null && !inputText.isEmpty()) {
             int num;
             try {
                 num = Integer.parseInt(inputText);
-                if(num < 0) throw new NumberFormatException("Input value is invalid");
+                if (num < 0) {
+                    throw new NumberFormatException("Input value is invalid");
+                }
             } catch (NumberFormatException ex) {
                 ((MessageShowing) mainFrame).showErrorMessage(Messages.getInstance().EMPLOYEE_INVALID_CUSTOM_PHONE_NUMBER_CONS_NUM);
                 return;
