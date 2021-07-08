@@ -597,7 +597,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
                 columnModel.getColumn(INGREDIENT_TYPE_COLUMN_INDEX).setHeaderValue("Type");
                 columnModel.getColumn(INGREDIENT_UNIT_COLUMN_INDEX).setHeaderValue("Unit");
                 columnModel.getColumn(INGREDIENT_PROVIDER_NAME_COLUMN_INDEX).setHeaderValue("Provider");
-                columnModel.getColumn(INGREDIENT_COST_COLUMN_INDEX).setHeaderValue("Cost");
+                columnModel.getColumn(INGREDIENT_COST_COLUMN_INDEX).setHeaderValue("Price");
                 columnModel.getColumn(INGREDIENT_AMOUNT_COLUMN_INDEX).setHeaderValue("Amount");
 
                 TitledBorder titledBorder = (TitledBorder) panelInfo.getBorder();
@@ -700,7 +700,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
 
         labelCost.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelCost.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        labelCost.setText("Cost");
+        labelCost.setText("Price");
 
         labelType.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelType.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -811,7 +811,7 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
 
             },
             new String [] {
-                "ID", "Name", "Type", "Unit", "Provider", "Cost", "Amount"
+                "ID", "Name", "Type", "Unit", "Provider", "Price", "Amount"
             }
         ) {
             Class[] types = new Class [] {

@@ -157,7 +157,7 @@ public class BillExportDialog extends javax.swing.JDialog implements ActionListe
             labelBillID.setText("Bill ID:");
             labelTotalMoney.setText("Total money:");
             labelGuestMoney.setText("Guest money:");
-            labelChangeMoney.setText("Change money:");
+            labelChangeMoney.setText("Change:");
 
             btnContinue.setText("Continue");
             btnCancel.setText("Cancel");
@@ -224,7 +224,7 @@ public class BillExportDialog extends javax.swing.JDialog implements ActionListe
 
         labelChangeMoney.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelChangeMoney.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        labelChangeMoney.setText("Change money:");
+        labelChangeMoney.setText("Change:");
 
         btnContinue.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         btnContinue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/continue.png"))); // NOI18N

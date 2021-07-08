@@ -4,6 +4,7 @@ import control.bill.history.BillHistoryControllerInterface;
 import java.awt.Color;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
+import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import model.bill.BillModelInterface;
@@ -20,7 +21,8 @@ public class BillDetailDialog extends javax.swing.JDialog implements SettingUpda
     private static final int PRODUCT_NAME_COLUMN_INDEX = 1;
     private static final int PRODUCT_SIZE_COLUMN_INDEX = 2;
     private static final int PRODUCT_AMOUNT_COLUMN_INDEX = 3;
-    private static final int PRODUCT_COST_COLUMN_INDEX = 4;
+    private static final int PRODUCT_UNIT_PRICE_COLUMN_INDEX = 4;
+    private static final int PRODUCT_PRICE_COLUMN_INDEX = 5;
 
     private BillHistoryControllerInterface billHistoryController;
 
@@ -34,7 +36,7 @@ public class BillDetailDialog extends javax.swing.JDialog implements SettingUpda
         this.billHistoryController = controller;
 
         this.tableBillDetailModel = (DefaultTableModel) tableProductDetail.getModel();
-        tableProductDetail.getColumnModel().getColumn(PRODUCT_COST_COLUMN_INDEX)
+        tableProductDetail.getColumnModel().getColumn(PRODUCT_PRICE_COLUMN_INDEX)
                 .setCellRenderer(NumberRenderer.getCurrencyRenderer());
         setLocationRelativeTo(parent);
         createView();
@@ -42,6 +44,9 @@ public class BillDetailDialog extends javax.swing.JDialog implements SettingUpda
 
     private void createView() {
         UIControl.setDefaultTableHeader(tableProductDetail);
+        UIControl.setCurrencyCellRenderer(tableProductDetail, new int []{4,5});
+        UIControl.setColumnWidth(tableProductDetail, 0, 100);
+        UIControl.setHorizontalAlignmentForColumn(tableProductDetail, 2, JLabel.CENTER);
         this.getContentPane().setBackground(Color.WHITE);
     }
 
@@ -62,6 +67,7 @@ public class BillDetailDialog extends javax.swing.JDialog implements SettingUpda
             productDetail.getProduct().getName(),
             productDetail.getProduct().getSize().toString(),
             productDetail.getAmount(),
+            productDetail.getPrice() / productDetail.getAmount(),
             productDetail.getPrice()
         };
         this.tableBillDetailModel.addRow(object);
@@ -111,7 +117,8 @@ public class BillDetailDialog extends javax.swing.JDialog implements SettingUpda
                 tableColumnModel.getColumn(PRODUCT_NAME_COLUMN_INDEX).setHeaderValue("Product name");
                 tableColumnModel.getColumn(PRODUCT_SIZE_COLUMN_INDEX).setHeaderValue("Product size");
                 tableColumnModel.getColumn(PRODUCT_AMOUNT_COLUMN_INDEX).setHeaderValue("Amount");
-                tableColumnModel.getColumn(PRODUCT_COST_COLUMN_INDEX).setHeaderValue("Cost");
+                tableColumnModel.getColumn(PRODUCT_UNIT_PRICE_COLUMN_INDEX).setHeaderValue("Unit price");
+                tableColumnModel.getColumn(PRODUCT_PRICE_COLUMN_INDEX).setHeaderValue("Total price");
 
                 break;
             }
@@ -133,7 +140,8 @@ public class BillDetailDialog extends javax.swing.JDialog implements SettingUpda
                 tableColumnModel.getColumn(PRODUCT_NAME_COLUMN_INDEX).setHeaderValue("Tên sản phẩm");
                 tableColumnModel.getColumn(PRODUCT_SIZE_COLUMN_INDEX).setHeaderValue("Kích thước");
                 tableColumnModel.getColumn(PRODUCT_AMOUNT_COLUMN_INDEX).setHeaderValue("Số lượng");
-                tableColumnModel.getColumn(PRODUCT_COST_COLUMN_INDEX).setHeaderValue("Giá");
+                tableColumnModel.getColumn(PRODUCT_UNIT_PRICE_COLUMN_INDEX).setHeaderValue("Đơn giá");
+                tableColumnModel.getColumn(PRODUCT_PRICE_COLUMN_INDEX).setHeaderValue("Tổng giá");
 
                 break;
             }
@@ -179,14 +187,14 @@ public class BillDetailDialog extends javax.swing.JDialog implements SettingUpda
 
             },
             new String [] {
-                "Product ID", "Product name", "Product size", "Amount", "Cost"
+                "Product ID", "Product name", "Product size", "Amount", "Unit Price", "Total Price"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Long.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Long.class, java.lang.Long.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -267,7 +275,7 @@ public class BillDetailDialog extends javax.swing.JDialog implements SettingUpda
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelMainTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scrpane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+                    .addComponent(scrpane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(labelTitleEmployeeName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
