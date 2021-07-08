@@ -25,26 +25,26 @@ import util.validator.PhoneValidator;
 import view.provider.ProviderPanel;
 
 public class ProviderController implements ProviderControllerInterface {
-    
+
     private static final String SP_CHECK_DELETE_PROVIDER_CONDITION
             = "{? = call check_if_provider_provides_any_ingredient(?)}";
-    
+
     private static Connection dbConnection;
-    
+
     private List<ProviderModelInterface> searchList;
-    
+
     private ProviderManageModelInterface providerManageModel;
     private ProviderPanel providerPanel;
-    
+
     static {
         dbConnection = SQLServerConnection.getConnection();
     }
-    
+
     public ProviderController(ProviderManageModelInterface providerManageModel) {
         this.searchList = new ArrayList<>();
         this.providerManageModel = providerManageModel;
     }
-    
+
     private boolean isProviderNameValid(String providerName) {
         if (providerName.isEmpty()) {
             providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_NAME_EMPTY);
@@ -61,11 +61,11 @@ public class ProviderController implements ProviderControllerInterface {
         }
         return true;
     }
-    
+
     private boolean isProviderPhoneNumValid(String providerPhoneNum) {
         PhoneValidator.PhoneValidateResult phoneValidateResult
                 = PhoneValidator.validate(providerPhoneNum);
-        
+
         switch (phoneValidateResult) {
             case EMPTY: {
                 this.providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_PHONE_NUMBER_EMPTY);
@@ -81,7 +81,7 @@ public class ProviderController implements ProviderControllerInterface {
                 return false;
             }
         }
-        
+
         Iterator<ProviderModelInterface> iterator = this.providerManageModel
                 .getAllProviderData();
         while (iterator.hasNext()) {
@@ -93,11 +93,11 @@ public class ProviderController implements ProviderControllerInterface {
         }
         return true;
     }
-    
+
     private boolean isProviderEmailValid(String providerEmail) {
         EmailValidator.EmailValidateResult emailValidateResult
                 = EmailValidator.validate(providerEmail);
-        
+
         switch (emailValidateResult) {
             case EMPTY: {
                 this.providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_EMAIL_EMPTY);
@@ -108,7 +108,7 @@ public class ProviderController implements ProviderControllerInterface {
                 return false;
             }
         }
-        
+
         Iterator<ProviderModelInterface> iterator = this.providerManageModel
                 .getAllProviderData();
         while (iterator.hasNext()) {
@@ -120,7 +120,7 @@ public class ProviderController implements ProviderControllerInterface {
         }
         return true;
     }
-    
+
     private boolean isProviderAddressValid(String providerAddress) {
         if (providerAddress.isEmpty()) {
             providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_ADDRESS_EMPTY);
@@ -137,124 +137,134 @@ public class ProviderController implements ProviderControllerInterface {
         }
         return true;
     }
-    
+
     @Override
     public void requestCreateProvider() {
         String providerIDText = this.providerPanel.getProviderIDtext();
-        
+
         String providerName = this.providerPanel.getProviderName();
-        providerName = StringUtil.getCapitalizeWord(providerName);
-        
+        providerName = StringUtil.standardizeString(providerName);
+
+        if (StringUtil.haveNonLetterAndDigitInName(providerName)) {
+            providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_NAME_INVALID_FORMAT);
+            return;
+        }
+
         if (!isProviderNameValid(providerName)) {
             return;
         }
-        
+
         String providerEmail = this.providerPanel.getProviderEmai();
-        
+
         if (!isProviderEmailValid(providerEmail)) {
             return;
         }
-        
+
         String providerAddress = this.providerPanel.getProviderAddress();
-        
+
         if (!isProviderAddressValid(providerAddress)) {
             return;
         }
-        
+
         String providerPhoneNum = this.providerPanel.getProviderPhoneNum();
-        
+
         if (!isProviderPhoneNumValid(providerPhoneNum)) {
             return;
         }
-        
+
         ProviderModelInterface provider = new ProviderModel();
         provider.setProviderID(providerIDText);
         provider.setName(providerName);
         provider.setEmail(providerEmail);
         provider.setAddress(providerAddress);
         provider.setPhoneNum(providerPhoneNum);
-        
+
         this.providerManageModel.addProvider(provider);
-        
+
         this.providerPanel.exitEditState();
         this.providerPanel.showInfoMessage(Messages.getInstance().PROVIDER_INSERTED_SUCCESSFULLY);
         PhoneValidator.setValidDigitNum(10);
     }
-    
+
     @Override
     public void requestUpdateProvider() {
         String providerIDText = this.providerPanel.getProviderIDtext();
-        
+
         ProviderModelInterface provider = this.providerManageModel.getProviderByID(providerIDText);
-        
+
         Assert.assertNotNull(provider);
-        
+
         String providerName = this.providerPanel.getProviderName();
-        providerName = StringUtil.getCapitalizeWord(providerName);
-        
+        providerName = StringUtil.standardizeString(providerName);
+
+        if (StringUtil.haveNonLetterAndDigitInName(providerName)) {
+            providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_NAME_INVALID_FORMAT);
+            return;
+        }
+
         if (!provider.getName().equals(providerName)) {
             if (!isProviderNameValid(providerName)) {
                 return;
             }
         }
-        
+
         String providerEmail = this.providerPanel.getProviderEmai();
-        
+
         if (!provider.getEmail().equals(providerEmail)) {
             if (!isProviderEmailValid(providerEmail)) {
                 return;
             }
         }
-        
+
         String providerAddress = this.providerPanel.getProviderAddress();
-        
+
         if (!provider.getAddress().equals(providerAddress)) {
             if (!isProviderAddressValid(providerAddress)) {
                 return;
             }
         }
-        
+
         String providerPhoneNum = this.providerPanel.getProviderPhoneNum();
-        
+
         if (!providerPhoneNum.equals(provider.getPhoneNum())) {
             if (!isProviderPhoneNumValid(providerPhoneNum)) {
                 return;
             }
         }
-        
+
         provider.setName(providerName);
         provider.setAddress(providerAddress);
         provider.setEmail(providerEmail);
         provider.setPhoneNum(providerPhoneNum);
-        
+
         this.providerManageModel.updateProvider(provider);
-        
+
         this.providerPanel.exitEditState();
         this.providerPanel.showInfoMessage(Messages.getInstance().PROVIDER_UPDATED_SUCCESSFULLY);
         PhoneValidator.setValidDigitNum(10);
     }
-    
+
     @Override
     public void requestRemoveProvider() {
         String providerIDText = this.providerPanel.getProviderIDtext();
-        
+
         ProviderModelInterface provider = this.providerManageModel
                 .getProviderByID(providerIDText);
-        
+
         Assert.assertNotNull(provider);
-        
+
         try {
             CallableStatement callableStatement = dbConnection
                     .prepareCall(SP_CHECK_DELETE_PROVIDER_CONDITION);
-            
+
             callableStatement.registerOutParameter(1, Types.BOOLEAN);
             provider.setKeyArg(2, ProviderModel.ID_HEADER, callableStatement);
             callableStatement.execute();
-            
+
             boolean isProviderHavingIngredient = callableStatement.getBoolean(1);
-            
+
             callableStatement.close();
-            
+
             if (isProviderHavingIngredient) {
                 providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_CANT_REMOVE);
                 return;
@@ -262,14 +272,14 @@ public class ProviderController implements ProviderControllerInterface {
         } catch (SQLException ex) {
             Logger.getLogger(ProviderController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         this.providerManageModel.removeProvider(provider);
-        
+
         this.searchList.remove(provider);
-        
+
         this.providerPanel.showInfoMessage(Messages.getInstance().PROVIDER_REMOVED_SUCCESSFULLY);
     }
-    
+
     @Override
     public void requestExportExcel() {
         if (providerPanel.getTableProviderRowCount() == 0) {
@@ -278,7 +288,7 @@ public class ProviderController implements ProviderControllerInterface {
             ExcelTransfer.exportTableToExcel(providerPanel.getTableProvider());
         }
     }
-    
+
     @Override
     public Iterator<ProviderModelInterface> getAllProviderData() {
         Iterator<ProviderModelInterface> iterator = this.providerManageModel.getAllProviderData();
@@ -287,9 +297,9 @@ public class ProviderController implements ProviderControllerInterface {
             this.searchList.add(iterator.next());
         }
         return this.searchList.iterator();
-        
+
     }
-    
+
     @Override
     public Iterator<ProviderModelInterface> getProviderBySearchName(String searchText) {
         Iterator<ProviderModelInterface> iterator = this.providerManageModel.getProviderSearchByName(searchText);
@@ -299,13 +309,13 @@ public class ProviderController implements ProviderControllerInterface {
         }
         return this.searchList.iterator();
     }
-    
+
     @Override
     public void requestShowProviderInfo() {
         if (providerPanel.getEditState() == ProviderPanel.EditState.ADD) {
             return;
         }
-        
+
         int rowID = this.providerPanel.getSelectedRow();
         if (rowID == -1) {
             return;
@@ -316,7 +326,7 @@ public class ProviderController implements ProviderControllerInterface {
         ProviderModelInterface provider = this.searchList.get(rowID);
         this.providerPanel.showProviderInfo(provider);
     }
-    
+
     @Override
     public boolean isSearchMatching(String searchText, ProviderModelInterface provider) {
         if (provider == null) {
@@ -330,7 +340,7 @@ public class ProviderController implements ProviderControllerInterface {
         }
         return ret;
     }
-    
+
     @Override
     public boolean deleteProviderInSearchList(ProviderModelInterface provider) {
         if (provider == null) {
@@ -343,7 +353,7 @@ public class ProviderController implements ProviderControllerInterface {
         }
         return false;
     }
-    
+
     @Override
     public void setProviderPanelView(ProviderPanel providerPanel) {
         if (providerPanel == null) {
@@ -353,12 +363,12 @@ public class ProviderController implements ProviderControllerInterface {
         providerPanel.setProviderController(this);
         providerPanel.setProviderManageModel(providerManageModel);
     }
-    
+
     @Override
     public void requestCreateTemplateExcel() {
         ExcelTransfer.createExcelFileTemplate(providerPanel.getTableProvider());
     }
-    
+
     @Override
     public boolean canCloseProviderManagePanel() {
         if (providerPanel.getEditState() == ProviderPanel.EditState.ADD
@@ -376,11 +386,11 @@ public class ProviderController implements ProviderControllerInterface {
         }
         return true;
     }
-    
+
     public void requestChangePhoneNumConstraint() {
         String inputText = (String) JOptionPane.showInputDialog(providerPanel
-                .getMainFrame(), Messages.getInstance().EMPLOYEE_CUSTOM_PHONE_NUMBER_CONS,
-                "BakeryMS", JOptionPane.PLAIN_MESSAGE, null, null, null);
+                .getMainFrame(), Messages.getInstance().CONS_ANNOUNCEMENT,
+                Messages.getInstance().PHONE_CONS, JOptionPane.PLAIN_MESSAGE, null, null, null);
         if (inputText != null && !inputText.isEmpty()) {
             int num;
             try {
@@ -395,5 +405,5 @@ public class ProviderController implements ProviderControllerInterface {
             PhoneValidator.setValidDigitNum(num);
         }
     }
-    
+
 }

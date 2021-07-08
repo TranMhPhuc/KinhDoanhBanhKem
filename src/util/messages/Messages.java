@@ -17,7 +17,7 @@ public class Messages implements SettingUpdateObserver {
 
     //=============Employee=============
     public String EMPLOYEE_NAME_EMPTY;
-    public String EMPLOYEE_NAME_INVALID;
+    public String EMPLOYEE_NAME_INVALID_FORMAT;
     public String EMPLOYEE_PHONE_NUMBER_EMPTY;
     public String EMPLOYEE_PHONE_NUMBER_FORMAT;
     public String EMPLOYEE_PHONE_NUMBER_DIGITS_1;
@@ -40,9 +40,9 @@ public class Messages implements SettingUpdateObserver {
     public String EMPLOYEE_UPDATED_SUCCESSFULLY;
     public String EMPLOYEE_TABLE_EMPTY;
     public String EMPLOYEE_CANCEL_EDITING;
-    public String EMPLOYEE_CUSTOM_PID_CONS;
+    public String PID_CONS;
     public String EMPLOYEE_INVALID_CUSTOM_PID_CONS_NUM;
-    public String EMPLOYEE_CUSTOM_PHONE_NUMBER_CONS;
+    public String PHONE_CONS;
     public String EMPLOYEE_INVALID_CUSTOM_PHONE_NUMBER_CONS_NUM;
     public String EMPLOYEE_NO_EMPLOYEE_CHOSEN;
     //=============Profile=============
@@ -83,6 +83,7 @@ public class Messages implements SettingUpdateObserver {
 
     //=============Ingredient=============
     public String INGR_DATE_TO_BEFORE;
+    public String INGR_NAME_INVALID_FORMAT;
     public String INGR_DATA_LIST_EMPTY;
     public String INGR_NO_INGR_CHOSEN;
     public String INGR_IMPORT_DATE_INVALID;
@@ -103,6 +104,7 @@ public class Messages implements SettingUpdateObserver {
     public String INGR_TYPE_EXISTS;
     public String INGR_TYPE_INSERTED_SUCCESSFULLY;
     public String INGR_TABLE_EMPTY;
+    public String INGR_TYPE_NAME_INVALID_FORMAT;
 
     //=============Login=============
     public String LOGIN_EMAIL_EMPTY;
@@ -115,6 +117,7 @@ public class Messages implements SettingUpdateObserver {
 
     //=============Product=============
     public String PRODUCT_NAME_EMPTY;
+    public String PRODUCT_NAME_INVALID_FORMAT;
     public String PRODUCT_EXISTS;
     public String PRODUCT_COST_LESS_THAN_1;
     public String PRODUCT_PRICE_LESS_THAN_1;
@@ -146,6 +149,7 @@ public class Messages implements SettingUpdateObserver {
 
     //=============Provider=============
     public String PROVIDER_NAME_EMPTY;
+    public String PROVIDER_NAME_INVALID_FORMAT;
     public String PROVIDER_NAME_EXISTS;
     public String PROVIDER_PHONE_NUMBER_EMPTY;
     public String PROVIDER_PHONE_NUMBER_FORMAT;
@@ -171,6 +175,7 @@ public class Messages implements SettingUpdateObserver {
     public String OTHERS_REMOVE_INGR;
     public String OTHERS_REMOVE_PRODUCT;
     public String OTHERS_REMOVE_PROVIDER;
+    public String CONS_ANNOUNCEMENT;
 
     public String DIAGNOSTIC_ROOT_STRING_FORMAT;
     public String DIAGNOSTIC_PRODUCT_PROBLEM_SUMMARY_STRING_FORMAT;
@@ -242,13 +247,13 @@ public class Messages implements SettingUpdateObserver {
                 EMPLOYEE_INSERTED_SUCCESSFULLY = "Inserted new employee successfully";
                 EMPLOYEE_TABLE_EMPTY = "Employee table is empty";
                 EMPLOYEE_CANCEL_EDITING = "Cancel editting employee?";
-                EMPLOYEE_CUSTOM_PID_CONS = "Customize personal id number of digits constraint:";
+                PID_CONS = "PID quantity constraint";
                 EMPLOYEE_INVALID_CUSTOM_PID_CONS_NUM = "Input value is invalid";
-                EMPLOYEE_CUSTOM_PHONE_NUMBER_CONS = "Customize phone number of digits constraint:";
+                PHONE_CONS = "Mobile quantity constraint:";
                 EMPLOYEE_INVALID_CUSTOM_PHONE_NUMBER_CONS_NUM = "Input value is invalid";
                 EMPLOYEE_UPDATED_SUCCESSFULLY = "Updated the employee successfully";
                 EMPLOYEE_NO_EMPLOYEE_CHOSEN = "You should choose one employee first";
-                EMPLOYEE_NAME_INVALID = "Employee name can't contain digit(s)";
+                EMPLOYEE_NAME_INVALID_FORMAT = "Employee name can't contain anything but letter";
 
                 BILLH_LIST_EMPTY = "Bill list is empty";
                 BILLH_NO_BILL_CHOSEN = "You should choose one bill first";
@@ -275,6 +280,8 @@ public class Messages implements SettingUpdateObserver {
                 INGR_TYPE_EXISTS = "Ingredient type already exists";
                 INGR_TYPE_INSERTED_SUCCESSFULLY = "Inserted new ingredient type successfully";
                 INGR_TABLE_EMPTY = "Ingredient table is empty";
+                INGR_NAME_INVALID_FORMAT = "Ingredient name can't contain special characters";
+                INGR_TYPE_NAME_INVALID_FORMAT = "Ingredient type name can't contain special characters";
 
                 LOGIN_EMAIL_EMPTY = "Please enter your email";
                 LOGIN_EMAIL_INVALID = "Email format is invalid";
@@ -313,6 +320,7 @@ public class Messages implements SettingUpdateObserver {
                 PRODUCT_AMOUNT_AL_1 = "Amount must be at least 1";
                 PRODUCT_CANEL_EDITING = "Cancel editing product?";
                 PRODUCT_DISCARD_CHANGE = "Discard your change?";
+                PRODUCT_NAME_INVALID_FORMAT = "Product name can't contain special characters";
 
                 PROVIDER_NAME_EMPTY = "Provider name is required";
                 PROVIDER_NAME_EXISTS = "Provider name already exists";
@@ -335,12 +343,14 @@ public class Messages implements SettingUpdateObserver {
                 PROVIDER_TABLE_EMPTY = "Provider table is empty";
                 PROVIDER_CANCEL_EDITING = "Cancel editing provider?";
                 PROVIDER_NO_PROVIDER_CHOSEN = "You should choose one ingredient first";
+                PROVIDER_NAME_INVALID_FORMAT = "Provider name can't contain special characters";
 
                 OTHERS_PRINT_ERROR = "Print error: ";
                 OTHERS_REPLACE_EXCEL = " already existsss.\nDo you want to replace it?";
                 OTHERS_REMOVE_INGR = "Remove ingredient?";
                 OTHERS_REMOVE_PRODUCT = "Remove product?";
                 OTHERS_REMOVE_PROVIDER = "Remove provider?";
+                CONS_ANNOUNCEMENT = "Enter a number (max = 20, min = 0)";
 
                 DIAGNOSTIC_ROOT_STRING_FORMAT = "%d total problem(s) found";
                 DIAGNOSTIC_PRODUCT_PROBLEM_SUMMARY_STRING_FORMAT = "%d product(s) having zero amount";
@@ -407,13 +417,13 @@ public class Messages implements SettingUpdateObserver {
                 EMPLOYEE_INSERTED_SUCCESSFULLY = "Thêm nhân viên mới thành công";
                 EMPLOYEE_TABLE_EMPTY = "Bảng nhân viên không có dữ liệu";
                 EMPLOYEE_CANCEL_EDITING = "Hủy chỉnh sửa nhân viên?";
-                EMPLOYEE_CUSTOM_PID_CONS = "Tùy chỉnh ràng buộc số chữ số của CCCD:";
+                PID_CONS = "Ràng buộc số lượng của CCCD:";
                 EMPLOYEE_INVALID_CUSTOM_PID_CONS_NUM = "Giá trị nhập vào không hợp lệ";
-                EMPLOYEE_CUSTOM_PHONE_NUMBER_CONS = "Tùy chỉnh ràng buộc số chữ số của SDT";
+                PHONE_CONS = "Ràng buộc số lượng của SDT";
                 EMPLOYEE_INVALID_CUSTOM_PHONE_NUMBER_CONS_NUM = "Giá trị nhập vào không hợp lệ";
                 EMPLOYEE_UPDATED_SUCCESSFULLY = "Cập nhật nhân viên đã chọn thành công";
                 EMPLOYEE_NO_EMPLOYEE_CHOSEN = "Bạn nên chọn một nhân viên trước";
-                EMPLOYEE_NAME_INVALID = "Tên nhân viên không thể chứa số";
+                EMPLOYEE_NAME_INVALID_FORMAT = "Tên nhân viên không thể chứa gì khác ngoài chữ";
 
                 BILLH_LIST_EMPTY = "Danh sách hóa đơn trống";
                 BILLH_NO_BILL_CHOSEN = "Bạn nên chọn một hóa đơn trước";
@@ -440,6 +450,8 @@ public class Messages implements SettingUpdateObserver {
                 INGR_TYPE_EXISTS = "Loại nguyên liệu đã tồn tại";
                 INGR_TYPE_INSERTED_SUCCESSFULLY = "Thêm loại nguyên liệu thành công";
                 INGR_TABLE_EMPTY = "Bảng loại nguyên liệu trống";
+                INGR_NAME_INVALID_FORMAT = "Tên nguyên liệu không thể chứa ký tự đặc biệt";
+                INGR_TYPE_NAME_INVALID_FORMAT = "Tên loại nguyên liệu không thể chứa ký tự đặc biệt";
 
                 LOGIN_EMAIL_EMPTY = "Vui lòng nhập email";
                 LOGIN_EMAIL_INVALID = "Email không hợp lệ";
@@ -478,6 +490,7 @@ public class Messages implements SettingUpdateObserver {
                 PRODUCT_AMOUNT_AL_1 = "Số lượng ít nhất phải bằng 1";
                 PRODUCT_CANEL_EDITING = "Hủy chỉnh sửa?";
                 PRODUCT_DISCARD_CHANGE = "Bỏ những thay đổi đã thực hiện?";
+                PRODUCT_NAME_INVALID_FORMAT = "Tên sản phẩm không thể chứa ký tự đặc biệt";
 
                 PROVIDER_NAME_EMPTY = "Cần nhập tên nhà cung cấp";
                 PROVIDER_NAME_EXISTS = "Tên nhà cung cấp đã tồn tại";
@@ -500,12 +513,14 @@ public class Messages implements SettingUpdateObserver {
                 PROVIDER_TABLE_EMPTY = "Bảng nhà cung cấp trống";
                 PROVIDER_CANCEL_EDITING = "Hủy chỉnh sửa nhà cung cấp?";
                 PROVIDER_NO_PROVIDER_CHOSEN = "Bạn nên chọn một nhà cung cấp trước";
+                PROVIDER_NAME_INVALID_FORMAT = "Tên nhà cung cấp không thể chứa ký tự đặc biệt";
 
                 OTHERS_PRINT_ERROR = "Lỗi in: ";
                 OTHERS_REPLACE_EXCEL = " đã tồn tại.\nBạn có muốn thay thế nó?";
                 OTHERS_REMOVE_INGR = "Xóa nguyên liệu?";
                 OTHERS_REMOVE_PRODUCT = "Xóa sản phẩm?";
                 OTHERS_REMOVE_PROVIDER = "Xóa nhà cung cấp?";
+                CONS_ANNOUNCEMENT = "Nhập số (Lớn nhất 20, nhỏ nhất 0)";
 
                 DIAGNOSTIC_ROOT_STRING_FORMAT = "Tổng cộng %d vấn đề được tìm thấy";
                 DIAGNOSTIC_PRODUCT_PROBLEM_SUMMARY_STRING_FORMAT = "%d sản phẩm không có số lượng";

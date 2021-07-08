@@ -36,7 +36,7 @@ public class IngredientController implements IngredientControllerInterface {
 
     private static final String FC_CHECK_INGREDIENT_IN_PRODUCT
             = "{? = call check_if_ingredient_exists_in_any_product(?)}";
-    
+
     private static final String FC_CHECK_INGREDIENT_IMPORTED
             = "{? = call check_if_ingredient_imported(?)}";
 
@@ -279,6 +279,12 @@ public class IngredientController implements IngredientControllerInterface {
         String ingredientIDText = this.ingredientPanel.getIngredientIDText();
 
         String ingredientName = this.ingredientPanel.getIngredientNameInput();
+        ingredientName = StringUtil.standardizeString(ingredientName);
+
+        if (StringUtil.haveNonLetterAndDigitInName(ingredientName)) {
+            ingredientPanel.showErrorMessage(Messages.getInstance().EMPLOYEE_NAME_INVALID_FORMAT);
+            return;
+        }
 
         if (!isIngredientNameVallid(ingredientName)) {
             return;
@@ -339,6 +345,12 @@ public class IngredientController implements IngredientControllerInterface {
         IngredientModelInterface ingredient = ingredientManageModel.getIngredientByID(ingredientIDText);
 
         String ingredientName = this.ingredientPanel.getIngredientNameInput();
+        ingredientName = StringUtil.standardizeString(ingredientName);
+
+        if (StringUtil.haveNonLetterAndDigitInName(ingredientName)) {
+            ingredientPanel.showErrorMessage(Messages.getInstance().INGR_NAME_INVALID_FORMAT);
+            return;
+        }
 
         if (!ingredient.getName().equals(ingredientName)) {
             if (!isIngredientNameVallid(ingredientName)) {
@@ -439,14 +451,14 @@ public class IngredientController implements IngredientControllerInterface {
                 this.ingredientPanel.showErrorMessage(Messages.getInstance().INGR_CANT_REMOVE_1);
                 return;
             }
-            
+
             callableStatement = dbConnection.prepareCall(FC_CHECK_INGREDIENT_IMPORTED);
             callableStatement.registerOutParameter(1, Types.BOOLEAN);
             ingredient.setKeyArg(2, IngredientModel.ID_HEADER, callableStatement);
             callableStatement.execute();
-            
+
             boolean isImported = callableStatement.getBoolean(1);
-            
+
             if (isImported) {
                 this.ingredientPanel.showErrorMessage(Messages.getInstance().INGR_CANT_REMOVE_2);
                 return;
@@ -494,7 +506,12 @@ public class IngredientController implements IngredientControllerInterface {
     @Override
     public void createNewIngredientType() {
         String ingredientTypeName = this.dialogNewIngredientTypeCreate.getIngredientTypeName();
-        ingredientTypeName = StringUtil.getCapitalizeWord(ingredientTypeName);
+        ingredientTypeName = StringUtil.standardizeString(ingredientTypeName);
+
+        if (StringUtil.haveNonLetterAndDigitInName(ingredientTypeName)) {
+            ingredientPanel.showErrorMessage(Messages.getInstance().INGR_TYPE_NAME_INVALID_FORMAT);
+            return;
+        }
 
         if (!isNewIngredientTypeNameVallid(ingredientTypeName)) {
             return;

@@ -189,8 +189,12 @@ public class ProductController implements ProductControllerInterface {
         String productIDText = this.productPanel.getProductIDText();
 
         String productNameInput = this.productPanel.getProductName();
-        productNameInput = StringUtil.getCapitalizeWord(productNameInput);
+        productNameInput = StringUtil.standardizeName(productNameInput);
 
+        if (StringUtil.haveNonLetterAndDigitInName(productNameInput)) {
+            productPanel.showErrorMessage(Messages.getInstance().PRODUCT_NAME_INVALID_FORMAT);
+            return;
+        }
         if (!isProductNameInputValid(productNameInput)) {
             return;
         }
@@ -293,7 +297,12 @@ public class ProductController implements ProductControllerInterface {
         Assert.assertNotNull(product);
 
         String productNameInput = this.productPanel.getProductName();
-        productNameInput = StringUtil.getCapitalizeWord(productNameInput);
+        productNameInput = StringUtil.standardizeName(productNameInput);
+
+        if (StringUtil.haveNonLetterAndDigitInName(productNameInput)) {
+            productPanel.showErrorMessage(Messages.getInstance().PRODUCT_NAME_INVALID_FORMAT);
+            return;
+        }
 
         if (!isProductNameInputValid(productNameInput)) {
             return;
