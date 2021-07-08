@@ -97,7 +97,7 @@ public class BillPDF {
         seperatorLine.setAlignment(Element.ALIGN_CENTER);
         document.add(seperatorLine);
 
-        addEmptyLine(document, 1);
+        addEmptyLine(document, 2);
 
         Paragraph billTitle = new Paragraph("Hóa đơn thanh toán", FONT_BILL_TITLE);
         billTitle.setAlignment(Element.ALIGN_CENTER);
@@ -149,33 +149,38 @@ public class BillPDF {
 
         addEmptyLine(document, 2);
 
-        PdfPTable table = new PdfPTable(5);
-        table.setWidths(new int[]{3, 4, 2, 2, 4});
+        PdfPTable table = new PdfPTable(6);
+        table.setWidths(new int[]{3, 4, 2, 2, 4, 4});
 
         PdfPCell c1 = new PdfPCell(new Phrase("Mã sản phẩm", FONT_PRODUCT_DETAIL));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-        c1.setBorder(Rectangle.NO_BORDER);
+        c1.setBorder(Rectangle.BOTTOM);
         table.addCell(c1);
 
         PdfPCell c2 = new PdfPCell(new Phrase("Tên", FONT_PRODUCT_DETAIL));
         c2.setHorizontalAlignment(Element.ALIGN_CENTER);
-        c2.setBorder(Rectangle.NO_BORDER);
+        c2.setBorder(Rectangle.BOTTOM);
         table.addCell(c2);
 
         PdfPCell c3 = new PdfPCell(new Phrase("Kích thước", FONT_PRODUCT_DETAIL));
         c3.setHorizontalAlignment(Element.ALIGN_CENTER);
-        c3.setBorder(Rectangle.NO_BORDER);
+        c3.setBorder(Rectangle.BOTTOM);
         table.addCell(c3);
 
         PdfPCell c4 = new PdfPCell(new Phrase("Số lượng", FONT_PRODUCT_DETAIL));
         c4.setHorizontalAlignment(Element.ALIGN_CENTER);
-        c4.setBorder(Rectangle.NO_BORDER);
+        c4.setBorder(Rectangle.BOTTOM);
         table.addCell(c4);
 
-        PdfPCell c5 = new PdfPCell(new Phrase("Thành tiền", FONT_PRODUCT_DETAIL));
+        PdfPCell c5 = new PdfPCell(new Phrase("Đơn giá", FONT_PRODUCT_DETAIL));
         c5.setHorizontalAlignment(Element.ALIGN_CENTER);
-        c5.setBorder(Rectangle.NO_BORDER);
+        c5.setBorder(Rectangle.BOTTOM);
         table.addCell(c5);
+        
+        PdfPCell c6 = new PdfPCell(new Phrase("Thành tiền", FONT_PRODUCT_DETAIL));
+        c6.setHorizontalAlignment(Element.ALIGN_CENTER);
+        c6.setBorder(Rectangle.BOTTOM);
+        table.addCell(c6);
 
         table.setHeaderRows(1);
 
@@ -186,7 +191,7 @@ public class BillPDF {
                     productDetail.getProduct().getProductIDText(),
                     FONT_PRODUCT_DETAIL));
             productIDCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            productIDCell.setBorder(Rectangle.NO_BORDER);
+            productIDCell.setBorder(Rectangle.BOTTOM);
 
             table.addCell(productIDCell);
 
@@ -194,7 +199,7 @@ public class BillPDF {
                     productDetail.getProduct().getName(),
                     FONT_PRODUCT_DETAIL));
             productNameCell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            productNameCell.setBorder(Rectangle.NO_BORDER);
+            productNameCell.setBorder(Rectangle.BOTTOM);
 
             table.addCell(productNameCell);
 
@@ -202,7 +207,7 @@ public class BillPDF {
                     productDetail.getProduct().getSize().toString(),
                     FONT_PRODUCT_DETAIL));
             productSizeCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            productSizeCell.setBorder(Rectangle.NO_BORDER);
+            productSizeCell.setBorder(Rectangle.BOTTOM);
 
             table.addCell(productSizeCell);
 
@@ -210,16 +215,25 @@ public class BillPDF {
                     String.valueOf(productDetail.getAmount()),
                     FONT_PRODUCT_DETAIL));
             productAmountCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            productAmountCell.setBorder(Rectangle.NO_BORDER);
+            productAmountCell.setBorder(Rectangle.BOTTOM);
 
             table.addCell(productAmountCell);
+            //--
+            PdfPCell productUnitPrice = new PdfPCell(new Phrase(
+                    AppConstant.GLOBAL_VIE_CURRENCY_FORMATTER
+                            .format(productDetail.getPrice() / productDetail.getAmount()),
+                    FONT_PRODUCT_DETAIL));
+            productUnitPrice.setHorizontalAlignment(Element.ALIGN_CENTER);
+            productUnitPrice.setBorder(Rectangle.BOTTOM);
 
+            table.addCell(productUnitPrice);
+            //--
             PdfPCell productPriceCell = new PdfPCell(new Phrase(
                     AppConstant.GLOBAL_VIE_CURRENCY_FORMATTER
                             .format(productDetail.getPrice()),
                     FONT_PRODUCT_DETAIL));
             productPriceCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            productPriceCell.setBorder(Rectangle.NO_BORDER);
+            productPriceCell.setBorder(Rectangle.BOTTOM);
 
             table.addCell(productPriceCell);
         }

@@ -229,6 +229,7 @@ public class ProductStatisticPanel extends javax.swing.JPanel implements Setting
                 String productName = resultSet.getString(ProductSimpleModel.NAME_HEADER);
                 String productSize = resultSet.getString(ProductSimpleModel.SIZE_HEADER);
                 int sellAmount = resultSet.getInt("SoLuongBan");
+                //trừ ra để tính % other
                 remainProductSell -= sellAmount;
                 String seriesName = String.format("%s - %s", productName, productSize);
                 pieChartBestSalesCurrYear.addSeries(seriesName, sellAmount);

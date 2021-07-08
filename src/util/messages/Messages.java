@@ -296,7 +296,7 @@ public class Messages implements SettingUpdateObserver {
                 PRODUCT_COST_LESS_THAN_1 = "Product cost can't be less than 1";
                 PRODUCT_PRICE_LESS_THAN_1 = "Product price can't be less than 1";
                 PRODUCT_PRICE_10_COST = "Price must be at least 10% greater than cost";
-                PRODUCT_COST_LESS_SMALLER_SIZE = "Product cost can't be less than the one having same name and smaller size ";
+                PRODUCT_COST_LESS_SMALLER_SIZE = "Product cost can't be less than the one having same name and smaller size.";
                 PRODUCT_PRICE_LESS_SMALLER_SIZE = "Product price can't be less than the one having same name and smaller size ";
                 PRODUCT_COST_GREATER_BIGGER_SIZE = "Product cost can't be greater than the one having same name and larger size ";
                 PRODUCT_PRICE_GREATER_BIGGER_SIZE = "Product price can't be greater than the one having same name and larger size ";

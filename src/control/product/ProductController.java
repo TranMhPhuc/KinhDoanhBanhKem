@@ -278,7 +278,7 @@ public class ProductController implements ProductControllerInterface {
         product.setPrice(productPrice);
 
         this.productManageModel.addProduct(product);
-
+        //newly created, empty list
         productManageModel.getBufferedIngredientDetailList().forEach(ingredientDetail -> {
             ingredientDetail.setProduct(product);
             product.addIngredientDetail(ingredientDetail);
