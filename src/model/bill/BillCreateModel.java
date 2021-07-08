@@ -47,6 +47,7 @@ public class BillCreateModel implements BillCreateModelInterface {
     private List<ProductDetailModelInterface> selectedProducts;
     private String nextBillIDText;
     private long totalMoneyOfBill;
+    private long totalProfit;
     private long guestMoney;
 
     private List<BillUpdateObserver> billUpdateObservers;
@@ -187,7 +188,7 @@ public class BillCreateModel implements BillCreateModelInterface {
         bill.setPayment(totalMoneyOfBill);
         bill.setEmployee(UserModel.getInstance().getImpl());
         bill.setDateTimeExport(Timestamp.from(Instant.now()));
-
+        bill.setProfit(totalProfit);
         bill.insertToDatabase();
 
         for (ProductDetailModelInterface productDetail : selectedProducts) {
@@ -244,7 +245,8 @@ public class BillCreateModel implements BillCreateModelInterface {
 
         selectedProducts.clear();
         totalMoneyOfBill = 0L;
-
+        totalProfit = 0L;
+        
         updateNextBillID();
 
         billUpdateObservers.forEach(observer -> observer.updateFromNewBillCreated(bill));
@@ -323,6 +325,7 @@ public class BillCreateModel implements BillCreateModelInterface {
                 -> observer.updateOfferedProductInfo(product));
 
         totalMoneyOfBill += product.getPrice();
+        totalProfit += product.getProfit();
         billUpdateObservers.forEach(observer -> observer.updateFromBillState());
     }
 
@@ -347,6 +350,7 @@ public class BillCreateModel implements BillCreateModelInterface {
         billUpdateObservers.forEach(observer -> observer.updateFromDeletedSelectedProduct(selectedProductIndex));
 
         totalMoneyOfBill -= productDetail.getPrice();
+        totalProfit -= productDetail.getProfit();
         billUpdateObservers.forEach(observer -> observer.updateFromBillState());
     }
 
@@ -367,12 +371,14 @@ public class BillCreateModel implements BillCreateModelInterface {
         offeredProductUpdateObservers.forEach(observer -> observer.updateOfferedProductInfo(offeredProduct));
 
         totalMoneyOfBill -= productDetail.getPrice();
+        totalProfit -= productDetail.getProfit();;
 
         productDetail.setAmount(newAmount);
 
         billUpdateObservers.forEach(observer -> observer.updateFromModifiedSelectedProduct(productDetail));
 
         totalMoneyOfBill += productDetail.getPrice();
+        totalProfit += productDetail.getProfit();
         billUpdateObservers.forEach(observer -> observer.updateFromBillState());
     }
 
@@ -387,7 +393,8 @@ public class BillCreateModel implements BillCreateModelInterface {
 
         selectedProducts.clear();
 
-        totalMoneyOfBill = 0;
+        totalMoneyOfBill = 0L;
+        totalProfit = 0L;
         billUpdateObservers.forEach(observer -> observer.updateFromBillState());
     }
 

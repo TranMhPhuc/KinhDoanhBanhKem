@@ -13,6 +13,8 @@ public interface ProductSimpleModelInterface {
 
     void setAmount(int amount);
     
+    void setCost(long cost);
+    
     void setPrice(long price);
     
     String getProductIDText();
@@ -23,7 +25,11 @@ public interface ProductSimpleModelInterface {
     
     int getAmount();
     
+    long getCost();
+    
     long getPrice();
+    
+    long getProfit();
     
     void setKeyArg(int index, String header, PreparedStatement preparedStatement);
     

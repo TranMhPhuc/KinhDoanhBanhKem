@@ -115,6 +115,14 @@ public class ProductDetailModel implements ProductDetailModelInterface {
     }
 
     @Override
+    public long getProfit() {
+        if (product == null) {
+            throw new NullPointerException();
+        }
+        return this.product.getProfit()* this.amount;
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 79 * hash + Objects.hashCode(this.bill);
