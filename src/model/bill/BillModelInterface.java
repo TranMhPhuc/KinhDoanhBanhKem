@@ -12,6 +12,8 @@ public interface BillModelInterface extends DatabaseModel {
     
     void setPayment(long payment);
     
+    void setProfit(long profit);
+    
     void setGuestMoney(long guestMoney);
     
     void setEmployee(EmployeeModelInterface employee);

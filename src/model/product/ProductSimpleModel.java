@@ -13,6 +13,7 @@ public class ProductSimpleModel implements ProductSimpleModelInterface {
     public static final String NAME_HEADER = "TenSP";
     public static final String SIZE_HEADER = "KichThuoc";
     public static final String AMOUNT_HEADER = "SoLuong";
+    public static final String COST_HEADER = "GiaGoc";
     public static final String PRICE_HEADER = "GiaBan";
 
     private int id;
@@ -20,6 +21,7 @@ public class ProductSimpleModel implements ProductSimpleModelInterface {
     private ProductSize size;
     private int amount;
     private long price;
+    private long cost;
 
     @Override
     public void setProductID(String id) {
@@ -81,6 +83,7 @@ public class ProductSimpleModel implements ProductSimpleModelInterface {
             this.name = resultSet.getString(ProductSimpleModel.NAME_HEADER);
             this.size = ProductSize.getProductSizeFromString(resultSet.getString(ProductSimpleModel.SIZE_HEADER));
             this.amount = resultSet.getInt(ProductSimpleModel.AMOUNT_HEADER);
+            this.cost = resultSet.getLong(ProductSimpleModel.COST_HEADER);
             this.price = resultSet.getLong(ProductSimpleModel.PRICE_HEADER);
         } catch (SQLException ex) {
             Logger.getLogger(ProductSimpleModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -131,4 +134,18 @@ public class ProductSimpleModel implements ProductSimpleModelInterface {
         return true;
     }
 
+    @Override
+    public void setCost(long cost) {
+        this.cost = cost;
+    }
+
+    @Override
+    public long getCost() {
+        return this.cost;
+    }
+
+    @Override
+    public long getProfit() {
+        return this.price - this.cost;
+    }
 }

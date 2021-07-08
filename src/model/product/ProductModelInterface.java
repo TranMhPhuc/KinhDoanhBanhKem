@@ -30,6 +30,8 @@ public interface ProductModelInterface extends DatabaseModel {
     
     long getPrice();
     
+    long getProfit();
+        
     Iterator<IngredientDetailModelInterface> getAllIngredientDetail();
     
     void addIngredientDetail(IngredientDetailModelInterface ingredientDetail);

@@ -192,6 +192,7 @@ public class ProductModel implements ProductModelInterface {
     @Override
     public void setCost(long cost) {
         this.cost = cost;
+        this.productSimpleModel.setCost(cost);
     }
 
     @Override
@@ -310,4 +311,8 @@ public class ProductModel implements ProductModelInterface {
                 + ", cost=" + cost + ", ingredientDetails=" + ingredientDetails + '}';
     }
 
+    @Override
+    public long getProfit() {
+        return this.productSimpleModel.getProfit();
+    }
 }

@@ -19,5 +19,7 @@ public interface ProductDetailModelInterface extends DatabaseModel {
     int getAmount();
 
     long getPrice();
+    
+    long getProfit();
 
 }

@@ -16,18 +16,20 @@ public class BillModel implements BillModelInterface {
     public static final String ID_HEADER = "MaHD";
     public static final String DATE_HEADER = "NgayLap";
     public static final String PAYMENT_HEADER = "TongTien";
+    public static final String PROFIT_HEADER = "LoiNhuan";
     public static final String GUEST_MONEY_HEADER = "TienKhachTra";
     public static final String EMPLOYEE_ID_HEADER = EmployeeModel.ID_HEADER;
     public static final String EMPLOYEE_NAME_HEADER = EmployeeModel.NAME_HEADER;
 
     private static final String SP_INSERT
-            = "{call insert_HoaDon(?, ?, ?, ?)}";
+            = "{call insert_HoaDon(?, ?, ?, ?, ?)}";
 
     private int id;
     private Timestamp dateTimeExport;
     private long payment;
     private long guestMoney;
     private EmployeeModelInterface employee;
+    private long profit;
 
     public BillModel() {
         employee = new EmployeeModel();
@@ -88,6 +90,7 @@ public class BillModel implements BillModelInterface {
             callableStatement.setLong(2, this.payment);
             callableStatement.setLong(3, this.guestMoney);
             employee.setKeyArg(4, EmployeeModel.ID_HEADER, callableStatement);
+            callableStatement.setLong(5, this.profit);
             
             callableStatement.execute();
             callableStatement.close();
@@ -179,6 +182,11 @@ public class BillModel implements BillModelInterface {
         return "Bill{" + "billID=" + id + ", dateExport=" + dateTimeExport
                 + ", payment=" + payment + ", givenMoney=" + guestMoney
                 + ", employeeID=" + (employee != null ? employee.getName() : "NULL") + '}';
+    }
+
+    @Override
+    public void setProfit(long profit) {
+        this.profit = profit;
     }
 
 }
