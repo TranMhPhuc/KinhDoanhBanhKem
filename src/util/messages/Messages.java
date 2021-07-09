@@ -500,7 +500,7 @@ public class Messages implements SettingUpdateObserver {
                 PROVIDER_PHONE_NUMBER_EMPTY = "Cần nhập SDT nhà cung cấp";
                 PROVIDER_PHONE_NUMBER_FORMAT = "SDT nhà cung cấp không hợp lệ";
                 PROVIDER_PHONE_NUMBER_DIGITS_1 = "SDT nhà cung cấp cần có đúng ";
-                PROVIDER_PHONE_NUMBER_DIGITS_2 = " chữ số. Ràng buộc mặc định là 10 chữ số, tối đa là 20. Bạn có thể thay đổi"
+                PROVIDER_PHONE_NUMBER_DIGITS_2 = " chữ số.\nRàng buộc tối thiểu là 10 chữ số (mặc định), tối đa là 20.\nBạn có thể thay đổi"
                         + " ràng buộc này bằng cách nhấn vào biểu tượng cạnh ô nhập liệu.\nLưu ý: Ràng buộc"
                         + " bạn nhập sẽ được tính là ngoại lệ, áp dụng duy nhất cho lần nhập liệu này.";
                 PROVIDER_PHONE_NUMBER_EXISTS = "SDT nhà cung cấp đã tồn tại";

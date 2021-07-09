@@ -277,6 +277,8 @@ public class ProviderController implements ProviderControllerInterface {
 
         this.searchList.remove(provider);
 
+        this.providerPanel.setProviderIDInput("");
+        this.providerPanel.resetProviderInput();
         this.providerPanel.showInfoMessage(Messages.getInstance().PROVIDER_REMOVED_SUCCESSFULLY);
     }
 
