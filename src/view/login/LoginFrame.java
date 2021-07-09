@@ -57,9 +57,9 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
             String passwordInput = String.valueOf(passfPassword.getPassword());
 //            this.loginController.requestLogin(emailInput, passwordInput);
 
-//            this.loginController.requestLogin("mt10tmt@gmail.com", "Nvbh123@");
+            this.loginController.requestLogin("mt10tmt@gmail.com", "Nvbh123@");
 //            this.loginController.requestLogin("minhtu1392000@gmail.com", "0TYl2A");
-            this.loginController.requestLogin("tranmhphuc@gmail.com", "123456");
+//            this.loginController.requestLogin("tranmhphuc@gmail.com", "123456");
 
         } else if (source == btnForgotPassword) {
             this.loginController.requestRecoverPassword();
@@ -268,19 +268,19 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
         panelLogin.setLayout(panelLoginLayout);
         panelLoginLayout.setHorizontalGroup(
             panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLoginLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(panelLoginInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
             .addGroup(panelLoginLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnForgotPassword)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panelLoginLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSignIn, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelLoginLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(panelLoginInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelLoginLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnForgotPassword)
+                            .addComponent(btnSignIn, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(20, 20, 20))
         );
         panelLoginLayout.setVerticalGroup(
             panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

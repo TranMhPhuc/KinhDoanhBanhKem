@@ -522,7 +522,7 @@ public class Messages implements SettingUpdateObserver {
                 OTHERS_REMOVE_PROVIDER = "Xóa nhà cung cấp?";
                 CONS_ANNOUNCEMENT = "Nhập số (Lớn nhất 20, nhỏ nhất 0)";
 
-                DIAGNOSTIC_ROOT_STRING_FORMAT = "Tổng cộng %d vấn đề được tìm thấy";
+                DIAGNOSTIC_ROOT_STRING_FORMAT = "%d vấn đề được tìm thấy";
                 DIAGNOSTIC_PRODUCT_PROBLEM_SUMMARY_STRING_FORMAT = "%d sản phẩm không có số lượng";
                 DIAGNOSTIC_INGREDIENT_PROBLEM_SUMMARY_STRING_FORMAT = "%d nguyên liệu không có số lượng";
                 DIAGNOSTIC_PROVIDER_PROBLEM_SUMMARY_STRING_FORMAT = "%d nhà cung cấp không cung cấp nguyên liệu nào";

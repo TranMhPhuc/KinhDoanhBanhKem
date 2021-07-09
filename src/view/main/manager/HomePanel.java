@@ -483,10 +483,10 @@ public class HomePanel extends javax.swing.JPanel implements SettingUpdateObserv
         Language language = AppSetting.getInstance().getAppLanguage();
         switch (language) {
             case VIETNAMESE: {
-                DIAGNOSTIC_ROOT_STRING_FORMAT = "Tổng cộng %d vấn đề được tìm thấy";
-                DIAGNOSTIC_PRODUCT_PROBLEM_SUMMARY_STRING_FORMAT = "%d sản phẩm không có số lượng";
-                DIAGNOSTIC_INGREDIENT_PROBLEM_SUMMARY_STRING_FORMAT = "%d nguyên liệu không có số lượng";
-                DIAGNOSTIC_PROVIDER_PROBLEM_SUMMARY_STRING_FORMAT = "%d nhà cung cấp không cung cấp nguyên liệu nào";
+                DIAGNOSTIC_ROOT_STRING_FORMAT = "%d vấn đề được tìm thấy";
+                DIAGNOSTIC_PRODUCT_PROBLEM_SUMMARY_STRING_FORMAT = "%d sản phẩm có số lượng trống";
+                DIAGNOSTIC_INGREDIENT_PROBLEM_SUMMARY_STRING_FORMAT = "%d nguyên liệu có số lượng trống";
+                DIAGNOSTIC_PROVIDER_PROBLEM_SUMMARY_STRING_FORMAT = "%d nhà cung cấp không có trong dữ liệu nguyên liệu";
                 break;
             }
             case ENGLISH: {
