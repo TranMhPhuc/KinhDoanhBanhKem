@@ -352,7 +352,7 @@ public class Messages implements SettingUpdateObserver {
                 OTHERS_REMOVE_INGR = "Remove ingredient?";
                 OTHERS_REMOVE_PRODUCT = "Remove product?";
                 OTHERS_REMOVE_PROVIDER = "Remove provider?";
-                CONS_ANNOUNCEMENT = "Enter a number (max = 20, min = 0)";
+                CONS_ANNOUNCEMENT = "Enter a number (0..20)";
 
                 DIAGNOSTIC_ROOT_STRING_FORMAT = "%d total problem(s) found";
                 DIAGNOSTIC_PRODUCT_PROBLEM_SUMMARY_STRING_FORMAT = "%d product(s) having zero amount";
@@ -523,7 +523,7 @@ public class Messages implements SettingUpdateObserver {
                 OTHERS_REMOVE_INGR = "Xóa nguyên liệu?";
                 OTHERS_REMOVE_PRODUCT = "Xóa sản phẩm?";
                 OTHERS_REMOVE_PROVIDER = "Xóa nhà cung cấp?";
-                CONS_ANNOUNCEMENT = "Nhập số (Lớn nhất 20, nhỏ nhất 0)";
+                CONS_ANNOUNCEMENT = "Nhập số (0..20)";
 
                 DIAGNOSTIC_ROOT_STRING_FORMAT = "%d vấn đề được tìm thấy";
                 DIAGNOSTIC_PRODUCT_PROBLEM_SUMMARY_STRING_FORMAT = "%d sản phẩm không có số lượng";

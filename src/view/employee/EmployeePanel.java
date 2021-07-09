@@ -4,16 +4,12 @@ import control.employee.EmployeeControllerInterface;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JTable;
@@ -24,9 +20,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import javax.swing.text.DefaultFormatter;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.MaskFormatter;
 import model.employee.EmployeeManageModelInterface;
 import model.employee.EmployeeModelInterface;
 import model.employee.shift.detail.ShiftDetailModelInterface;
@@ -34,7 +27,6 @@ import model.setting.AppSetting;
 import model.setting.SettingUpdateObserver;
 import util.constant.AppConstant;
 import util.messages.Messages;
-import util.swing.CustomizedMaskFormatter;
 import util.swing.UIControl;
 import static util.swing.UIControl.setDefaultTableHeader;
 import util.swing.checkcombobox.CheckableItem;
@@ -774,7 +766,7 @@ public class EmployeePanel extends javax.swing.JPanel implements ActionListener,
 
         label_email.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         label_email.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        label_email.setText("Email");
+        label_email.setText("Email:");
 
         labelGender.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         labelGender.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
