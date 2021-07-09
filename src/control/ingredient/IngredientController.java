@@ -279,7 +279,7 @@ public class IngredientController implements IngredientControllerInterface {
         String ingredientIDText = this.ingredientPanel.getIngredientIDText();
 
         String ingredientName = this.ingredientPanel.getIngredientNameInput();
-        ingredientName = StringUtil.standardizeString(ingredientName);
+        ingredientName = StringUtil.standardizeName(ingredientName);
 
         if (StringUtil.haveNonLetterAndDigitInName(ingredientName)) {
             ingredientPanel.showErrorMessage(Messages.getInstance().EMPLOYEE_NAME_INVALID_FORMAT);
@@ -345,7 +345,7 @@ public class IngredientController implements IngredientControllerInterface {
         IngredientModelInterface ingredient = ingredientManageModel.getIngredientByID(ingredientIDText);
 
         String ingredientName = this.ingredientPanel.getIngredientNameInput();
-        ingredientName = StringUtil.standardizeString(ingredientName);
+        ingredientName = StringUtil.standardizeName(ingredientName);
 
         if (StringUtil.haveNonLetterAndDigitInName(ingredientName)) {
             ingredientPanel.showErrorMessage(Messages.getInstance().INGR_NAME_INVALID_FORMAT);
@@ -506,7 +506,7 @@ public class IngredientController implements IngredientControllerInterface {
     @Override
     public void createNewIngredientType() {
         String ingredientTypeName = this.dialogNewIngredientTypeCreate.getIngredientTypeName();
-        ingredientTypeName = StringUtil.standardizeString(ingredientTypeName);
+        ingredientTypeName = StringUtil.standardizeName(ingredientTypeName);
 
         if (StringUtil.haveNonLetterAndDigitInName(ingredientTypeName)) {
             ingredientPanel.showErrorMessage(Messages.getInstance().INGR_TYPE_NAME_INVALID_FORMAT);
