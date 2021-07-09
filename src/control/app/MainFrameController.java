@@ -176,6 +176,7 @@ public class MainFrameController implements MainFrameControllerInterface {
     public void requestSignOut() {
         if (!AppSetting.getInstance().getConfirmSignOutFlag()) {
             this.userModel.clearSession();
+            AppSetting.getInstance().writeProperty();
             return;
         }
 
@@ -183,6 +184,7 @@ public class MainFrameController implements MainFrameControllerInterface {
                 "BakeryMS", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/question.png")));
         if (ret == JOptionPane.YES_OPTION) {
             this.userModel.clearSession();
+            AppSetting.getInstance().writeProperty();
         }
     }
 
