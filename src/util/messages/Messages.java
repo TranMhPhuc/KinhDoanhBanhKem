@@ -95,6 +95,7 @@ public class Messages implements SettingUpdateObserver {
     public String INGR_NAME_EXISTS;
     public String INGR_COST_GREATER_THAN_0;
     public String INGR_COST_FORMAT;
+    public String INGR_COST_EMPTY;
     public String INGR_INSERTED_SUCCESSFULLY;
     public String INGR_UPDATED_SUCCESSFULLY;
     public String INGR_CANT_REMOVE_1;
@@ -271,9 +272,10 @@ public class Messages implements SettingUpdateObserver {
                 INGR_NAME_EXISTS = "Ingredient name already exists";
                 INGR_COST_GREATER_THAN_0 = "Ingredient cost must be greater than 0";
                 INGR_COST_FORMAT = "Ingredient cost format is not a number";
+                INGR_COST_EMPTY = "Ingredient cost is required";
                 INGR_INSERTED_SUCCESSFULLY = "Inserted new ingredient successfully";
                 INGR_UPDATED_SUCCESSFULLY = "Updated the ingredient successfully";
-                INGR_CANT_REMOVE_1 = "Can't remove the ingredient already included in product";
+                INGR_CANT_REMOVE_1 = "Can't remove the ingredient included in product";
                 INGR_CANT_REMOVE_2 = "Can't remove the ingredient having been imported";
                 INGR_REMOVE_SUCCESSFULLY = "Removed the ingredient successfully";
                 INGR_TYPE_EMPTY = "Ingredient type is required";
@@ -308,12 +310,12 @@ public class Messages implements SettingUpdateObserver {
                 PRODUCT_SAVE_INGR_LIST_EMPTY = "Product must have at least 1 ingredient";
                 PRODUCT_INSERTED_SUCCESSFULLY = "Inserted new product successfully";
                 PRODUCT_UPDATED_SUCCESSFULLY = "Updated the product successfully";
-                PRODUCT_CANT_REMOVE = "Can't remove product with existing bill including it";
+                PRODUCT_CANT_REMOVE = "Can't remove product included in bill";
                 PRODUCT_REMOVED_SUCCESSFULLY = "Removed the product successfully";
                 PRODUCT_NO_PRODUCT_CHOSEN = "Please choose one product first";
                 PRODUCT_NOT_ENOUGH_INGR_1 = "Ingredient named '";
                 PRODUCT_NOT_ENOUGH_INGR_2 = "' has not enough amount to produce";
-                PRODUCT_PRODUCED_SUCCESSFULLY = "Produced the product successfully";
+                PRODUCT_PRODUCED_SUCCESSFULLY = "Request to produce product successfully";
                 PRODUCT_TABLE_EMPTY = "Table product is empty";
                 PRODUCT_NO_INGR_CHOSEN = "You should choose one ingredient first";
                 PRODUCT_NO_UNIT_CHOSEN = "ERROR: No unit chosen";
@@ -350,7 +352,7 @@ public class Messages implements SettingUpdateObserver {
                 OTHERS_REMOVE_INGR = "Remove ingredient?";
                 OTHERS_REMOVE_PRODUCT = "Remove product?";
                 OTHERS_REMOVE_PROVIDER = "Remove provider?";
-                CONS_ANNOUNCEMENT = "Enter a number (max = 20, min = 0)";
+                CONS_ANNOUNCEMENT = "Enter a number (0..20)";
 
                 DIAGNOSTIC_ROOT_STRING_FORMAT = "%d total problem(s) found";
                 DIAGNOSTIC_PRODUCT_PROBLEM_SUMMARY_STRING_FORMAT = "%d product(s) having zero amount";
@@ -441,10 +443,11 @@ public class Messages implements SettingUpdateObserver {
                 INGR_NAME_EXISTS = "Tên nguyên liệu đã tồn tại";
                 INGR_COST_GREATER_THAN_0 = "Giá nguyên liệu phải lớn hơn 0";
                 INGR_COST_FORMAT = "Giá nguyên liệu không phải là số";
+                INGR_COST_EMPTY = "Giá nguyên liệu không được để trống";
                 INGR_INSERTED_SUCCESSFULLY = "Thêm nguyên liệu mới thành công";
                 INGR_UPDATED_SUCCESSFULLY = "Cập nhật nguyên liệu thành công";
-                INGR_CANT_REMOVE_1 = "Không thể xóa nguyên liệu đã xuất hiện trong sản phẩm";
-                INGR_CANT_REMOVE_2 = "Không thể xóa nguyên liệu đã nhập trước đó";
+                INGR_CANT_REMOVE_1 = "Không thể xóa nguyên liệu đã thuộc sản phẩm";
+                INGR_CANT_REMOVE_2 = "Không thể xóa nguyên liệu đã nhập vào kho";
                 INGR_REMOVE_SUCCESSFULLY = "Xóa nguyên liệu thành công";
                 INGR_TYPE_EMPTY = "Cần nhập loại nguyên liệu";
                 INGR_TYPE_EXISTS = "Loại nguyên liệu đã tồn tại";
@@ -478,7 +481,7 @@ public class Messages implements SettingUpdateObserver {
                 PRODUCT_SAVE_INGR_LIST_EMPTY = "Sản phẩm cần có ít nhất 1 nguyên liệu";
                 PRODUCT_INSERTED_SUCCESSFULLY = "Thêm sản phẩm mới thành công";
                 PRODUCT_UPDATED_SUCCESSFULLY = "Chỉnh sửa sản phẩm thành công";
-                PRODUCT_CANT_REMOVE = "Không thể xóa sản phẩm khi đã có hóa đơn chứa nó";
+                PRODUCT_CANT_REMOVE = "Không thể xóa sản phẩm đã thuộc hóa đơn";
                 PRODUCT_REMOVED_SUCCESSFULLY = "Xóa sản phẩm thành công";
                 PRODUCT_NO_PRODUCT_CHOSEN = "Xin hãy chọn một sản phẩm trước";
                 PRODUCT_NOT_ENOUGH_INGR_1 = "Nguyên liệu tên '";
@@ -497,7 +500,7 @@ public class Messages implements SettingUpdateObserver {
                 PROVIDER_PHONE_NUMBER_EMPTY = "Cần nhập SDT nhà cung cấp";
                 PROVIDER_PHONE_NUMBER_FORMAT = "SDT nhà cung cấp không hợp lệ";
                 PROVIDER_PHONE_NUMBER_DIGITS_1 = "SDT nhà cung cấp cần có đúng ";
-                PROVIDER_PHONE_NUMBER_DIGITS_2 = " chữ số. Ràng buộc mặc định là 10 chữ số, tối đa là 20. Bạn có thể thay đổi"
+                PROVIDER_PHONE_NUMBER_DIGITS_2 = " chữ số.\nRàng buộc tối thiểu là 10 chữ số (mặc định), tối đa là 20.\nBạn có thể thay đổi"
                         + " ràng buộc này bằng cách nhấn vào biểu tượng cạnh ô nhập liệu.\nLưu ý: Ràng buộc"
                         + " bạn nhập sẽ được tính là ngoại lệ, áp dụng duy nhất cho lần nhập liệu này.";
                 PROVIDER_PHONE_NUMBER_EXISTS = "SDT nhà cung cấp đã tồn tại";
@@ -520,9 +523,9 @@ public class Messages implements SettingUpdateObserver {
                 OTHERS_REMOVE_INGR = "Xóa nguyên liệu?";
                 OTHERS_REMOVE_PRODUCT = "Xóa sản phẩm?";
                 OTHERS_REMOVE_PROVIDER = "Xóa nhà cung cấp?";
-                CONS_ANNOUNCEMENT = "Nhập số (Lớn nhất 20, nhỏ nhất 0)";
+                CONS_ANNOUNCEMENT = "Nhập số (0..20)";
 
-                DIAGNOSTIC_ROOT_STRING_FORMAT = "Tổng cộng %d vấn đề được tìm thấy";
+                DIAGNOSTIC_ROOT_STRING_FORMAT = "%d vấn đề được tìm thấy";
                 DIAGNOSTIC_PRODUCT_PROBLEM_SUMMARY_STRING_FORMAT = "%d sản phẩm không có số lượng";
                 DIAGNOSTIC_INGREDIENT_PROBLEM_SUMMARY_STRING_FORMAT = "%d nguyên liệu không có số lượng";
                 DIAGNOSTIC_PROVIDER_PROBLEM_SUMMARY_STRING_FORMAT = "%d nhà cung cấp không cung cấp nguyên liệu nào";

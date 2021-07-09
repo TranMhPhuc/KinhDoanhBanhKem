@@ -1,7 +1,5 @@
 package util.common.string;
 
-import util.messages.Messages;
-
 public class StringUtil {
 
     private StringUtil() {
@@ -11,25 +9,15 @@ public class StringUtil {
         if (sequence.isEmpty()) {
             return "";
         }
-        String result;
-        result = sequence.trim().toLowerCase();
-        result = result.replaceAll("\\s+", " ");
-        String[] temp = result.split(" ");
-        result = "";
-        for (int i = 0; i < temp.length; i++) {
-            result += String.valueOf(temp[i].charAt(0)).toUpperCase() + temp[i].substring(1) + " ";
+        StringBuilder sb = new StringBuilder();
+        
+        String[] words = sequence.trim().toLowerCase().split("\\s+");
+        for (int i = 0; i < words.length; i++) {
+            sb.append(String.valueOf(words[i].charAt(0)).toUpperCase());
+            sb.append(words[i].substring(1));
+            sb.append(i == words.length - 1 ? "" : " ");
         }
-        return result.trim();
-    }
-
-    public static String standardizeString(String sequence) {
-        if (sequence.isEmpty()) {
-            return "";
-        }
-        String result;
-        result = sequence.trim();
-        result = result.replaceAll("\\s+", " ");
-        return result;
+        return sb.toString();
     }
 
     public static boolean haveNonLetterInName(String name) {

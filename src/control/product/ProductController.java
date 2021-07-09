@@ -435,23 +435,6 @@ public class ProductController implements ProductControllerInterface {
             product.addIngredientDetail(ingredientDetail);
         });
 
-        // Find inserted ingredient detail
-//        for (int i = 0; i < bufferedIngredientDetailList.size(); i++) {
-//            boolean found = false;
-//            iterator = product.getAllIngredientDetail();
-//            while (iterator.hasNext()) {
-//                IngredientDetailModelInterface ingredientDetail = iterator.next();
-//                if (bufferedIngredientDetailList.get(i).equals(ingredientDetail)) {
-//                    found = true;
-//                    break;
-//                }
-//            }
-//            if (!found) {
-//                IngredientDetailModelInterface ingredientDetail = bufferedIngredientDetailList.get(i);
-//                ingredientDetail.setProduct(product);
-//                product.addIngredientDetail(ingredientDetail);
-//            }
-//        }
         this.productPanel.exitEditState();
         productPanel.showInfoMessage(Messages.getInstance().PRODUCT_UPDATED_SUCCESSFULLY);
     }
@@ -476,6 +459,7 @@ public class ProductController implements ProductControllerInterface {
 
         productManageModel.getBufferedIngredientDetailList().clear();
 
+        productPanel.resetProductInput();
         productPanel.showInfoMessage(Messages.getInstance().PRODUCT_REMOVED_SUCCESSFULLY);
     }
 

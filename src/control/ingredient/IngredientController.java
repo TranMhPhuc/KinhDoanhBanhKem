@@ -80,6 +80,8 @@ public class IngredientController implements IngredientControllerInterface {
                     ingredientPanel.getMainFrame(), true, ingredientManageModel, this);
             AppSetting.getInstance().registerObserver(dialogNewIngredientTypeCreate);
         }
+        this.dialogNewIngredientTypeCreate.setIngredientTypeID(ingredientManageModel.getNextIngredientTypeIDText());
+        this.dialogNewIngredientTypeCreate.setIngredientTypeName("");
         this.dialogNewIngredientTypeCreate.setVisible(true);
     }
 
@@ -279,7 +281,7 @@ public class IngredientController implements IngredientControllerInterface {
         String ingredientIDText = this.ingredientPanel.getIngredientIDText();
 
         String ingredientName = this.ingredientPanel.getIngredientNameInput();
-        ingredientName = StringUtil.standardizeString(ingredientName);
+        ingredientName = StringUtil.standardizeName(ingredientName);
 
         if (StringUtil.haveNonLetterAndDigitInName(ingredientName)) {
             ingredientPanel.showErrorMessage(Messages.getInstance().EMPLOYEE_NAME_INVALID_FORMAT);
@@ -308,6 +310,11 @@ public class IngredientController implements IngredientControllerInterface {
         }
 
         String ingredientCostInputText = this.ingredientPanel.getIngredientCostInput();
+
+        if (ingredientCostInputText.isEmpty()) {
+            this.ingredientPanel.showErrorMessage(Messages.getInstance().INGR_COST_EMPTY);
+            return;
+        }
 
         long ingredientCost = 0;
 
@@ -345,7 +352,7 @@ public class IngredientController implements IngredientControllerInterface {
         IngredientModelInterface ingredient = ingredientManageModel.getIngredientByID(ingredientIDText);
 
         String ingredientName = this.ingredientPanel.getIngredientNameInput();
-        ingredientName = StringUtil.standardizeString(ingredientName);
+        ingredientName = StringUtil.standardizeName(ingredientName);
 
         if (StringUtil.haveNonLetterAndDigitInName(ingredientName)) {
             ingredientPanel.showErrorMessage(Messages.getInstance().INGR_NAME_INVALID_FORMAT);
@@ -376,6 +383,11 @@ public class IngredientController implements IngredientControllerInterface {
         }
 
         String ingredientCostInputText = this.ingredientPanel.getIngredientCostInput();
+
+        if (ingredientCostInputText.isEmpty()) {
+            this.ingredientPanel.showErrorMessage(Messages.getInstance().INGR_COST_EMPTY);
+            return;
+        }
 
         long ingredientCost = 0;
 
@@ -472,6 +484,8 @@ public class IngredientController implements IngredientControllerInterface {
 
         this.searchList.remove(ingredient);
 
+        this.ingredientPanel.resetIngredientInput();
+        this.ingredientPanel.setIngredientIDInput("");
         this.ingredientPanel.showInfoMessage(Messages.getInstance().INGR_REMOVE_SUCCESSFULLY);
     }
 
@@ -506,7 +520,7 @@ public class IngredientController implements IngredientControllerInterface {
     @Override
     public void createNewIngredientType() {
         String ingredientTypeName = this.dialogNewIngredientTypeCreate.getIngredientTypeName();
-        ingredientTypeName = StringUtil.standardizeString(ingredientTypeName);
+        ingredientTypeName = StringUtil.standardizeName(ingredientTypeName);
 
         if (StringUtil.haveNonLetterAndDigitInName(ingredientTypeName)) {
             ingredientPanel.showErrorMessage(Messages.getInstance().INGR_TYPE_NAME_INVALID_FORMAT);

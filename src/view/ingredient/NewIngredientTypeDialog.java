@@ -32,8 +32,6 @@ public class NewIngredientTypeDialog extends javax.swing.JDialog implements
 
     private void createView() {
         this.getContentPane().setBackground(Color.white);
-        String nextIngredientTypeIDText = ingredientManageModel.getNextIngredientTypeIDText();
-        this.textfTypeID.setText(nextIngredientTypeIDText);
     }
 
     private void createControl() {
@@ -43,6 +41,10 @@ public class NewIngredientTypeDialog extends javax.swing.JDialog implements
 
     public void setIngredientTypeID(String text) {
         this.textfTypeID.setText(text);
+    }
+    
+    public void setIngredientTypeName(String name) {
+        this.textfTypeName.setText(name);
     }
 
     @Override

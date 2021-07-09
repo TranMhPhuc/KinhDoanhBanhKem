@@ -143,7 +143,7 @@ public class ProviderController implements ProviderControllerInterface {
         String providerIDText = this.providerPanel.getProviderIDtext();
 
         String providerName = this.providerPanel.getProviderName();
-        providerName = StringUtil.standardizeString(providerName);
+        providerName = StringUtil.standardizeName(providerName);
 
         if (StringUtil.haveNonLetterAndDigitInName(providerName)) {
             providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_NAME_INVALID_FORMAT);
@@ -195,7 +195,7 @@ public class ProviderController implements ProviderControllerInterface {
         Assert.assertNotNull(provider);
 
         String providerName = this.providerPanel.getProviderName();
-        providerName = StringUtil.standardizeString(providerName);
+        providerName = StringUtil.standardizeName(providerName);
 
         if (StringUtil.haveNonLetterAndDigitInName(providerName)) {
             providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_NAME_INVALID_FORMAT);
@@ -277,6 +277,8 @@ public class ProviderController implements ProviderControllerInterface {
 
         this.searchList.remove(provider);
 
+        this.providerPanel.setProviderIDInput("");
+        this.providerPanel.resetProviderInput();
         this.providerPanel.showInfoMessage(Messages.getInstance().PROVIDER_REMOVED_SUCCESSFULLY);
     }
 
