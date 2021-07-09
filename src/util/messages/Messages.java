@@ -308,12 +308,12 @@ public class Messages implements SettingUpdateObserver {
                 PRODUCT_SAVE_INGR_LIST_EMPTY = "Product must have at least 1 ingredient";
                 PRODUCT_INSERTED_SUCCESSFULLY = "Inserted new product successfully";
                 PRODUCT_UPDATED_SUCCESSFULLY = "Updated the product successfully";
-                PRODUCT_CANT_REMOVE = "Can't remove product with existing bill including it";
+                PRODUCT_CANT_REMOVE = "Can't remove product included in bill";
                 PRODUCT_REMOVED_SUCCESSFULLY = "Removed the product successfully";
                 PRODUCT_NO_PRODUCT_CHOSEN = "Please choose one product first";
                 PRODUCT_NOT_ENOUGH_INGR_1 = "Ingredient named '";
                 PRODUCT_NOT_ENOUGH_INGR_2 = "' has not enough amount to produce";
-                PRODUCT_PRODUCED_SUCCESSFULLY = "Produced the product successfully";
+                PRODUCT_PRODUCED_SUCCESSFULLY = "Request to produce product successfully";
                 PRODUCT_TABLE_EMPTY = "Table product is empty";
                 PRODUCT_NO_INGR_CHOSEN = "You should choose one ingredient first";
                 PRODUCT_NO_UNIT_CHOSEN = "ERROR: No unit chosen";
@@ -478,7 +478,7 @@ public class Messages implements SettingUpdateObserver {
                 PRODUCT_SAVE_INGR_LIST_EMPTY = "Sản phẩm cần có ít nhất 1 nguyên liệu";
                 PRODUCT_INSERTED_SUCCESSFULLY = "Thêm sản phẩm mới thành công";
                 PRODUCT_UPDATED_SUCCESSFULLY = "Chỉnh sửa sản phẩm thành công";
-                PRODUCT_CANT_REMOVE = "Không thể xóa sản phẩm khi đã có hóa đơn chứa nó";
+                PRODUCT_CANT_REMOVE = "Không thể xóa sản phẩm đã thuộc hóa đơn";
                 PRODUCT_REMOVED_SUCCESSFULLY = "Xóa sản phẩm thành công";
                 PRODUCT_NO_PRODUCT_CHOSEN = "Xin hãy chọn một sản phẩm trước";
                 PRODUCT_NOT_ENOUGH_INGR_1 = "Nguyên liệu tên '";
