@@ -80,6 +80,8 @@ public class IngredientController implements IngredientControllerInterface {
                     ingredientPanel.getMainFrame(), true, ingredientManageModel, this);
             AppSetting.getInstance().registerObserver(dialogNewIngredientTypeCreate);
         }
+        this.dialogNewIngredientTypeCreate.setIngredientTypeID(ingredientManageModel.getNextIngredientTypeIDText());
+        this.dialogNewIngredientTypeCreate.setIngredientTypeName("");
         this.dialogNewIngredientTypeCreate.setVisible(true);
     }
 
@@ -309,6 +311,11 @@ public class IngredientController implements IngredientControllerInterface {
 
         String ingredientCostInputText = this.ingredientPanel.getIngredientCostInput();
 
+        if (ingredientCostInputText.isEmpty()) {
+            this.ingredientPanel.showErrorMessage(Messages.getInstance().INGR_COST_EMPTY);
+            return;
+        }
+
         long ingredientCost = 0;
 
         try {
@@ -376,6 +383,11 @@ public class IngredientController implements IngredientControllerInterface {
         }
 
         String ingredientCostInputText = this.ingredientPanel.getIngredientCostInput();
+
+        if (ingredientCostInputText.isEmpty()) {
+            this.ingredientPanel.showErrorMessage(Messages.getInstance().INGR_COST_EMPTY);
+            return;
+        }
 
         long ingredientCost = 0;
 
@@ -472,6 +484,8 @@ public class IngredientController implements IngredientControllerInterface {
 
         this.searchList.remove(ingredient);
 
+        this.ingredientPanel.resetIngredientInput();
+        this.ingredientPanel.setIngredientIDInput("");
         this.ingredientPanel.showInfoMessage(Messages.getInstance().INGR_REMOVE_SUCCESSFULLY);
     }
 

@@ -95,6 +95,7 @@ public class Messages implements SettingUpdateObserver {
     public String INGR_NAME_EXISTS;
     public String INGR_COST_GREATER_THAN_0;
     public String INGR_COST_FORMAT;
+    public String INGR_COST_EMPTY;
     public String INGR_INSERTED_SUCCESSFULLY;
     public String INGR_UPDATED_SUCCESSFULLY;
     public String INGR_CANT_REMOVE_1;
@@ -271,6 +272,7 @@ public class Messages implements SettingUpdateObserver {
                 INGR_NAME_EXISTS = "Ingredient name already exists";
                 INGR_COST_GREATER_THAN_0 = "Ingredient cost must be greater than 0";
                 INGR_COST_FORMAT = "Ingredient cost format is not a number";
+                INGR_COST_EMPTY = "Ingredient cost is required";
                 INGR_INSERTED_SUCCESSFULLY = "Inserted new ingredient successfully";
                 INGR_UPDATED_SUCCESSFULLY = "Updated the ingredient successfully";
                 INGR_CANT_REMOVE_1 = "Can't remove the ingredient included in product";
@@ -441,10 +443,11 @@ public class Messages implements SettingUpdateObserver {
                 INGR_NAME_EXISTS = "Tên nguyên liệu đã tồn tại";
                 INGR_COST_GREATER_THAN_0 = "Giá nguyên liệu phải lớn hơn 0";
                 INGR_COST_FORMAT = "Giá nguyên liệu không phải là số";
+                INGR_COST_EMPTY = "Giá nguyên liệu không được để trống";
                 INGR_INSERTED_SUCCESSFULLY = "Thêm nguyên liệu mới thành công";
                 INGR_UPDATED_SUCCESSFULLY = "Cập nhật nguyên liệu thành công";
                 INGR_CANT_REMOVE_1 = "Không thể xóa nguyên liệu đã thuộc sản phẩm";
-                INGR_CANT_REMOVE_2 = "Không thể xóa nguyên liệu đã nhập trước đó";
+                INGR_CANT_REMOVE_2 = "Không thể xóa nguyên liệu đã nhập vào kho";
                 INGR_REMOVE_SUCCESSFULLY = "Xóa nguyên liệu thành công";
                 INGR_TYPE_EMPTY = "Cần nhập loại nguyên liệu";
                 INGR_TYPE_EXISTS = "Loại nguyên liệu đã tồn tại";

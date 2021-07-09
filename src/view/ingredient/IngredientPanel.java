@@ -4,6 +4,8 @@ import control.ingredient.IngredientControllerInterface;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JFrame;
@@ -154,6 +156,15 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
             @Override
             public void changedUpdate(DocumentEvent event) {
                 throw new UnsupportedOperationException("Not supported yet.");
+            }
+        });
+        
+        combProviderName.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (combProviderName.getItemCount() != 0) {
+                    combProviderName.setToolTipText((String) combProviderName.getSelectedItem());
+                }
             }
         });
     }
@@ -474,7 +485,11 @@ public class IngredientPanel extends javax.swing.JPanel implements ActionListene
             combIngredientUnitName.setSelectedIndex(0);
         }
     }
-
+    
+    public void setIngredientIDInput(String ingredientIDText) {
+        textfIngredientID.setText(ingredientIDText);
+    }
+    
     @Override
     public void showErrorMessage(String message) {
         ((MessageShowing) mainFrame).showErrorMessage(message);
