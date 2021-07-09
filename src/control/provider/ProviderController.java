@@ -157,7 +157,7 @@ public class ProviderController implements ProviderControllerInterface {
         String providerIDText = this.providerPanel.getProviderIDtext();
 
         String providerName = this.providerPanel.getProviderName();
-        providerName = StringUtil.standardizeName(providerName);
+        providerName = StringUtil.standardizeString(providerName);
 
         if (StringUtil.haveNonLetterAndDigitInName(providerName)) {
             providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_NAME_INVALID_FORMAT);
@@ -213,7 +213,7 @@ public class ProviderController implements ProviderControllerInterface {
         Assert.assertNotNull(provider);
 
         String providerName = this.providerPanel.getProviderName();
-        providerName = StringUtil.standardizeName(providerName);
+        providerName = StringUtil.standardizeString(providerName);
 
         if (StringUtil.haveNonLetterAndDigitInName(providerName)) {
             providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_NAME_INVALID_FORMAT);

@@ -19,6 +19,14 @@ public class StringUtil {
         }
         return sb.toString();
     }
+    
+    public static String standardizeString(String sequence) {
+        if (sequence.isEmpty()) {
+            return "";
+        }
+        
+        return sequence.trim().replaceAll("\\s+", " ");
+    }
 
     public static boolean haveNonLetterInName(String name) {
         for (int i = 0; i < name.length(); i++) {
