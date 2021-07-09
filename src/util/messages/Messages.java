@@ -169,6 +169,7 @@ public class Messages implements SettingUpdateObserver {
     public String PROVIDER_TABLE_EMPTY;
     public String PROVIDER_CANCEL_EDITING;
     public String PROVIDER_NO_PROVIDER_CHOSEN;
+    public String PROVIDER_NUM_EXISTS;
 
     //=============Others=============
     public String OTHERS_PRINT_ERROR;
@@ -346,7 +347,8 @@ public class Messages implements SettingUpdateObserver {
                 PROVIDER_CANCEL_EDITING = "Cancel editing provider?";
                 PROVIDER_NO_PROVIDER_CHOSEN = "You should choose one ingredient first";
                 PROVIDER_NAME_INVALID_FORMAT = "Provider name can't contain special characters";
-
+                PROVIDER_NUM_EXISTS = "Provider number already exists";
+                
                 OTHERS_PRINT_ERROR = "Print error: ";
                 OTHERS_REPLACE_EXCEL = " already existsss.\nDo you want to replace it?";
                 OTHERS_REMOVE_INGR = "Remove ingredient?";
@@ -517,7 +519,8 @@ public class Messages implements SettingUpdateObserver {
                 PROVIDER_CANCEL_EDITING = "Hủy chỉnh sửa nhà cung cấp?";
                 PROVIDER_NO_PROVIDER_CHOSEN = "Bạn nên chọn một nhà cung cấp trước";
                 PROVIDER_NAME_INVALID_FORMAT = "Tên nhà cung cấp không thể chứa ký tự đặc biệt";
-
+                PROVIDER_NUM_EXISTS = "SDT nhà cung cấp đã tồn tại";
+                
                 OTHERS_PRINT_ERROR = "Lỗi in: ";
                 OTHERS_REPLACE_EXCEL = " đã tồn tại.\nBạn có muốn thay thế nó?";
                 OTHERS_REMOVE_INGR = "Xóa nguyên liệu?";

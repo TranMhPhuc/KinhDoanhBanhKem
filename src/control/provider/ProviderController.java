@@ -138,6 +138,20 @@ public class ProviderController implements ProviderControllerInterface {
         return true;
     }
 
+    private boolean providerPhoneNumExists(String providerPhoneNum) {
+        //check sdt trùng
+        Iterator<ProviderModelInterface> iterator = this.providerManageModel.getAllProviderData();
+        while (iterator.hasNext()) {
+            System.out.println("test");
+            ProviderModelInterface element = iterator.next();
+            if (element.getPhoneNum().equals(providerPhoneNum)) {
+                providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_NUM_EXISTS);
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public void requestCreateProvider() {
         String providerIDText = this.providerPanel.getProviderIDtext();
@@ -169,6 +183,10 @@ public class ProviderController implements ProviderControllerInterface {
         String providerPhoneNum = this.providerPanel.getProviderPhoneNum();
 
         if (!isProviderPhoneNumValid(providerPhoneNum)) {
+            return;
+        }
+
+        if (providerPhoneNumExists(providerPhoneNum)) {
             return;
         }
 
@@ -228,6 +246,20 @@ public class ProviderController implements ProviderControllerInterface {
 
         if (!providerPhoneNum.equals(provider.getPhoneNum())) {
             if (!isProviderPhoneNumValid(providerPhoneNum)) {
+                return;
+            }
+        }
+
+        if (providerPhoneNumExists(providerPhoneNum)) {
+            return;
+        }
+
+        //check sdt trùng
+        Iterator<ProviderModelInterface> iterator = this.providerManageModel.getAllProviderData();
+        while (iterator.hasNext()) {
+            ProviderModelInterface element = iterator.next();
+            if (element.getPhoneNum().equals(providerPhoneNum)) {
+                providerPanel.showErrorMessage(Messages.getInstance().PROVIDER_NUM_EXISTS);
                 return;
             }
         }
