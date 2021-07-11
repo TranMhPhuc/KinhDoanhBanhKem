@@ -174,6 +174,9 @@ public class AppSetting {
     }
     
     public void writePropertyNew() {
+        String path = new File("").getAbsolutePath() + "/src/appconfig";
+        File file = new File(path);
+        file.mkdirs();
         try (OutputStream output = new FileOutputStream(CONFIG_PATH)) {
             properties.setProperty(EXCEL_PROGRAM_PATH_PROPERTY_KEY, "");
             properties.setProperty(PDF_PROGRAM_PATH_PROPERTY_KEY, "");
