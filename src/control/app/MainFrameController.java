@@ -203,7 +203,7 @@ public class MainFrameController implements MainFrameControllerInterface {
 
         // Confirm exit, if exit then close database connection
         int ret = JOptionPane.showConfirmDialog(this.mainFrame, Messages.getInstance().PROFILE_EXIT_CONFIRMATION,
-                "BakeryMS", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_WARNING);
+                "BakeryMS", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
         if (ret == JOptionPane.YES_OPTION) {
             try {
                 AppSetting.getInstance().writeProperty();
@@ -222,7 +222,7 @@ public class MainFrameController implements MainFrameControllerInterface {
             int ret = JOptionPane.showConfirmDialog(mainFrame,
                     Messages.getInstance().PROFILE_CANCEL_EDITING,
                     "BakeryMS",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_WARNING);
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
             if (ret == JOptionPane.YES_OPTION) {
                 this.profilePanel.resetProfileEditing();
                 this.profilePanel.setInputEnable(false);

@@ -756,7 +756,7 @@ public class ProductController implements ProductControllerInterface {
         if (modified) {
             int ret = JOptionPane.showConfirmDialog(dialogIngredientEditing, Messages.getInstance().PRODUCT_DISCARD_CHANGE,
                     "BakeryMS", JOptionPane.YES_NO_OPTION,
-                    JOptionPane.WARNING_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_WARNING);
+                    JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
             if (ret == JOptionPane.YES_OPTION) {
                 List<IngredientDetailModelInterface> ingredientDetailBufferList
                         = this.productManageModel.getBufferedIngredientDetailList();
@@ -811,7 +811,7 @@ public class ProductController implements ProductControllerInterface {
             int ret = JOptionPane.showConfirmDialog(productPanel.getMainFrame(),
                     Messages.getInstance().PRODUCT_CANEL_EDITING,
                     "BakeryMS",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_WARNING);
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
             if (ret == JOptionPane.YES_OPTION) {
                 productPanel.exitEditState();
                 return true;

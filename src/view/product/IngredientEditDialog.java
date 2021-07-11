@@ -251,19 +251,19 @@ public class IngredientEditDialog extends javax.swing.JDialog implements ActionL
     @Override
     public void showErrorMessage(String message) {
         JOptionPane.showMessageDialog(this, message, getTitle(),
-                JOptionPane.ERROR_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_ERROR);
+                JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
     }
 
     @Override
     public void showInfoMessage(String message) {
         JOptionPane.showMessageDialog(this, message, getTitle(),
-                JOptionPane.INFORMATION_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_INFO);
+                JOptionPane.INFORMATION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/infor.png")));
     }
 
     @Override
     public void showWarningMessage(String message) {
         JOptionPane.showMessageDialog(this, message, getTitle(),
-                JOptionPane.WARNING_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_WARNING);
+                JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
     }
 
     public void setNameAndSizeText(String productName, String size, boolean isNewProduct) {

@@ -560,7 +560,7 @@ public class EmployeeController implements EmployeeControllerInterface {
             int ret = JOptionPane.showConfirmDialog(employeePanel.getMainFrame(),
                     Messages.getInstance().EMPLOYEE_CANCEL_EDITING,
                     "BakeryMS",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_WARNING);
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
             if (ret == JOptionPane.YES_OPTION) {
                 employeePanel.exitEditState();
                 return true;

@@ -340,7 +340,7 @@ public class ProviderPanel extends javax.swing.JPanel implements ActionListener,
             } else {
                 int ret = JOptionPane.showConfirmDialog(mainFrame,
                         Messages.getInstance().OTHERS_REMOVE_PROVIDER, "BakeryMS", JOptionPane.YES_NO_OPTION,
-                        JOptionPane.WARNING_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_WARNING);
+                        JOptionPane.WARNING_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/warning.png")));
                 if (ret == JOptionPane.YES_OPTION) {
                     this.providerController.requestRemoveProvider();
                 }

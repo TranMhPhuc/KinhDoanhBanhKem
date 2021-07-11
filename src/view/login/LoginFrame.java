@@ -61,7 +61,6 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
 //            this.loginController.requestLogin("mt10tmt@gmail.com", "Nvbh123@");
 //            this.loginController.requestLogin("minhtu1392000@gmail.com", "0TYl2A");
 //            this.loginController.requestLogin("tranmhphuc@gmail.com", "123456");
-
         } else if (source == btnForgotPassword) {
             this.loginController.requestRecoverPassword();
         }
@@ -73,12 +72,12 @@ public class LoginFrame extends javax.swing.JFrame implements MessageShowing,
 
     @Override
     public void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Login error", JOptionPane.ERROR_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_ERROR);
+        JOptionPane.showMessageDialog(this, message, "Login error", JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
     }
 
     @Override
     public void showInfoMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Information", JOptionPane.INFORMATION_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_INFO);
+        JOptionPane.showMessageDialog(this, message, "Information", JOptionPane.INFORMATION_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/infor.png")));
     }
 
     @Override

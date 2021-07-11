@@ -135,7 +135,7 @@ public class BillCreateController implements BillCreateControllerInterface {
             ProductSimpleModelInterface offeredProduct = selectedProduct.getProduct();
             JOptionPane.showMessageDialog(dialogAmount,
                     String.format(messageFormat, offeredProduct.getName(), offeredProduct.getSize().toString()),
-                    null, JOptionPane.ERROR_MESSAGE, AppConstant.IMAGE_ICON_MESSAGE_DIALOG_ERROR);
+                    null, JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/img/error.png")));
             return;
         }
 
